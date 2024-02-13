@@ -13,8 +13,9 @@ geometry: margin=1in
 * Team members
   * MEMBER1
   * MEMBER2
-  * MEMBER3
+  * Matt Zobbi
   * MEMBER4
+  * MEMBER5
 
 ## Executive Summary
 
