@@ -13,7 +13,7 @@ geometry: margin=1in
 * Team members
   * MEMBER1
   * MEMBER2
-  * Matt Zobbi
+  * MEMBER3
   * MEMBER4
   * MEMBER5
 
