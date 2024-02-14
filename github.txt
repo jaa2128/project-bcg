@@ -1,0 +1,57 @@
+commit deddb6660621f3db085ce800f9d494353553e053
+Author: awd8767 <145581459+awd8767@users.noreply.github.com>
+Date:   Tue Feb 13 21:27:57 2024 -0500
+
+    Added Alexander DiMartino to README
+
+commit 15b7c098dcf54920dd2af037d8f8e168f13bb2aa
+Author: 18482 <santorebrandon@gmail.com>
+Date:   Tue Feb 13 19:13:24 2024 -0500
+
+    Added my name in place of 'MEMBER4'
+
+commit 02a0e417011f2991c267ec75031b81d09104c763
+Author: julianalvia422 <jaa2128@g.rit.edu>
+Date:   Tue Feb 13 18:26:23 2024 -0500
+
+    Added Julian Alvia to README.md
+
+commit 7a4f64e3309e0eeb7d2be1a4b6494ab1f3648b6e
+Author: julianalvia422 <jaa2128@g.rit.edu>
+Date:   Tue Feb 13 18:19:28 2024 -0500
+
+    Added name to read.me
+
+commit 1edfbded4623864c111d65104078399bfd424678
+Author: Matt Zobbi <mjz4543@rit.edu>
+Date:   Tue Feb 13 14:16:17 2024 -0500
+
+    Added my my name to the README.md, actually for real this time
+
+commit c9e31944769c5599b2751bd5d2c62e35af03309e
+Author: Shaher Naser <shaher.naser.05@gmail.com>
+Date:   Tue Feb 13 09:30:11 2024 -0500
+
+    Added Shaher to README
+
+commit 8609b159eebe7cb3dfb4d53773c52c50cd9033db
+Author: mjz4543 <145381563+mjz4543@users.noreply.github.com>
+Date:   Tue Feb 13 09:02:50 2024 -0500
+
+    Update DesignDoc.md
+    
+    Updated the Design Doc too early. Oops.
+
+commit 4e7143770c0d940fadf304a81c70fc645b1f1051
+Author: mjz4543 <145381563+mjz4543@users.noreply.github.com>
+Date:   Tue Feb 13 08:59:16 2024 -0500
+
+    Update DesignDoc.md
+    
+    Added my name to Design Doc.
+
+commit b513847f86adbd99dab9e9b50441a624bd6ae921
+Author: github-classroom[bot] <66690702+github-classroom[bot]@users.noreply.github.com>
+Date:   Tue Feb 13 13:55:48 2024 +0000
+
+    Initial commit
