@@ -8,7 +8,7 @@ An online U-Fund system built in Java 17=> and ___ _replace with other platform 
 - Shaher Naser
 - Matt Zobbi
 - Julian Alvia
-- MEMBER4
+- Brandon Santore
 
 
 ## Prerequisites
