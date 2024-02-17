@@ -1,9 +1,12 @@
 package com.ufund.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 public class Need {
+    //JSON FORMATTING
+    private static final String STRING_FORMAT = "Need [id=%d, name=%s, description=%s, type=%s, targetQuantity=%f, currentQuantity=%f]";
+
+    //FIELDS
     @JsonProperty("id") private final int ID;
     @JsonProperty("name") private String name;
     @JsonProperty("description") private String description;
@@ -11,7 +14,7 @@ public class Need {
     @JsonProperty("targetQuantity") private double targetQuantity;
     @JsonProperty("currentQuantity") private double currentQuantity;
 
-
+    //CONSTRUCTOR
     /**
      * Creates a new Need with the given information
      * NOTE: All Needs are created with a currentQuantity of 0
@@ -31,35 +34,75 @@ public class Need {
         this.currentQuantity = 0;
     }
     
-    //GETTERS
-
-    /*
+    //ACCESSORS
+    /**
      * retrieves the id of the Need
      */
     public int getID() { return ID; }
 
-    /*
+    /**
      * retrieves the name of the Need
      */
     public String getName() { return name; }
 
-    /*
+    /**
      * retrieves the description of the Need
      */
     public String getDescription() { return description; }
 
-    /*
+    /**
      * retrieves the type of thing requested
      */
     public String getType() { return type; }
 
-    /*
+    /**
      * retrieves how much of the type is required
      */
     public double getTargetQuantity() { return targetQuantity; }
 
-    /*
+    /**
      * retrieves how much of the type has been fulfilled so far
      */
     public double getCurrentQuantity() { return currentQuantity; }
+
+    //MODIFIERS
+    /**
+     * updates the name of the Need
+     * @param name the new name of the Need
+     */
+    public void setName(String name) { this.name = name; }
+    
+    /**
+     * updates the description of the Need
+     * @param description the new description of the Need
+     */
+    public void setDescription(String description) { this.description = description; }
+    
+    /**
+     * updates the target quantity of the Need
+     * @param targetQuantity the new target quantity of the Need
+     */
+    public void setTargetQuantity(double targetQuantity) { this.targetQuantity = targetQuantity; }
+    
+    /**
+     * contributes to the currentQuantity of the Need
+     * @param quantity the additional quantity to be added
+     */
+    public void contribute(double quantity) { currentQuantity += quantity; }
+
+    //OTHER METHODS
+    /**
+     * asserts whether the Need has been fully satisfied
+     * @return true if the Need has been fully satisfied, false otherwise
+     */
+    public boolean isSatisfied() { return currentQuantity >= targetQuantity; }
+
+    /**
+     * String representation of a Need object to be used in JSON files
+     */
+    @Override
+    public String toString() {
+        return String.format(STRING_FORMAT, ID, name, description, type, targetQuantity, currentQuantity);
+    }
 }
+
