@@ -49,7 +49,7 @@ public class NeedFileDAO {
 
         // Deserializes the JSON objects from the file into an array of needs
         // readValue will throw an IOException if there's an issue with the file
-        Need[] needArray = objectMapper.readValue(new File(filename),Hero[].class);
+        Need[] needArray = objectMapper.readValue(new File(filename),Need[].class);
 
         // Add each need to the tree map and keep track of the greatest id
         for (Need need : needArray) {
@@ -61,16 +61,32 @@ public class NeedFileDAO {
         ++nextId;
         return true;
     }
+
+    private synchronized static int nextId() {
+        int id = nextId;
+        ++nextId;
+        return id;
+    }
     
     @Override
     public need updateNeed(Need need) throws IOException {
         synchronized(needs) {
             if (needs.containsKey(need.getId()) == false)
-                return null;  // hero does not exist
+                return null;  //need does not exist
 
             needs.put(need.getId(),need);
             save(); // may throw an IOException
             return need;
+        }
+    }
+
+    @Override
+    public Need createNeed(Need need) throws IOException{
+        synchronized(needs) {
+            Need newNeed = new Need(nextId(), need.getName(), need.getDescription(), need.getType(), need.getTargetQuantity());
+            needs.put(newNeed.getID(),newNeed);
+            save(); // may throw an IOException
+            return newNeed;
         }
     }
 
