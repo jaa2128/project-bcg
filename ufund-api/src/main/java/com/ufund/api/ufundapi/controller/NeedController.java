@@ -55,6 +55,12 @@ public class NeedController {
         }
     }
 
+
+    /**
+     * Creates a new need object.
+     * @param need The need object to add to the JSON file.
+     * @return HTTP status code depending on success: 201 if succesfull, 409 if conflict, 500 if server error
+     */
     @PostMapping("")
     public ResponseEntity<Need> createNeed(@RequestBody Need need) {
         LOG.info("POST /needs " + need);
@@ -112,19 +118,6 @@ public class NeedController {
         }
         catch(IOException e){
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @GetMapping("/")
-    public ResponseEntity<Need[]> searchNeeds(@RequestParam String name) {
-        LOG.info("GET /needs/?name="+name);
-        try {
-            Need[] searchList = needDao.findNeeds(name);
-            return new ResponseEntity<Need[]>(searchList,HttpStatus.OK);
-        }
-        catch(IOException e) {
-            LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
