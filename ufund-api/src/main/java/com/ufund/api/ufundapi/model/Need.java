@@ -23,7 +23,7 @@ public class Need {
      * @param name the displayed title for the Need
      * @param description a short description of what the Need is for
      * @param type what is requested by the Need
-     * @param quantity the amount of the given type that is requested
+     * @param targetQuantity the amount of the given type that is requested
      */
     public Need(@JsonProperty("id") int id, 
     @JsonProperty("name") String name, 
