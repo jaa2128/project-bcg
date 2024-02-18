@@ -86,6 +86,12 @@ public class NeedFileDAO implements NeedDAO {
         return needArray;
     }
     
+
+    /**
+     * Updates a single need object.
+     * @param need The need object to update.
+     * @return The updated need object.
+     */
     @Override
     public Need updateNeed(Need need) throws IOException {
         synchronized(needs) {
@@ -120,12 +126,32 @@ public class NeedFileDAO implements NeedDAO {
     }
     
     @Override
-    public Need[] findNeeds(String containsText) throws IOException { return null; }
+    public Need[] findNeeds(String containsText) throws IOException { 
+        synchronized(needs) {
+            return getNeedsArray(containsText); //Use getNeedsArray to create an array of needs matching an input String
+        }
+    }
     
     @Override
-    public Need getNeed(int id) throws IOException { return null; }
+    public Need getNeed(int id) throws IOException { 
+        synchronized(needs){
+            if (needs.containsKey(id))
+                return needs.get(id);
+            else
+                return null;
+        }
+     }
 
     @Override
-    public boolean deleteNeed(int id) throws IOException { return false; }
+    public boolean deleteNeed(int id) throws IOException { 
+        synchronized(needs){
+            if(needs.containsKey(id)){
+                needs.remove(id);
+                return save();
+            }
+            else
+                return false;
+        }
+     }
 
 }
