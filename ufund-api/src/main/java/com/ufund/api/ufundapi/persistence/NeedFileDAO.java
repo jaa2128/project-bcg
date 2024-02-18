@@ -67,11 +67,29 @@ public class NeedFileDAO implements NeedDAO {
         ++nextId;
         return true;
     }
+
+    private Need[] getNeedsArray() {
+        return getNeedsArray(null);
+    }
+
+    private Need[] getNeedsArray(String containsText) { // if containsText == null, don't filter any needs
+        ArrayList<Need> needArrayList = new ArrayList<>();
+
+        for (Need need : needs.values()) {
+            if (containsText == null || need.getName().contains(containsText)) {
+                needArrayList.add(need);
+            }
+        }
+
+        Need[] needArray = new Need[needArrayList.size()];
+        needArrayList.toArray(needArray);
+        return needArray;
+    }
     
     @Override
     public Need updateNeed(Need need) throws IOException {
         synchronized(needs) {
-            if (needs.containsKey(need.getId()) == false)
+            if (needs.containsKey(need.getID()) == false)
                 return null;  // hero does not exist
 
             needs.put(need.getID(),need);
@@ -89,5 +107,17 @@ public class NeedFileDAO implements NeedDAO {
             return newNeed;
         }
     }
+
+    @Override
+    public Need[] getNeeds() throws IOException { return null; }
+    
+    @Override
+    public Need[] findNeeds(String containsText) throws IOException { return null; }
+    
+    @Override
+    public Need getNeed(int id) throws IOException { return null; }
+
+    @Override
+    public boolean deleteNeed(int id) throws IOException { return false; }
 
 }
