@@ -98,6 +98,12 @@ public class NeedFileDAO implements NeedDAO {
         }
     }
 
+    /**
+     * Creates a need that is identical to the need paramater
+     * Puts the need into the needs Map
+     * @param need   Need object to be duplicated
+     * @return       The duplicate need
+     */
     @Override
     public Need createNeed(Need need) throws IOException{
         synchronized(needs) {
