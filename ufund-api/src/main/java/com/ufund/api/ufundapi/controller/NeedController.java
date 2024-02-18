@@ -76,6 +76,19 @@ public class NeedController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/")
+    public ResponseEntity<Need[]> searchNeeds(@RequestParam String name) {
+        LOG.info("GET /needs/?name="+name);
+        try {
+            Need[] searchList = needDao.findNeeds(name);
+            return new ResponseEntity<Need[]>(searchList,HttpStatus.OK);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 
 // PUT MORE CODE HERE //

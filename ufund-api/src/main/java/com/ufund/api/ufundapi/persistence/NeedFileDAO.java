@@ -114,7 +114,11 @@ public class NeedFileDAO implements NeedDAO {
     }
     
     @Override
-    public Need[] findNeeds(String containsText) throws IOException { return null; }
+    public Need[] findNeeds(String containsText) throws IOException { 
+        synchronized(needs) {
+            return getNeedsArray(containsText); //Use getNeedsArray to create an array of needs matching an input String
+        }
+    }
     
     @Override
     public Need getNeed(int id) throws IOException { return null; }
