@@ -47,6 +47,22 @@ public class NeedController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("")
+    public ResponseEntity<Need> createNeed(@RequestBody Need need) {
+        LOG.info("POST /needs " + need);
+        try {
+            Need newNeed = needDao.createNeed(need);
+            if(newNeed!=null){
+                return new ResponseEntity<Need>(newNeed, HttpStatus.CREATED);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 
 // PUT MORE CODE HERE //

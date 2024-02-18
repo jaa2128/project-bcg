@@ -99,6 +99,16 @@ public class NeedFileDAO implements NeedDAO {
     }
 
     @Override
+    public Need createNeed(Need need) throws IOException{
+        synchronized(needs) {
+            Need newNeed = new Need(nextId(), need.getName(), need.getDescription(), need.getType(), need.getTargetQuantity());
+            needs.put(newNeed.getID(),newNeed);
+            save(); // may throw an IOException
+            return newNeed;
+        }
+    }
+
+    @Override
     public Need[] getNeeds() throws IOException { return null; }
     
     @Override
@@ -106,9 +116,6 @@ public class NeedFileDAO implements NeedDAO {
     
     @Override
     public Need getNeed(int id) throws IOException { return null; }
-    
-    @Override
-    public Need createNeed(Need need) throws IOException { return null; }
 
     @Override
     public boolean deleteNeed(int id) throws IOException { return false; }
