@@ -109,7 +109,9 @@ public class NeedFileDAO implements NeedDAO {
     }
 
     @Override
-    public Need[] getNeeds() throws IOException { return null; }
+    public Need[] getNeeds() throws IOException {
+        return getNeedsArray();
+    }
     
     @Override
     public Need[] findNeeds(String containsText) throws IOException { return null; }

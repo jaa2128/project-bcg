@@ -1,5 +1,6 @@
 package com.ufund.api.ufundapi.controller;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -60,6 +61,18 @@ public class NeedController {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("")
+    public ResponseEntity<Need[]> getNeeds() {
+        LOG.info("GET /needs");
+        try {
+            Need[] needs = needDao.getNeeds();
+            return new ResponseEntity<Need[]>(needs, HttpStatus.OK);
+        }
+        catch(Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
