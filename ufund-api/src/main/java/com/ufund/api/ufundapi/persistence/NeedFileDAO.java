@@ -114,12 +114,32 @@ public class NeedFileDAO implements NeedDAO {
     }
     
     @Override
-    public Need[] findNeeds(String containsText) throws IOException { return null; }
+    public Need[] findNeeds(String containsText) throws IOException {
+        synchronized(needs){
+            return getNeedsArray(containsText);
+        }
+     }
     
     @Override
-    public Need getNeed(int id) throws IOException { return null; }
+    public Need getNeed(int id) throws IOException { 
+        synchronized(needs){
+            if (needs.containsKey(id))
+                return needs.get(id);
+            else
+                return null;
+        }
+     }
 
     @Override
-    public boolean deleteNeed(int id) throws IOException { return false; }
+    public boolean deleteNeed(int id) throws IOException { 
+        synchronized(needs){
+            if(needs.containsKey(id)){
+                needs.remove(id);
+                return save();
+            }
+            else
+                return false;
+        }
+     }
 
 }
