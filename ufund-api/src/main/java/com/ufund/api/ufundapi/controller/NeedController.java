@@ -34,6 +34,12 @@ public class NeedController {
         this.needDao = needDao;
     }
 
+
+    /**
+     * Updates a single need object.
+     * @param need The need object to update.
+     * @return HTTP status code depending on success: 200 if succesfull, 404 if client error, 500 if server error
+     */
     @PutMapping("")
     public ResponseEntity<Need> updateNeed(@RequestBody Need need) {
         LOG.info("PUT /needs " + need);
