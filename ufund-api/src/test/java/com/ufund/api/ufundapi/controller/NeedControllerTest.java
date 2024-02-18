@@ -27,8 +27,8 @@ public class NeedControllerTest {
     private NeedDAO mockNeedDAO;
 
     /**
-     * Before each test, create a new HeroController object and inject
-     * a mock Hero DAO
+     * Before each test, create a new NeedController object and inject
+     * a mock Need DAO
      */
     @BeforeEach
     public void setupNeedController() {
@@ -37,10 +37,10 @@ public class NeedControllerTest {
     }
 
     @Test
-    public void testGetHero() throws IOException {  // getHero may throw IOException
+    public void testGetHero() throws IOException {  // getNeed may throw IOException
         // Setup
         Need need = new Need(99,"Test Need 1","Test Description","Test Type",1.0);
-        // When the same id is passed in, our mock Hero DAO will return the Hero object
+        // When the same id is passed in, our mock Need DAO will return the Hero object
         when(mockNeedDAO.getNeed(need.getID())).thenReturn(need);
 
         // Invoke
@@ -52,11 +52,11 @@ public class NeedControllerTest {
     }
 
     @Test
-    public void testGetNeedNotFound() throws Exception { // createHero may throw IOException
+    public void testGetNeedNotFound() throws Exception { // createNeed may throw IOException
         // Setup
         int needID = 99;
-        // When the same id is passed in, our mock Hero DAO will return null, simulating
-        // no hero found
+        // When the same id is passed in, our mock Need DAO will return null, simulating
+        // no need found
         when(mockNeedDAO.getNeed(needID)).thenReturn(null);
 
         // Invoke
@@ -70,7 +70,7 @@ public class NeedControllerTest {
     public void testGetNeedHandleException() throws Exception { // createNeed may throw IOException
         // Setup
         int needID = 99;
-        // When getHero is called on the Mock Need DAO, throw an IOException
+        // When getNeed is called on the Mock Need DAO, throw an IOException
         doThrow(new IOException()).when(mockNeedDAO).getNeed(needID);
 
         // Invoke
@@ -89,7 +89,7 @@ public class NeedControllerTest {
     public void testCreateNeed() throws IOException {  // createNeed may throw IOException
         // Setup
         Need need = new Need(99,"Test Need 2","Test Description","Test Type",1.0);
-        // when createHero is called, return true simulating successful
+        // when createNeed is called, return true simulating successful
         // creation and save
         when(mockNeedDAO.createNeed(need)).thenReturn(need);
 
@@ -105,7 +105,7 @@ public class NeedControllerTest {
     public void testCreateNeedFailed() throws IOException {  // createNeed may throw IOException
         // Setup
         Need need = new Need(99,"Test Need 3","Test Description","Test Type",1.0);
-        // when createHero is called, return false simulating failed
+        // when createNeed is called, return false simulating failed
         // creation and save
         when(mockNeedDAO.createNeed(need)).thenReturn(null);
 
@@ -121,7 +121,7 @@ public class NeedControllerTest {
         // Setup
         Need need = new Need(99,"Test Need 4","Test Description","Test Type",1.0);
 
-        // When createHero is called on the Mock Hero DAO, throw an IOException
+        // When createNeed is called on the Mock Need DAO, throw an IOException
         doThrow(new IOException()).when(mockNeedDAO).createNeed(need);
 
         // Invoke
@@ -132,14 +132,14 @@ public class NeedControllerTest {
     }
 
     @Test
-    public void testUpdateNeed() throws IOException { // updateHero may throw IOException
+    public void testUpdateNeed() throws IOException { // updateNeed may throw IOException
         // Setup
         Need need = new Need(99,"Test Need 5","Test Description","Test Type",1.0);
-        // when updateHero is called, return true simulating successful
+        // when updateNeed is called, return true simulating successful
         // update and save
         when(mockNeedDAO.updateNeed(need)).thenReturn(need);
         ResponseEntity<Need> response = needController.updateNeed(need);
-        need.setName("Bolt");
+        need.setName("Updated Test Need 5");
 
         // Invoke
         response = needController.updateNeed(need);
@@ -150,10 +150,10 @@ public class NeedControllerTest {
     }
 
     @Test
-    public void testUpdateNeedFailed() throws IOException { // updateHero may throw IOException
+    public void testUpdateNeedFailed() throws IOException { // updateNeed may throw IOException
         // Setup
         Need need = new Need(99,"Test Need 6","Test Description","Test Type",1.0);
-        // when updateHero is called, return true simulating successful
+        // when updateNeed is called, return true simulating successful
         // update and save
         when(mockNeedDAO.updateNeed(need)).thenReturn(null);
 
@@ -165,10 +165,10 @@ public class NeedControllerTest {
     }
 
     @Test
-    public void testUpdateNeedHandleException() throws IOException { // updateHero may throw IOException
+    public void testUpdateNeedHandleException() throws IOException { // updateNeed may throw IOException
         // Setup
         Need need = new Need(99,"Test Need 7","Test Description","Test Type",1.0);
-        // When updateHero is called on the Mock Hero DAO, throw an IOException
+        // When updateNeed is called on the Mock Need DAO, throw an IOException
         doThrow(new IOException()).when(mockNeedDAO).updateNeed(need);
 
         // Invoke
@@ -179,12 +179,12 @@ public class NeedControllerTest {
     }
 
     @Test
-    public void testGetNeeds() throws IOException { // getHeroes may throw IOException
+    public void testGetNeeds() throws IOException { // getNeeds may throw IOException
         // Setup
         Need[] needs = new Need[2];
         needs[0] = new Need(99,"Test Need 8","Test Description","Test Type",1.0);
         needs[1] = new Need(100,"Test Need 9","Test Description","Test Type",1.0);
-        // When getHeroes is called return the heroes created above
+        // When getNeeds is called return the needs created above
         when(mockNeedDAO.getNeeds()).thenReturn(needs);
 
         // Invoke
@@ -196,9 +196,9 @@ public class NeedControllerTest {
     }
 
     @Test
-    public void testGetNeedsHandleException() throws IOException { // getHeroes may throw IOException
+    public void testGetNeedsHandleException() throws IOException { // getNeeds may throw IOException
         // Setup
-        // When getHeroes is called on the Mock Hero DAO, throw an IOException
+        // When getNeeds is called on the Mock Need DAO, throw an IOException
         doThrow(new IOException()).when(mockNeedDAO).getNeeds();
 
         // Invoke
@@ -209,14 +209,14 @@ public class NeedControllerTest {
     }
 
     @Test
-    public void testSearchNeeds() throws IOException { // findHeroes may throw IOException
+    public void testSearchNeeds() throws IOException { // findNeeds may throw IOException
         // Setup
         String searchString = "la";
         Need[] needs = new Need[2];
         needs[0] = new Need(99,"Test Need 10","Test Description","Test Type",1.0);
         needs[1] = new Need(100,"Test Need 11","Test Description","Test Type",1.0);
-        // When findHeroes is called with the search string, return the two
-        /// heroes above
+        // When findNeeds is called with the search string, return the two
+        // needs above
         when(mockNeedDAO.findNeeds(searchString)).thenReturn(needs);
 
         // Invoke
@@ -228,10 +228,10 @@ public class NeedControllerTest {
     }
 
     @Test
-    public void testSearchNeedsHandleException() throws IOException { // findHeroes may throw IOException
+    public void testSearchNeedsHandleException() throws IOException { // findNeeds may throw IOException
         // Setup
         String searchString = "an";
-        // When createHero is called on the Mock Hero DAO, throw an IOException
+        // When createNeed is called on the Mock Need DAO, throw an IOException
         doThrow(new IOException()).when(mockNeedDAO).findNeeds(searchString);
 
         // Invoke
@@ -242,10 +242,10 @@ public class NeedControllerTest {
     }
 
     @Test
-    public void testDeleteNeed() throws IOException { // deleteHero may throw IOException
+    public void testDeleteNeed() throws IOException { // deleteNeed may throw IOException
         // Setup
         int needID = 99;
-        // when deleteHero is called return true, simulating successful deletion
+        // when deleteNeed is called return true, simulating successful deletion
         when(mockNeedDAO.deleteNeed(needID)).thenReturn(true);
 
         // Invoke
@@ -256,10 +256,10 @@ public class NeedControllerTest {
     }
 
     @Test
-    public void testDeleteNeedNotFound() throws IOException { // deleteHero may throw IOException
+    public void testDeleteNeedNotFound() throws IOException { // deleteNeed may throw IOException
         // Setup
         int needID = 99;
-        // when deleteHero is called return false, simulating failed deletion
+        // when deleteNeed is called return false, simulating failed deletion
         when(mockNeedDAO.deleteNeed(needID)).thenReturn(false);
 
         // Invoke
@@ -270,10 +270,10 @@ public class NeedControllerTest {
     }
 
     @Test
-    public void testDeleteNeedHandleException() throws IOException { // deleteHero may throw IOException
+    public void testDeleteNeedHandleException() throws IOException { // deleteNeed may throw IOException
         // Setup
         int needID = 99;
-        // When deleteHero is called on the Mock Hero DAO, throw an IOException
+        // When deleteNeed is called on the Mock Need DAO, throw an IOException
         doThrow(new IOException()).when(mockNeedDAO).deleteNeed(needID);
 
         // Invoke
