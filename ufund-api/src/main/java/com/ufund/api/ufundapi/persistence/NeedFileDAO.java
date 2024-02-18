@@ -86,6 +86,12 @@ public class NeedFileDAO implements NeedDAO {
         return needArray;
     }
     
+
+    /**
+     * Updates a single need object.
+     * @param need The need object to update.
+     * @return The updated need object.
+     */
     @Override
     public Need updateNeed(Need need) throws IOException {
         synchronized(needs) {
