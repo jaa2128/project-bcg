@@ -1,4 +1,4 @@
-package com.ufund.api.model;
+package com.ufund.api.ufundapi.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,7 +25,11 @@ public class Need {
      * @param type what is requested by the Need
      * @param quantity the amount of the given type that is requested
      */
-    public Need(int id, String name, String description, String type, double targetQuantity) {
+    public Need(@JsonProperty("id") int id, 
+    @JsonProperty("name") String name, 
+    @JsonProperty("description") String description, 
+    @JsonProperty("type") String type, 
+    @JsonProperty("targetQuantity") double targetQuantity) {
         this.ID = id;
         this.name = name;
         this.description = description;

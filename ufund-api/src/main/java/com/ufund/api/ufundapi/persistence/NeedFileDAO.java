@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.ufund.api.ufundapi.model.Need;
 
 @Component
-public class NeedFileDAO {
+public class NeedFileDAO implements NeedDAO {
     
     private static final Logger LOG = Logger.getLogger(NeedFileDAO.class.getName());
     Map<Integer,Need> needs;   // Provides a local cache of need objects
@@ -24,13 +24,19 @@ public class NeedFileDAO {
     private ObjectMapper objectMapper;  // Provides conversion between Need
                                         // objects and JSON text format written
                                         // to the file
-    private static int nextId;  // The next Id to assign to a new need
+    private static int nextId;  // The next ID to assign to a new need
     private String filename;    // Filename to read from and write to
 
     public NeedFileDAO(@Value("${needs.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
         load();  // load the needs from the file
+    }
+
+    private synchronized static int nextId() {
+        int id = nextId;
+        ++nextId;
+        return id;
     }
 
     private boolean save() throws IOException {
@@ -53,28 +59,22 @@ public class NeedFileDAO {
 
         // Add each need to the tree map and keep track of the greatest id
         for (Need need : needArray) {
-            needs.put(need.getId(),need);
-            if (need.getId() > nextId)
-                nextId = need.getId();
+            needs.put(need.getID(),need);
+            if (need.getID() > nextId)
+                nextId = need.getID();
         }
         // Make the next id one greater than the maximum from the file
         ++nextId;
         return true;
     }
-
-    private synchronized static int nextId() {
-        int id = nextId;
-        ++nextId;
-        return id;
-    }
     
     @Override
-    public need updateNeed(Need need) throws IOException {
+    public Need updateNeed(Need need) throws IOException {
         synchronized(needs) {
             if (needs.containsKey(need.getId()) == false)
-                return null;  //need does not exist
+                return null;  // hero does not exist
 
-            needs.put(need.getId(),need);
+            needs.put(need.getID(),need);
             save(); // may throw an IOException
             return need;
         }
@@ -89,7 +89,5 @@ public class NeedFileDAO {
             return newNeed;
         }
     }
-
-    // PUT CODE HERE //
 
 }
