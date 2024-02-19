@@ -68,10 +68,19 @@ public class NeedFileDAO implements NeedDAO {
         return true;
     }
 
+    /**
+     * Creates a list of needs with a null search term
+     * @return An array of all needs (null search term)
+     */
     private Need[] getNeedsArray() {
         return getNeedsArray(null);
     }
 
+    /**
+     * Creates a list of needs which contain a search term
+     * @param containsText The search term to use
+     * @return An array of all needs containing the search term
+     */
     private Need[] getNeedsArray(String containsText) { // if containsText == null, don't filter any needs
         ArrayList<Need> needArrayList = new ArrayList<>();
 

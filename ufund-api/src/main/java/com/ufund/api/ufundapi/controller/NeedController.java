@@ -147,6 +147,12 @@ public class NeedController {
         }
     }
 
+    /**
+     * Takes a Need id and deletes it from the JSON Body
+     * @param name     The search term to be used
+     * @return         HttpStatus.OK, if need is successfully deleted
+     * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
+     */
     @GetMapping("/")
     public ResponseEntity<Need[]> searchNeeds(@RequestParam String name) {
         LOG.info("GET /needs/?name="+name);
