@@ -100,6 +100,13 @@ public class NeedController {
         }
     }
 
+    /**
+     * Takes a Need id and gets a need from the JSON Body
+     * @param id       id of the Need object retrieved from JSON Body
+     * @return         need and HttpStatus.OK, if need is successfully retrieved
+     * @return         HttpStatus.NOT_FOUND, if need is null
+     * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Need> getNeed(@PathVariable int id){
         LOG.info("GET /needs/" + id);
@@ -116,6 +123,13 @@ public class NeedController {
         }
     }
 
+    /**
+     * Takes a Need id and deletes it from the JSON Body
+     * @param id       id of the Need object that is going to be deleted from JSON Body
+     * @return         HttpStatus.OK, if need is successfully deleted
+     * @return         HttpStatus.NOT_FOUND, if need doesn't exists
+     * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Need> deleteNeed(@PathVariable int id){
         LOG.info("DELETE /needs/" + id);
