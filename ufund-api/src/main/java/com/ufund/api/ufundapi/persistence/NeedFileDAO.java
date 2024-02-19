@@ -96,7 +96,7 @@ public class NeedFileDAO implements NeedDAO {
     public Need updateNeed(Need need) throws IOException {
         synchronized(needs) {
             if (needs.containsKey(need.getID()) == false)
-                return null;  // hero does not exist
+                return null;  // need does not exist
 
             needs.put(need.getID(),need);
             save(); // may throw an IOException
@@ -104,7 +104,7 @@ public class NeedFileDAO implements NeedDAO {
         }
     }
 
-    /**
+/**
      * Creates a need that is identical to the need paramater
      * Puts the need into the needs Map
      * @param need   Need object to be duplicated
@@ -114,6 +114,9 @@ public class NeedFileDAO implements NeedDAO {
     public Need createNeed(Need need) throws IOException{
         synchronized(needs) {
             Need newNeed = new Need(nextId(), need.getName(), need.getDescription(), need.getType(), need.getTargetQuantity());
+            for (Need otherNeed : needs.values()){
+                if(newNeed.getName().equals(otherNeed.getName())){ return null; }
+            }
             needs.put(newNeed.getID(),newNeed);
             save(); // may throw an IOException
             return newNeed;
