@@ -17,7 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 /**
- * Test the Hero Controller class
+ * Test the need Controller class
  * 
  * @author SWEN Faculty
  */
@@ -37,10 +37,10 @@ public class NeedControllerTest {
     }
 
     @Test
-    public void testGetHero() throws IOException {  // getNeed may throw IOException
+    public void testGetNeed() throws IOException {  // getNeed may throw IOException
         // Setup
         Need need = new Need(99,"Test Need 1","Test Description","Test Type",1.0);
-        // When the same id is passed in, our mock Need DAO will return the Hero object
+        // When the same id is passed in, our mock Need DAO will return the Need object
         when(mockNeedDAO.getNeed(need.getID())).thenReturn(need);
 
         // Invoke

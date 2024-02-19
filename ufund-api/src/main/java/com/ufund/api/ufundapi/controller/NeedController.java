@@ -55,11 +55,14 @@ public class NeedController {
         }
     }
 
-
     /**
-     * Creates a new need object.
-     * @param need The need object to add to the JSON file.
-     * @return HTTP status code depending on success: 201 if succesfull, 409 if conflict, 500 if server error
+     * Takes the JSON Body and converts it into a Need object
+     * Passes need into createNeed() function in needDao interface
+     * to create newNeed
+     * @param need     Need object created from JSON Body
+     * @return         newNeed and HttpStatus.CREATED, if newNeed is not null
+     * @return         HttpStatus.CONFLICT, if newNeed is null
+     * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
      */
     @PostMapping("")
     public ResponseEntity<Need> createNeed(@RequestBody Need need) {
