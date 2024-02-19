@@ -82,8 +82,8 @@ public class NeedController {
 
     /**
      * Retrieves all the current Needs stored
-     * @return an array of all the Needs stored with status code 200 if there
-     * is not server error, status code 500 otherwise
+     * @return an array of all the Needs stored with status code 200 if there is no server error
+     * @return error code 500 if there is an internal server error
      */
     @GetMapping("")
     public ResponseEntity<Need[]> getNeeds() {
