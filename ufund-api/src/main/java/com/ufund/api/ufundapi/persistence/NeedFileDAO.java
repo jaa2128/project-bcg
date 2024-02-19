@@ -124,6 +124,10 @@ public class NeedFileDAO implements NeedDAO {
         }
     }
 
+    /**
+     * Retrieves all current needs stored in the JSOn
+     * @return all the needs stored in an array
+     */
     @Override
     public Need[] getNeeds() throws IOException {
         return getNeedsArray();
