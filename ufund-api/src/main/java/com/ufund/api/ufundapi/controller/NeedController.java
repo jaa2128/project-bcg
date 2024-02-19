@@ -55,6 +55,7 @@ public class NeedController {
         }
     }
 
+
     /**
      * Takes the JSON Body and converts it into a Need object
      * Passes need into createNeed() function in needDao interface
@@ -80,7 +81,7 @@ public class NeedController {
         }
     }
 
-    /**
+/**
      * Retrieves all the current Needs stored
      * @return an array of all the Needs stored with status code 200 if there is no server error
      * @return error code 500 if there is an internal server error
@@ -115,7 +116,7 @@ public class NeedController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Need> deleteNeed(@PathVariable int id){
-        LOG.info("DELETE /heroes/" + id);
+        LOG.info("DELETE /needs/" + id);
 
         try{
             boolean needExists = needDao.deleteNeed(id);
