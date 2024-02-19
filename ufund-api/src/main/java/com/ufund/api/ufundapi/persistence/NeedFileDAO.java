@@ -112,10 +112,12 @@ public class NeedFileDAO implements NeedDAO {
     @Override
     public Need createNeed(Need need) throws IOException{
         synchronized(needs) {
-            Need newNeed = new Need(nextId(), need.getName(), need.getDescription(), need.getType(), need.getTargetQuantity());
             for (Need otherNeed : needs.values()){
-                if(newNeed.getName().equals(otherNeed.getName())){ return null; }
+                if(need.getName().equals(otherNeed.getName())){
+                    return null;
+                }
             }
+            Need newNeed = new Need(nextId(), need.getName(), need.getDescription(), need.getType(), need.getTargetQuantity());
             needs.put(newNeed.getID(),newNeed);
             save(); // may throw an IOException
             return newNeed;
