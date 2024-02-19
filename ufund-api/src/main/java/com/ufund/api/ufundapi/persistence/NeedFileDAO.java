@@ -140,6 +140,11 @@ public class NeedFileDAO implements NeedDAO {
         }
     }
     
+    /**
+     * gets a need that matches id paramater
+     * @param id   id of Need object to be found
+     * @return     The need that was found
+     */
     @Override
     public Need getNeed(int id) throws IOException { 
         synchronized(needs){
@@ -150,6 +155,11 @@ public class NeedFileDAO implements NeedDAO {
         }
      }
 
+    /**
+     * deletes a need that matches an id paramater
+     * @param id   id of Need object to be deleted
+     * @return     Whether or not the need was successfully deleted
+     */
     @Override
     public boolean deleteNeed(int id) throws IOException { 
         synchronized(needs){
