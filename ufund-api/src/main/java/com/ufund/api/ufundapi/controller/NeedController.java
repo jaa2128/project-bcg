@@ -44,6 +44,9 @@ public class NeedController {
     public ResponseEntity<Need> updateNeed(@RequestBody Need need) {
         LOG.info("PUT /needs " + need);
         try {
+            for (Need otherNeed : needDao.getNeeds()){
+                if(need.getName().equals(otherNeed.getName())){ return new ResponseEntity<>(HttpStatus.CONFLICT); }
+            }
             need = needDao.updateNeed(need);
             if(need != null)
                 return new ResponseEntity<Need>(need,HttpStatus.OK);
@@ -54,7 +57,6 @@ public class NeedController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
     /**
      * Takes the JSON Body and converts it into a Need object
