@@ -109,7 +109,7 @@ This section describes the web interface flow; this is how the user views and in
  >* _Include other details such as attributes and method signatures that you think are needed to support the level of detail in your discussion._
 
 ### ViewModel Tier
-> _**[Sprint 1]**
+> _**[Sprint 1]**_
 >
 > The primary ViewModel is the "NeedController". This class is responsible for the functions the user must be able to utilize from the View tier. The functions currently within "NeedController" are:
 > updateNeed() - To update the information of a specified need
@@ -131,7 +131,7 @@ This section describes the web interface flow; this is how the user views and in
 ![Replace with your ViewModel Tier class diagram 1, etc.](model-placeholder.png)
 
 ### Model Tier
-> _**[Sprint 1]**
+> _**[Sprint 1]**_
 >
 > At this stage of the project, the primary models are the "Need" and "NeedFileDAO".
 > The "Need" class represents a user's need, and contains methods for getting information from a need, and modifying the contents of a need.
