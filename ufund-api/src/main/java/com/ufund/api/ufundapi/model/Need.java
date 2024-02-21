@@ -103,6 +103,11 @@ public class Need {
      */
     public boolean isSatisfied() { return currentQuantity >= targetQuantity; }
 
+    /**
+     * Checks if there is an empty data field in the need
+     * created by the user
+     * @return    Whether need has an empty field
+     */
     public boolean hasEmptyField(){
         if(!getName().isEmpty()){
             if(!getDescription().isEmpty()){
