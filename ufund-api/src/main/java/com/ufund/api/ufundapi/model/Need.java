@@ -107,7 +107,7 @@ public class Need {
         if(!getName().isEmpty()){
             if(!getDescription().isEmpty()){
                 if(!getType().isEmpty()){
-                    if(getTargetQuantity() >= 0.0){
+                    if(getTargetQuantity() > 0.0){
                         return false;
                     }
                 }
