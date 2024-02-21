@@ -35,6 +35,7 @@ public class NeedController {
     }
 
 
+
     /**
      * Updates a single need object.
      * @param need The need object to update.
@@ -72,6 +73,9 @@ public class NeedController {
     public ResponseEntity<Need> createNeed(@RequestBody Need need) {
         LOG.info("POST /needs " + need);
         try {
+            if (need.hasEmptyField()){
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
             Need newNeed = needDao.createNeed(need);
             if(newNeed!=null){
                 return new ResponseEntity<Need>(newNeed, HttpStatus.CREATED);

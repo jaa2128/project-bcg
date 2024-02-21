@@ -103,6 +103,19 @@ public class Need {
      */
     public boolean isSatisfied() { return currentQuantity >= targetQuantity; }
 
+    public boolean hasEmptyField(){
+        if(!getName().isEmpty()){
+            if(!getDescription().isEmpty()){
+                if(!getType().isEmpty()){
+                    if(getTargetQuantity() >= 0.0){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     /**
      * String representation of a Need object to be used in JSON files
      */
