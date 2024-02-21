@@ -44,8 +44,9 @@ public class NeedController {
     public ResponseEntity<Need> updateNeed(@RequestBody Need need) {
         LOG.info("PUT /needs " + need);
         try {
+            if(need.getName().isEmpty() || need.getType().isEmpty()){ return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE); }
             for (Need otherNeed : needDao.getNeeds()){
-                if(need.getName().equals(otherNeed.getName())){ return new ResponseEntity<>(HttpStatus.CONFLICT); }
+                if(need.getName().equals(otherNeed.getName()) && need.getID() != otherNeed.getID()){ return new ResponseEntity<>(HttpStatus.CONFLICT); }
             }
             need = needDao.updateNeed(need);
             if(need != null)
