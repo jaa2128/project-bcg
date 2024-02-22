@@ -32,6 +32,10 @@ An online U-Fund system built in Java 17=> and ___ _replace with other platform 
 Document any known bug or nuisance.
 If any shortcomings, make clear what these are and where they are located.
 
+1. Case Sensitivity with Searching Needs: When using the cURL GET command to find needs that match a specific search query, the results were case-sensitive. This was located in NeedFileDAO.java during v1.0 but was shortly fixed in v1.1.
+2. Updating Need with Same Name: When using the cURL PUT command to update an existing need without changing its name, the command fails since the program thinks that the new need will cause a naming conflict. This was located in NeedController.java during v1.0 but was shortly fixed in v1.1.
+3. Creating Needs with Blank Fields: When using the cURL POST command to create a new need, the command succeeds even if one of the fields was omitted. For string fields, they could also be set to null or the empty string, and the targetQuantity could be set to a nonpositive number. This was located in NeedController.java during v1.0 but was shortly fixed in v1.1.
+
 ## How to test it
 
 The Maven build script provides hooks for run unit tests and generate code coverage
