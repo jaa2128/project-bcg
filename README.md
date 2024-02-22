@@ -26,6 +26,40 @@ An online U-Fund system built in Java 17=> and ___ _replace with other platform 
 3. Open in your browser `http://localhost:8080/`
 4.  _add any other steps required or examples of how to use/run_
 
+**List of sample cURL commands for testing**
+
+curl.exe -i -X POST -H 'Content-Type:application/json' 'http://localhost:8080/needs' -d '{\"name\": \"Help us save the world\", \"description\": \"Test Description 1\", \"type\": \"Test Type 1\",\"targetQuantity\": 1.0}'
+
+curl.exe -i -X POST -H 'Content-Type:application/json' 'http://localhost:8080/needs' -d '{\"name\": \"Help us fund event XYZ\", \"description\": \"Test Description 2\", \"type\": \"Test Type 2\",\"targetQuantity\": 2.0}'
+
+curl.exe -i -X POST -H 'Content-Type:application/json' 'http://localhost:8080/needs' -d '{\"name\": \"Help us save the world\", \"description\": \"Test Description 1\", \"type\": \"Test Type 1\",\"targetQuantity\": 1.0}'
+
+curl.exe -i -X GET 'http://localhost:8080/needs/1'
+
+curl.exe -i -X GET 'http://localhost:8080/needs'
+
+curl.exe -i -X GET 'http://localhost:8080/needs/999999'
+
+curl.exe -i -X PUT -H 'Content-Type:application/json' 'http://localhost:8080/needs' -d '{\"id\": 1, \"name\": \"Help us save the world, again\", \"description\": \"testdescription\", \"type\": \"testtype\",\"targetQuantity\": 100.0}'
+
+curl.exe -i -X GET 'http://localhost:8080/needs'
+
+curl.exe -i -X PUT -H 'Content-Type:application/json' 'http://localhost:8080/needs' -d '{\"id\": 1, \"name\": \"Help us fund event XYZ\", \"description\": \"testdescription\", \"type\": \"testtype\",\"targetQuantity\": 100.0}'
+
+curl.exe -i -X GET 'http://localhost:8080/needs/?name=save'
+
+curl.exe -i -X GET 'http://localhost:8080/needs/?name=testneed'
+
+curl.exe -i -X DELETE 'http://localhost:8080/needs/1'
+
+curl.exe -i -X DELETE 'http://localhost:8080/needs/2'
+
+curl.exe -i -X GET 'http://localhost:8080/needs'
+
+curl.exe -i -X DELETE 'http://localhost:8080/needs/999999'
+
+curl.exe -i -X GET 'http://localhost:8080/needs'
+
 ## Known bugs and disclaimers
 (It may be the case that your implementation is not perfect.)
 
