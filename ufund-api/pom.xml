@@ -13,7 +13,7 @@
 	<name>ufund-api</name>
 	<description>API for U-Fund</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>11</java.version>
 		<jacoco.version>0.8.7</jacoco.version>
 		<exec.maven.version>3.0.0</exec.maven.version>
 	</properties>
@@ -28,13 +28,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	
-   <dependency>
-     <groupId>org.scalaz</groupId>
-     <artifactId>scalaz-core_2.13</artifactId>
-     <version>7.3.0-M31</version>
-   </dependency>
- </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>
