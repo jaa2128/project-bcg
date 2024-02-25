@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Need } from '../need'; 
+import { Need } from '../need';
 import { NeedService } from '../need.service';
-
 @Component({
   selector: 'app-needs',
   templateUrl: './needs.component.html',
