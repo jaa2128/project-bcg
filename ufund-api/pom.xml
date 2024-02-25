@@ -13,7 +13,7 @@
 	<name>ufund-api</name>
 	<description>API for U-Fund</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<jacoco.version>0.8.7</jacoco.version>
 		<exec.maven.version>3.0.0</exec.maven.version>
 	</properties>
