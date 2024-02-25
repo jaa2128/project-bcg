@@ -5,9 +5,9 @@
     <input id="new-need"> #needName />
   
     <!-- (click) passes input value to add() and then clears the input -->
-  </div>
+</div>
   
-  <ul class="heroes">
+  <ul class="needs">
     <li *ngFor="let need of needs">
       <a routerLink="/detail/{{need.id}}">
         <span class="badge">{{need.id}}</span> {{need.name}}

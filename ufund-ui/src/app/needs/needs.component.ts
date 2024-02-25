@@ -8,15 +8,19 @@ import { NeedService } from '../need.service';
   styleUrl: './needs.component.css'
 })
 
-export class NeedsComponent {
+export class NeedsComponent implements OnInit {
 
   needs: Need[] = [];
   
   constructor(private needService: NeedService) { }
 
-  getHeroes(): void {
+  getNeeds(): void {
     this.needService.getNeeds()
         .subscribe(needs => this.needs = needs);
+  }
+
+  ngOnInit(): void {
+    this.getNeeds();
   }
 
 }
