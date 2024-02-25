@@ -1,1 +1,17 @@
-<p>needs works!</p>
+<h2>My Needs</h2>
+
+<div>
+    <label for="new-need">Need name: </label>
+    <input id="new-need"> #needName />
+  
+    <!-- (click) passes input value to add() and then clears the input -->
+</div>
+  
+  <ul class="needs">
+    <li *ngFor="let need of needs">
+      <a routerLink="/detail/{{need.id}}">
+        <span class="badge">{{need.id}}</span> {{need.name}}
+      </a>
+    </li>
+  </ul>
+
