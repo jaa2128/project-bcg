@@ -1,4 +1,4 @@
-export interface Need{
+export interface Need {
     id: number;
     name: String;
     description: String;
