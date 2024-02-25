@@ -6,6 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'ufund-ui';
-  
+  title = 'Ufund UI';
+
 }
