@@ -170,6 +170,27 @@ public class NeedController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    
+    @PostMapping("/{id}")
+    public ResponseEntity<Need> contributeNeed(int id, double quantity) {
+        LOG.info("POST /needs/?id="+id);
+        try {
+            if(quantity <= 0) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            Need need = needDao.contributeNeed(id, quantity);
+            if(need == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else {
+                return new ResponseEntity<Need>(need, HttpStatus.OK);
+            }
+        } catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 
 // PUT MORE CODE HERE //
