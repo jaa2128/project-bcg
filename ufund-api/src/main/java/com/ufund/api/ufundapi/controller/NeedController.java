@@ -171,10 +171,9 @@ public class NeedController {
         }
     }
 
-    
-    @PostMapping("/{id}")
-    public ResponseEntity<Need> contributeNeed(int id, double quantity) {
-        LOG.info("POST /needs/?id="+id);
+    @PutMapping("/{id}")
+    public ResponseEntity<Need> contributeNeed(@PathVariable int id, @RequestBody double quantity) {
+        LOG.info("PUT /needs/" + id);
         try {
             if(quantity <= 0) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
