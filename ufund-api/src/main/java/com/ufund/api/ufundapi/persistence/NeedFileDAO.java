@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
 import org.springframework.stereotype.Component;
 
 import com.ufund.api.ufundapi.model.Need;
@@ -188,12 +189,13 @@ public class NeedFileDAO implements NeedDAO {
       * @return     null if the need with the given id does not exist, otherwise the updated need
       */
      @Override
-     public Need contributeNeed(int id, double quantity) {
+     public Need contributeNeed(int id, double quantity) throws IOException {
         synchronized(needs) {
             Need need = needs.get(id);
             if(need == null) { return null; }
 
             need.contribute(quantity);
+            save(); //may throw an IOException
             return need;
         }
      }
