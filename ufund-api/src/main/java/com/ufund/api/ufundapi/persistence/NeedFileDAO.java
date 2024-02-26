@@ -181,4 +181,20 @@ public class NeedFileDAO implements NeedDAO {
         }
      }
 
+     /**
+      * contributes to a need by the specified amount
+      * @param id   the id of the need to contribute to
+      * @param quantity the amount to contribute to the need by
+      * @return     null if the need with the given id does not exist, otherwise the updated need
+      */
+     @Override
+     public Need contributeNeed(int id, double quantity) {
+        synchronized(needs) {
+            Need need = needs.get(id);
+            if(need == null) { return null; }
+
+            need.contribute(quantity);
+            return need;
+        }
+     }
 }
