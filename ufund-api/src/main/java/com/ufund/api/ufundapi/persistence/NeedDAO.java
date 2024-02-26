@@ -17,5 +17,5 @@ public interface NeedDAO {
 
     boolean deleteNeed(int id) throws IOException;
     
-    Need contributeNeed(int id, double quantity);
+    Need contributeNeed(int id, double quantity) throws IOException;
 }
