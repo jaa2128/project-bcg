@@ -28,17 +28,21 @@ import org.springframework.http.ResponseEntity;
 public class NeedControllerTest {
     private NeedController needController;
     private NeedDAO mockNeedDAO;
+    private Need[] mockNeeds;
 
     /**
      * Before each test, create a new NeedController object and inject
-     * a mock Need DAO
+     * a mock Need DAO.
+     * The mock Need DAO will also need a mock database.
      */
     @BeforeEach
     public void setupNeedController() throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        mockNeedDAO = new NeedFileDAO("data/needs.json", objectMapper);
+        mockNeedDAO = mock(NeedDAO.class);
         needController = new NeedController(mockNeedDAO);
+        mockNeeds = new Need[5];
+        for(int i = 0; i < 5; i++) {
+            mockNeeds[i] = mock(Need.class);
+        }
     }
 
     @Test
@@ -143,6 +147,10 @@ public class NeedControllerTest {
         // when updateNeed is called, return true simulating successful
         // update and save
         when(mockNeedDAO.updateNeed(need)).thenReturn(need);
+
+        // when mockNeedDAO tries to access its needs, it returns a Need[]
+        when(mockNeedDAO.getNeeds()).thenReturn(mockNeeds);
+
         ResponseEntity<Need> response = needController.updateNeed(need);
         need.setName("Updated Test Need 5");
 
@@ -162,6 +170,9 @@ public class NeedControllerTest {
         // update and save
         when(mockNeedDAO.updateNeed(need)).thenReturn(null);
 
+        // when mockNeedDAO tries to access its needs, it returns a Need[]
+        when(mockNeedDAO.getNeeds()).thenReturn(mockNeeds);
+
         // Invoke
         ResponseEntity<Need> response = needController.updateNeed(need);
 
@@ -175,6 +186,9 @@ public class NeedControllerTest {
         Need need = new Need(99,"Test Need 7","Test Description","Test Type",1.0);
         // When updateNeed is called on the Mock Need DAO, throw an IOException
         doThrow(new IOException()).when(mockNeedDAO).updateNeed(need);
+
+        // when mockNeedDAO tries to access its needs, it returns a Need[]
+        when(mockNeedDAO.getNeeds()).thenReturn(mockNeeds);
 
         // Invoke
         ResponseEntity<Need> response = needController.updateNeed(need);
