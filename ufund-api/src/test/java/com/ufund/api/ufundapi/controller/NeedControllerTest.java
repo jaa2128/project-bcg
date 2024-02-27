@@ -8,6 +8,9 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 
 import com.ufund.api.ufundapi.persistence.NeedDAO;
+import com.ufund.api.ufundapi.persistence.NeedFileDAO;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Need;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -31,8 +34,10 @@ public class NeedControllerTest {
      * a mock Need DAO
      */
     @BeforeEach
-    public void setupNeedController() {
-        mockNeedDAO = mock(NeedDAO.class);
+    public void setupNeedController() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mockNeedDAO = new NeedFileDAO("data/needs.json", objectMapper);
         needController = new NeedController(mockNeedDAO);
     }
 
