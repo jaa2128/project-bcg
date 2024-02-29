@@ -184,13 +184,17 @@ public class NeedController {
     public ResponseEntity<Need> contributeNeed(@PathVariable int id, @RequestBody double quantity) {
         LOG.info("PUT /needs/" + id);
         try {
+            //return BAD_REQUEST if we try to contribute a nonpositive value
             if(quantity <= 0.0) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
+            //call contributeNeed to update currentQuantity
             Need need = needDao.contributeNeed(id, quantity);
+            //needDao.contributeNeed() returns null if need was not found
             if(need == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+            //otherwise, change was successful
             else {
                 return new ResponseEntity<Need>(need, HttpStatus.OK);
             }
