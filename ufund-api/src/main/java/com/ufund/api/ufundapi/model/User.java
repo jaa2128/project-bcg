@@ -9,8 +9,8 @@ public class User {
 
     /**
      * Contructor for new instance of User
-     * @param username 
-     * @param basket
+     * @param username //Will be determined by user during signup
+     * @param basket //Initialized as empty ArrayList
      */
     public User(String username, ArrayList<Need> basket){
         username = this.username;
