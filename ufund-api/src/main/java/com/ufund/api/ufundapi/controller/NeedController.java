@@ -184,7 +184,7 @@ public class NeedController {
     public ResponseEntity<Need> contributeNeed(@PathVariable int id, @RequestBody double quantity) {
         LOG.info("PUT /needs/" + id);
         try {
-            if(quantity <= 0) {
+            if(quantity <= 0.0) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
             Need need = needDao.contributeNeed(id, quantity);
