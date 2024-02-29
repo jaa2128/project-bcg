@@ -107,6 +107,7 @@ public class NeedFileDAO implements NeedDAO {
         synchronized(needs) {
             if (needs.containsKey(need.getID()) == false)
                 return null;  // need does not exist
+            need.contribute(needs.get(need.getID()).getCurrentQuantity());
             needs.put(need.getID(),need);
             save(); // may throw an IOException
             return need;
