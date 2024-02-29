@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
 import org.springframework.stereotype.Component;
 
 import com.ufund.api.ufundapi.model.Need;
@@ -106,6 +107,9 @@ public class NeedFileDAO implements NeedDAO {
         synchronized(needs) {
             if (needs.containsKey(need.getID()) == false)
                 return null;  // need does not exist
+            Need oldNeed = needs.get(need.getID());
+            double oldQuantity = oldNeed.getCurrentQuantity();
+            need.contribute(oldQuantity);
             needs.put(need.getID(),need);
             save(); // may throw an IOException
             return need;
@@ -181,4 +185,21 @@ public class NeedFileDAO implements NeedDAO {
         }
      }
 
+     /**
+      * contributes to a need by the specified amount
+      * @param id   the id of the need to contribute to
+      * @param quantity the amount to contribute to the need by
+      * @return     null if the need with the given id does not exist, otherwise the updated need
+      */
+     @Override
+     public Need contributeNeed(int id, double quantity) throws IOException {
+        synchronized(needs) {
+            Need need = needs.get(id);
+            if(need == null) { return null; }
+
+            need.contribute(quantity);
+            save(); //may throw an IOException
+            return need;
+        }
+     }
 }

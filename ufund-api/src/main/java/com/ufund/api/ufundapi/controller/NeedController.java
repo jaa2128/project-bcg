@@ -170,6 +170,39 @@ public class NeedController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * Contributes to a need by a certain amount
+     * @param id the ID of the need to contribute to
+     * @param quantity the amount to be contributed
+     * @return HttpStatus.BAD_REQUEST if quantity is not positive
+     * @return HttpStatus.NOT_FOUND if the given id does not exist
+     * @return HttpStatus.OK if the need was successfully updated
+     * @return HttpStatus.INTERNAL_SERVER_ERROR if exception is caught
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Need> contributeNeed(@PathVariable int id, @RequestBody double quantity) {
+        LOG.info("PUT /needs/" + id);
+        try {
+            //return BAD_REQUEST if we try to contribute a nonpositive value
+            if(quantity <= 0.0) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            //call contributeNeed to update currentQuantity
+            Need need = needDao.contributeNeed(id, quantity);
+            //needDao.contributeNeed() returns null if need was not found
+            if(need == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            //otherwise, change was successful
+            else {
+                return new ResponseEntity<Need>(need, HttpStatus.OK);
+            }
+        } catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 
 // PUT MORE CODE HERE //

@@ -60,6 +60,12 @@ curl.exe -i -X DELETE 'http://localhost:8080/needs/999999'
 
 curl.exe -i -X GET 'http://localhost:8080/needs'
 
+curl.exe -i -X PUT -H "Content-Type: application/json" -d "100.0" "http://localhost:8080/needs/1"
+
+curl.exe -i -X PUT -H "Content-Type: application/json" -d "-100.0" "http://localhost:8080/needs/1"
+
+curl.exe -i -X PUT -H "Content-Type: application/json" -d "100.0" "http://localhost:8080/needs/99999"
+
 ## Known bugs and disclaimers
 (It may be the case that your implementation is not perfect.)
 
