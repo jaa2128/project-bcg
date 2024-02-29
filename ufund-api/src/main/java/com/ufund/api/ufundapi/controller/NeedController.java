@@ -171,6 +171,15 @@ public class NeedController {
         }
     }
 
+    /**
+     * Contributes to a need by a certain amount
+     * @param id the ID of the need to contribute to
+     * @param quantity the amount to be contributed
+     * @return HttpStatus.BAD_REQUEST if quantity is not positive
+     * @return HttpStatus.NOT_FOUND if the given id does not exist
+     * @return HttpStatus.OK if the need was successfully updated
+     * @return HttpStatus.INTERNAL_SERVER_ERROR if exception is caught
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Need> contributeNeed(@PathVariable int id, @RequestBody double quantity) {
         LOG.info("PUT /needs/" + id);
