@@ -27,9 +27,6 @@ public class NeedTest {
         assertEquals(need.getDescription(), "this is not a description");
         need.setTargetQuantity(199.99);
         assertEquals(need.getTargetQuantity(), 199.99);
-        need.contribute(50.3);
-        need.contribute(10.25);
-        assertEquals(need.getCurrentQuantity(), 60.55);
     }
 
     @Test
@@ -45,6 +42,14 @@ public class NeedTest {
         Need need = new Need(50, "hello", "this is a description", "money", 99.99);
         assertEquals(need.toString(),
         "Need [id=50, name=hello, description=this is a description, type=money, targetQuantity=99.990000, currentQuantity=0.000000]");
+    }
+
+    @Test
+    public void testContribute() {
+        Need need = new Need(50, "hello", "this is a description", "money", 99.99);
+        need.contribute(50.3);
+        need.contribute(10.25);
+        assertEquals(need.getCurrentQuantity(), 60.55);
     }
 
     
