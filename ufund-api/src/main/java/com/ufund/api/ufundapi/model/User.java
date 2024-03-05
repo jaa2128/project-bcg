@@ -1,6 +1,7 @@
 package com.ufund.api.ufundapi.model;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class User {
     private String username; //User's username for login
@@ -38,6 +39,21 @@ public class User {
     public boolean isAdmin(){
         return this.isAdmin;
     }
+
+    /**
+     * Adds a need to the user's funding basket
+     * @param need the Need to add to the funding basket
+     */
+    public void addNeed(Need need) {
+        basket.add(need);
+    }
+
+    public void removeNeed(Need need) throws NoSuchElementException {
+        if(!basket.remove(need))
+            throw new NoSuchElementException(); 
+    }
+
+
  
 }
 
