@@ -143,7 +143,9 @@ public class NeedFileDAO implements NeedDAO {
      */
     @Override
     public Need[] getNeeds() throws IOException {
-        return getNeedsArray();
+        synchronized(needs){
+            return getNeedsArray();
+        }
     }
     
     @Override
