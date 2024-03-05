@@ -13,7 +13,7 @@ import { NeedService } from '../need.service';
 })
 export class NeedDetailComponent implements OnInit {
   
-  need!: Need;
+  need!: Need; // need factorial?
 
   constructor(
     private route: ActivatedRoute,
