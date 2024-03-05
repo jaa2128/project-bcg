@@ -123,10 +123,7 @@ public class NeedFileDaoTest {
         assertEquals(result, false);
     }
 
-    /**
-     * @throws IOException
-     * @author Brandon Santore
-     */
+
     @Test
     public void testDeleteNeed() {
         // Invoke
@@ -141,8 +138,12 @@ public class NeedFileDaoTest {
         // we can access it directly
         assertEquals(needFileDAO.needs.size(),testNeeds.length-1);
     }
-    
-    public void getUpdateHeroNotFound() throws IOException{
+
+     /**
+     * @throws IOException
+     * @author Brandon Santore
+     */
+    public void getUpdateNeedNotFound() throws IOException{
         Need need = new Need(4, "Stinky", "Pick up trash", "Volunteer", 300);
         Need result = needFileDAO.updateNeed(need);
 
@@ -150,10 +151,6 @@ public class NeedFileDaoTest {
 
     }
 
-    /**
-     * @throws IOException
-     * @author Brandon Santore
-     */
     @Test
     public void testCreateNeed() throws IOException {
         // Setup
