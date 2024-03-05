@@ -1,1 +1,22 @@
-<p>need-detail works!</p>
+<h2>{{ need.name | uppercase}}</h2>
+  <div><span>ID: </span>{{need.id}}</div>
+  <div>
+    
+    <label for="need-name">Name: </label>
+    <input id="need-name" [(ngModel)]="need.name" placeholder="Name goes here!"/> <br>
+    
+    <label for="need-description">Description: </label>
+    <input id="need-description" [(ngModel)]="need.description" placeholder="Description goes here!"/> <br>
+
+    <label for="need-type">Type: </label>
+    <input id="need-type" [(ngModel)]="need.type" placeholder="Type goes here!"/> <br>
+
+    <label for="need-amount-current">Amount Funded: </label>
+    <input id="need-amount-current" [(ngModel)]="need.currentQuantity" placeholder=""/> <br>
+
+    <label for="need-amount-goal">Goal Amount: </label>
+    <input id="need-amount-goal" [(ngModel)]="need.targetQuantity" placeholder=""/> <br>
+  
+    </div>
+  <button type="button" (click)="goBack()">go back</button>
+  <button type="button" (click)="save()">save</button>

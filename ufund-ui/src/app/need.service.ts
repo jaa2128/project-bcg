@@ -23,4 +23,12 @@ export class NeedService {
     return this.http.get<Need[]>(this.needsURL);
   }
 
+  getNeed(id: number): Observable<Need> {
+    return this.http.get<Need>(this.needsURL + '/' + id);
+  }
+
+  updateNeed(need: Need): Observable<any> {
+    return this.http.put(this.needsURL, need, this.httpOptions);
+  }
+
 }

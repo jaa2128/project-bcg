@@ -1,8 +1,8 @@
 export interface Need {
     id: number;
-    name: String;
-    description: String;
-    type: String;
+    name: string;
+    description: string;
+    type: string;
     targetQuantity: number;
     currentQuantity: number;
 }
