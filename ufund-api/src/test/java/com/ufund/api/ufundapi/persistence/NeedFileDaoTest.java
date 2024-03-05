@@ -166,6 +166,8 @@ public class NeedFileDaoTest {
         Need actual = needFileDAO.getNeed(need.getID());
         assertEquals(actual.getID(),need.getID());
         assertEquals(actual.getName(),need.getName());
+    }
+    
     public void testConstructorException() throws IOException{
         ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
         doThrow(new IOException())
