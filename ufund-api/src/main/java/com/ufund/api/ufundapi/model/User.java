@@ -40,6 +40,7 @@ public class User {
 
     /**
      * Returns whether user is a helper or an admin
+     * @return true is the user is an admin, false otherwise
      */
     public boolean isAdmin(){
         return this.isAdmin;
