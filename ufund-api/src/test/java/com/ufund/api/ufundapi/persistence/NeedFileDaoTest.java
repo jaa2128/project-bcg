@@ -90,6 +90,9 @@ public class NeedFileDaoTest {
         assertEquals(need,testNeeds[0]);
     }
 
+    /** 
+     * @author Alexander DiMartino
+     */
     @Test
     public void testDeleteNeed() {
         // Invoke
@@ -105,6 +108,10 @@ public class NeedFileDaoTest {
         assertEquals(needFileDAO.needs.size(),testNeeds.length-1);
     }
     
+    /** 
+     * @throws IOException
+     * @author Alexander DiMartino
+     */
     @Test
     public void testCreateNeed() throws IOException {
         // Setup
@@ -121,6 +128,10 @@ public class NeedFileDaoTest {
         assertEquals(actual.getName(),need.getName());
     }
 
+    /** 
+     * @throws IOException
+     * @author Alexander DiMartino
+     */
     @Test
     public void testUpdateNeed() throws IOException {
         // Setup
@@ -136,6 +147,10 @@ public class NeedFileDaoTest {
         assertEquals(actual,need);
     }
 
+    /** 
+     * @throws IOException
+     * @author Alexander DiMartino
+     */
     @Test
     public void testSaveException() throws IOException{
         doThrow(new IOException())
