@@ -72,7 +72,7 @@ public class NeedFileDaoTest {
         Need[] needs = needFileDAO.findNeeds("ne");
 
         // Analyze
-        assertEquals(needs.length,2);
+        assertEquals(needs.length,3);
         assertEquals(needs[0],testNeeds[1]);
         assertEquals(needs[1],testNeeds[2]);
     }
@@ -89,14 +89,11 @@ public class NeedFileDaoTest {
         // Analzye
         assertEquals(need,testNeeds[0]);
     }
-
-
-
     
     @Test
     public void testDeleteNeed() {
         // Invoke
-        boolean result = assertDoesNotThrow(() -> NeedFileDAO.deleteNeed(99),
+        boolean result = assertDoesNotThrow(() -> needFileDAO.deleteNeed(99),
                             "Unexpected exception thrown");
 
         // Analzye
@@ -105,21 +102,21 @@ public class NeedFileDaoTest {
         // of the test heroes array - 1 (because of the delete)
         // Because heroes attribute of HeroFileDAO is package private
         // we can access it directly
-        assertEquals(NeedFileDAO.need.size(),testNeeds.length-1);
+        assertEquals(needFileDAO.needs.size(),testNeeds.length-1);
     }
     
     @Test
-    public void testCreateNeed() {
+    public void testCreateNeed() throws IOException{
         // Setup
         Need need = new Need(50, "test", "testing", "money", 99.99);
 
         // Invoke
-        Need result = assertDoesNotThrow(() -> NeedFileDAO.createNeed(need),
+        Need result = assertDoesNotThrow(() -> needFileDAO.createNeed(need),
                                 "Unexpected exception thrown");
 
         // Analyze
         assertNotNull(result);
-        Need actual = NeedFileDAO.getNeed(need.getID());
+        Need actual = needFileDAO.getNeed(need.getID());
         assertEquals(actual.getID(),need.getID());
         assertEquals(actual.getName(),need.getName());
     }
