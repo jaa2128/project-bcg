@@ -90,13 +90,10 @@ public class NeedFileDaoTest {
         assertEquals(need,testNeeds[0]);
     }
 
-
-
-    
     @Test
     public void testDeleteNeed() {
         // Invoke
-        boolean result = assertDoesNotThrow(() -> NeedFileDAO.deleteNeed(99),
+        boolean result = assertDoesNotThrow(() -> needFileDAO.deleteNeed(99),
                             "Unexpected exception thrown");
 
         // Analzye
@@ -105,22 +102,50 @@ public class NeedFileDaoTest {
         // of the test heroes array - 1 (because of the delete)
         // Because heroes attribute of HeroFileDAO is package private
         // we can access it directly
-        assertEquals(NeedFileDAO.need.size(),testNeeds.length-1);
+        assertEquals(needFileDAO.needs.size(),testNeeds.length-1);
     }
     
     @Test
-    public void testCreateNeed() {
+    public void testCreateNeed() throws IOException {
         // Setup
         Need need = new Need(50, "test", "testing", "money", 99.99);
 
         // Invoke
-        Need result = assertDoesNotThrow(() -> NeedFileDAO.createNeed(need),
+        Need result = assertDoesNotThrow(() -> needFileDAO.createNeed(need),
                                 "Unexpected exception thrown");
 
         // Analyze
         assertNotNull(result);
-        Need actual = NeedFileDAO.getNeed(need.getID());
+        Need actual = needFileDAO.getNeed(need.getID());
         assertEquals(actual.getID(),need.getID());
         assertEquals(actual.getName(),need.getName());
+    }
+
+    @Test
+    public void testUpdateNeed() throws IOException {
+        // Setup
+        Need need = new Need(51, "test", "testing", "money", 99.99);
+
+        // Invoke
+        Need result = assertDoesNotThrow(() -> needFileDAO.updateNeed(need),
+                                "Unexpected exception thrown");
+
+        // Analyze
+        assertNotNull(result);
+        Need actual = needFileDAO.getNeed(need.getID());
+        assertEquals(actual,need);
+    }
+
+    @Test
+    public void testSaveException() throws IOException{
+        doThrow(new IOException())
+            .when(mockObjectMapper)
+                .writeValue(any(File.class),any(Need[].class));
+
+        Need need = new Need(52, "test", "testing", "money", 99.99);
+
+        assertThrows(IOException.class,
+                        () -> needFileDAO.createNeed(need),
+                        "IOException not thrown");
     }
 }
