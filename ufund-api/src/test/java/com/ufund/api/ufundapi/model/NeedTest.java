@@ -1,16 +1,15 @@
 package com.ufund.api.ufundapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.eq;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.ufund.api.ufundapi.model.Need;
-
 public class NeedTest {
-    private Need need;
 
+    private Need need;
+    
+    //setup
     @BeforeEach
     public void setupNeed() {
         need = new Need(50, "hello", "this is a description", "money", 99.99);
@@ -18,89 +17,145 @@ public class NeedTest {
 
     @Test
     public void testGetID() {
+        //invoke
+        int actual = need.getID();
+        
+        //analyze
         int expected = 50;
-        assertEquals(need.getID(), expected);
+        assertEquals(actual, expected);
     }
 
     @Test
     public void testGetName() {
+        //invoke
+        String actual = need.getName();
+
+        //analyze
         String expected = "hello";
-        assertEquals(need.getName(), expected);
+        assertEquals(actual, expected);
     }
 
     @Test
     public void testGetDescription() {
+        //invoke
+        String actual = need.getDescription();
+
+        //analyze
         String expected = "this is a description";
-        assertEquals(need.getDescription(), expected);
+        assertEquals(actual, expected);
     }
 
     @Test
     public void testGetType() {
+        //invoke
+        String actual = need.getType();
+
+        //analyze
         String expected = "money";
-        assertEquals(need.getType(), expected);
+        assertEquals(actual, expected);
     }
 
     @Test
     public void testGetTargetQuantity() {
+        //invoke
+        double actual = need.getTargetQuantity();
+
+        //analyze
         double expected = 99.99;
-        assertEquals(need.getTargetQuantity(), expected);
+        assertEquals(actual, expected);
     }
     
     @Test
     public void testGetCurrentQuantity() {
+        //invoke
+        double actual = need.getCurrentQuantity();
+
+        //analyze
         double expected = 0.0;
-        assertEquals(need.getCurrentQuantity(), expected);
+        assertEquals(actual, expected);
     }
 
     @Test
     public void testSetName() {
+        //invoke
+        need.setName("newHello");
+        String actual = need.getName();
+
+        //analyze
         String expected = "newHello";
-        need.setName(expected);
-        assertEquals(need.getName(), expected);
+        assertEquals(actual, expected);
     }
 
     @Test
     public void testSetDescription() {
+        //invoke
+        need.setDescription("this is not a description");
+        String actual = need.getDescription();
+
+        //analyze
         String expected = "this is not a description";
-        need.setDescription(expected);
-        assertEquals(need.getDescription(), expected);
+        assertEquals(actual, expected);
     }
 
     @Test
     public void testSetTargetQuantity() {
+        //invoke
+        need.setTargetQuantity(199.99);
+        double actual = need.getTargetQuantity();
+
+        //analyze
         double expected = 199.99;
-        need.setTargetQuantity(expected);
         assertEquals(need.getTargetQuantity(), expected);
     }
 
     @Test
     public void testContribute() {
-        double expected = 10.0;
+        //invoke
         need.contribute(10.0);
-        assertEquals(need.getCurrentQuantity(), expected);
+        double actual = need.getCurrentQuantity();
+        
+        //analyze
+        double expected = 10.0;
+        assertEquals(actual, expected);
 
-        expected = 30.5;
+        //invoke
         need.contribute(20.5);
+        actual = need.getCurrentQuantity();
+
+        //analyze
+        expected = 30.5;
         assertEquals(need.getCurrentQuantity(), expected);
     }
 
     @Test
     public void testIsSatisfiedTrue() {
-        boolean expected = true;
+        //invoke
         need.contribute(99.99);
-        assertEquals(need.isSatisfied(), expected);
+        boolean actual = need.isSatisfied();
+        
+        //analuze
+        boolean expected = true;
+        assertEquals(actual, expected);
     }
 
     @Test
     public void testIsSatisfiedFalse() {
-        boolean expected = false;
+        //invoke
         need.contribute(39.99);
+        boolean actual = need.isSatisfied();
+
+        //analyze
+        boolean expected = false;
         assertEquals(need.isSatisfied(), expected);
     }
 
     @Test
     public void testToString() {
+        //invoke
+        String actual = need.toString();
+
+        //analyze
         String expected = "Need [id=50, name=hello, description=this is a description, type=money, targetQuantity=99.990000, currentQuantity=0.000000]";
-        assertEquals(need.toString(), expected);
+        assertEquals(actual, expected);
     }
 }
