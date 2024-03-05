@@ -72,7 +72,7 @@ public class NeedFileDaoTest {
         Need[] needs = needFileDAO.findNeeds("ne");
 
         // Analyze
-        assertEquals(needs.length,3);
+        assertEquals(needs.length,2);
         assertEquals(needs[0],testNeeds[1]);
         assertEquals(needs[1],testNeeds[2]);
     }
@@ -89,7 +89,7 @@ public class NeedFileDaoTest {
         // Analzye
         assertEquals(need,testNeeds[0]);
     }
-    
+
     @Test
     public void testDeleteNeed() {
         // Invoke
@@ -106,7 +106,7 @@ public class NeedFileDaoTest {
     }
     
     @Test
-    public void testCreateNeed() throws IOException{
+    public void testCreateNeed() throws IOException {
         // Setup
         Need need = new Need(50, "test", "testing", "money", 99.99);
 
@@ -119,5 +119,33 @@ public class NeedFileDaoTest {
         Need actual = needFileDAO.getNeed(need.getID());
         assertEquals(actual.getID(),need.getID());
         assertEquals(actual.getName(),need.getName());
+    }
+
+    @Test
+    public void testUpdateNeed() throws IOException {
+        // Setup
+        Need need = new Need(51, "test", "testing", "money", 99.99);
+
+        // Invoke
+        Need result = assertDoesNotThrow(() -> needFileDAO.updateNeed(need),
+                                "Unexpected exception thrown");
+
+        // Analyze
+        assertNotNull(result);
+        Need actual = needFileDAO.getNeed(need.getID());
+        assertEquals(actual,need);
+    }
+
+    @Test
+    public void testSaveException() throws IOException{
+        doThrow(new IOException())
+            .when(mockObjectMapper)
+                .writeValue(any(File.class),any(Need[].class));
+
+        Need need = new Need(52, "test", "testing", "money", 99.99);
+
+        assertThrows(IOException.class,
+                        () -> needFileDAO.createNeed(need),
+                        "IOException not thrown");
     }
 }
