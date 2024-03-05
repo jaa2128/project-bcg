@@ -102,33 +102,20 @@ public class NeedFileDaoTest {
         assertEquals(need,testNeeds[0]);
     }
 
-
-
-    NeedFileDAO needFileDAO;
-    Need[] testNeeds;
-    ObjectMapper mockObjectMapper;
-
-
-    public void setupNeedFileDAO() throws IOException {
-        mockObjectMapper = mock(ObjectMapper.class);
-        testNeeds = new Need[3];
-        testNeeds[0] = new Need(0, "Need1", "Donate Money", "Money", 1000);
-        testNeeds[1] = new Need(1, "Need2", "Donate Controllers", "Physical Good", 10);
-        testNeeds[2] = new Need(2, "Need3", "Volunteers Needed", "Volunteer", 20);
-
-        
-        when(mockObjectMapper
-            .readValue(new File("doesnt_matter.txt"),Need[].class))
-                .thenReturn(testNeeds);
-        needFileDAO = new NeedFileDAO("doesnt_matter.txt",mockObjectMapper);
-    }
-
+    /**
+     * @throws IOException
+     * @author Brandon Santore
+     */
     @Test
     public void getNeedNotFound() throws IOException{
         assertEquals(needFileDAO.getNeed(100), null);
 
     }
 
+    /**
+     * @throws IOException
+     * @author Brandon Santore
+     */
     @Test
     public void getDeleteNeedNotFound() throws IOException{
         boolean result = needFileDAO.deleteNeed(100);
@@ -136,6 +123,10 @@ public class NeedFileDaoTest {
         assertEquals(result, false);
     }
 
+    /**
+     * @throws IOException
+     * @author Brandon Santore
+     */
     @Test
     public void getUpdateHeroNotFound() throws IOException{
         Need need = new Need(4, "Stinky", "Pick up trash", "Volunteer", 300);
@@ -145,6 +136,10 @@ public class NeedFileDaoTest {
 
     }
 
+    /**
+     * @throws IOException
+     * @author Brandon Santore
+     */
     @Test
     public void testConstructorException() throws IOException{
         ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
