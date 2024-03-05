@@ -55,7 +55,7 @@ public class User {
     }
 
     /**
-     * Removes a need from the user's fundibg basket
+     * Removes a need from the user's funding basket
      * @param need the Need to remove from the basket
      * @throws NoSuchElementException if the need was not in the basket
      */
