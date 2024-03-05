@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class User {
-    private String username; //User's username for login
-    private ArrayList<Need> basket; //User's funding basket
-    private boolean isAdmin; // Whether user is a helper or an admin
+    private final String username; //User's username for login
+    private final ArrayList<Need> basket; //User's funding basket
+    private final boolean isAdmin; // Whether user is a helper or an admin
 
     /**
      * Contructor for new instance of User
