@@ -13,8 +13,8 @@ public class User {
      * @param basket //Initialized as empty ArrayList
      */
     public User(String username, ArrayList<Need> basket){
-        username = this.username;
-        basket = new ArrayList<>();
+        this.username = username;
+        this.basket = basket;
         isAdmin = username.equals("admin");
     }
 
@@ -35,9 +35,10 @@ public class User {
     /**
      * Returns whether user is a helper or an admin
      */
-    public Boolean isAdmin(){
+    public boolean isAdmin(){
         return this.isAdmin;
     }
+ 
 }
 
 

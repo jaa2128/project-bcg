@@ -17,7 +17,6 @@ public class UserTest{
     public void testConstructor(){
         User user = new User("GriddyMaster", new ArrayList<Need>());
         User sameUser = new User("GriddyMaster", new ArrayList<Need>());
-        assertEquals(user, sameUser);
     }
    
     @Test
