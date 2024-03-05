@@ -5,8 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -167,7 +166,8 @@ public class NeedFileDaoTest {
         assertEquals(actual.getID(),need.getID());
         assertEquals(actual.getName(),need.getName());
     }
-    
+
+    @Test
     public void testConstructorException() throws IOException{
         ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
         doThrow(new IOException())
