@@ -108,7 +108,7 @@ public class NeedFileDaoTest {
      */
     @Test
     public void getNeedNotFound() throws IOException{
-        assertEquals(needFileDAO.getNeed(100), null);
+        assertEquals(needFileDAO.getNeed(3), null);
 
     }
 
@@ -118,7 +118,7 @@ public class NeedFileDaoTest {
      */
     @Test
     public void getDeleteNeedNotFound() throws IOException{
-        boolean result = needFileDAO.deleteNeed(100);
+        boolean result = needFileDAO.deleteNeed(3);
 
         assertEquals(result, false);
     }
