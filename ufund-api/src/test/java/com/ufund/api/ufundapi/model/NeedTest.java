@@ -1,6 +1,7 @@
 package com.ufund.api.ufundapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -183,6 +184,13 @@ public class NeedTest {
         //analyze
         boolean expected = false;
         assertEquals(need.isSatisfied(), expected);
+    }
+
+    @Test
+    public void testHasEmptyField(){
+        Need emptyFieldNeed = new Need(30, "Test Need", "", "Test Type", 1.0);
+
+        assertTrue(emptyFieldNeed.hasEmptyField());
     }
 
     /**
