@@ -86,7 +86,11 @@ public class UserFileDAO implements UserDAO {
         }
     }
 
-
+    /**
+     * retrieves a specific user
+     * @param username the username of the user
+     * @return the User with the given username, or null if no such user exists
+     */
     @Override
     public User getUser(String username) throws IOException {
         synchronized(users) {
