@@ -2,33 +2,22 @@ package com.ufund.api.ufundapi.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
-import java.io.IOError;
 import java.io.IOException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ufund.api.ufundapi.model.Need;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectStreamConstants;
-
-import org.apache.commons.logging.Log;
+import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -277,6 +266,27 @@ public class NeedFileDaoTest {
         Need result = needFileDAO.contributeNeed(newNeed.getID(), 500);
 
         assertNull(result);
+    }
+
+    @Test
+    public void testSearchNeeds() throws IOException {
+        //setup
+        Need need1 = new Need(49, "hello world", "testing", "money", 99.99);
+        Need need2 = new Need(50, "GOODBYE WORLD", "testing", "money", 99.99);
+        Need need3 = new Need(51, "greetings universe", "testing", "money", 99.99);
+        Need[] testNeeds = new Need[]{need1, need2, need3};
+        when(mockObjectMapper
+            .readValue(new File("doesnt_matter.txt"),Need[].class))
+                .thenReturn(testNeeds);
+        needFileDAO = new NeedFileDAO("doesnt_matter.txt",mockObjectMapper);
+
+        //invoke
+        Need[] output = needFileDAO.findNeeds("world");
+
+        //analyze
+        assertTrue(Arrays.asList(output).contains(need1));
+        assertTrue(Arrays.asList(output).contains(need2));
+        assertFalse(Arrays.asList(output).contains(need3));
     }
 
 }
