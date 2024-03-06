@@ -21,7 +21,7 @@ public interface UserDAO {
 
     Need[] checkout(String username) throws IOException;
 
-    boolean clearBakset(String username) throws IOException;
+    void clearBasket(String username) throws IOException;
 
 
 }
