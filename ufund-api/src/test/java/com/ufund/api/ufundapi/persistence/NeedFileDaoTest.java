@@ -275,8 +275,8 @@ public class NeedFileDaoTest {
     @Test
     public void testSearchNeeds() throws IOException {
         //setup
-        Need need1 = new Need(49, "hello world", "testing", "money", 99.99);
-        Need need2 = new Need(50, "GOODBYE WORLD", "testing", "money", 99.99);
+        Need need1 = new Need(50, "hello world", "testing", "money", 99.99);
+        Need need2 = new Need(49, "GOODBYE WORLD", "testing", "money", 99.99);
         Need need3 = new Need(51, "greetings universe", "testing", "money", 99.99);
         Need[] testNeeds = new Need[]{need1, need2, need3};
         when(mockObjectMapper
