@@ -109,8 +109,14 @@ public class Need {
      * @return    Whether need has an empty field
      */
     public boolean hasEmptyField(){
-        if(!getName().isEmpty() && !getDescription().isEmpty() && !getType().isEmpty() && getTargetQuantity() > 0.0){
-            return false;
+        if(!getName().isEmpty()){
+            if(!getDescription().isEmpty()){
+                if(!getType().isEmpty()){
+                    if(getTargetQuantity() > 0.0){
+                        return false;
+                    }
+                }
+            }
         }
         return true;
     }
