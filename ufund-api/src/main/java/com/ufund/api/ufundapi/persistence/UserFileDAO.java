@@ -76,8 +76,8 @@ public class UserFileDAO implements UserDAO {
     }
 
     /**
-     * Retrieves all current needs stored in the JSOn
-     * @return all the needs stored in an array
+     * Retrieves all current users stored in the JSOn
+     * @return all the users stored in an array
      */
     @Override
     public User[] getUsers() throws IOException {
@@ -105,11 +105,24 @@ public class UserFileDAO implements UserDAO {
         return null;
     }
 
+    /**
+     * Creates a new user
+     * @param username the username of the new user
+     * @return the new user if the given username was not already in use, null otherwise
+     */
     @Override
     public User createUser(String username) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createUser'");
-    }
+        synchronized(users) {
+            for (User user : users.values()){
+                if(user.getUsername().equals(username));
+                    return null;
+                }
+            }
+            User newUser = new User(username);
+            users.put(username, newUser);
+            save(); // may throw an IOException
+            return newUser;
+        }}
 
     @Override
     public Need addNeed(String username, int id, double quantity) throws IOException {
