@@ -27,6 +27,10 @@ export class NeedService {
     return this.http.get<Need>(this.needsURL + '/' + id);
   }
 
+  createNeed(name:string, description: string, type: string, targetQuantity: number){
+    return this.http.post<Need>(this.needsURL, String.raw`{"name": "`+name+`", "description": "`+description+`", "type": "`+type+`", "targetQuantity": "`+targetQuantity+`}`, this.httpOptions)
+  }
+
   updateNeed(need: Need): Observable<any> {
     return this.http.put(this.needsURL, need, this.httpOptions);
   }
