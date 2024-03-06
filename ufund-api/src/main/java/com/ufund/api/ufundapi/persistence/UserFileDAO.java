@@ -76,8 +76,8 @@ public class UserFileDAO implements UserDAO {
     }
 
     /**
-     * Retrieves all current needs stored in the JSOn
-     * @return all the needs stored in an array
+     * Retrieves all current users stored in the JSOn
+     * @return all the users stored in an array
      */
     @Override
     public User[] getUsers() throws IOException {
