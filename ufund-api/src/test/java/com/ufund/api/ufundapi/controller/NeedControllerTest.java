@@ -126,6 +126,20 @@ public class NeedControllerTest {
     }
 
     @Test
+    public void testCreateNeedWithEmptyField() throws IOException{
+        Need need = new Need(99, null, "test Description", "Test Type", 1.0);
+        Need oldNeed = new Need(100, "Old Need", "test Description", "Test Type", 1.0);
+        when(mockNeedDAO.getNeeds()).thenReturn(new Need[]{oldNeed});
+        when(mockNeedDAO.createNeed(need)).thenReturn(need);
+
+        ResponseEntity<Need> response = needController.createNeed(oldNeed);
+
+
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+
+    }
+
+    @Test
     public void testCreateNeedHandleException() throws IOException {  // createNeed may throw IOException
         // Setup
         Need need = new Need(99,"Test Need 4","Test Description","Test Type",1.0);
