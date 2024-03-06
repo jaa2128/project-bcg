@@ -162,13 +162,38 @@ public class NeedControllerTest {
         assertEquals(need,response.getBody());
     }
 
+    /**
+     * @author Julian Alvia
+     * @throws IOException
+     */
+    @Test public void testUpdateNeedWithoutName() throws IOException{
+        // Setup
+        Need need = new Need(99,"Test Need 5","Test Description","Test Type",1.0);
+        // when updateNeed is called, return true simulating successful
+        // update and save
+        when(mockNeedDAO.updateNeed(need)).thenReturn(need);
+
+        // when mockNeedDAO tries to access its needs, it returns a Need[]
+        when(mockNeedDAO.getNeeds()).thenReturn(mockNeeds);
+
+        ResponseEntity<Need> response = needController.updateNeed(need);
+        need.setName("");
+
+        // Invoke
+        response = needController.updateNeed(need);
+
+        // Analyze
+        assertEquals(HttpStatus.NOT_ACCEPTABLE,response.getStatusCode());
+    }
+
+
     @Test
     public void testUpdateNeedFailed() throws IOException { // updateNeed may throw IOException
         // Setup
         Need need = new Need(99,"Test Need 6","Test Description","Test Type",1.0);
         // when updateNeed is called, return true simulating successful
         // update and save
-        when(mockNeedDAO.updateNeed(need)).thenReturn(null);
+        when(mockNeedDAO.updateNeed(need)).thenReturn(need);
 
         // when mockNeedDAO tries to access its needs, it returns a Need[]
         when(mockNeedDAO.getNeeds()).thenReturn(mockNeeds);
@@ -178,6 +203,35 @@ public class NeedControllerTest {
 
         // Analyze
         assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+    }
+
+    /**
+     * @author Julian Alvia
+     * @throws IOException
+     */
+    @Test
+    public void testUpdateNeedEqualToOtherName() throws IOException { // updateNeed may throw IOException
+        // Setup
+        Need need = new Need(99,"Test Need 5","Test Description","Test Type",1.0);
+        Need need2 = new Need(100, "Test Need 6", "Test Description", "Test Type", 1.0);
+        Need[] needs = new Need[]{need, need2};
+        // when updateNeed is called, return true simulating successful
+        // update and save
+        when(mockNeedDAO.updateNeed(need2)).thenReturn(need2);
+        when(mockNeedDAO.getNeeds()).thenReturn(needs);
+
+        // when mockNeedDAO tries to access its needs, it returns a Need[]
+        //when(mockNeedDAO.getNeeds()).thenReturn(mockNeeds);
+
+        need.setName("Test Need 6");
+        ResponseEntity<Need> response = needController.updateNeed(need);
+       
+
+        // Invoke
+        //response = needController.updateNeed(need2);
+
+        // Analyze
+        assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
     }
 
     @Test
@@ -203,6 +257,7 @@ public class NeedControllerTest {
         Need[] needs = new Need[2];
         needs[0] = new Need(99,"Test Need 8","Test Description","Test Type",1.0);
         needs[1] = new Need(100,"Test Need 9","Test Description","Test Type",1.0);
+
         // When getNeeds is called return the needs created above
         when(mockNeedDAO.getNeeds()).thenReturn(needs);
 
