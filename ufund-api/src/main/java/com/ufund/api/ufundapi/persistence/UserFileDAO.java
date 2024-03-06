@@ -86,10 +86,17 @@ public class UserFileDAO implements UserDAO {
         }
     }
 
+    
     @Override
     public User getUser(String username) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUser'");
+        synchronized(users) {
+            for(User user : users.values()) {
+                if(user.getUsername().equals(username)) {
+                    return user;
+                }
+            }
+        }
+        return null;
     }
 
     @Override
