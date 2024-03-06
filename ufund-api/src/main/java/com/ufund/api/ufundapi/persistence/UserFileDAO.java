@@ -92,10 +92,12 @@ public class UserFileDAO implements UserDAO {
         synchronized(users) {
             for(User user : users.values()) {
                 if(user.getUsername().equals(username)) {
+                    save();
                     return user;
                 }
             }
         }
+        save();
         return null;
     }
 
