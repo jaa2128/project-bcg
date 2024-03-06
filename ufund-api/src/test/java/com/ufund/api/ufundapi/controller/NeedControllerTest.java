@@ -191,6 +191,8 @@ public class NeedControllerTest {
     public void testUpdateNeedFailed() throws IOException { // updateNeed may throw IOException
         // Setup
         Need need = new Need(99,"Test Need 6","Test Description","Test Type",1.0);
+        Need need2 = new Need(100,"Test Need 6","Test Description","Test Type",1.0);
+
         // when updateNeed is called, return true simulating successful
         // update and save
         when(mockNeedDAO.updateNeed(need)).thenReturn(need);
@@ -199,7 +201,7 @@ public class NeedControllerTest {
         when(mockNeedDAO.getNeeds()).thenReturn(mockNeeds);
 
         // Invoke
-        ResponseEntity<Need> response = needController.updateNeed(need);
+        ResponseEntity<Need> response = needController.updateNeed(need2);
 
         // Analyze
         assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
