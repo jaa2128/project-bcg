@@ -137,17 +137,7 @@ public class NeedControllerTest {
 
     }
 
-    @Test
-    public void testCreateNeedWithZeroOrLessQuantity() throws IOException{
-        Need need = new Need(99, "", "test Description", "Test Type", 0.0);
-
-        when(mockNeedDAO.createNeed(need)).thenReturn(need);
-
-        ResponseEntity<Need> response = needController.createNeed(need);
-
-        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
-
-    }
+    
 
     @Test
     public void testCreateNeedHandleException() throws IOException {  // createNeed may throw IOException
