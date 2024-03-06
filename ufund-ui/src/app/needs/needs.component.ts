@@ -18,6 +18,10 @@ export class NeedsComponent implements OnInit {
         .subscribe(needs => this.needs = needs);
   }
 
+  createNeed(name:string, description:string, type:string, targetQuantity: number): void {
+    this.needService.createNeed(name, description, type, targetQuantity)
+  }
+
   ngOnInit(): void {
     this.getNeeds();
   }
