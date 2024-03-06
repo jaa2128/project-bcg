@@ -13,7 +13,7 @@ import { NeedService } from '../need.service';
 })
 export class NeedDetailComponent implements OnInit {
   
-  need!: Need; // need factorial?
+  need!: Need;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +25,7 @@ export class NeedDetailComponent implements OnInit {
     this.getNeed();
   }
 
+  // calls backend getNeed() method
   getNeed(): void {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.needService.getNeed(id)
@@ -35,6 +36,7 @@ export class NeedDetailComponent implements OnInit {
     this.location.back();
   }
 
+  // updates need and saves it back to needs.json, then goes back
   save(): void {
     if (this.need) {
     this.needService.updateNeed(this.need)
