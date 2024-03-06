@@ -372,4 +372,26 @@ public class NeedControllerTest {
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
+
+    @Test
+    public void testContributeNeed() throws IOException{
+        Need newNeed = new Need(1000, "Test Need", "Test Desc", "Test Type", 1000.0);
+
+        when(mockNeedDAO.contributeNeed(newNeed.getID(), 500)).thenReturn(newNeed);
+
+        ResponseEntity<Need> response = needController.contributeNeed(newNeed.getID(), 500);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void testContributeNeedNotFound() throws IOException{
+        Need newNeed = new Need(1000, "Test Need", "Test Desc", "Test Type", 1000.0);
+
+        when(mockNeedDAO.contributeNeed(newNeed.getID(), 500)).thenReturn(null);
+
+        ResponseEntity<Need> response = needController.contributeNeed(newNeed.getID(), 500);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
 }
