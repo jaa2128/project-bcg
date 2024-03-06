@@ -2,6 +2,7 @@ package com.ufund.api.ufundapi.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -147,6 +148,7 @@ public class NeedFileDaoTest {
      * @throws IOException
      * @author Brandon Santore
      */
+    @Test
     public void getUpdateNeedNotFound() throws IOException{
         Need need = new Need(4, "Stinky", "Pick up trash", "Volunteer", 300);
         Need result = needFileDAO.updateNeed(need);
@@ -242,4 +244,39 @@ public class NeedFileDaoTest {
                         () -> needFileDAO.createNeed(need),
                         "IOException not thrown");
     }
+
+
+    /**
+     * @throws IOException
+     * @author Brandon Santore
+     */
+    @Test
+    public void testContributeNeed() throws IOException{
+        Need newNeed = new Need(1000, "newNeed", "NewNeed", "Money", 1000);
+        Need otherNeed = new Need(1001, "otherNeed", "otherNeed", "Money", 1000);
+        Need[] testNeeds = new Need[]{newNeed, otherNeed};
+
+        when(mockObjectMapper
+            .readValue(new File("doesnt_matter.txt"),Need[].class))
+                .thenReturn(testNeeds);
+        needFileDAO = new NeedFileDAO("doesnt_matter.txt",mockObjectMapper);
+
+        needFileDAO.contributeNeed(newNeed.getID(), 500);
+
+        assertNotEquals(newNeed.getCurrentQuantity(), otherNeed.getCurrentQuantity());
+    }
+
+    /**
+     * @throws IOException
+     * @author Brandon Santore
+     */
+    @Test
+    public void testContributeNeedNotFound() throws IOException{
+        Need newNeed = new Need(1000, "newNeed", "NewNeed", "Money", 1000);
+
+        Need result = needFileDAO.contributeNeed(newNeed.getID(), 500);
+
+        assertNull(result);
+    }
+
 }
