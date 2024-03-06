@@ -75,10 +75,15 @@ public class UserFileDAO implements UserDAO {
         return userArray;
     }
 
+    /**
+     * Retrieves all current needs stored in the JSOn
+     * @return all the needs stored in an array
+     */
     @Override
     public User[] getUsers() throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUsers'");
+        synchronized(users){
+            return getUsersArray();
+        }
     }
 
     @Override
