@@ -13,13 +13,13 @@ public interface UserDAO {
 
     User createUser(String username) throws IOException;
 
-    Need addNeed(int id, double quantity) throws IOException;
+    Need addNeed(String username, int id, double quantity) throws IOException;
 
-    Need updateNeed(int id, double quantity) throws IOException;
+    Need updateNeed(String username, int id, double quantity) throws IOException;
 
-    boolean removeNeed(int id) throws IOException;
+    boolean removeNeed(String username, int id) throws IOException;
 
-    Need[] checkout() throws IOException;
+    Need[] checkout(String username) throws IOException;
 
     void clearBasket(String username) throws IOException;
 

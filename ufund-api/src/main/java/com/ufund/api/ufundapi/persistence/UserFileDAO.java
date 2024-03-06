@@ -86,10 +86,19 @@ public class UserFileDAO implements UserDAO {
         }
     }
 
+
     @Override
     public User getUser(String username) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUser'");
+        synchronized(users) {
+            for(User user : users.values()) {
+                if(user.getUsername().equals(username)) {
+                    save();
+                    return user;
+                }
+            }
+        }
+        save();
+        return null;
     }
 
     @Override
@@ -99,25 +108,25 @@ public class UserFileDAO implements UserDAO {
     }
 
     @Override
-    public Need addNeed(int id, double quantity) throws IOException {
+    public Need addNeed(String username, int id, double quantity) throws IOException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addNeed'");
     }
 
     @Override
-    public Need updateNeed(int id, double quantity) throws IOException {
+    public Need updateNeed(String username, int id, double quantity) throws IOException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateNeed'");
     }
 
     @Override
-    public boolean removeNeed(int id) throws IOException {
+    public boolean removeNeed(String username, int id) throws IOException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeNeed'");
     }
 
     @Override
-    public Need[] checkout() throws IOException {
+    public Need[] checkout(String username) throws IOException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'checkout'");
     }
