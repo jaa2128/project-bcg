@@ -155,6 +155,8 @@ public class NeedFileDaoTest {
         // Setup
         Need oldNeed = new Need(49, "oldTest", "testing", "money", 99.99);
         Need need = new Need(50, "test", "testing", "money", 99.99);
+        Need conflictNeed = new Need(51, "test", "testing", "money", 99.99);
+
         Need[] testNeeds = new Need[1];
         testNeeds[0] = oldNeed;
 
@@ -166,12 +168,14 @@ public class NeedFileDaoTest {
 
         // Invoke
         Need result = assertDoesNotThrow(() -> needFileDAO.createNeed(need));
+        Need result2 = needFileDAO.createNeed(conflictNeed);
 
         // Analyze
         assertNotNull(result);
         Need actual = needFileDAO.getNeed(need.getID());
         assertEquals(actual.getID(),need.getID());
         assertEquals(actual.getName(),need.getName());
+        assertNull(result2);
     }
 
     /**
