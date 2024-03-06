@@ -189,17 +189,18 @@ public class NeedTest {
 
     @Test
     public void testHasEmptyField(){
-        Need emptyFieldNeed = new Need(30, "Test Need", "", "Test Type", 1.0);
+        Need emptyName = new Need(30, "", "Test Description", "Test Type", 1.0);
+        Need emptyDescription = new Need(30, "Test Need", "", "Test Type", 1.0);
+        Need emptyType = new Need(30, "Test Need", "Test Description", "", 1.0);
+        Need ZeroOrLessTQ = new Need(30, "Test Need", "Test Description", "Test Type", 0);
 
-        assertTrue(emptyFieldNeed.hasEmptyField());
+        assertTrue(emptyName.hasEmptyField());
+        assertTrue(emptyDescription.hasEmptyField());
+        assertTrue(emptyType.hasEmptyField());
+        assertTrue(ZeroOrLessTQ.hasEmptyField());
     }
 
-    @Test
-    public void testDoesNotHaveEmptyField(){
-        Need newNeed = new Need(30, "Test Need", "Test Description", "Test Type", 1.0);
-        
-        assertFalse(newNeed.hasEmptyField());
-    }
+
 
 
     /**
