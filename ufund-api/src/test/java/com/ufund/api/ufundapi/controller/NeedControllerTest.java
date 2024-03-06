@@ -376,10 +376,11 @@ public class NeedControllerTest {
     @Test
     public void testContributeNeed() throws IOException{
         Need newNeed = new Need(1000, "Test Need", "Test Desc", "Test Type", 1000.0);
+        int contributeAmount = 500;
 
-        when(mockNeedDAO.contributeNeed(newNeed.getID(), 500)).thenReturn(newNeed);
+        when(mockNeedDAO.contributeNeed(newNeed.getID(), contributeAmount)).thenReturn(newNeed);
 
-        ResponseEntity<Need> response = needController.contributeNeed(newNeed.getID(), 500);
+        ResponseEntity<Need> response = needController.contributeNeed(newNeed.getID(), contributeAmount);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
@@ -387,11 +388,37 @@ public class NeedControllerTest {
     @Test
     public void testContributeNeedNotFound() throws IOException{
         Need newNeed = new Need(1000, "Test Need", "Test Desc", "Test Type", 1000.0);
+        int contributeAmount = 500;
 
-        when(mockNeedDAO.contributeNeed(newNeed.getID(), 500)).thenReturn(null);
+        when(mockNeedDAO.contributeNeed(newNeed.getID(), contributeAmount)).thenReturn(null);
 
-        ResponseEntity<Need> response = needController.contributeNeed(newNeed.getID(), 500);
+        ResponseEntity<Need> response = needController.contributeNeed(newNeed.getID(), contributeAmount);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testContributeNeedZeroOrLess() throws IOException{
+        Need newNeed = new Need(1000, "Test Need", "Test Desc", "Test Type", 1000.0);
+        int contributeAmount = 0;
+
+        when(mockNeedDAO.contributeNeed(newNeed.getID(), contributeAmount)).thenReturn(null);
+
+        ResponseEntity<Need> response = needController.contributeNeed(newNeed.getID(), contributeAmount);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    public void testContributeNeedHandleException() throws IOException{
+        Need newNeed = new Need(1000, "Test Need", "Test Desc", "Test Type", 1000.0);
+        int contributeAmount = 500;
+
+        doThrow(new IOException()).when(mockNeedDAO).contributeNeed(newNeed.getID(), contributeAmount);
+
+        ResponseEntity<Need> response = needController.contributeNeed(newNeed.getID(), contributeAmount);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+
     }
 }
