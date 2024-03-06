@@ -123,7 +123,8 @@ public class UserFileDAO implements UserDAO {
             users.put(username, newUser);
             save(); // may throw an IOException
             return newUser;
-        }}
+        }
+    }
 
     @Override
     public Need addNeed(String username, int id, double quantity) throws IOException {
