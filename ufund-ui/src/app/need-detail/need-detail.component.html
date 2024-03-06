@@ -11,8 +11,7 @@
     <label for="need-type">Type: </label>
     <input id="need-type" [(ngModel)]="need.type" placeholder="Type goes here!"/> <br>
 
-    <label for="need-amount-current">Amount Funded: </label>
-    <input id="need-amount-current" [(ngModel)]="need.currentQuantity" placeholder=""/> <br>
+    <label for="need-amount-current">Amount Funded: {{need.currentQuantity}}</label> <br>
 
     <label for="need-amount-goal">Goal Amount: </label>
     <input id="need-amount-goal" [(ngModel)]="need.targetQuantity" placeholder=""/> <br>
