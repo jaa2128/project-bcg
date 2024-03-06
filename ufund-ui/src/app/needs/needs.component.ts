@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Need } from '../need';
 import { NeedService } from '../need.service';
+
 @Component({
   selector: 'app-needs',
   templateUrl: './needs.component.html',
@@ -20,6 +21,11 @@ export class NeedsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNeeds();
+  }
+
+  delete(need: Need): void {
+    this.needs = this.needs.filter(n => n !== need);
+    this.needService.deleteNeed(need.id).subscribe();
   }
 
 }
