@@ -96,12 +96,10 @@ public class UserFileDAO implements UserDAO {
         synchronized(users) {
             for(User user : users.values()) {
                 if(user.getUsername().equals(username)) {
-                    save();
                     return user;
                 }
             }
         }
-        save();
         return null;
     }
 
@@ -126,8 +124,12 @@ public class UserFileDAO implements UserDAO {
 
     @Override
     public Need addNeed(String username, int id, double quantity) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addNeed'");
+        synchronized(users) {
+            User user = getUser(username);
+            if(user == null) {
+                return null;
+            }
+        }
     }
 
     @Override
@@ -138,8 +140,8 @@ public class UserFileDAO implements UserDAO {
 
     @Override
     public boolean removeNeed(String username, int id) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeNeed'");
+
+        
     }
 
     @Override
