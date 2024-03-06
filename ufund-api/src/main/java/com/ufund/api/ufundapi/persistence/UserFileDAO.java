@@ -46,7 +46,6 @@ public class UserFileDAO implements UserDAO {
 
     private boolean load() throws IOException {
         users = new TreeMap<>();
-        nextId = 0;
 
         // Deserializes the JSON objects from the file into an array of needs
         // readValue will throw an IOException if there's an issue with the file
