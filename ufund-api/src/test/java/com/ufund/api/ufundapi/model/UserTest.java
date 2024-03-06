@@ -2,12 +2,17 @@ package com.ufund.api.ufundapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
+import java.lang.reflect.Executable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,20 +63,39 @@ public class UserTest{
 
     }
 
-    // @Test
-    // public void testAddNeed() {
+    /**
+     * @author Alexander DiMartino
+     */
+    @Test
+    public void testAddNeed() {
+        user.addNeed(need1, 50);
+        assertNotNull(user.getBasket().get(need1));
+    }
 
-    // }
+    /**
+     * @author Alexander DiMartino
+     */
+    @Test
+    public void testRemoveNeedSuccess() {
+        user.addNeed(need1, 50);
+        user.removeNeed(need1);
+        assertNull(user.getBasket().get(need1));
+    }
 
-    // @Test
-    // public void testRemoveNeedSuccess() {
-
-    // }
-
-    // @Test
-    // public void testRemoveNeedFailure() {
-
-    // }
+    /**
+     * @author Alexander DiMartino
+     */
+    @Test
+    public void testRemoveNeedFailure() {
+        user.addNeed(need1, 50);
+        try {
+            user.removeNeed(need2);
+            assert(false);
+        }
+        catch(NoSuchElementException e) {
+            assert(true);           
+        }
+    }
 
     /**
      * @author Shaher Naser
