@@ -122,9 +122,12 @@ public class UserFileDAO implements UserDAO {
         throw new UnsupportedOperationException("Unimplemented method 'checkout'");
     }
 
+    /**
+     * Clears the user basket
+     */
     @Override
-    public boolean clearBakset() throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clearBakser'");
+    public void clearBasket(String username) throws IOException {
+        getUser(username).clearBasket();
+        save();
     }
 }
