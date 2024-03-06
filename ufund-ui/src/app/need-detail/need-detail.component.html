@@ -14,7 +14,7 @@
     <label for="need-amount-current">Amount Funded: {{need.currentQuantity}}</label> <br>
 
     <label for="need-amount-goal">Goal Amount: </label>
-    <input id="need-amount-goal" [(ngModel)]="need.targetQuantity" placeholder=""/> <br>
+    <input id="need-amount-goal" type="number" min="1" [(ngModel)]="need.targetQuantity" placeholder=""/> <br>
   
     </div>
   <button type="button" (click)="goBack()">go back</button>
