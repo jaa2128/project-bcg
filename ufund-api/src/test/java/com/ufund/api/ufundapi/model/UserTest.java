@@ -27,6 +27,9 @@ public class UserTest{
         need3 = new Need(2, "Need3", "Need3", "Money", 500);
     }
    
+    /**
+     * @author Brandon Santore
+     */
     @Test
     public void testAccessors(){
         HashMap<Need, Double> testBasket = new HashMap<Need, Double>();
@@ -42,6 +45,10 @@ public class UserTest{
 
     }
 
+
+    /**
+     * @author Brandon Santore
+     */
     @Test
     public void isAdminTest(){
         User adminUser = new User("admin");
