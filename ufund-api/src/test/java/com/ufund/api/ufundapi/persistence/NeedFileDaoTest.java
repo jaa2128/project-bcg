@@ -2,6 +2,8 @@ package com.ufund.api.ufundapi.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -16,10 +18,20 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Need;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.ObjectStreamConstants;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ufund.api.ufundapi.model.Need;
 
 public class NeedFileDaoTest {
     NeedFileDAO needFileDAO;
@@ -72,10 +84,11 @@ public class NeedFileDaoTest {
         Need[] needs = needFileDAO.findNeeds("ne");
 
         // Analyze
-        assertEquals(needs.length,2);
-        assertEquals(needs[0],testNeeds[1]);
-        assertEquals(needs[1],testNeeds[2]);
-    }
+        assertEquals(needs.length,3);
+        assertEquals(needs[0],testNeeds[0]);
+        assertEquals(needs[1],testNeeds[1]);
+        assertEquals(needs[2],testNeeds[2]);
+        }
 
     /** 
      * @throws IOException
@@ -89,6 +102,28 @@ public class NeedFileDaoTest {
         // Analzye
         assertEquals(need,testNeeds[0]);
     }
+
+    /**
+     * @throws IOException
+     * @author Brandon Santore
+     */
+    @Test
+    public void getNeedNotFound() throws IOException{
+        assertEquals(needFileDAO.getNeed(3), null);
+
+    }
+
+    /**
+     * @throws IOException
+     * @author Brandon Santore
+     */
+    @Test
+    public void getDeleteNeedNotFound() throws IOException{
+        boolean result = needFileDAO.deleteNeed(3);
+
+        assertEquals(result, false);
+    }
+
 
     /** 
      * @author Alexander DiMartino
@@ -107,7 +142,19 @@ public class NeedFileDaoTest {
         // we can access it directly
         assertEquals(needFileDAO.needs.size(),testNeeds.length-1);
     }
-    
+
+     /**
+     * @throws IOException
+     * @author Brandon Santore
+     */
+    public void getUpdateNeedNotFound() throws IOException{
+        Need need = new Need(4, "Stinky", "Pick up trash", "Volunteer", 300);
+        Need result = needFileDAO.updateNeed(need);
+
+        assertNull(result);
+
+    }
+
     /** 
      * @throws IOException
      * @author Alexander DiMartino
@@ -126,6 +173,17 @@ public class NeedFileDaoTest {
         Need actual = needFileDAO.getNeed(need.getID());
         assertEquals(actual.getID(),need.getID());
         assertEquals(actual.getName(),need.getName());
+    }
+    
+    public void testConstructorException() throws IOException{
+        ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
+        doThrow(new IOException())
+            .when(mockObjectMapper)
+                .readValue(new File("doesnt_matter.txt"),Need[].class);
+
+        assertThrows(IOException.class,
+                        () -> new NeedFileDAO("doesnt_matter.txt",mockObjectMapper),
+                        "IOException not thrown");
     }
 
     /** 
