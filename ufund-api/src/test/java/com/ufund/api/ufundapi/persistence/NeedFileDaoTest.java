@@ -174,6 +174,10 @@ public class NeedFileDaoTest {
         assertEquals(actual.getName(),need.getName());
     }
 
+    /**
+     * @throws IOException
+     * @author Brandon Santore
+     */
     @Test
     public void testConstructorException() throws IOException{
         ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
