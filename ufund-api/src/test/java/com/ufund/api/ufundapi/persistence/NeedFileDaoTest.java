@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectStreamConstants;
 
+import org.apache.commons.logging.Log;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -161,11 +162,19 @@ public class NeedFileDaoTest {
     @Test
     public void testCreateNeed() throws IOException {
         // Setup
+        Need oldNeed = new Need(49, "oldTest", "testing", "money", 99.99);
         Need need = new Need(50, "test", "testing", "money", 99.99);
+        Need[] testNeeds = new Need[1];
+        testNeeds[0] = oldNeed;
+
+        when(mockObjectMapper
+            .readValue(new File("doesnt_matter.txt"),Need[].class))
+                .thenReturn(testNeeds);
+        needFileDAO = new NeedFileDAO("doesnt_matter.txt",mockObjectMapper);
+   
 
         // Invoke
-        Need result = assertDoesNotThrow(() -> needFileDAO.createNeed(need),
-                                "Unexpected exception thrown");
+        Need result = assertDoesNotThrow(() -> needFileDAO.createNeed(need));
 
         // Analyze
         assertNotNull(result);
@@ -197,8 +206,16 @@ public class NeedFileDaoTest {
     @Test
     public void testUpdateNeed() throws IOException {
         // Setup
+        Need oldNeed = new Need(51, "oldTest", "testing", "money", 99.99);
         Need need = new Need(51, "test", "testing", "money", 99.99);
+        Need[] testNeeds = new Need[1];
+        testNeeds[0] = oldNeed;
 
+        when(mockObjectMapper
+            .readValue(new File("doesnt_matter.txt"),Need[].class))
+                .thenReturn(testNeeds);
+        needFileDAO = new NeedFileDAO("doesnt_matter.txt",mockObjectMapper);
+   
         // Invoke
         Need result = assertDoesNotThrow(() -> needFileDAO.updateNeed(need),
                                 "Unexpected exception thrown");
