@@ -47,18 +47,15 @@ public class UserFileDAO implements UserDAO {
     private boolean load() throws IOException {
         users = new TreeMap<>();
 
-        // Deserializes the JSON objects from the file into an array of needs
+        // Deserializes the JSON objects from the file into an array of users
         // readValue will throw an IOException if there's an issue with the file
-        Need[] needArray = objectMapper.readValue(new File(filename),Need[].class);
+        User[] userArray = objectMapper.readValue(new File(filename),User[].class);
 
-        // Add each need to the tree map and keep track of the greatest id
-        for (Need need : needArray) {
-            needs.put(need.getID(),need);
-            if (need.getID() > nextId)
-                nextId = need.getID();
+        // Add each user to the tree map
+        for (User user : userArray) {
+            users.put(user.getUsername(),user);
         }
-        // Make the next id one greater than the maximum from the file
-        ++nextId;
+
         return true;
     }
 
@@ -78,10 +75,15 @@ public class UserFileDAO implements UserDAO {
         return userArray;
     }
 
+    /**
+     * Retrieves all current needs stored in the JSOn
+     * @return all the needs stored in an array
+     */
     @Override
     public User[] getUsers() throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUsers'");
+        synchronized(users){
+            return getUsersArray();
+        }
     }
 
     @Override
