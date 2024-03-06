@@ -73,6 +73,9 @@ public class UserTest{
 
     // }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testCheckout() {
         //setup
@@ -89,6 +92,9 @@ public class UserTest{
         assertEquals(need3.getCurrentQuantity(), 500);
     }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testClearBasket() {
         //setup

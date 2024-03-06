@@ -15,6 +15,9 @@ public class NeedTest {
         need = new Need(50, "hello", "this is a description", "money", 99.99);
     }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testGetID() {
         //invoke
@@ -25,6 +28,9 @@ public class NeedTest {
         assertEquals(actual, expected);
     }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testGetName() {
         //invoke
@@ -35,6 +41,9 @@ public class NeedTest {
         assertEquals(actual, expected);
     }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testGetDescription() {
         //invoke
@@ -45,6 +54,9 @@ public class NeedTest {
         assertEquals(actual, expected);
     }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testGetType() {
         //invoke
@@ -55,6 +67,9 @@ public class NeedTest {
         assertEquals(actual, expected);
     }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testGetTargetQuantity() {
         //invoke
@@ -65,6 +80,9 @@ public class NeedTest {
         assertEquals(actual, expected);
     }
     
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testGetCurrentQuantity() {
         //invoke
@@ -75,6 +93,9 @@ public class NeedTest {
         assertEquals(actual, expected);
     }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testSetName() {
         //invoke
@@ -86,6 +107,9 @@ public class NeedTest {
         assertEquals(actual, expected);
     }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testSetDescription() {
         //invoke
@@ -97,6 +121,9 @@ public class NeedTest {
         assertEquals(actual, expected);
     }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testSetTargetQuantity() {
         //invoke
@@ -108,6 +135,9 @@ public class NeedTest {
         assertEquals(need.getTargetQuantity(), expected);
     }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testContribute() {
         //invoke
@@ -127,6 +157,9 @@ public class NeedTest {
         assertEquals(need.getCurrentQuantity(), expected);
     }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testIsSatisfiedTrue() {
         //invoke
@@ -138,6 +171,9 @@ public class NeedTest {
         assertEquals(actual, expected);
     }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testIsSatisfiedFalse() {
         //invoke
@@ -149,6 +185,9 @@ public class NeedTest {
         assertEquals(need.isSatisfied(), expected);
     }
 
+    /**
+     * @author Shaher Naser
+     */
     @Test
     public void testToString() {
         //invoke
