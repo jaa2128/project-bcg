@@ -121,7 +121,7 @@ public class UserFileDAO implements UserDAO {
     }
 
     @Override
-    public boolean clearBakser() throws IOException {
+    public boolean clearBakset() throws IOException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'clearBakser'");
     }

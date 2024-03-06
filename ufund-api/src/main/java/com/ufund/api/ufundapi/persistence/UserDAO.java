@@ -21,7 +21,7 @@ public interface UserDAO {
 
     Need[] checkout() throws IOException;
 
-    boolean clearBakser() throws IOException;
+    boolean clearBakset() throws IOException;
 
 
 }
