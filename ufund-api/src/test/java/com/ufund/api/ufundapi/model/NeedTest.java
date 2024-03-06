@@ -1,6 +1,7 @@
 package com.ufund.api.ufundapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -192,6 +193,14 @@ public class NeedTest {
 
         assertTrue(emptyFieldNeed.hasEmptyField());
     }
+
+    @Test
+    public void testDoesNotHaveEmptyField(){
+        Need newNeed = new Need(30, "Test Need", "Test Description", "Test Type", 1.0);
+        
+        assertFalse(newNeed.hasEmptyField());
+    }
+
 
     /**
      * @author Shaher Naser
