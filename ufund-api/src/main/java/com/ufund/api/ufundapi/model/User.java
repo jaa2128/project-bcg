@@ -74,7 +74,6 @@ public class User {
             double quantity = entry.getValue(); //the quantity associated with need
             need.contribute(quantity);
         }
-        clearBasket();
     }
 
     /**

@@ -3,7 +3,10 @@ package com.ufund.api.ufundapi.persistence;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
@@ -124,15 +127,28 @@ public class UserFileDAO implements UserDAO {
     }
 
     @Override
-    public boolean removeNeed(String username, int id) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeNeed'");
+    public boolean removeNeed(String username, Need need) throws IOException {
+        synchronized(users){
+            try {
+                getUser(username).removeNeed(need);
+                save();
+                return true;
+            } catch (NoSuchElementException e) {
+                return false;
+            }
+        }
     }
 
     @Override
     public Need[] checkout(String username) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'checkout'");
+        synchronized(users){
+            getUser(username).checkout();
+            Set<Need> tempNeeds = getUser(username).getBasket().keySet();
+            Need[] needs = (tempNeeds.toArray(new Need[tempNeeds.size()]));
+            getUser(username).clearBasket();
+            save();
+            return needs; 
+        }
     }
 
     /**
