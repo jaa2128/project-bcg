@@ -89,6 +89,12 @@ public class Need {
      * @param targetQuantity the new target quantity of the Need
      */
     public void setTargetQuantity(double targetQuantity) { this.targetQuantity = targetQuantity; }
+
+    /**
+     * updates the need's type
+     * @param type
+     */
+    public void setType(String type){this.type = type;}
     
     /**
      * contributes to the currentQuantity of the Need

@@ -200,6 +200,25 @@ public class NeedControllerTest {
         assertEquals(HttpStatus.NOT_ACCEPTABLE,response.getStatusCode());
     }
 
+    @Test public void testUpdateNeedWithoutType() throws IOException{
+        // Setup
+        Need need = new Need(99,"Test Need 5","Test Description","Test Type",1.0);
+        // when updateNeed is called, return true simulating successful
+        // update and save
+        when(mockNeedDAO.updateNeed(need)).thenReturn(need);
+
+        // when mockNeedDAO tries to access its needs, it returns a Need[]
+        when(mockNeedDAO.getNeeds()).thenReturn(mockNeeds);
+
+        ResponseEntity<Need> response = needController.updateNeed(need);
+        need.setType("");
+
+        // Invoke
+        response = needController.updateNeed(need);
+
+        // Analyze
+        assertEquals(HttpStatus.NOT_ACCEPTABLE,response.getStatusCode());
+    }
 
     @Test
     public void testUpdateNeedFailed() throws IOException { // updateNeed may throw IOException
