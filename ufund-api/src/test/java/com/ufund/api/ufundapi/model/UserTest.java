@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,31 +27,29 @@ public class UserTest{
         need3 = new Need(2, "Need3", "Need3", "Money", 500);
     }
    
-    // @Test
-    // public void testAccessors(){
-    //     ArrayList<Need> basket = new ArrayList<Need>();
-    //     ArrayList<Need> testBasket = new ArrayList<Need>();
-    //     basket.add(need1);
-    //     basket.add(need2);
-    //     basket.add(need3);
-    //     testBasket.add(need1);
-    //     testBasket.add(need2);
-    //     testBasket.add(need3);
-    //     User user = new User("bms1276", basket);
+    @Test
+    public void testAccessors(){
+        HashMap<Need, Double> testBasket = new HashMap<Need, Double>();
+        user.addNeed(need1, 100.0);
+        user.addNeed(need2, 50.0);
+        user.addNeed(need3, 35.0);
+        testBasket.put(need1, 100.0);
+        testBasket.put(need2, 50.0);
+        testBasket.put(need3, 35.0);
 
-    //     assertEquals(user.getUsername(), "bms1276", "Why this no worky?!");
-    //     assertEquals(user.getBasket(), testBasket, "These baskets do not match!");
+        assertEquals(user.getUsername(), "GriddyMaster", "Why this no worky?!");
+        assertEquals(user.getBasket(), testBasket, "These baskets do not match!");
 
-    // }
+    }
 
-    // @Test
-    // public void isAdminTest(){
-    //     User adminUser = new User("admin", new ArrayList<Need>());
-    //     User helperUser = new User("Batman", new ArrayList<Need>());
-    //     assertTrue(adminUser.isAdmin());
-    //     assertFalse(helperUser.isAdmin());
+    @Test
+    public void isAdminTest(){
+        User adminUser = new User("admin");
+        User helperUser = new User("Batman");
+        assertTrue(adminUser.isAdmin());
+        assertFalse(helperUser.isAdmin());
 
-    // }
+    }
 
     // @Test
     // public void testAddNeed() {
