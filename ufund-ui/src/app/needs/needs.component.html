@@ -1,6 +1,27 @@
 <h2>My Needs</h2>
+
+<div>
+  <label for="new-need-name">Need name: </label>
+  <input id="new-need-name" #needName />
+  <br>
+
+  <label for="new-need-desc">Need description</label>
+  <input id="new-need-desc" #needDesc />
+  <br>
+
+  <label for="new-need-type">Need type</label>
+  <input id="new-need-type" #needType />
+  <br>
+
+  <label for="new-need-targetQ">Need target quantity</label>
+  <input id="new-need-targetQ" #needTargetQ />
+  <br>
+
+  <button type="button" class="add-button" (click)="createNeed(needName.value, needDesc.value, needType.value, needTargetQ.valueAsNumber); needName.value=''; needDesc.value=''; needType.value=''; needTargetQ.value=''">
+    Add Need
+  </button>
+</div>
    
-    <!-- (click) passes input value to add() and then clears the input -->
 
   <ul class="needs">
     <li *ngFor="let need of needs">
