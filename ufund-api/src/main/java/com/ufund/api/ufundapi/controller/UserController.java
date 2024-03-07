@@ -108,9 +108,28 @@ public class UserController {
         return null;
     }
 
+    /**
+     * Checks out the user's basket
+     * @param username the username to remove the need from
+     * @param need the need to remove
+     * @return         HttpStatus.OK, if basket is successfully cleared
+     * @return         HttpStatus.NOT_FOUND, if the need was not removed or does not exist
+     * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
+     */
     @DeleteMapping("/{username}")
-    public ResponseEntity<Need> removeNeed(@PathVariable String username, Need need, double quantity) {
-        return null;
+    public ResponseEntity<Need> removeNeed(@PathVariable String username, Need need) {
+        LOG.info("DELETE " + need.getID());
+        try{
+            boolean needExists = userDao.removeNeed(username, need);
+            if(needExists)
+                return new ResponseEntity<>(HttpStatus.OK);
+            else 
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e){
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
