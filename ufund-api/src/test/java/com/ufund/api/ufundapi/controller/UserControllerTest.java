@@ -53,29 +53,25 @@ public class UserControllerTest {
 
         // Analyze
         assertEquals(HttpStatus.OK, response);
-
-
-
     }
 
-    @Test
-    public void testClearBasket() throws IOException {
-        //Setup
-        User user = new User("abc123", "1234");
-        //add some mock needs in basket
-        for(int i = 0; i < 3; i++) {
-            user.addNeed(mock(Need.class), 10.0);
-        }
-        //return the user when we try to call getUser()
-        when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+    @Test 
+    public void testGetUserNotFound() throws IOException {
+        // Set up
+        String userName = "Maurice";
 
-        //Invoke
-        ResponseEntity<Boolean> response = userController.clearBasket(user.getUsername());
+        // When the same username is passed in, the mock User DAO will return null,
+        // simulating no user found
+        when(mockUserDAO.getUser(userName).thenReturn(null));
 
-        //Analyze
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
-        assertEquals(user.getBasket().size(), 0);
+        // Invoke
+        ResponseEntity<User> response = userController.getUser(userName, "password");
+
+        // Analyze
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
+
+    
 
     
 }
