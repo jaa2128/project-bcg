@@ -115,7 +115,7 @@ public class UserFileDAO implements UserDAO {
     public User createUser(String username) throws IOException {
         synchronized(users) {
             for (User user : users.values()){
-                if(user.getUsername().equals(username));
+                if(user.getUsername().equals(username)) {
                     return null;
                 }
             }
@@ -126,13 +126,24 @@ public class UserFileDAO implements UserDAO {
         }
     }
 
+    /**
+     * adds a need to the user's funding basket
+     * @param username the username of the user
+     * @param need the need the user adds to the basket
+     * @param quantity the amount to contribute to the need
+     * @return the need if it was successfully added, null if the user doesn't exist
+     */
     @Override
-    public Need addNeed(String username, int id, double quantity) throws IOException {
+    public Need addNeed(String username, Need need, double quantity) throws IOException {
         synchronized(users) {
             User user = getUser(username);
             if(user == null) {
                 return null;
             }
+            HashMap<Need, Double> basket = user.getBasket();
+            basket.put(need, quantity);
+            save(); //may throw IOException
+            return need;
         }
     }
 
