@@ -103,9 +103,30 @@ public class UserController {
         }
     }
 
+    /**
+     * adds a need to a user's basket in the JSON
+     * @param username the username of the user
+     * @param need the need to add to the basket
+     * @param quantity how much the user wants to contribute to the need
+     * @return HttpStatus.NOT_FOUND if the user does not exist
+     * @return HttpStatus.OK if the need was successfully added
+     * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an error
+     */
     @PutMapping("/{username}")
     public ResponseEntity<Need> addNeed(@PathVariable String username, Need need, double quantity) {
-        return null;
+        LOG.info("PUT /users " + username + "/" + need);
+        try {
+            Need newNeed = userDao.addNeed(username, need, quantity);
+            if(newNeed == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else {
+                return new ResponseEntity<Need>(newNeed, HttpStatus.OK);
+            }
+        }
+        catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/{username}")
