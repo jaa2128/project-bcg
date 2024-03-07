@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 public class User {
     private final String username; //User's username for login
+    private final String password; //User's password
     private final HashMap<Need, Double> basket; //User's funding basket
         //Keys are the needs
         //Values are the quantity to be contributed to the Need
@@ -18,8 +19,9 @@ public class User {
      * @param username //Will be determined by user during signup
      * @param basket //Initialized as empty ArrayList
      */
-    public User(String username){
+    public User(String username, String password){
         this.username = username;
+        this.password = password;
         this.basket = new HashMap<>();
         isAdmin = username.equals("admin");
     }
@@ -44,6 +46,15 @@ public class User {
      */
     public boolean isAdmin(){
         return this.isAdmin;
+    }
+
+    /**
+     * Verifies the password of the user
+     * @param guess the guess for the password
+     * @return true if the guess and password match, false otherwise
+     */
+    public boolean isPassword(String guess) {
+        return password.equals(guess);
     }
 
     /**
@@ -74,7 +85,6 @@ public class User {
             double quantity = entry.getValue(); //the quantity associated with need
             need.contribute(quantity);
         }
-        clearBasket();
     }
 
     /**
