@@ -113,7 +113,7 @@ public class UserFileDAO implements UserDAO {
      * @return true if the password matches
      * @return false if the password fails
      * 
-     * NOTE: THIS METHOD ASSUMES THAT THE GIVEN USERNAME ALREADYE EXISTS
+     * NOTE: THIS METHOD ASSUMES THAT THE GIVEN USERNAME ALREADY EXISTS
      */
     @Override
     public boolean authenticateUser(String username, String password) throws IOException {
