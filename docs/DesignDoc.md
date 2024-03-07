@@ -10,7 +10,7 @@ geometry: margin=1in
 
 ## Team Information
 * Team name: Julian and The Maurices
-* Team members
+* Team members:
   * Julian Alvia
   * Matthew Zobbi
   * Shaher Naser
@@ -30,7 +30,8 @@ This is a summary of the project.
 
 | Term | Definition |
 |------|------------|
-| SPA | Single Page |
+| SPA | Single Page Application |
+| MVP | Minimum Viable Product |
 
 
 ## Requirements
@@ -42,7 +43,8 @@ This section describes the features of the application.
 > maybe Epics and critical Stories._
 
 ### Definition of MVP
-> _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
+
+For our MVP, each user, as a voluteer for the U-fund, should be able to browse, search for, and contribute to any desire number of needs. This is accomplished by adding needs to a "funding basket" that they can add and remove needs from. The list of needs is set up and curated by an administrator user, who can also edit the name, description, type, and target quantity of all needs. However, the adminstrator cannot view the funding baskets of any user. User and adminstrators login via a login page, and the adminstrator logs in with the username "admin." Any other username/password combonation is assumed to be a user.
 
 ### MVP Features
 >  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
@@ -87,6 +89,8 @@ Both the ViewModel and Model are built using Java and Spring Framework. Details 
 
 This section describes the web interface flow; this is how the user views and interacts with the web application.
 
+TODO: UI description
+
 > _Provide a summary of the application's user interface.  Describe, from the user's perspective, the flow of the pages in the web application._
 
 
@@ -109,17 +113,16 @@ This section describes the web interface flow; this is how the user views and in
  >* _Include other details such as attributes and method signatures that you think are needed to support the level of detail in your discussion._
 
 ### ViewModel Tier
-> _**[Sprint 1]**_
->
-> The primary ViewModel is the "NeedController". This class is responsible for the functions the user must be able to utilize from the View tier. The functions currently within "NeedController" are:
-> updateNeed() - To update the information of a specified need
-> createNeed() - To create a new need
-> getNeeds() - To return a list of needs
-> getNeed() - To return an individual need
-> deleteNeed() - To remove an individual need
-> searchNeeds() - To navigate the user's list of needs
->
-> These functions will be called in the View tier of the project, and will communicate with the View tier to display information to the user.
+
+The primary ViewModel is the "NeedController". This class is responsible for the functions the user must be able to utilize from the View tier. The functions currently within "NeedController" are:
+updateNeed() - To update the information of a specified need
+createNeed() - To create a new need
+getNeeds() - To return a list of needs
+getNeed() - To return an individual need
+deleteNeed() - To remove an individual need
+searchNeeds() - To navigate the user's list of needs
+
+These functions will be called in the View tier of the project, and will communicate with the View tier to display information to the user.
 
 > _**[Sprint 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -131,20 +134,19 @@ This section describes the web interface flow; this is how the user views and in
 ![Replace with your ViewModel Tier class diagram 1, etc.](model-placeholder.png)
 
 ### Model Tier
-> _**[Sprint 1]**_
->
-> At this stage of the project, the primary models are the "Need" and "NeedFileDAO".
-> The "Need" class represents a user's need, and contains methods for getting information from a need, and modifying the contents of a need.
->
-> The "NeedFileDAO" class contains the code utilized by the ViewModel tier of the project. The methods contained in this class are:
-> getNeedsArray() - To search an array of needs given specific criteria
-> updateNeed() - To update the information of a specified need
-> createNeed() - To create a new need
-> getNeeds() - To return a list of needs
-> getNeed() - To return an individual need
-> deleteNeed() - To remove an individual need
->
-> The "NeedFileDAO" class is the backend of the project, and interfaces with the ViewModel tier to allow the user to modify and access needs. 
+
+At this stage of the project, the primary models are the "Need" and "NeedFileDAO".
+The "Need" class represents a user's need, and contains methods for getting information from a need, and modifying the contents of a need.
+
+The "NeedFileDAO" class contains the code utilized by the ViewModel tier of the project. The methods contained in this class are:
+getNeedsArray() - To search an array of needs given specific criteria
+updateNeed() - To update the information of a specified need
+createNeed() - To create a new need
+getNeeds() - To return a list of needs
+getNeed() - To return an individual need
+deleteNeed() - To remove an individual need
+
+The "NeedFileDAO" class is the backend of the project, and interfaces with the ViewModel tier to allow the user to modify and access needs. 
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -157,12 +159,10 @@ This section describes the web interface flow; this is how the user views and in
 
 ## OO Design Principles
 
-> _**[Sprint 1]**_
->
-> Open/Closed Principle - Software entities are open for expansion, but closed for modification. In our design, we have considered possible expansions to the features that the product owner wants, without modifying any of the original features.
->
-> Single Responsibilty - Classes should be limited to having only one responsibility dedicated to it. An example of this in our design is dedicating the NeedController class the responsibility of managing the needs in the cupboard, and nothing more.
->
+Open/Closed Principle - Software entities are open for expansion, but closed for modification. In our design, we have considered possible expansions to the features that the product owner wants, without modifying any of the original features.
+
+Single Responsibilty - Classes should be limited to having only one responsibility dedicated to it. An example of this in our design is dedicating the NeedController class the responsibility of managing the needs in the cupboard, and nothing more.
+
 > **(Instructions kept here for later use)** _Name and describe the initial OO Principles that your team has considered in support of your design (and implementation) for this first Sprint._
 
 > _**[Sprint 2, 3 & 4]** Will eventually address upto **4 key OO Principles** in your final design. Follow guidance in augmenting those completed in previous Sprints as indicated to you by instructor. Be sure to include any diagrams (or clearly refer to ones elsewhere in your Tier sections above) to support your claims._
@@ -180,6 +180,8 @@ This section describes the web interface flow; this is how the user views and in
 ## Testing
 > _This section will provide information about the testing performed
 > and the results of the testing._
+
+Each Java class in the Model and ViewModel tiers was tested extensively using Maven's unit testing tools. Using JaCoCo, we could see how much of the tests passed, and how much of our code has been tested. As 2024/03/07, we have acheived 98% instruction coverage and 98% branch coverage, but we expect this percentage to fall as we implement the UserController class before we create unit tests.
 
 ### Acceptance Testing
 > _**[Sprint 2 & 4]** Report on the number of user stories that have passed all their
@@ -201,4 +203,4 @@ This section describes the web interface flow; this is how the user views and in
 >**(Instructions kept here for later use)**
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._
 >
->(2024/02/18): Sprint 1 - The team had a thorough discussion about the use of IDs for needs with consideration to the fact that needs have to have unique names. We were trying to understand the primary function of the IDs and whether or not the IDs were necessary, given that all the needs in the cupboard are required to have unique names, thus seemingly defeating the purpose of giving each need a unique ID. We, eventually, came to the conclusion that getting rid of the IDs might cause issues later on, and that they were worth keeping, even if we couldn't figure out a significant use for them. At the very least, IDs are an easy method of retrieval for individual needs. They also provide more organized storage in the back-end, with IDs serving as the key for the needs map.
+(2024/02/18): Sprint 1 - The team had a thorough discussion about the use of IDs for needs with consideration to the fact that needs have to have unique names. We were trying to understand the primary function of the IDs and whether or not the IDs were necessary, given that all the needs in the cupboard are required to have unique names, thus seemingly defeating the purpose of giving each need a unique ID. We, eventually, came to the conclusion that getting rid of the IDs might cause issues later on, and that they were worth keeping, even if we couldn't figure out a significant use for them. At the very least, IDs are an easy method of retrieval for individual needs. They also provide more organized storage in the back-end, with IDs serving as the key for the needs map.
