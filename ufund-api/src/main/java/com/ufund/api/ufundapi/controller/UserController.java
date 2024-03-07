@@ -72,9 +72,26 @@ public class UserController {
         return null;
     }   
     
-    //idk what to put in place of boolean lol
+    /**
+     * Clears the user's basket
+     * @param username the username to clear the basket of
+     * @return         HttpStatus.OK, if basket is successfully cleared
+     * @return         HttpStatus.NOT_FOUND, if there are errors clearing the basket
+     * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
+     */
     @DeleteMapping("/{username}")
     public ResponseEntity<Boolean> clearBasket(@PathVariable String username) {
-        return null;
+        LOG.info("CLEAR BASKET " + username);
+        try{
+            boolean basketClear = userDao.clearBasket(username);
+            if(basketClear)
+                return new ResponseEntity<>(HttpStatus.OK);
+            else 
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e){
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

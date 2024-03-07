@@ -183,8 +183,9 @@ public class UserFileDAO implements UserDAO {
      * Clears the user basket
      */
     @Override
-    public void clearBasket(String username) throws IOException {
+    public boolean clearBasket(String username) throws IOException {
         getUser(username).clearBasket();
         save();
+        return getUser(username).getBasket().isEmpty();
     }
 }
