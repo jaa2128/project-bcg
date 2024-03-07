@@ -40,6 +40,8 @@ public class User {
         return this.basket;
     }
 
+    public String getPassword() {return password;}
+
     /**
      * Returns whether user is a helper or an admin
      * @return true is the user is an admin, false otherwise

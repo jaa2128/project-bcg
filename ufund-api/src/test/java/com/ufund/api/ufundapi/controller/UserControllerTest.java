@@ -47,12 +47,13 @@ public class UserControllerTest {
 
         // When the same username is passed in, our mock User DAO will return the user
         when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+        when(mockUserDAO.authenticateUser(user.getUsername(), user.getPassword())).thenReturn(true);
 
         // Invoke
         ResponseEntity<User> response = userController.getUser(user.getUsername(), "1234");
 
         // Analyze
-        assertEquals(HttpStatus.OK, response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test 
@@ -62,7 +63,7 @@ public class UserControllerTest {
 
         // When the same username is passed in, the mock User DAO will return null,
         // simulating no user found
-        when(mockUserDAO.getUser(userName).thenReturn(null));
+        when(mockUserDAO.getUser(userName)).thenReturn(null);
 
         // Invoke
         ResponseEntity<User> response = userController.getUser(userName, "password");
@@ -71,6 +72,24 @@ public class UserControllerTest {
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
+    @Test
+    public void testClearBasket() throws IOException {
+        //Setup
+        User user = new User("abc123", "1234");
+        //add some mock needs in basket
+        for(int i = 0; i < 3; i++) {
+            user.addNeed(mock(Need.class), 10.0);
+        }
+        //return the user when we try to call getUser()
+        when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+
+        //Invoke
+        ResponseEntity<Boolean> response = userController.clearBasket(user.getUsername());
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertEquals(user.getBasket().size(), 0);
+    }
     
 
     
