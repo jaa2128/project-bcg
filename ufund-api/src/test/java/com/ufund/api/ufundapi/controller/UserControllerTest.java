@@ -59,12 +59,22 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testClearBasket() {
-        // Setup
+    public void testClearBasket() throws IOException {
+        //Setup
         User user = new User("abc123", "1234");
+        //add some mock needs in basket
         for(int i = 0; i < 3; i++) {
             user.addNeed(mock(Need.class), 10.0);
         }
+        //return the user when we try to call getUser()
+        when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+
+        //Invoke
+        ResponseEntity<Boolean> response = userController.clearBasket(user.getUsername());
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertEquals(user.getBasket().size(), 0);
     }
 
     
