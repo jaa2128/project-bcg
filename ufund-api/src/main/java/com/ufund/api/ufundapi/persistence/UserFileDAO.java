@@ -107,6 +107,26 @@ public class UserFileDAO implements UserDAO {
     }
 
     /**
+     * verifies the password of a user
+     * @param username the username of the user
+     * @param password the guessed password
+     * @return true if the password matches
+     * @return false if the password fails
+     * 
+     * NOTE: THIS METHOD ASSUMES THAT THE GIVEN USERNAME ALREADYE EXISTS
+     */
+    @Override
+    public boolean authenticateUser(String username, String password) throws IOException {
+        synchronized(users) {
+            User user = getUser(username);
+            if(user.isPassword(password)) {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    /**
      * Creates a new user
      * @param username the username of the new user
      * @return the new user if the given username was not already in use, null otherwise
