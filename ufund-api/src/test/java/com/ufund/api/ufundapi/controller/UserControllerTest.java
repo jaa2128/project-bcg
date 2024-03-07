@@ -49,7 +49,7 @@ public class UserControllerTest {
         when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
 
         // Invoke
-        ResponseEntity<User> response = userController.getUser(user.getUsername());
+        ResponseEntity<User> response = userController.getUser(user.getUsername(), "1234");
 
         // Analyze
         assertEquals(HttpStatus.OK, response);
