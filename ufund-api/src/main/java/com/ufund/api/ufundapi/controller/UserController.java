@@ -36,6 +36,11 @@ public class UserController {
         this.userDao = userDao;
     }
 
+    /**
+     * gets an array of all the users in the JSON
+     * @return an array of all the users with HttpStatus.OK if there were no errors
+     * @return HttpStatus.INTERNAL_SERVER_ERROR if ther was an error
+     */
     @GetMapping("")
     public ResponseEntity<User[]> getUsers() {
         LOG.info("GET /users/");
