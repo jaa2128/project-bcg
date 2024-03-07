@@ -47,9 +47,28 @@ public class UserController {
         }
     }
 
+    /**
+     * Retrieves a specific user from the JSON file
+     * @param username the username of the user
+     * @return the user object with HttpStatus.OK if the user exists 
+     * @return HttpStatus.NOT_FOUND if the user does not exist
+     * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an error
+     */
     @GetMapping("/{username}")
     public ResponseEntity<User> getUser(@PathVariable String username) {
-        return null;
+        LOG.info("GET /users/" + username);
+        try {
+            User user = userDao.getUser(username);
+            if(user == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else {
+                return new ResponseEntity<User>(user, HttpStatus.OK);
+            }
+        }
+        catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("")
