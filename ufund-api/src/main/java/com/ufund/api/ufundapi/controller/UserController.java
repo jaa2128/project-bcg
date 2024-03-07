@@ -36,19 +36,71 @@ public class UserController {
         this.userDao = userDao;
     }
 
+    /**
+     * gets an array of all the users in the JSON
+     * @return an array of all the users with HttpStatus.OK if there were no errors
+     * @return HttpStatus.INTERNAL_SERVER_ERROR if ther was an error
+     */
     @GetMapping("")
     public ResponseEntity<User[]> getUsers() {
-        return null;
+        LOG.info("GET /users/");
+        try {
+            User[] users = userDao.getUsers();
+            return new ResponseEntity<User[]>(users, HttpStatus.OK);
+        } catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
+    /**
+     * Retrieves a specific user from the JSON file
+     * @param username the username of the user
+     * @return the user object with HttpStatus.OK if the user exists 
+     * @return HttpStatus.NOT_FOUND if the user does not exist
+     * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an error
+     */
     @GetMapping("/{username}")
     public ResponseEntity<User> getUser(@PathVariable String username) {
-        return null;
+        LOG.info("GET /users/" + username);
+        try {
+            User user = userDao.getUser(username);
+            if(user == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else {
+                return new ResponseEntity<User>(user, HttpStatus.OK);
+            }
+        }
+        catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
+    /**
+     * creates a new user in the JSON
+     * @param username the username of the new user
+     * @return HttpStatus.BAD_REQUEST if the username is blank
+     * @return HttpStatus.CREATED and the new user if the user was successfully added
+     * @return HttpStatus.CONFLICT if the username was already in use
+     * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an I/O error
+     */
     @PostMapping("")
     public ResponseEntity<User> createUser(String username) {
-        return null;
+        LOG.info("POST /users " + username);
+        try {
+            if (username.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            User user = userDao.createUser(username);
+            if(user != null){
+                return new ResponseEntity<User>(user, HttpStatus.CREATED);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{username}")
