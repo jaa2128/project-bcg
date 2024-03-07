@@ -76,9 +76,31 @@ public class UserController {
         }
     }
 
+    /**
+     * creates a new user in the JSON
+     * @param username the username of the new user
+     * @return HttpStatus.BAD_REQUEST if the username is blank
+     * @return HttpStatus.CREATED and the new user if the user was successfully added
+     * @return HttpStatus.CONFLICT if the username was already in use
+     * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an I/O error
+     */
     @PostMapping("")
     public ResponseEntity<User> createUser(String username) {
-        return null;
+        LOG.info("POST /users " + username);
+        try {
+            if (username.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            User user = userDao.createUser(username);
+            if(user != null){
+                return new ResponseEntity<User>(user, HttpStatus.CREATED);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{username}")
