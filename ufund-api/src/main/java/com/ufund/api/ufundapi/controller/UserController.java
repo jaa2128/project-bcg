@@ -55,12 +55,13 @@ public class UserController {
     /**
      * Retrieves a specific user from the JSON file
      * @param username the username of the user
-     * @return the user object with HttpStatus.OK if the user exists 
+     * @return the user object with HttpStatus.OK if the user exists and the password is correct
      * @return HttpStatus.NOT_FOUND if the user does not exist
+     * @return HttpStatus.UNAUTHORIZED if the password is incorrect
      * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an error
      */
     @GetMapping("/{username}")
-    public ResponseEntity<User> getUser(@PathVariable String username) {
+    public ResponseEntity<User> getUser(@PathVariable String username, String password) {
         LOG.info("GET /users/" + username);
         try {
             User user = userDao.getUser(username);
@@ -68,7 +69,12 @@ public class UserController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             else {
-                return new ResponseEntity<User>(user, HttpStatus.OK);
+                if(userDao.authenticateUser(username, password)) {
+                    return new ResponseEntity<User>(user, HttpStatus.OK);
+                }
+                else {
+                    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                }
             }
         }
         catch(IOException e) {
