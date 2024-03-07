@@ -136,15 +136,12 @@ public class UserFileDAO implements UserDAO {
         }
     }
 
-    @Override
-    public Need updateNeed(String username, int id, double quantity) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateNeed'");
-    }
-
+    /**
+     * Removes a need from the user basket
+     */
     @Override
     public boolean removeNeed(String username, Need need) throws IOException {
-        synchronized(users){
+        synchronized(users) {
             try {
                 getUser(username).removeNeed(need);
                 save();
@@ -155,6 +152,10 @@ public class UserFileDAO implements UserDAO {
         }
     }
 
+    /**
+     * Checks out the user basket
+     * @return The list of needs checked out
+     */
     @Override
     public Need[] checkout(String username) throws IOException {
         synchronized(users){
