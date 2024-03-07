@@ -4,8 +4,11 @@ Welcome to the PROJECT Project!
 
 ## Team
 
-* MEMBER1
-* MEMBER2
+  * Julian Alvia
+  * Matthew Zobbi
+  * Shaher Naser
+  * Alexander DiMartino
+  * Brandon Santore
 
 ## [Design Documentation](DesignDoc)
 
