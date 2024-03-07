@@ -26,7 +26,7 @@ public class UserTest{
 
     @BeforeEach
     public void setupObjects(){
-        user = new User("GriddyMaster");
+        user = new User("GriddyMaster", "pass");
         need1 = new Need(0, "Need1", "Need1", "Money", 10);
         need2 = new Need(1, "Need2", "Need2", "Money", 200);
         need3 = new Need(2, "Need3", "Need3", "Money", 500);
@@ -56,8 +56,8 @@ public class UserTest{
      */
     @Test
     public void isAdminTest(){
-        User adminUser = new User("admin");
-        User helperUser = new User("Batman");
+        User adminUser = new User("admin", "banana");
+        User helperUser = new User("Batman", "masterGriddy");
         assertTrue(adminUser.isAdmin());
         assertFalse(helperUser.isAdmin());
 
