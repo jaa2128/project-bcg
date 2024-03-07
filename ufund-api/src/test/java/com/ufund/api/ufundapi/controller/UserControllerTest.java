@@ -58,5 +58,14 @@ public class UserControllerTest {
 
     }
 
+    @Test
+    public void testClearBasket() {
+        // Setup
+        User user = new User("abc123", "1234");
+        for(int i = 0; i < 3; i++) {
+            user.addNeed(mock(Need.class), 10.0);
+        }
+    }
+
     
 }

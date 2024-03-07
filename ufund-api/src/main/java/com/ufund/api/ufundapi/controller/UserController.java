@@ -91,13 +91,13 @@ public class UserController {
      * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an I/O error
      */
     @PostMapping("")
-    public ResponseEntity<User> createUser(String username) {
+    public ResponseEntity<User> createUser(String username, String password) {
         LOG.info("POST /users " + username);
         try {
-            if (username.isEmpty()) {
+            if (username.isEmpty() || password.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            User user = userDao.createUser(username);
+            User user = userDao.createUser(username, password);
             if(user != null){
                 return new ResponseEntity<User>(user, HttpStatus.CREATED);
             }
