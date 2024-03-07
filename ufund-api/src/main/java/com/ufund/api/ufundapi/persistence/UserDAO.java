@@ -11,7 +11,7 @@ public interface UserDAO {
     
     User getUser(String username) throws IOException;
 
-    User createUser(String username) throws IOException;
+    User createUser(String username, String password) throws IOException;
 
     Need addNeed(String username, Need need, double quantity) throws IOException;
     

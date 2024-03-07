@@ -112,14 +112,14 @@ public class UserFileDAO implements UserDAO {
      * @return the new user if the given username was not already in use, null otherwise
      */
     @Override
-    public User createUser(String username) throws IOException {
+    public User createUser(String username, String password) throws IOException {
         synchronized(users) {
             for (User user : users.values()){
                 if(user.getUsername().equals(username)) {
                     return null;
                 }
             }
-            User newUser = new User(username);
+            User newUser = new User(username, password);
             users.put(username, newUser);
             save(); // may throw an IOException
             return newUser;
