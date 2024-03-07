@@ -61,9 +61,24 @@ public class UserController {
         return null;
     }
 
-    @PutMapping("/{username}")
+
+    /**
+     * Checks out the user's basket
+     * @param username the username to checkout the basket of
+     * @return         HttpStatus.OK, if basket is successfully cleared
+     * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
+     */
+    @DeleteMapping("/{username}")
     public ResponseEntity<Need[]> checkout(@PathVariable String username) {
-        return null;
+        LOG.info("CHECKOUT " + username);
+        try{
+            Need[] checkoutNeeds = userDao.checkout(username);
+            return new ResponseEntity<>(checkoutNeeds, HttpStatus.OK);
+        }
+        catch(IOException e){
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }   
     
     /**
