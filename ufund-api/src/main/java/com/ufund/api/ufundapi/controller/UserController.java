@@ -38,7 +38,13 @@ public class UserController {
 
     @GetMapping("")
     public ResponseEntity<User[]> getUsers() {
-        return null;
+        LOG.info("GET /users/");
+        try {
+            User[] users = userDao.getUsers();
+            return new ResponseEntity<User[]>(users, HttpStatus.OK);
+        } catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{username}")
