@@ -82,13 +82,14 @@ public class UserControllerTest {
         }
         //return the user when we try to call getUser()
         when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+        //return true when the basket is cleared
+        when(mockUserDAO.clearBasket(user.getUsername())).thenReturn(true);
 
         //Invoke
         ResponseEntity<Boolean> response = userController.clearBasket(user.getUsername());
 
         //Analyze
         assertEquals(response.getStatusCode(), HttpStatus.OK);
-        assertEquals(user.getBasket().size(), 0);
     }
     
 

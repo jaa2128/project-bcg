@@ -69,7 +69,6 @@ public class UserController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             else {
-                System.out.println("password guess: " + password);
                 if(userDao.authenticateUser(username, password)) {
                     return new ResponseEntity<User>(user, HttpStatus.OK);
                 }
