@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Need;
 import com.ufund.api.ufundapi.model.User;
 
+import org.apache.catalina.connector.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -70,6 +71,30 @@ public class UserControllerTest {
 
         // Analyze
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testCheckout() throws IOException {
+        //Setup
+        User user = new User("abc123", "1234");
+        Need[] needs = new Need[3];
+        //add some mock needs in basket
+        for(int i = 0; i < 3; i++) {
+            Need need = mock(Need.class);
+            needs[i] = need;
+            user.addNeed(need, 10.0);
+        }
+        //return the user when getUser() is called
+        when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+        //return the array of needs when checkout() is called
+        when(mockUserDAO.checkout(user.getUsername())).thenReturn(needs);
+
+        //Invoke
+        ResponseEntity<Need[]> response = userController.checkout(user.getUsername());
+
+        //Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(3, response.getBody().length);
     }
 
     @Test
