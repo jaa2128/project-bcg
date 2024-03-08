@@ -50,7 +50,7 @@ public class UserControllerTest {
         when(mockUserDAO.authenticateUser(user.getUsername(), user.getPassword())).thenReturn(true);
 
         // Invoke
-        ResponseEntity<User> response = userController.getUser(user.getUsername(), "1234");
+        ResponseEntity<User> response = userController.getUser(user.getUsername(), user.getPassword());
 
         // Analyze
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -71,6 +71,26 @@ public class UserControllerTest {
         // Analyze
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
+
+    @Test
+    public void testGetUserUnauthorized() throws IOException{
+        // Set up
+        User user = new User("Maurice", "password");
+
+        // When the username is passed it the dao will return the user
+        when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+
+        // When you attempt to authenticate with a different password return false
+        when(mockUserDAO.authenticateUser(user.getUsername(), "1234")).thenReturn(false);
+
+        // Invoke 
+        ResponseEntity<User> response = userController.getUser(user.getUsername(), "1234");
+
+        // Analyze 
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+    }
+
+
 
     @Test
     public void testClearBasket() throws IOException {
