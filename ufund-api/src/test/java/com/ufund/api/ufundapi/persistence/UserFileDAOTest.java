@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -121,11 +122,16 @@ public class UserFileDAOTest {
         newUser.addNeed(newNeed2, 3);
         newUser.addNeed(newNeed3, 3);
 
-        newUser.checkout();;
+        Set<Need> tempNeeds = newUser.getBasket().keySet();
+        Need[] needs = (tempNeeds.toArray(new Need[tempNeeds.size()]));
 
-        assertFalse(newUser.getBasket().containsKey(newNeed1));
-        assertFalse(newUser.getBasket().containsKey(newNeed2));
-        assertFalse(newUser.getBasket().containsKey(newNeed3));
+        Need[] checkoutNeeds = userFileDAO.checkout(newUser.getUsername());
+
+        
+
+        for(int i = 0; i<checkoutNeeds.length; i++){
+            assertEquals(checkoutNeeds[i], needs[i]);
+        }
 
         
     }
