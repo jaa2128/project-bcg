@@ -119,7 +119,6 @@ public class UserFileDAO implements UserDAO {
     public boolean authenticateUser(String username, String password) throws IOException {
         synchronized(users) {
             User user = getUser(username);
-            System.out.println(password + "==" + user.getPassword() + "?");
             if(user.isPassword(password)) {
                 return true;
             }
