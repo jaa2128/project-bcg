@@ -93,6 +93,24 @@ public class UserFileDAOTest {
     }
 
     @Test
+    public void testClearBasket()throws IOException{
+        User newUser = testUsers[0];
+        Need newNeed1 = new Need(20, "Test Need", "Test Need", "Test Type", 20);
+        Need newNeed2 = new Need(21, "Test Need", "Test Need", "Test Type", 20);
+        Need newNeed3 = new Need(22, "Test Need", "Test Need", "Test Type", 20);
+
+        newUser.addNeed(newNeed1, 3);
+        newUser.addNeed(newNeed2, 3);
+        newUser.addNeed(newNeed3, 3);
+
+        newUser.clearBasket();;
+
+        assertFalse(newUser.getBasket().containsKey(newNeed1));
+        assertFalse(newUser.getBasket().containsKey(newNeed2));
+        assertFalse(newUser.getBasket().containsKey(newNeed3));
+    }
+
+    @Test
     public void testCheckout() throws IOException{
         User newUser = testUsers[0];
         Need newNeed1 = new Need(20, "Test Need", "Test Need", "Test Type", 20);
