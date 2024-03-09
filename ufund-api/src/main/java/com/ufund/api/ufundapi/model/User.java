@@ -1,8 +1,6 @@
 package com.ufund.api.ufundapi.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Map.Entry;
 
