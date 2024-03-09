@@ -2,6 +2,7 @@ package com.ufund.api.ufundapi.model;
 
 import java.util.logging.Logger;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Need {
@@ -16,7 +17,7 @@ public class Need {
     @JsonProperty("targetQuantity") private double targetQuantity;
     @JsonProperty("currentQuantity") private double currentQuantity;
 
-    //CONSTRUCTOR
+    //CONSTRUCTORS
     /**
      * Creates a new Need with the given information
      * NOTE: All Needs are created with a currentQuantity of 0
@@ -38,6 +39,30 @@ public class Need {
         this.type = type;
         this.targetQuantity = targetQuantity;
         this.currentQuantity = 0;
+    }
+
+    /** Creates an instance of a need from the JSON files
+    * NOTE: this constructor is to be used when deserializing from the JSON
+    * @param id the ID of the Need; cannot be changed once instantiated
+    * @param name the displayed title for the Need
+    * @param description a short description of what the Need is for
+    * @param type what is requested by the Need
+    * @param targetQuantity the amount of the given type that is requested
+    * @param currentQuantity the amount of the given type that has been fulfilled
+    */
+    @JsonCreator
+    public Need(@JsonProperty("id") int id, 
+    @JsonProperty("name") String name, 
+    @JsonProperty("description") String description, 
+    @JsonProperty("type") String type, 
+    @JsonProperty("targetQuantity") double targetQuantity,
+    @JsonProperty("currentQuantity") double currentQuantity) {
+        this.ID = id;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.targetQuantity = targetQuantity;
+        this.currentQuantity = currentQuantity;
     }
     
     //ACCESSORS

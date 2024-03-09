@@ -11,6 +11,7 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
@@ -34,6 +35,13 @@ public class UserFileDAO implements UserDAO {
     public UserFileDAO(@Value("${users.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
+
+        //JSON files cannot naturally use objects as map keys, so we need to register a key
+        //deserializer so that the ObjectMapper knows how to deserialize Needs
+        SimpleModule module = new SimpleModule();
+        module.addKeyDeserializer(Need.class, new NeedKeyDeserializer());
+        this.objectMapper.registerModule(module);
+
         load();  // load the needs from the file
     }
 
