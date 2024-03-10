@@ -61,7 +61,7 @@ public class UserController {
      * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an error
      */
     @GetMapping("/{username}")
-    public ResponseEntity<User> getUser(@PathVariable String username, String password) {
+    public ResponseEntity<User> getUser(@PathVariable String username, @RequestBody String password) {
         LOG.info("GET /users/" + username);
         try {
             User user = userDao.getUser(username);
@@ -91,9 +91,11 @@ public class UserController {
      * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an I/O error
      */
     @PostMapping("")
-    public ResponseEntity<User> createUser(String username, String password) {
-        LOG.info("POST /users " + username);
+    public ResponseEntity<User> createUser(User inputUser) {
+        LOG.info("POST /users " + inputUser);
         try {
+            String username = inputUser.getUsername();
+            String password = inputUser.getPassword();
             if (username.isEmpty() || password.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
