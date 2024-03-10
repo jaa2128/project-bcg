@@ -2,22 +2,25 @@ package com.ufund.api.ufundapi.model;
 
 import java.util.HashMap;
 import java.util.NoSuchElementException;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Map.Entry;
 
 public class User {
-    private final String username; //User's username for login
-    private final String password; //User's password
-    private final HashMap<Need, Double> basket; //User's funding basket
+    @JsonProperty("username") private final String username; //User's username for login
+    @JsonProperty("password") private final String password; //User's password
+    @JsonProperty("basket") private final HashMap<Need, Double> basket; //User's funding basket
         //Keys are the needs
         //Values are the quantity to be contributed to the Need
-    private final boolean isAdmin; // Whether user is a helper or an admin
+    @JsonProperty("admin") private final boolean isAdmin; // Whether user is a helper or an admin
 
     /**
      * Contructor for new instance of User
      * @param username //Will be determined by user during signup
      * @param basket //Initialized as empty ArrayList
      */
-    public User(String username, String password){
+    public User(@JsonProperty("username") String username, @JsonProperty("password") String password){
         this.username = username;
         this.password = password;
         this.basket = new HashMap<>();
