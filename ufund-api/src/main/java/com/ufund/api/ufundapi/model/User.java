@@ -89,9 +89,13 @@ public class User {
      * @param need the Need to remove from the basket
      * @throws NoSuchElementException if the need was not in the basket
      */
-    public void removeNeed(Need need) throws NoSuchElementException {
-        if(needs.remove(need) == null)
-            throw new NoSuchElementException();
+    public boolean removeNeed(Need need) throws NoSuchElementException {
+        try {
+            needs.remove(need);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }  
     }
 
     /**
