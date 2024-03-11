@@ -91,14 +91,14 @@ public class UserController {
      * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an I/O error
      */
     @PostMapping("")
-    public ResponseEntity<User> createUser(String username, String password) {
-        LOG.info("POST /users " + username);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        LOG.info("POST /users " + user.getUsername());
         try {
-            if (username.isEmpty() || password.isEmpty()) {
+            if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            User user = userDao.createUser(username, password);
-            if(user != null){
+            User newuser = userDao.createUser(user.getUsername(), user.getPassword());
+            if(newuser != null){
                 return new ResponseEntity<User>(user, HttpStatus.CREATED);
             }
             else{
@@ -166,12 +166,12 @@ public class UserController {
      * @return         HttpStatus.OK, if basket is successfully cleared
      * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
      */
-    @DeleteMapping("/{username}")
+    @DeleteMapping("/{username}/checkout")
     public ResponseEntity<Need[]> checkout(@PathVariable String username) {
         LOG.info("CHECKOUT " + username);
         try{
-            Need[] checkoutNeeds = userDao.checkout(username);
-            return new ResponseEntity<>(checkoutNeeds, HttpStatus.OK);
+            userDao.checkout(username);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         catch(IOException e){
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
@@ -186,7 +186,7 @@ public class UserController {
      * @return         HttpStatus.NOT_FOUND, if there are errors clearing the basket
      * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
      */
-    @DeleteMapping("/{username}")
+    @DeleteMapping("/{username}/clear")
     public ResponseEntity<Boolean> clearBasket(@PathVariable String username) {
         LOG.info("CLEAR BASKET " + username);
         try{

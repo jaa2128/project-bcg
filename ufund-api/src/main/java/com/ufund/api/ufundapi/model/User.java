@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Map.Entry;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class User {
-    private final String username; //User's username for login
-    private final String password; //User's password
-    private final ArrayList<Need> needs;
-    private final ArrayList<Double> contributions;
+    @JsonProperty("username") private final String username; //User's username for login
+    @JsonProperty("password") private final String password; //User's password
+    private ArrayList<Need> needs;
+    private ArrayList<Double> contributions;
     private final boolean isAdmin; // Whether user is a helper or an admin
 
     /**
@@ -17,7 +19,7 @@ public class User {
      * @param username //Will be determined by user during signup
      * @param basket //Initialized as empty ArrayList
      */
-    public User(String username, String password){
+    public User(@JsonProperty("username") String username, @JsonProperty("password") String password){
         this.username = username;
         this.password = password;
         this.needs = new ArrayList<Need>();
@@ -45,14 +47,6 @@ public class User {
      */
     public ArrayList<Double> getContributions(){
         return this.contributions;
-    }
-
-    /**
-     * Retrieves User's funding basket
-     */
-    public void getBasket(){
-        getNeeds();
-        getContributions();
     }
 
     public String getPassword() {return password;}
