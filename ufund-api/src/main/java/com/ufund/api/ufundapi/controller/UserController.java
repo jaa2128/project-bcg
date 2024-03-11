@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -91,13 +92,13 @@ public class UserController {
      * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an I/O error
      */
     @PostMapping("")
-    public ResponseEntity<User> createUser(String username, String password) {
-        LOG.info("POST /users " + username);
+    public ResponseEntity<User> createUser(@RequestBody User newuser) {
+        LOG.info("POST /users " + newuser.getUsername());
         try {
-            if (username.isEmpty() || password.isEmpty()) {
+            if (newuser.getUsername().isEmpty() || newuser.getPassword().isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            User user = userDao.createUser(username, password);
+            User user = userDao.createUser(newuser.getUsername(), newuser.getPassword());
             if(user != null){
                 return new ResponseEntity<User>(user, HttpStatus.CREATED);
             }
