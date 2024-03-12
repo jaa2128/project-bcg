@@ -119,13 +119,13 @@ public class UserController {
      * @return HttpStatus.OK if the need was successfully added
      * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an error
      */
-    @PutMapping("/{username}")
-    public ResponseEntity<Need> addNeed(@PathVariable String username, Need need, double quantity) {
+    @PutMapping("/{username}/{quantity}")
+    public ResponseEntity<Need> addNeed(@PathVariable String username, @RequestBody Need need, @PathVariable double quantity) {
         LOG.info("PUT /users " + username + "/" + need);
         try {
             Need newNeed = userDao.addNeed(username, need, quantity);
             if(newNeed == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
             }
             else {
                 return new ResponseEntity<Need>(newNeed, HttpStatus.OK);
@@ -145,7 +145,7 @@ public class UserController {
      * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
      */
     @DeleteMapping("/{username}")
-    public ResponseEntity<Need> removeNeed(@PathVariable String username, Need need) {
+    public ResponseEntity<Need> removeNeed(@PathVariable String username, @RequestBody Need need) {
         LOG.info("DELETE " + need.getID());
         try{
             boolean needExists = userDao.removeNeed(username, need);
