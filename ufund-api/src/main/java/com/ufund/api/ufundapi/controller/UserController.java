@@ -167,12 +167,12 @@ public class UserController {
      * @return         HttpStatus.OK, if basket is successfully cleared
      * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
      */
-    @DeleteMapping("/{username}")
+    @DeleteMapping("/{username}/checkout")
     public ResponseEntity<Need[]> checkout(@PathVariable String username) {
         LOG.info("CHECKOUT " + username);
         try{
-            Need[] checkoutNeeds = userDao.checkout(username);
-            return new ResponseEntity<>(checkoutNeeds, HttpStatus.OK);
+            userDao.checkout(username);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         catch(IOException e){
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
@@ -187,7 +187,7 @@ public class UserController {
      * @return         HttpStatus.NOT_FOUND, if there are errors clearing the basket
      * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
      */
-    @DeleteMapping("/{username}")
+    @DeleteMapping("/{username}/clear")
     public ResponseEntity<Boolean> clearBasket(@PathVariable String username) {
         LOG.info("CLEAR BASKET " + username);
         try{
