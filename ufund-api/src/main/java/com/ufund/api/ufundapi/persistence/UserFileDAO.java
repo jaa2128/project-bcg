@@ -11,6 +11,7 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
@@ -34,6 +35,13 @@ public class UserFileDAO implements UserDAO {
     public UserFileDAO(@Value("${users.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
+
+        //JSON files cannot naturally use objects as map keys, so we need to register a key
+        //deserializer so that the ObjectMapper knows how to deserialize Needs
+        SimpleModule module = new SimpleModule();
+        module.addKeyDeserializer(Need.class, new NeedKeyDeserializer());
+        this.objectMapper.registerModule(module);
+
         load();  // load the needs from the file
     }
 
@@ -160,8 +168,8 @@ public class UserFileDAO implements UserDAO {
             if(user == null) {
                 return null;
             }
-            HashMap<Need, Double> basket = user.getBasket();
-            basket.put(need, quantity);
+            user.getNeeds().add(need);
+            user.getContributions().add(quantity);
             save(); //may throw IOException
             return need;
         }
@@ -188,14 +196,16 @@ public class UserFileDAO implements UserDAO {
      * @return The list of needs checked out
      */
     @Override
-    public Need[] checkout(String username) throws IOException {
+    public boolean checkout(String username) throws IOException {
         synchronized(users){
-            getUser(username).checkout();
-            Set<Need> tempNeeds = getUser(username).getBasket().keySet();
-            Need[] needs = (tempNeeds.toArray(new Need[tempNeeds.size()]));
-            getUser(username).clearBasket();
-            save();
-            return needs; 
+            try {
+                getUser(username).checkout();
+                save();
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+             
         }
     }
 
@@ -206,6 +216,6 @@ public class UserFileDAO implements UserDAO {
     public boolean clearBasket(String username) throws IOException {
         getUser(username).clearBasket();
         save();
-        return getUser(username).getBasket().isEmpty();
+        return getUser(username).getNeeds().isEmpty() && getUser(username).getContributions().isEmpty();
     }
 }
