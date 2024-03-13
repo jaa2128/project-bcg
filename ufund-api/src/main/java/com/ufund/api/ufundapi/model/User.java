@@ -1,30 +1,27 @@
 package com.ufund.api.ufundapi.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.NoSuchElementException;
-import java.util.Map.Entry;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
     @JsonProperty("username") private final String username; //User's username for login
     @JsonProperty("password") private final String password; //User's password
-    private ArrayList<Need> needs;
-    private ArrayList<Double> contributions;
+    @JsonProperty("needs") private ArrayList<Need> needs; //list of needs in the user's basket
+    @JsonProperty("contributions") private ArrayList<Double> contributions; //list of contribution amounts
     private final boolean isAdmin; // Whether user is a helper or an admin
 
     /**
      * Contructor for new instance of User
      * @param username //Will be determined by user during signup
-     * @param basket //Initialized as empty ArrayList
+     * @param password //Will be determined by user during signup
      */
     public User(@JsonProperty("username") String username, @JsonProperty("password") String password){
         this.username = username;
         this.password = password;
         this.needs = new ArrayList<Need>();
         this.contributions = new ArrayList<Double>();
-        isAdmin = username.equals("admin");
+        this.isAdmin = username.equals("admin");
     }
 
     /**
@@ -32,6 +29,13 @@ public class User {
      */
     public String getUsername(){
         return this.username;
+    }
+
+    /**
+     * Retrieves user's password (for testing purposes)
+     */
+    public String getPassword() {
+        return this.password;
     }
 
     /**
@@ -48,8 +52,6 @@ public class User {
     public ArrayList<Double> getContributions(){
         return this.contributions;
     }
-
-    public String getPassword() {return password;}
 
     /**
      * Returns whether user is a helper or an admin
@@ -81,25 +83,31 @@ public class User {
     /**
      * Removes a need from the user's funding basket
      * @param need the Need to remove from the basket
-     * @throws NoSuchElementException if the need was not in the basket
+     * @return true if the need was removed
+     * @return false if the need does not exist
      */
-    public boolean removeNeed(Need need) throws NoSuchElementException {
-        try {
-            needs.remove(need);
-            return true;
-        } catch (Exception e) {
+    public boolean removeNeed(Need need) {
+        int i = this.needs.indexOf(need);
+        if(i == -1) {
             return false;
-        }  
+        }
+        else {
+            //remove the need along with the 
+            //contribution associated with it
+            this.needs.remove(i);
+            this.contributions.remove(i);
+            return true;
+        }
     }
 
     /**
      * Checks out all the needs in the funding basket
      */
     public void checkout() {
-        for(Need need : this.needs){
-            int i = this.needs.indexOf(need);
-            need.contribute(this.contributions.get(i));
-            
+        for(int i = 0; i < this.needs.size(); i++) {
+            Need need = this.needs.get(i);
+            double quantity = this.contributions.get(i);
+            need.contribute(quantity);
         }
     }
 
