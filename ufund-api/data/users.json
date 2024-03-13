@@ -1,1 +1,23 @@
-[{"username":"user","password":"password","needs":[],"contributions":[],"admin":false},{"username":"user10","password":"password10","needs":[],"contributions":[],"admin":false},{"username":"user3","password":"password3","needs":[],"contributions":[],"admin":false}]
+[
+  {
+    "username": "user",
+    "password": "password",
+    "admin": false,
+    "needs": [],
+    "contributions": []
+  },
+  {
+    "username": "user10",
+    "password": "password10",
+    "admin": false,
+    "needs": [],
+    "contributions": []
+  },
+  {
+    "username": "user3",
+    "password": "password3",
+    "admin": false,
+    "needs": [],
+    "contributions": []
+  }
+]

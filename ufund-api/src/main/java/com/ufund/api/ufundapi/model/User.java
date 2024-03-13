@@ -87,17 +87,24 @@ public class User {
      * @return false if the need does not exist
      */
     public boolean removeNeed(Need need) {
-        int i = this.needs.indexOf(need);
-        if(i == -1) {
-            return false;
-        }
-        else {
+        int needID = need.getID(); //grab id of passed in need
+
+        // loop through list
+        for(int i = 0; i < needs.size(); i++)
+        {
+            // if the ids match up
+            if(needs.get(i).getID() == needID)
+            {
             //remove the need along with the 
             //contribution associated with it
             this.needs.remove(i);
             this.contributions.remove(i);
             return true;
+            }
         }
+
+        // Otherwise if no ids match up 
+        return false;
     }
 
     /**
