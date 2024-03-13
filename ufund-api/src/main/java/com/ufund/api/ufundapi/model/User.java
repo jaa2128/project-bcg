@@ -1,8 +1,6 @@
 package com.ufund.api.ufundapi.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Map.Entry;
 
@@ -39,6 +37,8 @@ public class User {
     public HashMap<Need, Double> getBasket(){
         return this.basket;
     }
+
+    public String getPassword() {return password;}
 
     /**
      * Returns whether user is a helper or an admin

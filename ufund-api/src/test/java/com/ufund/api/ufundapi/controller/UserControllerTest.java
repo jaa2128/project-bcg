@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Need;
 import com.ufund.api.ufundapi.model.User;
 
+import org.apache.catalina.connector.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -47,25 +48,95 @@ public class UserControllerTest {
 
         // When the same username is passed in, our mock User DAO will return the user
         when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+        when(mockUserDAO.authenticateUser(user.getUsername(), user.getPassword())).thenReturn(true);
 
         // Invoke
-        ResponseEntity<User> response = userController.getUser(user.getUsername(), "1234");
+        ResponseEntity<User> response = userController.getUser(user.getUsername(), user.getPassword());
 
         // Analyze
-        assertEquals(HttpStatus.OK, response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
 
+    @Test 
+    public void testGetUserNotFound() throws IOException {
+        // Set up
+        String userName = "Maurice";
 
+        // When the same username is passed in, the mock User DAO will return null,
+        // simulating no user found
+        when(mockUserDAO.getUser(userName)).thenReturn(null);
 
+        // Invoke
+        ResponseEntity<User> response = userController.getUser(userName, "password");
+
+        // Analyze
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
-    public void testClearBasket() {
-        // Setup
+    public void testGetUserUnauthorized() throws IOException{
+        // Set up
+        User user = new User("Maurice", "password");
+
+        // When the username is passed it the dao will return the user
+        when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+
+        // When you attempt to authenticate with a different password return false
+        when(mockUserDAO.authenticateUser(user.getUsername(), "1234")).thenReturn(false);
+
+        // Invoke 
+        ResponseEntity<User> response = userController.getUser(user.getUsername(), "1234");
+
+        // Analyze 
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+    }
+
+
+
+    @Test
+    public void testCheckout() throws IOException {
+        //Setup
         User user = new User("abc123", "1234");
+        Need[] needs = new Need[3];
+        //add some mock needs in basket
+        for(int i = 0; i < 3; i++) {
+            Need need = mock(Need.class);
+            needs[i] = need;
+            user.addNeed(need, 10.0);
+        }
+        //return the user when getUser() is called
+        when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+        //return the array of needs when checkout() is called
+        when(mockUserDAO.checkout(user.getUsername())).thenReturn(needs);
+
+        //Invoke
+        ResponseEntity<Need[]> response = userController.checkout(user.getUsername());
+
+        //Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(3, response.getBody().length);
+    }
+
+    @Test
+    public void testClearBasket() throws IOException {
+        //Setup
+        User user = new User("abc123", "1234");
+        //add some mock needs in basket
         for(int i = 0; i < 3; i++) {
             user.addNeed(mock(Need.class), 10.0);
         }
+        //return the user when we try to call getUser()
+        when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+        //return true when the basket is cleared
+        when(mockUserDAO.clearBasket(user.getUsername())).thenReturn(true);
+
+        //Invoke
+        ResponseEntity<Boolean> response = userController.clearBasket(user.getUsername());
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
+    
 
     
 }
