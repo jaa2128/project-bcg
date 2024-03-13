@@ -1,6 +1,7 @@
 package com.ufund.api.ufundapi.controller;
 
 import org.apache.catalina.connector.Response;
+import org.apache.coyote.http11.Http11AprProtocol;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -115,6 +116,7 @@ public class UserController {
      * @param username the username of the user
      * @param need the need to add to the basket
      * @param quantity how much the user wants to contribute to the need
+     * @return HttpStatus.BAD_REQUEST if the quantity is nonpositive
      * @return HttpStatus.NOT_FOUND if the user does not exist
      * @return HttpStatus.OK if the need was successfully added
      * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an error
@@ -123,9 +125,12 @@ public class UserController {
     public ResponseEntity<Need> addNeed(@PathVariable String username, @RequestBody Need need, @PathVariable double quantity) {
         LOG.info("PUT /users " + username + "/" + need);
         try {
+            if(quantity <= 0) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             Need newNeed = userDao.addNeed(username, need, quantity);
             if(newNeed == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             else {
                 return new ResponseEntity<Need>(newNeed, HttpStatus.OK);
@@ -140,19 +145,25 @@ public class UserController {
      * Checks out the user's basket
      * @param username the username to remove the need from
      * @param need the need to remove
-     * @return         HttpStatus.OK, if basket is successfully cleared
-     * @return         HttpStatus.NOT_FOUND, if the need was not removed or does not exist
+     * @return         HttpStatus.OK, if need is successfully removed
+     * @return         HttpStatus.NOT_FOUND if the user doesn't exist
+     * @return         HttpStatus.BAD_REQUEST if the need is not in the basket
      * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
      */
     @DeleteMapping("/{username}")
-    public ResponseEntity<Need> removeNeed(@PathVariable String username, @RequestBody Need need) {
+    public ResponseEntity<Void> removeNeed(@PathVariable String username, @RequestBody Need need) {
         LOG.info("DELETE " + need.getID());
         try{
-            boolean needExists = userDao.removeNeed(username, need);
-            if(needExists)
-                return new ResponseEntity<>(HttpStatus.OK);
-            else 
+            Boolean needExists = userDao.removeNeed(username, need);
+            if(needExists == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else if(!needExists) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
         }
         catch(IOException e){
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
@@ -165,14 +176,20 @@ public class UserController {
      * Checks out the user's basket
      * @param username the username to checkout the basket of
      * @return         HttpStatus.OK, if basket is successfully cleared
+     * @return         HttpStatus.NOT_FOUND if user does not exist
      * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
      */
     @DeleteMapping("/{username}/checkout")
     public ResponseEntity<Need[]> checkout(@PathVariable String username) {
         LOG.info("CHECKOUT " + username);
         try{
-            userDao.checkout(username);
-            return new ResponseEntity<>(HttpStatus.OK);
+            boolean exists = userDao.checkout(username);
+            if(!exists) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
         }
         catch(IOException e){
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
@@ -184,7 +201,7 @@ public class UserController {
      * Clears the user's basket
      * @param username the username to clear the basket of
      * @return         HttpStatus.OK, if basket is successfully cleared
-     * @return         HttpStatus.NOT_FOUND, if there are errors clearing the basket
+     * @return         HttpStatus.NOT_FOUND, if the user does not exist
      * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
      */
     @DeleteMapping("/{username}/clear")
