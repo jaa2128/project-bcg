@@ -17,9 +17,9 @@ public interface UserDAO {
 
     Need addNeed(String username, Need need, double quantity) throws IOException;
     
-    boolean removeNeed(String username, Need need) throws IOException;
+    Boolean removeNeed(String username, int needID) throws IOException;
 
-    Need[] checkout(String username) throws IOException;
+    boolean checkout(String username) throws IOException;
 
     boolean clearBasket(String username) throws IOException;
 
