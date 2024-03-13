@@ -36,11 +36,11 @@ public class UserFileDAO implements UserDAO {
         this.filename = filename;
         this.objectMapper = objectMapper;
 
-        //JSON files cannot naturally use objects as map keys, so we need to register a key
-        //deserializer so that the ObjectMapper knows how to deserialize Needs
-        SimpleModule module = new SimpleModule();
-        module.addKeyDeserializer(Need.class, new NeedKeyDeserializer());
-        this.objectMapper.registerModule(module);
+        // //JSON files cannot naturally use objects as map keys, so we need to register a key
+        // //deserializer so that the ObjectMapper knows how to deserialize Needs
+        // SimpleModule module = new SimpleModule();
+        // module.addKeyDeserializer(Need.class, new NeedKeyDeserializer());
+        // this.objectMapper.registerModule(module);
 
         load();  // load the needs from the file
     }
@@ -100,7 +100,8 @@ public class UserFileDAO implements UserDAO {
     /**
      * retrieves a specific user
      * @param username the username of the user
-     * @return the User with the given username, or null if no such user exists
+     * @return the User with the given username
+     * @return null if no such user exists with the given username
      */
     @Override
     public User getUser(String username) throws IOException {
@@ -137,7 +138,8 @@ public class UserFileDAO implements UserDAO {
     /**
      * Creates a new user
      * @param username the username of the new user
-     * @return the new user if the given username was not already in use, null otherwise
+     * @return the new user if the given username was not already in use
+     * @return null if the username was alrady in use
      */
     @Override
     public User createUser(String username, String password) throws IOException {
@@ -159,7 +161,8 @@ public class UserFileDAO implements UserDAO {
      * @param username the username of the user
      * @param need the need the user adds to the basket
      * @param quantity the amount to contribute to the need
-     * @return the need if it was successfully added, null if the user doesn't exist
+     * @return the need if it was successfully added
+     * @return null if the user doesn't exist
      */
     @Override
     public Need addNeed(String username, Need need, double quantity) throws IOException {
@@ -168,8 +171,7 @@ public class UserFileDAO implements UserDAO {
             if(user == null) {
                 return null;
             }
-            user.getNeeds().add(need);
-            user.getContributions().add(quantity);
+            user.addNeed(need, quantity);
             save(); //may throw IOException
             return need;
         }
@@ -177,45 +179,63 @@ public class UserFileDAO implements UserDAO {
 
     /**
      * Removes a need from the user basket
+     * @param username the username of the user
+     * @param need the need to remove from the user's basket
+     * 
+     * @return null if the user doesn't exist
+     * @return false if the need doesn't exist in the basket
+     * @return true if the need was successfully removed
      */
     @Override
-    public boolean removeNeed(String username, Need need) throws IOException {
+    public Boolean removeNeed(String username, Need need) throws IOException {
         synchronized(users) {
-            try {
-                getUser(username).removeNeed(need);
-                save();
-                return true;
-            } catch (NoSuchElementException e) {
-                return false;
+            User user = getUser(username);
+            if(user == null) {
+                return null;
             }
+            boolean isRemoved = user.removeNeed(need);
+            save(); //may throw IOException
+            return isRemoved;
         }
     }
 
     /**
      * Checks out the user basket
-     * @return The list of needs checked out
+     * @param username the username of the user
+     * 
+     * @return false if the user doesn't exist
+     * @return true if the user successfully checkout
      */
     @Override
     public boolean checkout(String username) throws IOException {
         synchronized(users){
-            try {
-                getUser(username).checkout();
-                save();
-                return true;
-            } catch (Exception e) {
+            User user = getUser(username);
+            if(user == null) {
                 return false;
             }
-             
+            user.checkout();
+            save(); //may throw IOException
+            return true;
         }
     }
 
     /**
      * Clears the user basket
+     * @param username the username of the user
+     * 
+     * @return false if the user doesn't exist
+     * @return true if the basket was cleared
      */
     @Override
     public boolean clearBasket(String username) throws IOException {
-        getUser(username).clearBasket();
-        save();
-        return getUser(username).getNeeds().isEmpty() && getUser(username).getContributions().isEmpty();
+        synchronized(users) {
+            User user = getUser(username);
+            if(user == null) {
+                return false;
+            }
+            user.clearBasket();
+            save(); //may throw IOException
+            return true;
+        }
     }
 }
