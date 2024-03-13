@@ -27,6 +27,6 @@ public class NeedKeyDeserializer extends KeyDeserializer {
         double targetQuantity = node.get("targetQuantity").asDouble();
         double currentQuantity = node.get("currentQuantity").asDouble();
 
-        return new Need(id, name, description, type, targetQuantity, currentQuantity);
+        return new Need(id, name, description, type, targetQuantity);
     }
 }

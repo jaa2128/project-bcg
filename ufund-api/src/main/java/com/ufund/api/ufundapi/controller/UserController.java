@@ -150,11 +150,11 @@ public class UserController {
      * @return         HttpStatus.BAD_REQUEST if the need is not in the basket
      * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
      */
-    @DeleteMapping("/{username}")
-    public ResponseEntity<Void> removeNeed(@PathVariable String username, @RequestBody Need need) {
-        LOG.info("DELETE " + need.getID());
+    @DeleteMapping("/{username}/{id}")
+    public ResponseEntity<Void> removeNeed(@PathVariable String username, @PathVariable int id) {
+        LOG.info("DELETE " + id);
         try{
-            Boolean needExists = userDao.removeNeed(username, need);
+            Boolean needExists = userDao.removeNeed(username, id);
             if(needExists == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }

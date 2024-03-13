@@ -187,13 +187,13 @@ public class UserFileDAO implements UserDAO {
      * @return true if the need was successfully removed
      */
     @Override
-    public Boolean removeNeed(String username, Need need) throws IOException {
+    public Boolean removeNeed(String username, int needID) throws IOException {
         synchronized(users) {
             User user = getUser(username);
             if(user == null) {
                 return null;
             }
-            boolean isRemoved = user.removeNeed(need);
+            boolean isRemoved = user.removeNeed(needID);
             save(); //may throw IOException
             return isRemoved;
         }

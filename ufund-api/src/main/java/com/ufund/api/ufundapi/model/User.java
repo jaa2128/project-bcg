@@ -82,13 +82,11 @@ public class User {
 
     /**
      * Removes a need from the user's funding basket
-     * @param need the Need to remove from the basket
+     * @param needID the id of the Need to remove from the basket
      * @return true if the need was removed
      * @return false if the need does not exist
      */
-    public boolean removeNeed(Need need) {
-        int needID = need.getID(); //grab id of passed in need
-
+    public boolean removeNeed(int needID) {
         // loop through list
         for(int i = 0; i < needs.size(); i++)
         {
