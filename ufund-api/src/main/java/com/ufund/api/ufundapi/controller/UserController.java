@@ -85,6 +85,52 @@ public class UserController {
     }
 
     /**
+     * gets the ids of the needs in the user's basket
+     * @param username the username of the user
+     * @return NOT_FOUND if the user doesn't exist
+     * @return the list of the ids if the user exists
+     */
+    @GetMapping("/{username}/needs")
+    public ResponseEntity<ArrayList<Integer>> getNeeds(@PathVariable String username) {
+        LOG.info("GET /users/" + username + "/needs");
+        try {
+            ArrayList<Integer> needs = userDao.getNeeds(username);
+            if(needs == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else {
+                return new ResponseEntity<ArrayList<Integer>>(needs, HttpStatus.OK);
+            }
+        }
+        catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * gets the quantities of the needs in the user's basket
+     * @param username the username of the user
+     * @return NOT_FOUND if the user doesn't exist
+     * @return the list of the quantities if the user exists
+     */
+    @GetMapping("/{username}/contributions")
+    public ResponseEntity<ArrayList<Integer>> getContributions(@PathVariable String username) {
+        LOG.info("GET /users/" + username + "/contributions");
+        try {
+            ArrayList<Integer> contributions = userDao.getNeeds(username);
+            if(contributions == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else {
+                return new ResponseEntity<ArrayList<Integer>>(contributions, HttpStatus.OK);
+            }
+        }
+        catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * creates a new user in the JSON
      * @param username the username of the new user
      * @return HttpStatus.BAD_REQUEST if the username is blank

@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
  * Test the User Controller
@@ -39,6 +40,18 @@ public class UserControllerTest {
         for(int i = 0; i < 5; i++) {
             mockUsers[i] = mock(User.class);
         }
+    }
+
+    @Test
+    public void testGetUsers() throws IOException { //getUsers may throw IOException
+        // Setup
+        when(mockUserDAO.getUsers()).thenReturn(mockUsers);
+
+        // Invoke
+        ResponseEntity<User[]> response = userController.getUsers();
+
+        // Analyze
+        assertEquals(response.getBody().length, mockUsers.length);
     }
 
     @Test
@@ -90,7 +103,7 @@ public class UserControllerTest {
         // Analyze 
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
     }
-    
+
     @Test
     public void testClearBasket() throws IOException {
         //Setup
