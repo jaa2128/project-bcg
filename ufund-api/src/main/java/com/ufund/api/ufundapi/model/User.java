@@ -19,7 +19,7 @@ public class User {
     public User(@JsonProperty("username") String username, @JsonProperty("password") String password){
         this.username = username;
         this.password = password;
-        this.needs = new ArrayList<Need>();
+        this.needs = new ArrayList<Integer>();
         this.contributions = new ArrayList<Double>();
         this.isAdmin = username.equals("admin");
     }
@@ -41,7 +41,7 @@ public class User {
     /**
      * Retrieves User's needs in funding basket
      */
-    public ArrayList<Need> getNeeds(){
+    public ArrayList<Integer> getNeeds(){
         return this.needs;
     }
 
@@ -72,11 +72,11 @@ public class User {
 
     /**
      * Adds a need to the user's funding basket
-     * @param need the Need to add to the funding basket
+     * @param needID the Need to add to the funding basket
      * @param quantity the amount the user wants to contribute to the need
      */
-    public void addNeed(Need need, double quantity) {
-        this.needs.add(need);
+    public void addNeed(int needID, double quantity) {
+        this.needs.add(needID);
         this.contributions.add(quantity);
     }
 
