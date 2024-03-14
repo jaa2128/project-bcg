@@ -72,11 +72,11 @@ public class User {
 
     /**
      * Adds a need to the user's funding basket
-     * @param need the Need to add to the funding basket
+     * @param id the id of the Need to add to the funding basket
      * @param quantity the amount the user wants to contribute to the need
      */
-    public void addNeed(Need need, double quantity) {
-        this.needs.add(need);
+    public void addNeed(int ID, double quantity) {
+        this.needs.add(ID);
         this.contributions.add(quantity);
     }
 
@@ -91,29 +91,18 @@ public class User {
         for(int i = 0; i < needs.size(); i++)
         {
             // if the ids match up
-            if(needs.get(i).getID() == needID)
+            if(needs.get(i) == needID)
             {
-            //remove the need along with the 
-            //contribution associated with it
-            this.needs.remove(i);
-            this.contributions.remove(i);
-            return true;
+                //remove the need along with the 
+                //contribution associated with it
+                this.needs.remove(i);
+                this.contributions.remove(i);
+                return true;
             }
         }
 
         // Otherwise if no ids match up 
         return false;
-    }
-
-    /**
-     * Checks out all the needs in the funding basket
-     */
-    public void checkout() {
-        for(int i = 0; i < this.needs.size(); i++) {
-            Need need = this.needs.get(i);
-            double quantity = this.contributions.get(i);
-            need.contribute(quantity);
-        }
     }
 
     /**
