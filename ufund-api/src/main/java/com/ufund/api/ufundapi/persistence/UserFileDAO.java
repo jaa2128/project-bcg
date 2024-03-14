@@ -136,6 +136,40 @@ public class UserFileDAO implements UserDAO {
     }
 
     /**
+     * gets the ids of the needs in the user's basket
+     * @param username the username of the user
+     * @return null if the user doesn't exist
+     * @return the list of the need ids if the user exists
+     */
+    @Override
+    public ArrayList<Integer> getNeeds(String username) throws IOException {
+        synchronized(users) {
+            User user = getUser(username);
+            if(user == null) {
+                return null;
+            }
+            return user.getNeeds();
+        }
+    }
+
+    /**
+     * gets the quantities of the needs in the user's basket
+     * @param username the username of the user
+     * @return null if the user doesn't exist
+     * @return the list of the quantities if the user exists
+     */
+    @Override
+    public ArrayList<Double> getContributions(String username) throws IOException {
+        synchronized(users) {
+            User user = getUser(username);
+            if(user == null) {
+                return null;
+            }
+            return user.getContributions();
+        }
+    }
+
+    /**
      * Creates a new user
      * @param username the username of the new user
      * @return the new user if the given username was not already in use
