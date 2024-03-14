@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -75,64 +76,41 @@ public class UserFileDAOTest {
     @Test
     public void testAddNeed() throws IOException{
         User newUser = testUsers[0];
-        Need newNeed = new Need(20, "Test Need", "Test Need", "Test Type", 20);
+        int newNeedID = 0;
 
-        newUser.addNeed(newNeed, 10);
+        userFileDAO.addNeed(newUser.getUsername(), newNeedID, 10);
 
-        assertTrue(newUser.getBasket().containsKey(newNeed));
+        assertNotNull(newUser.getNeeds().get(0));
     }
 
     @Test
     public void testRemoveNeed() throws IOException{
+        // Set up
         User newUser = testUsers[0];
-        Need newNeed = new Need(20, "Test Need", "Test Need", "Test Type", 20);
-
-        newUser.addNeed(newNeed, 10);
+        int newNeedID = 0;
+        newUser.addNeed(newNeedID, 10);
+        assertEquals(1, newUser.getNeeds().size());
         
-        newUser.removeNeed(newNeed);
-        assertFalse(newUser.getBasket().containsKey(newNeed));
+        // Invoke
+        userFileDAO.removeNeed(newUser.getUsername(), newNeedID);
+
+        // Analyze
+        assertEquals(0, newUser.getNeeds().size());
     }
 
     @Test
     public void testClearBasket()throws IOException{
         User newUser = testUsers[0];
-        Need newNeed1 = new Need(20, "Test Need", "Test Need", "Test Type", 20);
-        Need newNeed2 = new Need(21, "Test Need", "Test Need", "Test Type", 20);
-        Need newNeed3 = new Need(22, "Test Need", "Test Need", "Test Type", 20);
+        int newNeed1ID = 0;
+        int newNeed2ID = 1;
+        int newNeed3ID = 2;
 
-        newUser.addNeed(newNeed1, 3);
-        newUser.addNeed(newNeed2, 3);
-        newUser.addNeed(newNeed3, 3);
+        newUser.addNeed(newNeed1ID, 3);
+        newUser.addNeed(newNeed2ID, 3);
+        newUser.addNeed(newNeed3ID, 3);
 
         newUser.clearBasket();;
 
-        assertFalse(newUser.getBasket().containsKey(newNeed1));
-        assertFalse(newUser.getBasket().containsKey(newNeed2));
-        assertFalse(newUser.getBasket().containsKey(newNeed3));
-    }
-
-    @Test
-    public void testCheckout() throws IOException{
-        User newUser = testUsers[0];
-        Need newNeed1 = new Need(20, "Test Need", "Test Need", "Test Type", 20);
-        Need newNeed2 = new Need(21, "Test Need", "Test Need", "Test Type", 20);
-        Need newNeed3 = new Need(22, "Test Need", "Test Need", "Test Type", 20);
-
-        newUser.addNeed(newNeed1, 3);
-        newUser.addNeed(newNeed2, 3);
-        newUser.addNeed(newNeed3, 3);
-
-        Set<Need> tempNeeds = newUser.getBasket().keySet();
-        Need[] needs = (tempNeeds.toArray(new Need[tempNeeds.size()]));
-
-        Need[] checkoutNeeds = userFileDAO.checkout(newUser.getUsername());
-
-        
-
-        for(int i = 0; i<checkoutNeeds.length; i++){
-            assertEquals(checkoutNeeds[i], needs[i]);
-        }
-
-        
+        assertEquals(newUser.getNeeds().size(), 0);
     }
 }

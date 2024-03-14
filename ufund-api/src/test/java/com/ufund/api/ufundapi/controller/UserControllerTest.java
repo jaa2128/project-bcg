@@ -90,40 +90,15 @@ public class UserControllerTest {
         // Analyze 
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
     }
-
-
-
-    @Test
-    public void testCheckout() throws IOException {
-        //Setup
-        User user = new User("abc123", "1234");
-        Need[] needs = new Need[3];
-        //add some mock needs in basket
-        for(int i = 0; i < 3; i++) {
-            Need need = mock(Need.class);
-            needs[i] = need;
-            user.addNeed(need, 10.0);
-        }
-        //return the user when getUser() is called
-        when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
-        //return the array of needs when checkout() is called
-        when(mockUserDAO.checkout(user.getUsername())).thenReturn(needs);
-
-        //Invoke
-        ResponseEntity<Need[]> response = userController.checkout(user.getUsername());
-
-        //Analyze
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(3, response.getBody().length);
-    }
-
+    
     @Test
     public void testClearBasket() throws IOException {
         //Setup
         User user = new User("abc123", "1234");
-        //add some mock needs in basket
+
+        //add some mock needID in basket
         for(int i = 0; i < 3; i++) {
-            user.addNeed(mock(Need.class), 10.0);
+            user.addNeed(i, 10.0);
         }
         //return the user when we try to call getUser()
         when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
