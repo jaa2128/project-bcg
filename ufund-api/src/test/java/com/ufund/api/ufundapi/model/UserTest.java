@@ -37,16 +37,24 @@ public class UserTest{
      */
     @Test
     public void testAccessors(){
-        HashMap<Need, Double> testBasket = new HashMap<Need, Double>();
-        user.addNeed(need1, 100.0);
-        user.addNeed(need2, 50.0);
-        user.addNeed(need3, 35.0);
-        testBasket.put(need1, 100.0);
-        testBasket.put(need2, 50.0);
-        testBasket.put(need3, 35.0);
+        ArrayList<Integer> testIDS = new ArrayList<>();
+        ArrayList<Double> testContributions = new ArrayList<>();
+
+        user.addNeed(need1ID, 100.0);
+        user.addNeed(need2ID, 50.0);
+        user.addNeed(need3ID, 35.0);
+
+        testIDS.add(need1ID);
+        testIDS.add(need2ID);
+        testIDS.add(need3ID);
+
+        testContributions.add(100.0);
+        testContributions.add(50.0);
+        testContributions.add(35.0);
 
         assertEquals(user.getUsername(), "GriddyMaster", "Why this no worky?!");
-        assertEquals(user.getBasket(), testBasket, "These baskets do not match!");
+        assertEquals(user.getNeeds(), testIDS, "These baskets do not match!");
+        assertEquals(user.getContributions(), testContributions, "These baskets do not match!");
 
     }
 
