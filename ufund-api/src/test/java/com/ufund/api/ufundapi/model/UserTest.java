@@ -22,14 +22,14 @@ import com.ufund.api.ufundapi.model.User;
 public class UserTest{
 
     private User user;
-    private Need need1, need2, need3;
+    private int need1ID, need2ID, need3ID;
 
     @BeforeEach
     public void setupObjects(){
         user = new User("GriddyMaster", "pass");
-        need1 = new Need(0, "Need1", "Need1", "Money", 10);
-        need2 = new Need(1, "Need2", "Need2", "Money", 200);
-        need3 = new Need(2, "Need3", "Need3", "Money", 500);
+        need1ID = 0;
+        need2ID = 1;
+        need3ID = 2;
     }
    
     /**
@@ -65,55 +65,37 @@ public class UserTest{
 
     /**
      * @author Alexander DiMartino
+     * @author Julian Alvia (refactor)
      */
     @Test
     public void testAddNeed() {
-        user.addNeed(need1, 50);
-        assertNotNull(user.getBasket().get(need1));
+        user.addNeed(need1ID, 50);
+        assertNotNull(user.getNeeds().get(need1ID));
     }
 
     /**
      * @author Alexander DiMartino
+     * @author Julian Alvia (refactor)
      */
     @Test
     public void testRemoveNeedSuccess() {
-        user.addNeed(need1, 50);
-        user.removeNeed(need1);
-        assertNull(user.getBasket().get(need1));
+        // add one need then remove a need
+        user.addNeed(need1ID, 50);
+        user.removeNeed(need1ID);
+
+        // needs list must be 0
+        assertEquals(0, user.getNeeds().size());
     }
 
     /**
      * @author Alexander DiMartino
+     * @author Julian Alvia (refactor)
      */
     @Test
     public void testRemoveNeedFailure() {
-        user.addNeed(need1, 50);
-        try {
-            user.removeNeed(need2);
-            assert(false);
-        }
-        catch(NoSuchElementException e) {
-            assert(true);           
-        }
-    }
-
-    /**
-     * @author Shaher Naser
-     */
-    @Test
-    public void testCheckout() {
-        //setup
-        user.addNeed(need1, 50);
-        user.addNeed(need2, 35);
-        user.addNeed(need3, 500);
-
-        //invoke
-        user.checkout();
-
-        //analyze
-        assertEquals(need1.getCurrentQuantity(), 50);
-        assertEquals(need2.getCurrentQuantity(), 35);
-        assertEquals(need3.getCurrentQuantity(), 500);
+        user.addNeed(need1ID, 50);
+        
+        assertEquals(false, user.removeNeed(need2ID));
     }
 
     /**
@@ -122,14 +104,14 @@ public class UserTest{
     @Test
     public void testClearBasket() {
         //setup
-        user.addNeed(need1, 50);
-        user.addNeed(need2, 35);
-        user.addNeed(need3, 500);
+        user.addNeed(need1ID, 50);
+        user.addNeed(need2ID, 35);
+        user.addNeed(need3ID, 500);
 
         //invoke
         user.clearBasket();
 
         //analyze
-        assertEquals(user.getBasket().size(), 0);
+        assertEquals(user.getNeeds().size(), 0);
     }
 }
