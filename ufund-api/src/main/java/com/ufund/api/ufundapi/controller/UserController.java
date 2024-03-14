@@ -114,26 +114,26 @@ public class UserController {
     /**
      * adds a need to a user's basket in the JSON
      * @param username the username of the user
-     * @param need the need to add to the basket
+     * @param needID the id of the need to add to the basket
      * @param quantity how much the user wants to contribute to the need
      * @return HttpStatus.BAD_REQUEST if the quantity is nonpositive
      * @return HttpStatus.NOT_FOUND if the user does not exist
      * @return HttpStatus.OK if the need was successfully added
      * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an error
      */
-    @PutMapping("/{username}/{quantity}")
-    public ResponseEntity<Need> addNeed(@PathVariable String username, @RequestBody Need need, @PathVariable double quantity) {
-        LOG.info("PUT /users " + username + "/" + need);
+    @PutMapping("/{username}/{needID}/{quantity}")
+    public ResponseEntity<Integer> addNeed(@PathVariable String username, @PathVariable int needID, @PathVariable double quantity) {
+        LOG.info("PUT /users " + username + "/" + needID);
         try {
             if(quantity <= 0) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            Need newNeed = userDao.addNeed(username, need, quantity);
-            if(newNeed == null) {
+            Integer newNeedID = userDao.addNeed(username, needID, quantity);
+            if(newNeedID == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             else {
-                return new ResponseEntity<Need>(newNeed, HttpStatus.OK);
+                return new ResponseEntity<Integer>(newNeedID, HttpStatus.OK);
             }
         }
         catch(IOException e) {
@@ -144,7 +144,7 @@ public class UserController {
     /**
      * Checks out the user's basket
      * @param username the username to remove the need from
-     * @param need the need to remove
+     * @param id       the if of the need to remove
      * @return         HttpStatus.OK, if need is successfully removed
      * @return         HttpStatus.NOT_FOUND if the user doesn't exist
      * @return         HttpStatus.BAD_REQUEST if the need is not in the basket
@@ -169,33 +169,7 @@ public class UserController {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-
-    /**
-     * Checks out the user's basket
-     * @param username the username to checkout the basket of
-     * @return         HttpStatus.OK, if basket is successfully cleared
-     * @return         HttpStatus.NOT_FOUND if user does not exist
-     * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
-     */
-    @DeleteMapping("/{username}/checkout")
-    public ResponseEntity<Need[]> checkout(@PathVariable String username) {
-        LOG.info("CHECKOUT " + username);
-        try{
-            boolean exists = userDao.checkout(username);
-            if(!exists) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            else {
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
-        }
-        catch(IOException e){
-            LOG.log(Level.SEVERE, e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }   
+    } 
     
     /**
      * Clears the user's basket

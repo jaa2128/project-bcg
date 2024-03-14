@@ -72,7 +72,7 @@ public class User {
 
     /**
      * Adds a need to the user's funding basket
-     * @param id the id ofID the Need to add to the funding basket
+     * @param needID the id ofID the Need to add to the funding basket
      * @param quantity the amount the user wants to contribute to the need
      */
     public void addNeed(int needID, double quantity) {
