@@ -15,11 +15,9 @@ public interface UserDAO {
 
     User createUser(String username, String password) throws IOException;
 
-    Need addNeed(String username, Need need, double quantity) throws IOException;
+    Integer addNeed(String username, int id, double quantity) throws IOException;
     
     Boolean removeNeed(String username, int needID) throws IOException;
-
-    boolean checkout(String username) throws IOException;
 
     boolean clearBasket(String username) throws IOException;
 
