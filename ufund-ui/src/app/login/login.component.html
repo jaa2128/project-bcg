@@ -1,8 +1,15 @@
 <h2>Login</h2>
+<form #userlogin = "ngForm" (ngSubmit)="onSubmit()">
+    <label for="log-in">Username: </label>
+        <input type="text" id="username" placeholder="username" [(ngModel)]="formData.username"/> <br>
+    <label for="log-in">Password: </label>
+        <input type="text" id="password" placeholder="password" [(ngModel)]="formData.password"/> <br>
+    <button type="submit">Login</button>
+</form>
 
-<label for="log-in">Username: </label>
-    <input id="log-in" placeholder="username"/> <br>
-<label for="log-in">Password: </label>
-    <input id="log-in" placeholder="password"/> <br>
-    
-<button type="login-button" (click)="login()">Login</button>
+<div *ngIf="submitted">
+    <h3>Submitted Data:</h3>
+    <p>Email: {{ formData.username }}</p>
+    <p>Password: {{ formData.password }}</p>
+</div>
+

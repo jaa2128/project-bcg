@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Need } from './need'; 
 import { User } from './user'; 
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -18,9 +18,6 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  getUser(username: string, password: string): Observable<any> {
-    
-    return this.http.get<User>(this.usersURL + '/' + username);
-  }
-
+  getUser(username: string, password: string): Observable<HttpResponse<User>> {
+    return this.http.get<User>(this.usersURL + '/' + username, { observe: 'response' });  }
 }
