@@ -54,6 +54,7 @@ export class LoginComponent {
       (response: HttpResponse<User>) => {
         this.response = response.status;
         this.user = response.body;
+        this.userService.setCurrentUser(response.body);
         this.router.navigateByUrl("needs");
       },
       (error) => {
@@ -68,6 +69,8 @@ export class LoginComponent {
       (response: HttpResponse<User>) => {
         this.response = response.status
         this.user = response.body
+        this.userService.setCurrentUser(response.body);
+        this.router.navigateByUrl("needs");
       },
       (error) =>
       {
