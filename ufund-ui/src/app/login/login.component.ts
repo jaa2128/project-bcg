@@ -18,6 +18,9 @@ export class LoginComponent {
   };
   submitted: boolean = false;
 
+  response: number = 0;
+  user: User | null | undefined;
+
   onSubmit(formData: { username: string, password: string }): void {
     this.submitted = true;
     this.login(formData.username, formData.password);
@@ -30,11 +33,12 @@ export class LoginComponent {
     console.log(password);
     
     this.userService.getUser(username, password).subscribe(
-      (response) => {
-        console.log('User:', response);
+      (response: HttpResponse<User>) => {
+        this.response = response.status;
+        this.user = response.body;
       },
       (error) => {
-        console.error('Error occurred:', error);
+        this.response = error.status;
       }
     );
   }

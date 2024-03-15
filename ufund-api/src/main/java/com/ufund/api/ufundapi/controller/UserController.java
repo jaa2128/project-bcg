@@ -63,7 +63,7 @@ public class UserController {
      * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an error
      */
     @GetMapping("/{username}")
-    public ResponseEntity<User> getUser(@PathVariable String username, String password) {
+    public ResponseEntity<User> getUser(@PathVariable String username, @RequestParam String password) {
         LOG.info("GET /users/" + username);
         try {
             User user = userDao.getUser(username);
