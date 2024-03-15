@@ -136,6 +136,40 @@ public class UserFileDAO implements UserDAO {
     }
 
     /**
+     * gets the ids of the needs in the user's basket
+     * @param username the username of the user
+     * @return null if the user doesn't exist
+     * @return the list of the need ids if the user exists
+     */
+    @Override
+    public ArrayList<Integer> getNeeds(String username) throws IOException {
+        synchronized(users) {
+            User user = getUser(username);
+            if(user == null) {
+                return null;
+            }
+            return user.getNeeds();
+        }
+    }
+
+    /**
+     * gets the quantities of the needs in the user's basket
+     * @param username the username of the user
+     * @return null if the user doesn't exist
+     * @return the list of the quantities if the user exists
+     */
+    @Override
+    public ArrayList<Double> getContributions(String username) throws IOException {
+        synchronized(users) {
+            User user = getUser(username);
+            if(user == null) {
+                return null;
+            }
+            return user.getContributions();
+        }
+    }
+
+    /**
      * Creates a new user
      * @param username the username of the new user
      * @return the new user if the given username was not already in use
@@ -161,19 +195,19 @@ public class UserFileDAO implements UserDAO {
      * @param username the username of the user
      * @param need the need the user adds to the basket
      * @param quantity the amount to contribute to the need
-     * @return the need if it was successfully added
+     * @return the if of the need if it was successfully added
      * @return null if the user doesn't exist
      */
     @Override
-    public Need addNeed(String username, Need need, double quantity) throws IOException {
+    public Integer addNeed(String username, int id, double quantity) throws IOException {
         synchronized(users) {
             User user = getUser(username);
             if(user == null) {
                 return null;
             }
-            user.addNeed(need, quantity);
+            user.addNeed(id, quantity);
             save(); //may throw IOException
-            return need;
+            return id;
         }
     }
 
@@ -196,26 +230,6 @@ public class UserFileDAO implements UserDAO {
             boolean isRemoved = user.removeNeed(needID);
             save(); //may throw IOException
             return isRemoved;
-        }
-    }
-
-    /**
-     * Checks out the user basket
-     * @param username the username of the user
-     * 
-     * @return false if the user doesn't exist
-     * @return true if the user successfully checkout
-     */
-    @Override
-    public boolean checkout(String username) throws IOException {
-        synchronized(users){
-            User user = getUser(username);
-            if(user == null) {
-                return false;
-            }
-            user.checkout();
-            save(); //may throw IOException
-            return true;
         }
     }
 

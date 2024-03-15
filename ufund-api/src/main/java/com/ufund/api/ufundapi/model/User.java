@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class User {
     @JsonProperty("username") private final String username; //User's username for login
     @JsonProperty("password") private final String password; //User's password
-    @JsonProperty("needs") private ArrayList<Need> needs; //list of needs in the user's basket
+    @JsonProperty("needs") private ArrayList<Integer> needs; //list of needs in the user's basket
     @JsonProperty("contributions") private ArrayList<Double> contributions; //list of contribution amounts
     private final boolean isAdmin; // Whether user is a helper or an admin
 
@@ -19,7 +19,7 @@ public class User {
     public User(@JsonProperty("username") String username, @JsonProperty("password") String password){
         this.username = username;
         this.password = password;
-        this.needs = new ArrayList<Need>();
+        this.needs = new ArrayList<Integer>();
         this.contributions = new ArrayList<Double>();
         this.isAdmin = username.equals("admin");
     }
@@ -41,7 +41,7 @@ public class User {
     /**
      * Retrieves User's needs in funding basket
      */
-    public ArrayList<Need> getNeeds(){
+    public ArrayList<Integer> getNeeds(){
         return this.needs;
     }
 
@@ -72,11 +72,11 @@ public class User {
 
     /**
      * Adds a need to the user's funding basket
-     * @param need the Need to add to the funding basket
+     * @param needID the id ofID the Need to add to the funding basket
      * @param quantity the amount the user wants to contribute to the need
      */
-    public void addNeed(Need need, double quantity) {
-        this.needs.add(need);
+    public void addNeed(int needID, double quantity) {
+        this.needs.add(needID);
         this.contributions.add(quantity);
     }
 
@@ -91,29 +91,18 @@ public class User {
         for(int i = 0; i < needs.size(); i++)
         {
             // if the ids match up
-            if(needs.get(i).getID() == needID)
+            if(needs.get(i) == needID)
             {
-            //remove the need along with the 
-            //contribution associated with it
-            this.needs.remove(i);
-            this.contributions.remove(i);
-            return true;
+                //remove the need along with the 
+                //contribution associated with it
+                this.needs.remove(i);
+                this.contributions.remove(i);
+                return true;
             }
         }
 
         // Otherwise if no ids match up 
         return false;
-    }
-
-    /**
-     * Checks out all the needs in the funding basket
-     */
-    public void checkout() {
-        for(int i = 0; i < this.needs.size(); i++) {
-            Need need = this.needs.get(i);
-            double quantity = this.contributions.get(i);
-            need.contribute(quantity);
-        }
     }
 
     /**

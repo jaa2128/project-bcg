@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
  * Test the User Controller
@@ -39,6 +40,18 @@ public class UserControllerTest {
         for(int i = 0; i < 5; i++) {
             mockUsers[i] = mock(User.class);
         }
+    }
+
+    @Test
+    public void testGetUsers() throws IOException { //getUsers may throw IOException
+        // Setup
+        when(mockUserDAO.getUsers()).thenReturn(mockUsers);
+
+        // Invoke
+        ResponseEntity<User[]> response = userController.getUsers();
+
+        // Analyze
+        assertEquals(response.getBody().length, mockUsers.length);
     }
 
     @Test
@@ -91,39 +104,14 @@ public class UserControllerTest {
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
     }
 
-
-
-    @Test
-    public void testCheckout() throws IOException {
-        //Setup
-        User user = new User("abc123", "1234");
-        Need[] needs = new Need[3];
-        //add some mock needs in basket
-        for(int i = 0; i < 3; i++) {
-            Need need = mock(Need.class);
-            needs[i] = need;
-            user.addNeed(need, 10.0);
-        }
-        //return the user when getUser() is called
-        when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
-        //return the array of needs when checkout() is called
-        when(mockUserDAO.checkout(user.getUsername())).thenReturn(needs);
-
-        //Invoke
-        ResponseEntity<Need[]> response = userController.checkout(user.getUsername());
-
-        //Analyze
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(3, response.getBody().length);
-    }
-
     @Test
     public void testClearBasket() throws IOException {
         //Setup
         User user = new User("abc123", "1234");
-        //add some mock needs in basket
+
+        //add some mock needID in basket
         for(int i = 0; i < 3; i++) {
-            user.addNeed(mock(Need.class), 10.0);
+            user.addNeed(i, 10.0);
         }
         //return the user when we try to call getUser()
         when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
