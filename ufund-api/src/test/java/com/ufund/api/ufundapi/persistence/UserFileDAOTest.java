@@ -56,11 +56,73 @@ public class UserFileDAOTest {
         assertEquals("Brandon", user.getUsername());
     }
 
+    /**
+     * @author Julian Alvia
+     * @throws IOException
+     */
+    @Test 
+    public void testGetUserNull() throws IOException{
+        User user = userFileDAO.getUser("Nonexistent");
+
+        assertNull(user);
+    }
+
     @Test
     public void testAuthenticateUser() throws IOException{
         User user = userFileDAO.getUser("Brandon");
 
-        assertTrue(user.isPassword(user.getPassword()));
+        assertTrue(userFileDAO.authenticateUser(user.getUsername(), user.getPassword()));
+    }
+
+    /**
+     * @author Julian Alvia
+     * @throws IOException
+     */
+    @Test
+    public void testAuthenticateUserFalse() throws IOException{
+        User user = userFileDAO.getUser("Brandon");
+
+        assertFalse(userFileDAO.authenticateUser(user.getUsername(), "Wrong Password"));
+    }
+
+    /**
+     * @author Julian Alvia
+     * @throws IOException
+     */
+    @Test
+    public void testGetNeedsNull() throws IOException{
+        assertNull(userFileDAO.getNeeds("Non Existent Username"));
+    }
+
+    /**
+     * @author Julian Alvia
+     * @throws IOException
+     */
+    @Test 
+    public void testGetNeeds() throws IOException{
+        User user = userFileDAO.getUser("Brandon");
+
+        assertNotNull(userFileDAO.getNeeds(user.getUsername()));
+    }
+
+    /**
+     * @author Julian Alvia
+     * @throws IOException
+     */
+    @Test
+    public void testGetContributions() throws IOException{
+        User user = userFileDAO.getUser("Brandon");
+
+        assertNotNull(userFileDAO.getContributions(user.getUsername()));
+    }
+
+    /**
+     * @author Julian Alvia
+     * @throws IOException
+     */
+    @Test
+    public void testGetContributionsNull() throws IOException{
+        assertNull(userFileDAO.getContributions("Non Existent Username"));
     }
 
     @Test
@@ -73,6 +135,20 @@ public class UserFileDAOTest {
 
     }
 
+    /**
+     * @author Julian Alvia
+     * @throws IOException
+     */
+    @Test
+    public void testCreateUserNull() throws IOException{
+        // Have a user with the same username as another user
+        User newUser = new User("Brandon", "Skibidi");
+
+        User result = userFileDAO.createUser(newUser.getUsername(), newUser.getPassword());
+
+        assertNull(result);
+    }
+
     @Test
     public void testAddNeed() throws IOException{
         User newUser = testUsers[0];
@@ -81,6 +157,17 @@ public class UserFileDAOTest {
         userFileDAO.addNeed(newUser.getUsername(), newNeedID, 10);
 
         assertNotNull(newUser.getNeeds().get(0));
+    }
+
+    /**
+     * @author Julian Alvia
+     * @throws IOException
+     */
+    @Test
+    public void testAddNeedNull() throws IOException{
+        int newNeedID = 1;
+
+        assertNull(userFileDAO.addNeed("Non Existent Username", newNeedID, 10));
     }
 
     @Test
@@ -98,6 +185,25 @@ public class UserFileDAOTest {
         assertEquals(0, newUser.getNeeds().size());
     }
 
+    /**
+     * @author Julian Alvia
+     * @throws IOException
+     */
+    @Test 
+    public void testRemoveNeedNull() throws IOException{
+        // Set up
+        User newUser = testUsers[0];
+        int newNeedID = 0;
+        newUser.addNeed(newNeedID, 10);
+        assertEquals(1, newUser.getNeeds().size());
+        assertEquals(1, newUser.getContributions().size());
+
+        assertNull(userFileDAO.removeNeed("Non Existent Username", 0));
+
+        assertEquals(1, newUser.getNeeds().size());
+        assertEquals(1, newUser.getContributions().size());
+    }
+
     @Test
     public void testClearBasket()throws IOException{
         User newUser = testUsers[0];
@@ -109,8 +215,29 @@ public class UserFileDAOTest {
         newUser.addNeed(newNeed2ID, 3);
         newUser.addNeed(newNeed3ID, 3);
 
-        newUser.clearBasket();;
-
+        assertTrue(userFileDAO.clearBasket(newUser.getUsername()));
         assertEquals(newUser.getNeeds().size(), 0);
+        assertEquals(newUser.getContributions().size(), 0);
+    }
+
+    /**
+     * @author Julian Alvia
+     * @throws IOException
+     */
+    @Test
+    public void testClearBasketFalse() throws IOException{
+        User newUser = testUsers[0];
+
+        int newNeed1ID = 0;
+        int newNeed2ID = 1;
+        int newNeed3ID = 2;
+
+        newUser.addNeed(newNeed1ID, 3);
+        newUser.addNeed(newNeed2ID, 3);
+        newUser.addNeed(newNeed3ID, 3);
+
+        assertFalse(userFileDAO.clearBasket("Non Existent Username"));
+        assertEquals(newUser.getNeeds().size(), 3);
+        assertEquals(newUser.getContributions().size(), 3);
     }
 }
