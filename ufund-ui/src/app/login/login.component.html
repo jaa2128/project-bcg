@@ -4,7 +4,8 @@
   <input type="text" id="username" name="username" placeholder="username" [(ngModel)]="formData.username" /><br />
   <label for="log-in">Password: </label>
   <input type="password" id="password" name="password" placeholder="password" [(ngModel)]="formData.password" /><br />
-  <button type="submit">Login</button>
+  <button type="submit" (click)="onLoginClick()">Login</button>
+  <button type="submit" (click)="onSignupClick()">Sign Up</button>
 </form>
 
 <div *ngIf="submitted">

@@ -138,14 +138,14 @@ public class UserController {
      * @return HttpStatus.CONFLICT if the username was already in use
      * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an I/O error
      */
-    @PostMapping("")
-    public ResponseEntity<User> createUser(@RequestBody User newuser) {
-        LOG.info("POST /users " + newuser.getUsername());
+    @PostMapping("/{username}")
+    public ResponseEntity<User> createUser(@PathVariable String username, @RequestBody String password) {
+        LOG.info("POST /users " + username);
         try {
-            if (newuser.getUsername().isEmpty() || newuser.getPassword().isEmpty()) {
+            if (username.isEmpty() || password.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            User user = userDao.createUser(newuser.getUsername(), newuser.getPassword());
+            User user = userDao.createUser(username, password);
             if(user != null){
                 return new ResponseEntity<User>(user, HttpStatus.CREATED);
             }

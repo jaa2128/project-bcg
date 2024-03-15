@@ -18,12 +18,28 @@ export class LoginComponent {
   };
   submitted: boolean = false;
 
+  //set to true when login is clicked and false when sign up is clicked
+  isLogin: boolean = false;
+
   response: number = 0;
   user: User | null | undefined;
 
   onSubmit(formData: { username: string, password: string }): void {
     this.submitted = true;
-    this.login(formData.username, formData.password);
+    if(this.isLogin) {
+      this.login(formData.username, formData.password);
+    }
+    else {
+      this.signup(formData.username, formData.password);
+    }
+  }
+
+  onLoginClick(): void {
+    this.isLogin = true;
+  }
+
+  onSignupClick(): void {
+    this.isLogin = false;
   }
 
   constructor(private userService: UserService) { }
@@ -39,7 +55,22 @@ export class LoginComponent {
       },
       (error) => {
         this.response = error.status;
+        this.user = null
       }
     );
+  }
+
+  signup(username: string, password: string): void {
+    this.userService.createUser(username, password).subscribe(
+      (response: HttpResponse<User>) => {
+        this.response = response.status
+        this.user = response.body
+      },
+      (error) =>
+      {
+        this.response = error.status;
+        this.user = null
+      }
+    )
   }
 }
