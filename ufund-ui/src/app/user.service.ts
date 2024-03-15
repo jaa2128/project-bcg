@@ -19,5 +19,5 @@ export class UserService {
   };
 
   getUser(username: string, password: string): Observable<HttpResponse<User>> {
-    return this.http.get<User>(this.usersURL + '/' + username, { observe: 'response' });  }
+    return this.http.get<User>(this.usersURL + '/' + username + "?password=" + password, { observe: 'response' });  }
 }

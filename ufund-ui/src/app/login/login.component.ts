@@ -11,20 +11,18 @@ import { AppComponent } from '../app.component';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class FormComponent {
+export class LoginComponent {
   formData = {
       username: '',
       password: ''
   };
   submitted: boolean = false;
 
-  onSubmit() {
-    this.submitted=true;
+  onSubmit(formData: { username: string, password: string }): void {
+    this.submitted = true;
+    this.login(formData.username, formData.password);
   }
-}
 
-
-export class LoginComponent {
   constructor(private userService: UserService) { }
   
   login(username: string, password: string): void {
