@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from '../app.component';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -42,7 +42,9 @@ export class LoginComponent {
     this.isLogin = false;
   }
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+    private router: Router
+    ) { }
   
   login(username: string, password: string): void {
     console.log(username);
@@ -52,6 +54,7 @@ export class LoginComponent {
       (response: HttpResponse<User>) => {
         this.response = response.status;
         this.user = response.body;
+        this.router.navigateByUrl("needs");
       },
       (error) => {
         this.response = error.status;
