@@ -5,6 +5,8 @@ import { Location } from '@angular/common';
 import { Need } from '../need'; 
 import { NeedsComponent } from '../needs/needs.component';
 import { NeedService } from '../need.service';
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-need-detail',
@@ -12,16 +14,21 @@ import { NeedService } from '../need.service';
   styleUrl: './need-detail.component.css'
 })
 export class NeedDetailComponent implements OnInit {
+
+  currentUser: User | null = null;
   
   need!: Need;
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private needService: NeedService
+    private needService: NeedService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
+    this.currentUser = this.userService.getCurrentUser();
+    this.userService.validate();
     this.getNeed();
   }
 
