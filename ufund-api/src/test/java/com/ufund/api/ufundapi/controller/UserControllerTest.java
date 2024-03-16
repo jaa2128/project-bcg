@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.ufund.api.ufundapi.persistence.NeedDAO;
 import com.ufund.api.ufundapi.persistence.UserDAO;
@@ -57,17 +58,29 @@ public class UserControllerTest {
     @Test
     public void testGetUser() throws IOException { // getNeed may throw IOException
         // Setup
-        User user = new User("abc123", "1234");
+        User user1 = new User("abc123", "1234");
+        User user2 = new User("", "5678");
+        User user3 = new User("def456", "");
 
         // When the same username is passed in, our mock User DAO will return the user
-        when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
-        when(mockUserDAO.authenticateUser(user.getUsername(), user.getPassword())).thenReturn(true);
+        when(mockUserDAO.getUser(user1.getUsername())).thenReturn(user1);
+        when(mockUserDAO.authenticateUser(user1.getUsername(), user1.getPassword())).thenReturn(true);
+
+        when(mockUserDAO.getUser(user2.getUsername())).thenReturn(user2);
+        when(mockUserDAO.authenticateUser(user2.getUsername(), user2.getPassword())).thenReturn(true);
+
+        when(mockUserDAO.getUser(user3.getUsername())).thenReturn(user3);
+        when(mockUserDAO.authenticateUser(user3.getUsername(), user3.getPassword())).thenReturn(true);
 
         // Invoke
-        ResponseEntity<User> response = userController.getUser(user.getUsername(), user.getPassword());
+        ResponseEntity<User> response1 = userController.getUser(user1.getUsername(), user1.getPassword());
+        ResponseEntity<User> response2 = userController.getUser(user2.getUsername(), user2.getPassword());
+        ResponseEntity<User> response3 = userController.getUser(user3.getUsername(), user3.getPassword());
 
         // Analyze
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response1.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, response2.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, response3.getStatusCode());
     }
 
     @Test 
@@ -125,6 +138,21 @@ public class UserControllerTest {
         assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
     
+    @Test
+    public void testGetNeeds() throws IOException{
+        Need need1 = new Need(0, "Test Name 1", "Test Description 1", "Test Type 1", 100);
+        Need need2 = new Need(1, "Test Name 2", "Test Description 2", "Test Type 2", 100);
+        User user1 = new User("abc123", "1234");
+        user1.addNeed(need1.getID(), 50);
+        user1.addNeed(need2.getID(), 25);
+        ArrayList<Integer> ExpectedNeeds = mockUserDAO.getNeeds(user1.getUsername());
+        ArrayList<Integer> ActualNeeds = new ArrayList<Integer>();
+        ActualNeeds.add(need1.getID());
+        ActualNeeds.add(need2.getID());
+        ResponseEntity<ArrayList<Integer>> ExpectedResponse = new ResponseEntity<ArrayList<Integer>>(ExpectedNeeds, HttpStatus.OK);
 
+        assertEquals(ExpectedNeeds,ActualNeeds);
+        assertEquals(ExpectedResponse.getStatusCode(), HttpStatus.OK);
+    }
     
 }
