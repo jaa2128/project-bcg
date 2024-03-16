@@ -20,7 +20,7 @@ export class BasketComponent {
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
-    if(this.currentUser?.isAdmin) {
+    if(this.currentUser?.admin) {
       this.router.navigateByUrl("needs");
     }
   }

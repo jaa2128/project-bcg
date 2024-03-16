@@ -6,7 +6,7 @@
 <a routerLink="/needs">Needs</a>
 </nav>
 
-<div *ngIf="!currentUser?.isAdmin">
+<div *ngIf="!currentUser?.admin">
   <nav>
     <a routerLink="/basket">Basket</a>
   </nav>
