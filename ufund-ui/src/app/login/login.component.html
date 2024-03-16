@@ -1,0 +1,13 @@
+<h2>Login</h2>
+<form #userlogin="ngForm" (ngSubmit)="onSubmit(formData)">
+  <label for="log-in">Username: </label>
+  <input type="text" id="username" name="username" placeholder="username" [(ngModel)]="formData.username" /><br />
+  <label for="log-in">Password: </label>
+  <input type="password" id="password" name="password" placeholder="password" [(ngModel)]="formData.password" /><br />
+  <button type="submit" (click)="onLoginClick()">Login</button>
+  <button type="submit" (click)="onSignupClick()">Sign Up</button>
+</form>
+
+<p>{{statusMessage}}</p>
+
+<router-outlet></router-outlet>

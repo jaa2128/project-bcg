@@ -1,27 +1,27 @@
 package com.ufund.api.ufundapi.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Map.Entry;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
-    private final String username; //User's username for login
-    private final HashMap<Need, Double> basket; //User's funding basket
-        //Keys are the needs
-        //Values are the quantity to be contributed to the Need
+    @JsonProperty("username") private final String username; //User's username for login
+    @JsonProperty("password") private final String password; //User's password
+    @JsonProperty("needs") private ArrayList<Integer> needs; //list of needs in the user's basket
+    @JsonProperty("contributions") private ArrayList<Double> contributions; //list of contribution amounts
     private final boolean isAdmin; // Whether user is a helper or an admin
 
     /**
      * Contructor for new instance of User
      * @param username //Will be determined by user during signup
-     * @param basket //Initialized as empty ArrayList
+     * @param password //Will be determined by user during signup
      */
-    public User(String username){
+    public User(@JsonProperty("username") String username, @JsonProperty("password") String password){
         this.username = username;
-        this.basket = new HashMap<>();
-        isAdmin = username.equals("admin");
+        this.password = password;
+        this.needs = new ArrayList<Integer>();
+        this.contributions = new ArrayList<Double>();
+        this.isAdmin = username.equals("admin");
     }
 
     /**
@@ -32,10 +32,25 @@ public class User {
     }
 
     /**
-     * Retrieves User's funding basket
+     * Retrieves user's password (for testing purposes)
      */
-    public HashMap<Need, Double> getBasket(){
-        return this.basket;
+    public String getPassword() {
+        return this.password;
+    }
+
+    /**
+     * Retrieves User's needs in funding basket
+     */
+    public ArrayList<Integer> getNeeds(){
+        return this.needs;
+    }
+
+    /**
+     * Retrieves User's contributions to needs
+     * in funding basket
+     */
+    public ArrayList<Double> getContributions(){
+        return this.contributions;
     }
 
     /**
@@ -47,41 +62,55 @@ public class User {
     }
 
     /**
+     * Verifies the password of the user
+     * @param guess the guess for the password
+     * @return true if the guess and password match, false otherwise
+     */
+    public boolean isPassword(String guess) {
+        return password.equals(guess);
+    }
+
+    /**
      * Adds a need to the user's funding basket
-     * @param need the Need to add to the funding basket
+     * @param needID the id ofID the Need to add to the funding basket
      * @param quantity the amount the user wants to contribute to the need
      */
-    public void addNeed(Need need, double quantity) {
-        basket.put(need, quantity);
+    public void addNeed(int needID, double quantity) {
+        this.needs.add(needID);
+        this.contributions.add(quantity);
     }
 
     /**
      * Removes a need from the user's funding basket
-     * @param need the Need to remove from the basket
-     * @throws NoSuchElementException if the need was not in the basket
+     * @param needID the id of the Need to remove from the basket
+     * @return true if the need was removed
+     * @return false if the need does not exist
      */
-    public void removeNeed(Need need) throws NoSuchElementException {
-        if(basket.remove(need) == null)
-            throw new NoSuchElementException();
-    }
-
-    /**
-     * Checks out all the needs in the funding basket
-     */
-    public void checkout() {
-        for(Entry<Need, Double> entry : basket.entrySet()) {
-            Need need = entry.getKey(); //the current need
-            double quantity = entry.getValue(); //the quantity associated with need
-            need.contribute(quantity);
+    public boolean removeNeed(int needID) {
+        // loop through list
+        for(int i = 0; i < needs.size(); i++)
+        {
+            // if the ids match up
+            if(needs.get(i) == needID)
+            {
+                //remove the need along with the 
+                //contribution associated with it
+                this.needs.remove(i);
+                this.contributions.remove(i);
+                return true;
+            }
         }
-        clearBasket();
+
+        // Otherwise if no ids match up 
+        return false;
     }
 
     /**
      * Clears all needs in the funding basket
      */
     public void clearBasket() {
-        basket.clear();
+        this.needs.clear();
+        this.contributions.clear();
     }
 }
 
