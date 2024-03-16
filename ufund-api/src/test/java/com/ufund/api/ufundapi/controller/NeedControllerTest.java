@@ -286,6 +286,27 @@ public class NeedControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
 
+    @Test 
+    public void testUpdateNeedLessThanZero() throws IOException{
+        // Setup
+        Need need = new Need(99,"Test Need 8","Test Description","Test Type",-666.0);
+        // when updateNeed is called, return true simulating successful
+        // update and save
+        when(mockNeedDAO.updateNeed(need)).thenReturn(need);
+
+        // when mockNeedDAO tries to access its needs, it returns a Need[]
+        when(mockNeedDAO.getNeeds()).thenReturn(mockNeeds);
+
+        ResponseEntity<Need> response = needController.updateNeed(need);
+        need.setType("");
+
+        // Invoke
+        response = needController.updateNeed(need);
+
+        // Analyze
+        assertEquals(HttpStatus.NOT_ACCEPTABLE,response.getStatusCode());
+    }
+
     @Test
     public void testGetNeeds() throws IOException { // getNeeds may throw IOException
         // Setup
