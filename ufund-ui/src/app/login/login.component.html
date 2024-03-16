@@ -8,10 +8,6 @@
   <button type="submit" (click)="onSignupClick()">Sign Up</button>
 </form>
 
-<div *ngIf="submitted">
-  <h3>Submitted Data:</h3>
-  <p>Username: {{ formData.username }}</p>
-  <p>Password: {{ formData.password }}</p>
-  <p>HttpResponse: {{ response }}</p>
-  <p>User: {{ user }} </p>
-</div>
+<p>{{statusMessage}}</p>
+
+<router-outlet></router-outlet>

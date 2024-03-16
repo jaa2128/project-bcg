@@ -142,7 +142,7 @@ public class UserController {
     public ResponseEntity<User> createUser(@PathVariable String username, @RequestBody String password) {
         LOG.info("POST /users " + username);
         try {
-            if (username.isEmpty() || password.isEmpty()) {
+            if (username.strip().isEmpty() || password.strip().isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
             User user = userDao.createUser(username, password);
