@@ -66,6 +66,9 @@ public class UserController {
     public ResponseEntity<User> getUser(@PathVariable String username, @RequestParam String password) {
         LOG.info("GET /users/" + username);
         try {
+            if(username.strip().isEmpty() || password.strip().isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             User user = userDao.getUser(username);
             if(user == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
