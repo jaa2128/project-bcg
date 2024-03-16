@@ -1,6 +1,7 @@
 package com.ufund.api.ufundapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -142,17 +143,21 @@ public class UserControllerTest {
     public void testGetNeeds() throws IOException{
         Need need1 = new Need(0, "Test Name 1", "Test Description 1", "Test Type 1", 100);
         Need need2 = new Need(1, "Test Name 2", "Test Description 2", "Test Type 2", 100);
-        User user1 = new User("abc123", "1234");
-        user1.addNeed(need1.getID(), 50);
-        user1.addNeed(need2.getID(), 25);
-        ArrayList<Integer> ExpectedNeeds = mockUserDAO.getNeeds(user1.getUsername());
-        ArrayList<Integer> ActualNeeds = new ArrayList<Integer>();
-        ActualNeeds.add(need1.getID());
-        ActualNeeds.add(need2.getID());
-        ResponseEntity<ArrayList<Integer>> ExpectedResponse = new ResponseEntity<ArrayList<Integer>>(ExpectedNeeds, HttpStatus.OK);
-
-        assertEquals(ExpectedNeeds,ActualNeeds);
-        assertEquals(ExpectedResponse.getStatusCode(), HttpStatus.OK);
+        User user = new User("abc123", "1234");
+        user.addNeed(need1.getID(), 50);
+        user.addNeed(need2.getID(), 25);
+        ArrayList<Integer> expectedNeeds = user.getNeeds();
+        when(mockUserDAO.getNeeds(user.getUsername())).thenReturn(expectedNeeds);
+        ResponseEntity<ArrayList<Integer>> expectedResponse = userController.getNeeds(user.getUsername());
+        assertEquals(expectedResponse.getStatusCode(), HttpStatus.OK);
     }
-    
+
+
+    @Test
+    public void testGetNeedsNotFound() throws IOException{
+        User user = new User("abc123", "1234");
+        when(mockUserDAO.getNeeds(user.getUsername())).thenReturn(null);
+        ResponseEntity<ArrayList<Integer>> expectedResponse = userController.getNeeds(user.getUsername());
+        assertEquals(expectedResponse.getStatusCode(), HttpStatus.NOT_FOUND);
+    }
 }
