@@ -5,6 +5,13 @@
 <nav>
 <a routerLink="/needs">Needs</a>
 </nav>
+
+<div *ngIf="!currentUser?.isAdmin">
+  <nav>
+    <a routerLink="/basket">Basket</a>
+  </nav>
+</div>
+
   <ul class="needs">
     <li *ngFor="let need of needs">
       <a routerLink="/detail/{{need.id}}">
