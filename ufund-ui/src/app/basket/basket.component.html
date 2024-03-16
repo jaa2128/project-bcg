@@ -1,2 +1,13 @@
-<h1>My Basket</h1>
-<h2>Logged in as {{currentUser?.username}}</h2>
+<h2>My Needs</h2>
+<h1>Logged in as {{currentUser?.username}}</h1>
+   
+    <!-- (click) passes input value to add() and then clears the input -->
+<nav>
+<a routerLink="/needs">Needs</a>
+</nav>
+
+<div *ngIf="!currentUser?.admin">
+  <nav>
+    <a routerLink="/basket">Basket</a>
+  </nav>
+</div>
