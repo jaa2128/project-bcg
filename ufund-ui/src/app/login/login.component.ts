@@ -17,12 +17,8 @@ export class LoginComponent {
       password: ''
   };
   submitted: boolean = false;
-
-  //set to true when login is clicked and false when sign up is clicked
-  isLogin: boolean = false;
-
-  response: number = 0;
-  user: User | null | undefined;
+  statusMessage: string = 'Please log in or sign up!';
+  isLogin: boolean = false;   //set to true when login is clicked and false when sign up is clicked
 
   onSubmit(formData: { username: string, password: string }): void {
     this.submitted = true;
@@ -52,14 +48,20 @@ export class LoginComponent {
     
     this.userService.getUser(username, password).subscribe(
       (response: HttpResponse<User>) => {
-        this.response = response.status;
-        this.user = response.body;
         this.userService.setCurrentUser(response.body);
+        this.statusMessage = 'Success! Logging in...'
         this.router.navigateByUrl("needs");
       },
       (error) => {
-        this.response = error.status;
-        this.user = null
+        if(error.status == 404) { //not found
+          this.statusMessage = 'Username not found!';
+        }
+        else if(error.status == 401) { //unauthorized
+          this.statusMessage = 'Password is incorrect!';
+        }
+        else { //internal server error
+          this.statusMessage = 'There was a server error!';
+        }
       }
     );
   }
@@ -67,15 +69,21 @@ export class LoginComponent {
   signup(username: string, password: string): void {
     this.userService.createUser(username, password).subscribe(
       (response: HttpResponse<User>) => {
-        this.response = response.status
-        this.user = response.body
         this.userService.setCurrentUser(response.body);
+        this.statusMessage = 'Success! Signing up...s'
         this.router.navigateByUrl("needs");
       },
       (error) =>
       {
-        this.response = error.status;
-        this.user = null
+        if(error.status == 400) { //bad request
+          this.statusMessage = 'Username or password is blank!'; 
+        }
+        else if(error.status == 409) { //conflict
+          this.statusMessage = 'Username is already in use!';
+        }
+        else {
+          this.statusMessage = 'There was a server error!';
+        }
       }
     )
   }
