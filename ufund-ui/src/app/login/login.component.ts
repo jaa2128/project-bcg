@@ -46,6 +46,11 @@ export class LoginComponent {
     console.log(username);
     console.log(password);
     
+    if(username.trim().length == 0 || password.trim().length == 0) {
+      this.statusMessage = 'Username or password is blank!';
+      return;
+    }
+
     this.userService.getUser(username, password).subscribe(
       (response: HttpResponse<User>) => {
         this.userService.setCurrentUser(response.body);
@@ -58,6 +63,9 @@ export class LoginComponent {
         }
         else if(error.status == 401) { //unauthorized
           this.statusMessage = 'Password is incorrect!';
+        }
+        else if(error.status == 400) { //bad request
+          this.statusMessage = 'Username or password is blank!';
         }
         else { //internal server error
           this.statusMessage = 'There was a server error!';
