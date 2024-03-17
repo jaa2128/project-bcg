@@ -14,8 +14,7 @@ import { LoginComponent } from './login/login.component';
     AppComponent,
     NeedsComponent,
     NeedDetailComponent,
-    NeedSearchComponent
-    NeedDetailComponent,
+    NeedSearchComponent,
     LoginComponent
   ],
   imports: [
