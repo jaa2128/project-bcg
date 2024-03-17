@@ -12,12 +12,10 @@
   </nav>
 </div>
 
-<ul class="needs">
-  <li *ngFor="let need of basket">
-    <a routerLink="/detail/{{need.id}}">
-    {{need.name}}
-    </a>
-  </li>
+<ul>
+  <ng-container *ngFor="let need of basket; let i = index">
+    <li>{{ need.name }}: {{ contributions[i] }}</li>
+  </ng-container>
 </ul>
 
 

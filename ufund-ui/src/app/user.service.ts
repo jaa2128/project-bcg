@@ -46,6 +46,10 @@ export class UserService {
     return this.http.get<number[]>(this.usersURL + '/' + username + '/needs', { observe: 'response'});
   }
 
+  getUserContributions(username: string): Observable<HttpResponse<number[]>>{
+    return this.http.get<number[]>(this.usersURL + '/' + username + '/contributions', { observe: 'response'});
+  }
+
   createUser(username: string, password: string): Observable<HttpResponse<User>> {
     return this.http.post<User>(this.usersURL + '/' + username, password, { observe: 'response' });
   }

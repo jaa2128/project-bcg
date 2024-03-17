@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 
 export class BasketComponent implements OnInit {
   basket: Need[] = [];
+  contributions: number[] = [];
   currentUser: User | null = null;
 
   constructor(private userService: UserService,
@@ -32,6 +33,14 @@ export class BasketComponent implements OnInit {
       )
     }
 
+    getContributions(): void {
+      this.userService.getUserContributions((this.currentUser as User).username)
+        .subscribe((response: HttpResponse<number[]>) =>
+        {
+          response.body?.forEach(element => this.contributions.push(element));
+        })
+      }
+
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
@@ -39,5 +48,6 @@ export class BasketComponent implements OnInit {
       this.router.navigateByUrl("needs");
     }
     this.getNeeds();
+    this.getContributions();
   }
 }
