@@ -2,6 +2,8 @@ package com.ufund.api.ufundapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -21,6 +23,7 @@ import org.apache.catalina.connector.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -132,6 +135,23 @@ public class UserControllerTest {
     }
 
     @Test
+    public void testGetUserIOException() throws IOException{
+        //Setup
+        User user1 = new User("abc123", "1234");
+        
+        //When Username is passed, the mockUserDAO will throw an IOException
+        when(mockUserDAO.getUser(user1.getUsername())).thenThrow(new IOException());
+
+        //Invoke
+        ResponseEntity<User> response = userController.getUser(user1.getUsername(), user1.getPassword());
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);;
+
+
+    }
+
+    @Test
     public void testClearBasket() throws IOException {
         //Setup
         User user = new User("abc123", "1234");
@@ -154,23 +174,170 @@ public class UserControllerTest {
     
     @Test
     public void testGetNeeds() throws IOException{
+        //Setup
         Need need1 = new Need(0, "Test Name 1", "Test Description 1", "Test Type 1", 100);
         Need need2 = new Need(1, "Test Name 2", "Test Description 2", "Test Type 2", 100);
         User user = new User("abc123", "1234");
         user.addNeed(need1.getID(), 50);
         user.addNeed(need2.getID(), 25);
         ArrayList<Integer> expectedNeeds = user.getNeeds();
+
+        //When username is passed, the mockUserDAO will return the user's list of needs
         when(mockUserDAO.getNeeds(user.getUsername())).thenReturn(expectedNeeds);
+
+        //Invoke
         ResponseEntity<ArrayList<Integer>> expectedResponse = userController.getNeeds(user.getUsername());
+
+        //Analyze
         assertEquals(expectedResponse.getStatusCode(), HttpStatus.OK);
     }
 
 
     @Test
     public void testGetNeedsNotFound() throws IOException{
+        //Setup
         User user = new User("abc123", "1234");
+
+        //When username is passed, the mockUserDAO will return null
         when(mockUserDAO.getNeeds(user.getUsername())).thenReturn(null);
+
+        //Invoke
         ResponseEntity<ArrayList<Integer>> expectedResponse = userController.getNeeds(user.getUsername());
+
+        //Analyze
         assertEquals(expectedResponse.getStatusCode(), HttpStatus.NOT_FOUND);
     }
+
+    @Test
+    public void testGetNeedsIOException() throws IOException{
+        //Setup
+        User user = new User("abc123", "1234");
+
+        //When username is passed, the mockUserDAO will throw an IOException
+        when(mockUserDAO.getNeeds(user.getUsername())).thenThrow(new IOException());
+
+        //Invoke
+        ResponseEntity<ArrayList<Integer>> expectedResponse = userController.getNeeds(user.getUsername());
+
+        //Analyze
+        assertEquals(expectedResponse.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Test
+    public void testGetContributions() throws IOException{
+        //Setup
+        User user = new User("abc123", "1234");
+        Need need1 = new Need(0, "Name", "Description", "Type", 100);
+        Need need2 = new Need(1, "Test", "Test", "Test", 100);
+        user.addNeed(need1.getID(), 10);
+        user.addNeed(need2.getID(), 30);
+        
+        //When username is passed, the mockUserDAO will return a list of the user's contributions
+        when(mockUserDAO.getContributions(user.getUsername())).thenReturn(user.getContributions());
+
+        //Invoke
+        ResponseEntity<ArrayList<Double>> response = userController.getContributions(user.getUsername());
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    public void testGetContributionsNotFound() throws IOException{
+        //Setup
+        User user = new User("abc123", "1234");
+        
+        //When username is passed, the mockUserDAO will return null
+        when(mockUserDAO.getContributions(user.getUsername())).thenReturn(null);
+
+        //Invoke
+        ResponseEntity<ArrayList<Double>> response = userController.getContributions(user.getUsername());
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    public void testGetContributionsIOException() throws IOException{
+        //Setup
+        User user = new User("abc123", "1234");
+
+        //When username is passed, the mockUserDAO will throw an IOException
+        when(mockUserDAO.getContributions(user.getUsername())).thenThrow(new IOException());
+
+        //Invoke
+        ResponseEntity<ArrayList<Double>> response = userController.getContributions(user.getUsername());
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
+    @Test
+    public void testAddNeed() throws IOException{
+        //Setup
+        User user = new User("abc123", "1234");
+        Need need = new Need(0, "Name", "Description", "Type", 100);
+
+        //When username, need ID, and need quantity are passed, the mockUserDao will return the ID of the need
+        when(mockUserDAO.addNeed(user.getUsername(), need.getID(), 10)).thenReturn(need.getID());
+
+        //Invoke
+        ResponseEntity<Integer> response = userController.addNeed(user.getUsername(), need.getID(), 10);
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        
+    }
+
+    @Test
+    public void testAddNeedNotFound() throws IOException{
+        //Setup
+        User user = new User("abc123", "1234");
+
+        //When username, need ID, and need quantity are passed, the mockUserDao will return null
+        when(mockUserDAO.addNeed(user.getUsername(), 0, 10)).thenReturn(null);
+
+        //Invoke
+        ResponseEntity<Integer> response = userController.addNeed(user.getUsername(), 0, 10);
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+        
+    }
+
+    @Test
+    public void testAddNeedIOException() throws IOException{
+        //Setup
+        User user = new User("abc123", "1234");
+        Need need = new Need(0, "Name", "Description", "Type", 100);
+
+        //When username, need ID, and need quantity are passed, the mockUserDao will throw an IOException
+        when(mockUserDAO.addNeed(user.getUsername(), need.getID(), 10)).thenThrow(new IOException());
+
+        //Invoke
+        ResponseEntity<Integer> response = userController.addNeed(user.getUsername(), need.getID(), 10);
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        
+    }
+
+    @Test
+    public void testAddNeedZeroOrLess() throws IOException{
+        //Setup
+        User user = new User("abc123", "1234");
+        Need need = new Need(0, "Name", "Description", "Type", 100);
+
+        //When username, need ID, and need quantity are passed, the mockUserDao will return the ID of the need
+        when(mockUserDAO.addNeed(user.getUsername(), need.getID(), 0)).thenReturn(need.getID());
+
+        //Invoke
+        ResponseEntity<Integer> response = userController.addNeed(user.getUsername(), need.getID(), 0);
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+        
+    }
+
 }
