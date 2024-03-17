@@ -22,6 +22,9 @@ export class NeedDetailComponent implements OnInit {
 
   contribution!: number;
 
+  helperStatusMessage = 'Enter how much you want to contribute!';
+  adminStatusMessage = 'Edit your need then hit \'Save\'!';
+
   constructor(
     private route: ActivatedRoute,
     private location: Location,
@@ -56,7 +59,22 @@ export class NeedDetailComponent implements OnInit {
 
   add(): void {
     this.userService.addNeed(this.need.id, this.contribution).subscribe(
-      (response: HttpResponse<number>) => this.goBack());
+      (response: HttpResponse<number>) => {
+        this.helperStatusMessage = 'Success! Going back to listing...'
+        this.goBack()
+      },
+      (error) => {
+        if(error.status == 400) { //bad request
+          this.helperStatusMessage = 'Please enter a positive value!';
+        }
+        else if(error.status == 404) { //not found
+          this.helperStatusMessage = 'You are not signed in!';
+        }
+        else {
+          this.helperStatusMessage = 'There was a server error!';
+        }
+
+      });
   }
 
 }
