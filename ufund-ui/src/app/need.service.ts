@@ -27,8 +27,23 @@ export class NeedService {
     return this.http.get<Need>(this.needsURL + '/' + id);
   }
 
-  updateNeed(need: Need): Observable<HttpResponse<Object>> {
-    return this.http.put(this.needsURL, need, { observe :'response'});
+  createNeed(need:Need): Observable<Need>{
+    return this.http.post<Need>(this.needsURL, need, this.httpOptions);
+  }
+
+  searchNeeds(containsText: string): Observable<Need[]>{
+     return this.http.get<Need[]>(this.needsURL + '/?name=' +containsText)
+  }
+
+  updateNeed(need: Need): Observable<any> {
+    return this.http.put(this.needsURL, need, this.httpOptions);
+  }
+
+  /** DELETE: delete the need from the server */
+  deleteNeed(id: number): Observable<Need> {
+    const url = `${this.needsURL}/${id}`;
+
+    return this.http.delete<Need>(url, this.httpOptions);
   }
 
 }
