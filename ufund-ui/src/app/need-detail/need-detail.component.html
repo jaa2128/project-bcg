@@ -45,7 +45,10 @@
     <div><span>Type: </span>{{need.type}}</div>
     <div><span>Amount Funded: </span>{{need.currentQuantity}}</div>
     <div><span>Goal Amount: </span>{{need.targetQuantity}}</div>
+
+    <label for="need-contribution">Contribution: </label>
+    <input id="need-contribution" [(ngModel)]="contribution" placeholder="Contribution"/> <br>
     
     <button type="button" (click)="goBack()">go back</button>
-    <button type="button" (click)="save()">save</button>
+    <button type="button" (click)="add()">add</button>
   </ng-template>

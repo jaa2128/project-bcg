@@ -7,6 +7,7 @@ import { NeedsComponent } from '../needs/needs.component';
 import { NeedService } from '../need.service';
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-need-detail',
@@ -18,6 +19,8 @@ export class NeedDetailComponent implements OnInit {
   currentUser: User | null = null;
   
   need!: Need;
+
+  contribution!: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,6 +52,11 @@ export class NeedDetailComponent implements OnInit {
     this.needService.updateNeed(this.need)
         .subscribe(() => this.goBack());
     }
+  }
+
+  add(): void {
+    this.userService.addNeed(this.need.id, this.contribution).subscribe(
+      (response: HttpResponse<number>) => this.goBack());
   }
 
 }
