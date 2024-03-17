@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { User } from '../user';
 import { Need } from '../need';
 import { HttpRequest, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-basket',
@@ -24,12 +25,12 @@ export class BasketComponent implements OnInit {
     this.userService.getUserNeeds((this.currentUser as User).username)
       .subscribe((response: HttpResponse<number[]>) =>
       {
-        response.body?.forEach(element => this.basket.push()
-          //this.needService.getNeed(element))
-
-        }
-      });
-  }
+        response.body?.forEach(element => 
+            this.needService.getNeed(element).subscribe((
+              need => this.basket.push(need))))
+      }
+      )
+    }
 
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
@@ -37,5 +38,6 @@ export class BasketComponent implements OnInit {
     if (this.currentUser?.admin) {
       this.router.navigateByUrl("needs");
     }
+    this.getNeeds();
   }
 }

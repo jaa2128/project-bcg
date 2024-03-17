@@ -12,4 +12,13 @@
   </nav>
 </div>
 
+<ul class="needs">
+  <li *ngFor="let need of basket">
+    <a routerLink="/detail/{{need.id}}">
+    {{need.name}}
+    </a>
+  </li>
+</ul>
+
+
 
