@@ -5,6 +5,30 @@
 <nav>
 <a routerLink="/needs">Needs</a>
 </nav>
+
+<div>
+  <label for="new-need-name">Need name: </label>
+  <input id="new-need-name" #needName />
+  <br>
+
+  <label for="new-need-desc">Need description</label>
+  <input id="new-need-desc" #needDesc />
+  <br>
+
+  <label for="new-need-type">Need type</label>
+  <input id="new-need-type" #needType />
+  <br>
+
+  <label for="new-need-targetQ">Need target quantity</label>
+  <input id="new-need-targetQ" #needTargetQ />
+  <br>
+
+  <button type="button" class="add-button" (click)="createNeed(needName.value, needDesc.value, needType.value, +needTargetQ.value); needName.value=''; needDesc.value=''; needType.value=''; needTargetQ.value=''">
+    Add Need
+  </button>
+</div>
+   
+
   <ul class="needs">
     <li *ngFor="let need of needs">
       <a routerLink="/detail/{{need.id}}">

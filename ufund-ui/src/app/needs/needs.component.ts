@@ -24,6 +24,14 @@ export class NeedsComponent implements OnInit {
         .subscribe(needs => this.needs = needs);
   }
 
+  createNeed(name:string, description:string, type:string, targetQuantity: number): void {
+    name = name.trim();
+    description = description.trim();
+    type = type.trim();
+    this.needService.createNeed({name, description, type, targetQuantity} as Need).subscribe(need => {this.needs.push(need)})
+
+  }
+
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
