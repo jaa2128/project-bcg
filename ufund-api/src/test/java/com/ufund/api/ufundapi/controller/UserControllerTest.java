@@ -211,6 +211,38 @@ public class UserControllerTest {
     }
 
     @Test
+    public void testCreateUser() throws IOException{
+        User user = new User("user","password");
+        when(mockUserDAO.createUser("user", "password")).thenReturn(user);
+        ResponseEntity<User> expectedResponse = userController.createUser("user", "password");
+        assertEquals(expectedResponse.getStatusCode(), HttpStatus.CREATED);
+    }
+
+    @Test
+    public void testCreateUserConflict() throws IOException{
+        when(mockUserDAO.createUser("user", "password2")).thenReturn(null);
+        userController.createUser("user", "password");
+        ResponseEntity<User> expectedResponse = userController.createUser("user", "password2");
+        assertEquals(expectedResponse.getStatusCode(), HttpStatus.CONFLICT);
+    }
+
+    @Test
+    public void testCreateUserServerError() throws IOException{
+        when(mockUserDAO.createUser("user", "password")).thenThrow(new IOException());
+        ResponseEntity<User> expectedResponse = userController.createUser("user", "password");
+        assertEquals(expectedResponse.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Test
+    public void testCreateUserBadRequest() throws IOException{
+        User user = new User("","");
+        when(mockUserDAO.createUser("", "")).thenReturn(user);
+        ResponseEntity<User> expectedResponse = userController.createUser("", "");
+        assertEquals(expectedResponse.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
+
+
+    @Test
     public void removeNeed() throws IOException{
         // Set up
         User user = new User("abc123", "1234");
