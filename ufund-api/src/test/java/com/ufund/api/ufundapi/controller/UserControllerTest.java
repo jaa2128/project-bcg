@@ -226,4 +226,19 @@ public class UserControllerTest {
         assertEquals(expectedResponse.getStatusCode(), HttpStatus.CONFLICT);
     }
 
+    @Test
+    public void testCreateUserServerError() throws IOException{
+        when(mockUserDAO.createUser("user", "password")).thenThrow(new IOException());
+        ResponseEntity<User> expectedResponse = userController.createUser("user", "password");
+        assertEquals(expectedResponse.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Test
+    public void testCreateUserBadRequest() throws IOException{
+        User user = new User("","");
+        when(mockUserDAO.createUser("", "")).thenReturn(user);
+        ResponseEntity<User> expectedResponse = userController.createUser("", "");
+        assertEquals(expectedResponse.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
+
 }
