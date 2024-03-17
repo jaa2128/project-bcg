@@ -3,6 +3,7 @@ import { Need } from "./need";
 export interface User {
     username: string;
     password: string;
-    basket: Map<Need, number>;
-    isAdmin: boolean;
+    needs: number[];
+    contributions: number[];
+    admin: boolean;
 }
