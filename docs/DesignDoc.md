@@ -1,6 +1,3 @@
----
-geometry: margin=1in
----
 # PROJECT Design Documentation
 
 > _The following template provides the headings for your Design
@@ -18,8 +15,6 @@ geometry: margin=1in
   * Brandon Santore
 
 ## Executive Summary
-
-This is a summary of the project.
 
 ### Purpose
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
@@ -39,8 +34,6 @@ For this project, we intend to build a system that can function as an adminstrat
 
 ## Requirements
 
-This section describes the features of the application.
-
 > _In this section you do not need to be exhaustive and list every
 > story.  Focus on top-level features from the Vision document and
 > maybe Epics and critical Stories._
@@ -50,15 +43,14 @@ This section describes the features of the application.
 For our MVP, each user, as a voluteer for the U-fund, should be able to browse, search for, and contribute to any desire number of needs. This is accomplished by adding needs to a "funding basket" that they can add and remove needs from. The list of needs is set up and curated by an administrator user, who can also edit the name, description, type, and target quantity of all needs. However, the adminstrator cannot view the funding baskets of any user. User and adminstrators login via a login page, and the adminstrator logs in with the username "admin." Any other username/password combonation is assumed to be a user.
 
 ### MVP Features
+
 >  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
 
 ### Enhancements
+
 > _**[Sprint 4]** Describe what enhancements you have implemented for the project._
 
-
 ## Application Domain
-
-This section describes the application domain.
 
 ![Domain Model](domain-model-placeholder.png)
 
@@ -66,15 +58,11 @@ This section describes the application domain.
 > can discuss the more important domain entities and their relationship
 > to each other._
 
-
 ## Architecture and Design
-
-This section describes the application architecture.
 
 ### Summary
 
-The following Tiers/Layers model shows a high-level view of the webapp's architecture. 
-**NOTE**: detailed diagrams are in later sections of this document.
+The following Tiers/Layers model shows a high-level view of the webapp's architecture. Detailed diagrams are in later sections of this document.
 
 ![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
 
@@ -86,14 +74,12 @@ The View is the client-side SPA built with Angular utilizing HTML, CSS and TypeS
 
 Both the ViewModel and Model are built using Java and Spring Framework. Details of the components within these tiers are supplied below.
 
-
 ### Overview of User Interface
-
-This section describes the web interface flow; this is how the user views and interacts with the web application.
 
 When a helper first opens the application, they are presented with the log in page, with the option to sign up or log in. If it is the user's first time using the application, they sign up using a username and password of their choosing; if the user already has an account, they click the "log in" button instead to log in to their existing account. Either option then presents a helper with the list of all needs in the database, with a search bar at the top and a link to view their basket. By clicking on a need, the user can view details about the need, such as its description and how much it needs to be fulfilled, and they can also choose to add it to their basket and choose how much they want to contribute to it. In the helper's basket, they are presented with a list of all needs in their basket, as well as having the option to remove any need from their basket. They also have the option to check out all of the needs in their basket, contributing their desired amount to all of them. An administrator has different options compared to a regular user. After they log in using the username "admin", they are presented with the same list of all needs in the database with the search bar at the top. However, there is no link to a user basket. As an administrator, they can also click on any need in the list to both view and edit the name, description, type, and target quantity of any need in the database, and update it to reflect those changes.
 
 ### View Tier
+
 > _**[Sprint 4]** Provide a summary of the View Tier UI of your architecture.
 > Describe the types of components in the tier and describe their
 > responsibilities.  This should be a narrative description, i.e. it has
@@ -208,4 +194,4 @@ As of [[date]], we have reached an instruction coverage of [[xx]]%, and a branch
 >
 (2024/02/18): Sprint 1 - The team had a thorough discussion about the use of IDs for needs with consideration to the fact that needs have to have unique names. We were trying to understand the primary function of the IDs and whether or not the IDs were necessary, given that all the needs in the cupboard are required to have unique names, thus seemingly defeating the purpose of giving each need a unique ID. We, eventually, came to the conclusion that getting rid of the IDs might cause issues later on, and that they were worth keeping, even if we couldn't figure out a significant use for them. At the very least, IDs are an easy method of retrieval for individual needs. They also provide more organized storage in the back-end, with IDs serving as the key for the needs map.
 
-(2024/03/16) Sprint 2 - After further discussion, it was decided to alter the methods in UserController by which needs are added nd removed from a user's basket. Rather than taking the entire need as an argument, the methods now only require the ID of the need to be modified. This allows for a simpler implementation of other methods that rely on UserController, such as much of the user basket implementation the ViewModel tier.
+(2024/03/14) Sprint 2 - After further discussion, it was decided to alter the methods in UserController by which needs are added nd removed from a user's basket. Rather than taking the entire need as an argument, the methods now only require the ID of the need to be modified. This allows for a simpler implementation of other methods that rely on UserController, such as much of the user basket implementation the ViewModel tier.
