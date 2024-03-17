@@ -166,4 +166,21 @@ public class UserControllerTest {
         ResponseEntity<ArrayList<Integer>> expectedResponse = userController.getNeeds(user.getUsername());
         assertEquals(expectedResponse.getStatusCode(), HttpStatus.NOT_FOUND);
     }
+
+    @Test
+    public void testCreateUser() throws IOException{
+        User user = new User("user","password");
+        when(mockUserDAO.createUser("user", "password")).thenReturn(user);
+        ResponseEntity<User> expectedResponse = userController.createUser("user", "password");
+        assertEquals(expectedResponse.getStatusCode(), HttpStatus.CREATED);
+    }
+
+    @Test
+    public void testCreateUserConflict() throws IOException{
+        when(mockUserDAO.createUser("user", "password2")).thenReturn(null);
+        userController.createUser("user", "password");
+        ResponseEntity<User> expectedResponse = userController.createUser("user", "password2");
+        assertEquals(expectedResponse.getStatusCode(), HttpStatus.CONFLICT);
+    }
+
 }
