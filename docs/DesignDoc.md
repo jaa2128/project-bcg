@@ -25,6 +25,8 @@ This is a summary of the project.
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
 > important user group and user goals._
 
+For this project, we intend to build a system that can function as an adminstrative aid for any organization looking to have a robust, easily scalable mechanism to curate and assign tasks or other requirements that need to be fulfilled.
+
 ### Glossary and Acronyms
 > _**[Sprint 2 & 4]** Provide a table of terms and acronyms._
 
@@ -32,7 +34,8 @@ This is a summary of the project.
 |------|------------|
 | SPA | Single Page Application |
 | MVP | Minimum Viable Product |
-
+| Helper | An individual who has access to a basket and can volunteer to fulfill needs. |
+| Adminstrator | An individual who curates the list of needs for all helpers. |
 
 ## Requirements
 
@@ -199,8 +202,14 @@ Each Java class in the Model and ViewModel tiers was tested extensively using Ma
 >_**[Sprint 2 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
 
+As of [[date]], we have reached an instruction coverage of [[xx]]%, and a branch coverage of [[xx]]%.
+
+[[put picture here]]
+
 ## Ongoing Rationale
 >**(Instructions kept here for later use)**
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._
 >
 (2024/02/18): Sprint 1 - The team had a thorough discussion about the use of IDs for needs with consideration to the fact that needs have to have unique names. We were trying to understand the primary function of the IDs and whether or not the IDs were necessary, given that all the needs in the cupboard are required to have unique names, thus seemingly defeating the purpose of giving each need a unique ID. We, eventually, came to the conclusion that getting rid of the IDs might cause issues later on, and that they were worth keeping, even if we couldn't figure out a significant use for them. At the very least, IDs are an easy method of retrieval for individual needs. They also provide more organized storage in the back-end, with IDs serving as the key for the needs map.
+
+(2024/03/16) Sprint 2 - After further discussion, it was decided to alter the methods in UserController by which needs are added nd removed from a user's basket. Rather than taking the entire need as an argument, the methods now only require the ID of the need to be modified. This allows for a simpler implementation of other methods that rely on UserController, such as much of the user basket implementation the ViewModel tier.
