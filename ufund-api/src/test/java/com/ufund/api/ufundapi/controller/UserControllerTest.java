@@ -54,12 +54,19 @@ public class UserControllerTest {
 
         // Analyze
         assertEquals(response.getBody().length, mockUsers.length);
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
 
     @Test
-    public void testGetUsersFail() throwsIOException{
-        // Set up
-        when
+    public void testGetUsersFail() throws IOException{
+        // Set up 
+        when(mockUserDAO.getUsers()).thenThrow(new IOException());
+        // Invoke Should
+        ResponseEntity<User[]> response = userController.getUsers();
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+
     }
 
     @Test
