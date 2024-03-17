@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { NeedDetailComponent } from './need-detail/need-detail.component';
 import { NeedSearchComponent } from './need-search/need-search.component';
 import { LoginComponent } from './login/login.component';
+import { BasketComponent } from './basket/basket.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { LoginComponent } from './login/login.component';
     NeedsComponent,
     NeedDetailComponent,
     NeedSearchComponent,
-    LoginComponent
+    LoginComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,

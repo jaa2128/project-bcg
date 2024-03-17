@@ -1,11 +1,23 @@
+<h2>My Needs</h2>
+<h1>Logged in as {{currentUser?.username}}</h1>
+   
+    <!-- (click) passes input value to add() and then clears the input -->
 <nav>
-  <a routerLink="/needs">Needs</a>
-  <a routerLink="/search">Search</a>
+<a routerLink="/needs">Needs</a>
 </nav>
+
+<div *ngIf="!currentUser?.admin">
+  <nav>
+    <a routerLink="/basket">Basket</a>
+  </nav>
+</div>
 
 <h2>{{ need.name | uppercase}}</h2>
   <div><span>ID: </span>{{need.id}}</div>
-  <div>
+
+  <div *ngIf="currentUser?.admin;then adminView else helperView"></div>
+
+  <ng-template #adminView>
     
     <label for="need-name">Name: </label>
     <input id="need-name" [(ngModel)]="need.name" placeholder="Name goes here!"/> <br>
@@ -19,8 +31,30 @@
     <label for="need-amount-current">Amount Funded: {{need.currentQuantity}}</label> <br>
 
     <label for="need-amount-goal">Goal Amount: </label>
-    <input id="need-amount-goal" type="number" min="1" [(ngModel)]="need.targetQuantity" placeholder=""/> <br>
+    <input id="need-amount-goal" [(ngModel)]="need.targetQuantity" placeholder="Goal amount goes here!"/> <br>
+
+    <button type="button" (click)="goBack()">go back</button>
+    <button type="button" (click)="save()">save</button>
+
+    <p>{{adminStatusMessage}}</p>
+  </ng-template>
+
+
+  <ng-template #helperView>
+    
+    <div><span>Name: </span>{{need.name}}</div>
+    <div><span>Description: </span>{{need.description}}</div>
+    <div><span>Type: </span>{{need.type}}</div>
+    <div><span>Amount Funded: </span>{{need.currentQuantity}}</div>
+    <div><span>Goal Amount: </span>{{need.targetQuantity}}</div>
+
+    <label for="need-contribution">Contribution: </label>
+    <input id="need-contribution" [(ngModel)]="contribution" placeholder="Contribution"/> <br>
+    
+    <button type="button" (click)="goBack()">go back</button>
+    <button type="button" (click)="add()">add</button>
+
+    <p>{{helperStatusMessage}}</p>
+  </ng-template>
+
   
-    </div>
-  <button type="button" (click)="goBack()">go back</button>
-  <button type="button" (click)="save()">save</button>

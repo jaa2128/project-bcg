@@ -3,7 +3,7 @@ import { Need } from "./need";
 export interface User {
     username: string;
     password: string;
-    needs: number[];
+    needs: Need[];
     contributions: number[];
     admin: boolean;
 }

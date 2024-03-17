@@ -49,7 +49,7 @@ public class NeedController {
             for (Need otherNeed : needDao.getNeeds()){
                 if(need.getName().equals(otherNeed.getName()) && need.getID() != otherNeed.getID()){ return new ResponseEntity<>(HttpStatus.CONFLICT); }
             }
-            if(need.getTargetQuantity() < 0){ return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE); }
+            if(need.getTargetQuantity() <= 0){ return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE); }
 
             need = needDao.updateNeed(need);
             if(need != null)

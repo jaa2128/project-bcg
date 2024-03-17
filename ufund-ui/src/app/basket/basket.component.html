@@ -1,0 +1,23 @@
+<h2>My Needs</h2>
+<h1>Logged in as {{currentUser?.username}}</h1>
+   
+    <!-- (click) passes input value to add() and then clears the input -->
+<nav>
+<a routerLink="/needs">Needs</a>
+</nav>
+
+<div *ngIf="!currentUser?.admin">
+  <nav>
+    <a routerLink="/basket">Basket</a>
+  </nav>
+</div>
+
+<ul>
+  <ng-container *ngFor="let need of basket; let i = index">
+    <li>{{ need.name }}: {{ contributions[i] }}</li>
+    <button type="submit" (click)="removeNeed(need.id)">Remove</button>
+  </ng-container>
+</ul>
+
+
+

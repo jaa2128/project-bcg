@@ -4,13 +4,15 @@ import { NeedsComponent } from './needs/needs.component';
 import { NeedDetailComponent } from './need-detail/need-detail.component';
 import { NeedSearchComponent } from './need-search/need-search.component';
 import { LoginComponent } from './login/login.component';
+import { BasketComponent } from './basket/basket.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'needs', component: NeedsComponent},
   {path: 'search', component: NeedSearchComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'detail/:id', component: NeedDetailComponent}
+  {path: 'detail/:id', component: NeedDetailComponent},
+  {path: 'basket', component: BasketComponent}
 ];
 
 @NgModule({

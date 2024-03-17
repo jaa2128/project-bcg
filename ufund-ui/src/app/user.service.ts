@@ -42,7 +42,23 @@ export class UserService {
     return this.http.get<User>(this.usersURL + '/' + username + "?password=" + password, { observe: 'response' });
   }
 
+  getUserNeeds(username: string): Observable<HttpResponse<number[]>>{
+    return this.http.get<number[]>(this.usersURL + '/' + username + '/needs', { observe: 'response'});
+  }
+
+  getUserContributions(username: string): Observable<HttpResponse<number[]>>{
+    return this.http.get<number[]>(this.usersURL + '/' + username + '/contributions', { observe: 'response'});
+  }
+
   createUser(username: string, password: string): Observable<HttpResponse<User>> {
     return this.http.post<User>(this.usersURL + '/' + username, password, { observe: 'response' });
+  }
+
+  addNeed(id: number, quantity: number): Observable<HttpResponse<number>> {
+    return this.http.put<number>(this.usersURL + "/" + this.currentUser?.username + "/" + id + "/" + quantity, null, { observe: 'response'});
+  }
+
+  removeNeed(id: number): Observable<HttpResponse<any>> {
+    return this.http.delete(this.usersURL + "/" + this.currentUser?.username + "/" + id, { observe: 'response'});
   }
 }

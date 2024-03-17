@@ -7,11 +7,14 @@
 <h1>Logged in as {{currentUser?.username}}</h1>
    
     <!-- (click) passes input value to add() and then clears the input -->
-<nav>
-<a routerLink="/needs">Needs</a>
-</nav>
 
-<div>
+<div *ngIf="!currentUser?.admin">
+  <nav>
+    <a routerLink="/basket">Basket</a>
+  </nav>
+</div>
+
+<div *ngIf="currentUser?.admin">
   <label for="new-need-name">Need name: </label>
   <input id="new-need-name" #needName />
   <br>
@@ -34,12 +37,15 @@
 </div>
    
 
+
   <ul class="needs">
     <li *ngFor="let need of needs">
       <a routerLink="/detail/{{need.id}}">
       {{need.name}}
       </a>
-      <button type="button" class="delete" title="delete need"
-      (click)="delete(need)">Remove Need</button>
+      <div *ngIf="currentUser?.admin">
+        <button type="button" class="delete" title="delete need"
+        (click)="delete(need)">Remove Need</button>
+      </div>
     </li>
   </ul>
