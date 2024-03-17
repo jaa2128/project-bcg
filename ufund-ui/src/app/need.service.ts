@@ -27,6 +27,10 @@ export class NeedService {
     return this.http.get<Need>(this.needsURL + '/' + id);
   }
 
+  searchNeeds(containsText: string): Observable<Need[]>{
+     return this.http.get<Need[]>(this.needsURL + '/?name=' +containsText)
+  }
+
   updateNeed(need: Need): Observable<any> {
     return this.http.put(this.needsURL, need, this.httpOptions);
   }
