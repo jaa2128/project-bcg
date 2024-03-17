@@ -49,4 +49,8 @@ export class UserService {
   createUser(username: string, password: string): Observable<HttpResponse<User>> {
     return this.http.post<User>(this.usersURL + '/' + username, password, { observe: 'response' });
   }
+
+  addNeed(id: number, quantity: number): Observable<HttpResponse<number>> {
+    return this.http.put<number>(this.usersURL + "/" + this.currentUser?.username + "/" + id + "/" + quantity, null, { observe: 'response'});
+  }
 }
