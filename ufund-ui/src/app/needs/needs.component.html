@@ -39,5 +39,7 @@
       <a routerLink="/detail/{{need.id}}">
       {{need.name}}
       </a>
+      <button type="button" class="delete" title="delete need"
+      (click)="delete(need)">Remove Need</button>
     </li>
   </ul>

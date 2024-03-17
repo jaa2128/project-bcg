@@ -38,4 +38,9 @@ export class NeedsComponent implements OnInit {
     this.getNeeds();
   }
 
+  delete(need: Need): void {
+    this.needs = this.needs.filter(n => n !== need);
+    this.needService.deleteNeed(need.id).subscribe();
+  }
+
 }
