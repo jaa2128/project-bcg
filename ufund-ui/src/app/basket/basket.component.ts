@@ -41,6 +41,17 @@ export class BasketComponent implements OnInit {
         })
       }
 
+  removeNeed(id: number): void {
+    this.userService.removeNeed(id).subscribe(
+      (response: HttpResponse<any>) => {
+        this.basket = [];
+        this.contributions = [];
+        this.getNeeds();
+        this.getContributions();
+      }
+    )
+  }
+
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();

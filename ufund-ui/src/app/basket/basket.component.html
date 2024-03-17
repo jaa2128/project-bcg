@@ -15,6 +15,13 @@
 <ul>
   <ng-container *ngFor="let need of basket; let i = index">
     <li>{{ need.name }}: {{ contributions[i] }}</li>
+    <button type="submit" (click)="removeNeed(need.id)">Remove</button>
+  </ng-container>
+</ul>
+
+<ul>
+  <ng-container *ngFor="let contribution of contributions; let i = index">
+    <p>{{contribution}}</p>
   </ng-container>
 </ul>
 
