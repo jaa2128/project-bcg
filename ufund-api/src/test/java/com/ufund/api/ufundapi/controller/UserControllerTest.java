@@ -209,4 +209,27 @@ public class UserControllerTest {
         ResponseEntity<ArrayList<Integer>> expectedResponse = userController.getNeeds(user.getUsername());
         assertEquals(expectedResponse.getStatusCode(), HttpStatus.NOT_FOUND);
     }
+
+    @Test
+    public void removeNeed() throws IOException{
+        // Set up
+        User user = new User("abc123", "1234");
+        //add some mock needID in basket
+        for(int i = 0; i < 3; i++) {
+            user.addNeed(i, 10.0);
+        }
+
+        // when removing need return true
+        when(mockUserDAO.removeNeed(user.getUsername(), 0)).thenReturn(true);
+
+        // Remove the need as though it worked
+        user.removeNeed(0);
+
+        //Invoke 
+        ResponseEntity<Void> response = userController.removeNeed(user.getUsername(), 0);
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertEquals(user.getNeeds().size(), 2);
+    }
 }
