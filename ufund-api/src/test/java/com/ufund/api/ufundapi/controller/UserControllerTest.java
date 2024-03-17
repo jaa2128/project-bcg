@@ -57,6 +57,12 @@ public class UserControllerTest {
     }
 
     @Test
+    public void testGetUsersFail() throwsIOException{
+        // Set up
+        when
+    }
+
+    @Test
     public void testGetUser() throws IOException { // getNeed may throw IOException
         // Setup
         User user1 = new User("abc123", "1234");
