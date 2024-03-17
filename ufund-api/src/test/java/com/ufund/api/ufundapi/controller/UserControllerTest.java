@@ -151,6 +151,42 @@ public class UserControllerTest {
         //Analyze
         assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
+
+    @Test
+    public void testClearBasketNotFound() throws IOException{
+        //Set up
+        User user = new User("abc123", "1234");
+        //add some mock needID in basket
+        for(int i = 0; i < 3; i++) {
+            user.addNeed(i, 10.0);
+        }
+
+        // return null when we call get user on a non-existent user
+        when(mockUserDAO.getUser("Non-Existent User")).thenReturn(null);
+        //return false when the basket is cleared
+        when(mockUserDAO.clearBasket("Non-Existent User")).thenReturn(false);
+
+        // Invoke
+        ResponseEntity<Boolean> response = userController.clearBasket("Non-Existent User");
+
+        //Analyze 
+        assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+        assertEquals(user.getNeeds().size(), 3);
+    }   
+
+    @Test
+    public void testClearBasketError() throws IOException{
+        // Set up
+        // throw IOException when clearing basket 
+        when(mockUserDAO.clearBasket("User")).thenThrow(new IOException());
+
+        //Invoke 
+        ResponseEntity<Boolean> response = userController.clearBasket("User");
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     
     @Test
     public void testGetNeeds() throws IOException{
