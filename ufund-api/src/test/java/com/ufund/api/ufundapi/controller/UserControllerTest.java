@@ -298,7 +298,6 @@ public class UserControllerTest {
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertEquals(user.getNeeds().size(), 2);
     }
-}
 
 
     @Test
