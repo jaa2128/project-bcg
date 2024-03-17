@@ -52,9 +52,23 @@ export class NeedDetailComponent implements OnInit {
   // updates need and saves it back to needs.json, then goes back
   save(): void {
     if (this.need) {
-    this.needService.updateNeed(this.need)
-        .subscribe(() => this.goBack());
-    }
+    this.needService.updateNeed(this.need).subscribe(
+      (response: HttpResponse<Object>) => {
+        this.adminStatusMessage = 'Success! Going back to listing...';
+        this.goBack()
+      },
+      (error) => {
+        if(error.status == 406) { //not acceptable
+          this.adminStatusMessage = 'There is an invalid field!';
+        }
+        else if(error.status == 409) { //conflict
+          this.adminStatusMessage = 'There is already a need with this name!';
+        }
+        else { //internal server error
+          this.adminStatusMessage = 'There was a server error!';
+        }
+      });
+    };
   }
 
   add(): void {

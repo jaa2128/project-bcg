@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Need } from './need'; 
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -27,8 +27,8 @@ export class NeedService {
     return this.http.get<Need>(this.needsURL + '/' + id);
   }
 
-  updateNeed(need: Need): Observable<any> {
-    return this.http.put(this.needsURL, need, this.httpOptions);
+  updateNeed(need: Need): Observable<HttpResponse<Object>> {
+    return this.http.put(this.needsURL, need, { observe :'response'});
   }
 
 }
