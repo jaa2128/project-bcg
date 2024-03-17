@@ -39,7 +39,7 @@ export class NeedService {
     return this.http.put(this.needsURL, need, this.httpOptions);
   }
 
-  /** DELETE: delete the hero from the server */
+  /** DELETE: delete the need from the server */
   deleteNeed(id: number): Observable<Need> {
     const url = `${this.needsURL}/${id}`;
 
