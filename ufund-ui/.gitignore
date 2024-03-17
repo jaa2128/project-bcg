@@ -1,5 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
-ufund-api\data\needs.json
+data/
+needs.json
+users.json
 
 # Compiled output
 /dist
