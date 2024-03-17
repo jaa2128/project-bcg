@@ -117,15 +117,15 @@ public class UserController {
      * @return the list of the quantities if the user exists
      */
     @GetMapping("/{username}/contributions")
-    public ResponseEntity<ArrayList<Integer>> getContributions(@PathVariable String username) {
+    public ResponseEntity<ArrayList<Double>> getContributions(@PathVariable String username) {
         LOG.info("GET /users/" + username + "/contributions");
         try {
-            ArrayList<Integer> contributions = userDao.getNeeds(username);
+            ArrayList<Double> contributions = userDao.getContributions(username);
             if(contributions == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             else {
-                return new ResponseEntity<ArrayList<Integer>>(contributions, HttpStatus.OK);
+                return new ResponseEntity<ArrayList<Double>>(contributions, HttpStatus.OK);
             }
         }
         catch(IOException e) {
