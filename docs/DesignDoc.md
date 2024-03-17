@@ -133,6 +133,19 @@ deleteNeed() - To remove an individual need
 
 The "NeedFileDAO" class is the backend of the project, and interfaces with the ViewModel tier to allow the user to modify and access needs. 
 
+As of the end of Sprint 2, we have added a User class to the model tier, and an associated UserFileDAO to the persistence class. The User class is used to represent any user who uses our software. It contains information, such as, the user's login information and the user's funding basket of needs.
+
+The User class also contains these methods:
+getUsername() - Returns the user's username
+getPassword() - Returns the user's password
+getNeeds() - Returns a list of needs in the user's funding basket
+getContributions() - Returns a list of contributions the user is making to each need
+isAdmin() - Checks to see if a user is logged in as admin
+isPassword() - Checks to see if the password input matches the user's password
+addNeed() - Adds a need and contribution to that need to the user's funding basket
+removeNeed() - Removes a need and contribution to that need from the user's funding basket
+clearBasket() - Clears the user's funding basket of all needs and contributions
+
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
 > Tier above._
@@ -147,6 +160,10 @@ The "NeedFileDAO" class is the backend of the project, and interfaces with the V
 Open/Closed Principle - Software entities are open for expansion, but closed for modification. In our design, we have considered possible expansions to the features that the product owner wants, without modifying any of the original features.
 
 Single Responsibilty - Classes should be limited to having only one responsibility dedicated to it. An example of this in our design is dedicating the NeedController class the responsibility of managing the needs in the cupboard, and nothing more.
+
+Controller - A class outside of the UI tier is assigned the responsibility of executing system operations. We accomplish this by using our NeedController and UserController to handle HttpRequests to the Need and User class, respectively.
+
+Information Expert - A class that contains the data in order to perform a task is given the responsibility of performing that task. An example of how we apply this principle is our User class. The user class contains information such as the User's funding basket and login information. It also contains the functions of checking if the user's password is correct, adding and removing needs from the user's basket, and clearing the user's basket. Instead of another class having to retrieve the data from the User class to perform these tasks, the User class performs the tasks itself.
 
 > **(Instructions kept here for later use)** _Name and describe the initial OO Principles that your team has considered in support of your design (and implementation) for this first Sprint._
 
