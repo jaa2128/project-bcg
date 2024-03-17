@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NeedService } from '../need.service';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { User } from '../user';
 import { Need } from '../need';
+import { HttpRequest, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-basket',
@@ -10,17 +12,29 @@ import { Need } from '../need';
   styleUrl: './basket.component.css'
 })
 
-export class BasketComponent {
+export class BasketComponent implements OnInit {
   basket: Need[] = [];
   currentUser: User | null = null;
 
   constructor(private userService: UserService,
+    private needService: NeedService,
     private router: Router) { }
+
+  getNeeds(): void {
+    this.userService.getUserNeeds((this.currentUser as User).username)
+      .subscribe((response: HttpResponse<number[]>) =>
+      {
+        response.body?.forEach(element => this.basket.push()
+          //this.needService.getNeed(element))
+
+        }
+      });
+  }
 
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
-    if(this.currentUser?.admin) {
+    if (this.currentUser?.admin) {
       this.router.navigateByUrl("needs");
     }
   }
