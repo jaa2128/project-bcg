@@ -16,7 +16,6 @@ import { BasketComponent } from './basket/basket.component';
     NeedsComponent,
     NeedDetailComponent,
     NeedSearchComponent,
-    LoginComponent
     LoginComponent,
     BasketComponent
   ],
