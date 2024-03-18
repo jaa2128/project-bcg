@@ -12,19 +12,17 @@
   </nav>
 </div>
 
-<div *ngIf="basket.length !== 0;else empty">
+<div *ngIf="basket.length !== 0">
   <ul>
     <ng-container *ngFor="let need of basket; let i = index">
       <li>{{ need.name }}: {{ contributions[i] }}</li>
       <button type="submit" (click)="removeNeed(need.id)">Remove</button>
     </ng-container>
   </ul>
-  <button type="submit" (click)="checkout()"></button>
+  <button type="submit" (click)="checkout()">Checkout</button>
 </div>
 
-<ng-template #empty>
-  <p>Your basket is empty!</p>
-</ng-template>
+<p> {{this.statusMessage}} </p>
 
 
 

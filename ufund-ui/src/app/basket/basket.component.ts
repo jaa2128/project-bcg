@@ -18,6 +18,8 @@ export class BasketComponent implements OnInit {
   contributions: number[] = [];
   currentUser: User | null = null;
 
+  statusMessage = '';
+
   constructor(private userService: UserService,
     private needService: NeedService,
     private router: Router) { }
@@ -29,6 +31,12 @@ export class BasketComponent implements OnInit {
         response.body?.forEach(element => 
             this.needService.getNeed(element).subscribe((
               need => this.basket.push(need))))
+        if(response.body?.length == 0) {
+          this.statusMessage = 'Your basket is empty!';
+        }
+        else {
+          this.statusMessage = 'Click on \'checkout\' to contribute!'
+        }
       }
       )
     }
@@ -53,7 +61,29 @@ export class BasketComponent implements OnInit {
   }
 
   checkout(): void {
-    
+    let noErrors: boolean = true;
+    for(let i = 0; i < this.basket.length; i++) {
+      let need: Need = this.basket[i];
+      let quantity: number = this.contributions[i];
+      this.needService.contribute(need.id, quantity).subscribe(
+        (error) => {
+          noErrors = false;
+          if(error.status == 400) { //bad request
+            this.statusMessage = 'You cannot contribute a nonpositive value!';
+          }
+          else if(error.status == 404) { //not found
+            this.statusMessage = 'A need in your basket does not exist!';
+          }
+          else if(error.status == 500) { //internal server error
+            this.statusMessage = 'There was a server error!';
+          }
+        }
+      )
+      if(!noErrors) { break; }
+    }
+    if(noErrors) {
+      this.statusMessage = 'Success! Clearing basket...'
+    }
   }
 
   ngOnInit(): void {
