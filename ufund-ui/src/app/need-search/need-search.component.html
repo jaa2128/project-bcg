@@ -1,10 +1,19 @@
+<h2>Search </h2>
+
 <nav>
-  <a routerLink="/needs">Needs</a>
+  <a routerLink="/needs">Cupboard</a>
+  &nbsp;
   <a routerLink="/search">Search</a>
+  &nbsp;
+  <div *ngIf="!currentUser?.admin" style="display: inline;">
+    <a routerLink="/basket">Basket</a>
+  </div>
 </nav>
 
+<h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
+
 <div id="search-component">
-    <label for="search-box">Need Search</label>
+    <label for="search-box">Need Search: </label>
     <input #searchBox id="search-box" (input)="search(searchBox.value)" />
     
     <ul class="search-result">
