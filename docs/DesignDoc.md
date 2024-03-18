@@ -201,9 +201,9 @@ Each Java class in the Model and ViewModel tiers was tested extensively using Ma
 >_**[Sprint 2 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
 
-As of [[date]], we have reached an instruction coverage of [[xx]]%, and a branch coverage of [[xx]]%.
+As of 03/18/2024, we have reached an instruction coverage of 99%, and a branch coverage of 100%.
 
-[[put picture here]]
+![put picture here](Coverage.png)
 
 ## Ongoing Rationale
 >**(Instructions kept here for later use)**
