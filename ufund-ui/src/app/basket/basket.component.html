@@ -12,12 +12,18 @@
   </nav>
 </div>
 
-<ul>
-  <ng-container *ngFor="let need of basket; let i = index">
-    <li>{{ need.name }}: {{ contributions[i] }}</li>
-    <button type="submit" (click)="removeNeed(need.id)">Remove</button>
-  </ng-container>
-</ul>
+<div *ngIf="basket.length !== 0;else empty">
+  <ul>
+    <ng-container *ngFor="let need of basket; let i = index">
+      <li>{{ need.name }}: {{ contributions[i] }}</li>
+      <button type="submit" (click)="removeNeed(need.id)">Remove</button>
+    </ng-container>
+  </ul>
+</div>
+
+<ng-template #empty>
+  <p>Your basket is empty!</p>
+</ng-template>
 
 
 
