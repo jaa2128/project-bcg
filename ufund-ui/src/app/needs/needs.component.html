@@ -1,20 +1,17 @@
 <h2>Cupboard</h2>
-<h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
-   
+
 <nav>
   <a routerLink="/needs">Cupboard</a>
-</nav>
-
-<nav>
+  &nbsp;
   <a routerLink="/search">Search</a>
+  &nbsp;
+  <div *ngIf="!currentUser?.admin" style="display: inline;">
+    <a routerLink="/basket">Basket</a>
+  </div>
 </nav>
 
-<div *ngIf="!currentUser?.admin">
-  <nav>
-    <a routerLink="/basket">Basket</a>
-  </nav>
-</div>
-
+<h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
+  
 <div *ngIf="currentUser?.admin">
   <br>
 
