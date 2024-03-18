@@ -246,9 +246,16 @@ public class UserControllerTest {
 
     @Test
     public void testCreateUser() throws IOException{
+        //Setup
         User user = new User("user","password");
+
+        //When user is created, the mockUserDAO will return the new user object
         when(mockUserDAO.createUser("user", "password")).thenReturn(user);
+
+        //Invoke
         ResponseEntity<User> expectedResponse = userController.createUser("user", "password");
+        
+        //Analyze
         assertEquals(expectedResponse.getStatusCode(), HttpStatus.CREATED);
     }
 
@@ -269,10 +276,22 @@ public class UserControllerTest {
 
     @Test
     public void testCreateUserBadRequest() throws IOException{
-        User user = new User("","");
-        when(mockUserDAO.createUser("", "")).thenReturn(user);
-        ResponseEntity<User> expectedResponse = userController.createUser("", "");
-        assertEquals(expectedResponse.getStatusCode(), HttpStatus.BAD_REQUEST);
+        //Setup
+        User user1 = new User("abc123","");
+        User user2 = new User("", "1234");
+        
+        //When user is created, the mockUserDAO will return the new user
+        when(mockUserDAO.createUser("abc123", "")).thenReturn(user1);
+        when(mockUserDAO.createUser("", "1234")).thenReturn(user2);
+        
+        //Invoke
+        ResponseEntity<User> expectedResponse1 = userController.createUser("abc123", "");
+        ResponseEntity<User> expectedResponse2 = userController.createUser("", "1234");
+
+        //Analyze
+        assertEquals(expectedResponse1.getStatusCode(), HttpStatus.BAD_REQUEST);
+        assertEquals(expectedResponse2.getStatusCode(), HttpStatus.BAD_REQUEST);
+
     }
 
 
@@ -297,6 +316,54 @@ public class UserControllerTest {
         //Analyze
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertEquals(user.getNeeds().size(), 2);
+    }
+
+    @Test
+    public void removeNeedNull() throws IOException{
+        //Setup
+        User user = new User("abc123", "1234");
+        Need need = new Need(0,"Name", "Description", "Type", 100);
+
+        //When attempting to remove need, the mockUserDAO will return null
+        when(mockUserDAO.removeNeed(user.getUsername(), need.getID())).thenReturn(null);
+
+        //Invoke
+        ResponseEntity<Void> response = userController.removeNeed(user.getUsername(), need.getID());
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    public void removeNeedNotFound() throws IOException{
+        //Setup
+        User user = new User("abc123", "1234");
+        Need need = new Need(0,"Name", "Description", "Type", 100);
+
+        //When attempting to remove need, the mockUserDAO will return false
+        when(mockUserDAO.removeNeed(user.getUsername(), need.getID())).thenReturn(false);
+
+        //Invoke
+        ResponseEntity<Void> response = userController.removeNeed(user.getUsername(), need.getID());
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void removeNeedIOException() throws IOException{
+        //Setup
+        User user = new User("abc123", "1234");
+        Need need = new Need(0,"Name", "Description", "Type", 100);
+
+        //When attempting to remove need, the mockUserDAO will throw an IOException
+        when(mockUserDAO.removeNeed(user.getUsername(), need.getID())).thenThrow(new IOException());
+
+        //Invoke
+        ResponseEntity<Void> response = userController.removeNeed(user.getUsername(), need.getID());
+
+        //Analyze
+        assertEquals(response.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
