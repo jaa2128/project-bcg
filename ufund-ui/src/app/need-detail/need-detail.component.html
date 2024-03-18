@@ -1,18 +1,17 @@
-<h2>My Needs</h2>
-<h1>Logged in as {{currentUser?.username}}</h1>
-   
-    <!-- (click) passes input value to add() and then clears the input -->
+<h2>Need: {{need.name | uppercase}} </h2>
+
 <nav>
-<a routerLink="/needs">Needs</a>
+  <a routerLink="/needs">Cupboard</a>
+  &nbsp;
+  <a routerLink="/search">Search</a>
+  &nbsp;
+  <div *ngIf="!currentUser?.admin" style="display: inline;">
+    <a routerLink="/basket">Basket</a>
+  </div>
 </nav>
 
-<div *ngIf="!currentUser?.admin">
-  <nav>
-    <a routerLink="/basket">Basket</a>
-  </nav>
-</div>
-
-<h2>{{ need.name | uppercase}}</h2>
+<h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
+  
   <div><span>ID: </span>{{need.id}}</div>
 
   <div *ngIf="currentUser?.admin;then adminView else helperView"></div>
@@ -33,8 +32,8 @@
     <label for="need-amount-goal">Goal Amount: </label>
     <input id="need-amount-goal" [(ngModel)]="need.targetQuantity" placeholder="Goal amount goes here!"/> <br>
 
-    <button type="button" (click)="goBack()">go back</button>
-    <button type="button" (click)="save()">save</button>
+    <button type="button" (click)="goBack()">Go Back</button>
+    <button type="button" (click)="save()">Save</button>
 
     <p>{{adminStatusMessage}}</p>
   </ng-template>
@@ -51,8 +50,8 @@
     <label for="need-contribution">Contribution: </label>
     <input id="need-contribution" [(ngModel)]="contribution" placeholder="Contribution"/> <br>
     
-    <button type="button" (click)="goBack()">go back</button>
-    <button type="button" (click)="add()">add</button>
+    <button type="button" (click)="goBack()">Go Back</button>
+    <button type="button" (click)="add()">Add</button>
 
     <p>{{helperStatusMessage}}</p>
   </ng-template>

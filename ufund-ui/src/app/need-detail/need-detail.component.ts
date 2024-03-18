@@ -22,7 +22,7 @@ export class NeedDetailComponent implements OnInit {
 
   contribution!: number;
 
-  helperStatusMessage = 'Enter how much you want to contribute!';
+  helperStatusMessage = 'Enter how much you want to contribute then hit \'Add\'!';
   adminStatusMessage = 'Edit your need then hit \'Save\'!';
 
   constructor(
@@ -31,6 +31,10 @@ export class NeedDetailComponent implements OnInit {
     private needService: NeedService,
     private userService: UserService
   ) {}
+
+  logOut(): void {
+    this.userService.logOut();
+  }
 
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
