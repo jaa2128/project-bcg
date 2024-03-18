@@ -52,6 +52,10 @@ export class BasketComponent implements OnInit {
     )
   }
 
+  checkout(): void {
+    
+  }
+
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();

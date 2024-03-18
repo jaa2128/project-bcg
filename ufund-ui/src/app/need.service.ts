@@ -46,4 +46,8 @@ export class NeedService {
     return this.http.delete<Need>(url, this.httpOptions);
   }
 
+  contribute(id: number, quantity: number): Observable<HttpResponse<Need>> {
+    return this.http.put<Need>(this.needsURL + "/" + id, quantity, { observe: 'response'});
+  }
+
 }
