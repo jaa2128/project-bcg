@@ -1,12 +1,13 @@
+<h2>Cupboard</h2>
+<h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
+   
 <nav>
-  <a routerLink="/needs">Needs</a>
-  <a routerLink="/search">Search</a>
+  <a routerLink="/needs">Cupboard</a>
 </nav>
 
-<h2>My Needs</h2>
-<h1>Logged in as {{currentUser?.username}}</h1>
-   
-    <!-- (click) passes input value to add() and then clears the input -->
+<nav>
+  <a routerLink="/search">Search</a>
+</nav>
 
 <div *ngIf="!currentUser?.admin">
   <nav>
@@ -15,25 +16,29 @@
 </div>
 
 <div *ngIf="currentUser?.admin">
+  <br>
+
   <label for="new-need-name">Need name: </label>
   <input id="new-need-name" #needName />
   <br>
 
-  <label for="new-need-desc">Need description</label>
+  <label for="new-need-desc">Need description: </label>
   <input id="new-need-desc" #needDesc />
   <br>
 
-  <label for="new-need-type">Need type</label>
+  <label for="new-need-type">Need type: </label>
   <input id="new-need-type" #needType />
   <br>
 
-  <label for="new-need-targetQ">Need target quantity</label>
+  <label for="new-need-targetQ">Need target quantity: </label>
   <input id="new-need-targetQ" #needTargetQ />
   <br>
 
   <button type="button" class="add-button" (click)="createNeed(needName.value, needDesc.value, needType.value, +needTargetQ.value); needName.value=''; needDesc.value=''; needType.value=''; needTargetQ.value=''">
     Add Need
   </button>
+
+  <p>{{adminStatusMessage}}</p>
 </div>
    
 

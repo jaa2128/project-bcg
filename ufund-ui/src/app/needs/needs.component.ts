@@ -14,10 +14,15 @@ export class NeedsComponent implements OnInit {
 
   needs: Need[] = [];
   currentUser: User | null = null;
+  adminStatusMessage = 'Click on \'Add Need\' to create a new need!';
   
   constructor(private needService: NeedService,
     private userService: UserService,
     private router: Router) { }
+
+  logOut(): void {
+    this.userService.logOut();
+  }
 
   getNeeds(): void {
     this.needService.getNeeds()
