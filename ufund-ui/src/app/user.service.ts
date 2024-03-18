@@ -32,6 +32,11 @@ export class UserService {
     this.currentUser = user;
   }
 
+  logOut(): void {
+    this.setCurrentUser(null);
+    this.router.navigateByUrl("login");
+  }
+
   validate(): void {
     if(this.currentUser == null) {
       this.router.navigateByUrl("login");
