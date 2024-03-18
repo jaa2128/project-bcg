@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Ufund-ui';
+  title = 'Brick City Gamers';
 
   constructor(private router: Router) {}
 
