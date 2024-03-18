@@ -61,4 +61,8 @@ export class UserService {
   removeNeed(id: number): Observable<HttpResponse<any>> {
     return this.http.delete(this.usersURL + "/" + this.currentUser?.username + "/" + id, { observe: 'response'});
   }
+
+  clearBasket(username: string): Observable<HttpResponse<any>> {
+    return this.http.delete(this.usersURL + "/" + username + "/clear", { observe: 'response'} );
+  }
 }

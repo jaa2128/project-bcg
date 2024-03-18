@@ -83,7 +83,25 @@ export class BasketComponent implements OnInit {
     }
     if(noErrors) {
       this.statusMessage = 'Success! Clearing basket...'
+      this.clearBasket();
     }
+  }
+
+  clearBasket(): void {
+    this.userService.clearBasket((this.currentUser as User).username).subscribe(
+      (response: HttpResponse<any>) => {
+        this.statusMessage = 'Success! Going back to listing...';
+        this.router.navigateByUrl("needs");
+      },
+      (error) => {
+        if(error.status == 404) { //not found
+          this.statusMessage = 'User does not exist!';
+        }
+        else if(error.status == 500) {
+          this.statusMessage = 'There was a server error!';
+        }
+      }
+    )
   }
 
   ngOnInit(): void {
