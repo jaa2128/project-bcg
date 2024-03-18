@@ -24,6 +24,10 @@ export class BasketComponent implements OnInit {
     private needService: NeedService,
     private router: Router) { }
 
+  logOut(): void {
+    this.userService.logOut();
+  }
+
   getNeeds(): void {
     this.userService.getUserNeeds((this.currentUser as User).username)
       .subscribe((response: HttpResponse<number[]>) =>
@@ -35,7 +39,7 @@ export class BasketComponent implements OnInit {
           this.statusMessage = 'Your basket is empty!';
         }
         else {
-          this.statusMessage = 'Click on \'checkout\' to contribute!'
+          this.statusMessage = 'Click on \'Checkout\' to contribute!'
         }
       }
       )
