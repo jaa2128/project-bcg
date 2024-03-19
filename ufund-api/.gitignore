@@ -1,6 +1,5 @@
-data/
-needs.json
-users.json
+data/needs.json
+data/users.json
 
 
 target/
