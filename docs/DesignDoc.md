@@ -192,6 +192,8 @@ Each Java class in the Model and ViewModel tiers was tested extensively using Ma
 > have not had any testing yet. Highlight the issues found during
 > acceptance testing and if there are any concerns._
 
+As of 2024/03/18, all user stories have net their acceptance criteria. 
+
 ### Unit Testing and Code Coverage
 > _**[Sprint 4]** Discuss your unit testing strategy. Report on the code coverage
 > achieved from unit testing of the code base. Discuss the team's
@@ -201,7 +203,7 @@ Each Java class in the Model and ViewModel tiers was tested extensively using Ma
 >_**[Sprint 2 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
 
-As of 03/18/2024, we have reached an instruction coverage of 99%, and a branch coverage of 100%.
+As of 2024/03/18, we have reached an instruction coverage of 99%, and a branch coverage of 100%.
 
 ![put picture here](Coverage.png)
 
