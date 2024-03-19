@@ -32,6 +32,11 @@
     <label for="need-amount-goal">Goal Amount: </label>
     <input id="need-amount-goal" [(ngModel)]="need.targetQuantity" placeholder="Goal amount goes here!"/> <br>
 
+    <div *ngIf="need.currentQuantity >= need.targetQuantity;then goalAcheivedMessage"></div>
+    <ng-template #goalAcheivedMessage>
+      <div><span>The need is reached the goal! However, you may still edit the Need</span></div>
+    </ng-template>
+
     <button type="button" (click)="goBack()">Go Back</button>
     <button type="button" (click)="save()">Save</button>
 
@@ -49,6 +54,11 @@
 
     <label for="need-contribution">Contribution: </label>
     <input id="need-contribution" [(ngModel)]="contribution" placeholder="Contribution"/> <br>
+
+    <div *ngIf="need.currentQuantity >= need.targetQuantity;then goalAcheivedMessage"></div>
+    <ng-template #goalAcheivedMessage>
+      <div><span>The need is reached the goal! However, you may still contribute</span></div>
+    </ng-template>
     
     <button type="button" (click)="goBack()">Go Back</button>
     <button type="button" (click)="add()">Add</button>
