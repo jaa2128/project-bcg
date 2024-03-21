@@ -46,7 +46,15 @@
       </a>
       <div *ngIf="currentUser?.admin">
         <button type="button" class="delete" title="delete need"
-        (click)="delete(need)">Remove Need</button>
+        (click)="confirm(need.id)">Remove Need</button>
+      </div>
+      <div *ngIf="showButton == need.id">
+        <div><label>Are you sure you would like to delete this need?</label></div>
+        <button type="button" class="delete" title="confirm delete"
+        (click)="delete(need)">Yes</button>
+        <button type="button" class="delete" title="deny delete"
+        (click)="deny()">No</button>
       </div>
     </li>
+    
   </ul>
