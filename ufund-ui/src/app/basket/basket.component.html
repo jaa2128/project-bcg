@@ -16,8 +16,9 @@
 <div *ngIf="basket.length !== 0">
   <ul>
     <ng-container *ngFor="let need of basket; let i = index">
-      <li>{{ need.name }}: {{ contributions[i] }}</li>
-      <button type="submit" (click)="removeNeed(need.id)">Remove</button>
+      <label for="need-name">{{need.name}}: </label>
+      <input type="number" id="need-name" [(ngModel)]="contributions[i]" placeholder="Quantity goes here!"/>
+      <button type="submit" (click)="removeNeed(need.id)">Remove</button> 
     </ng-container>
   </ul>
   <div *ngIf="numOfTimesCheckoutClicked == 1;then confirmationMessage"></div>

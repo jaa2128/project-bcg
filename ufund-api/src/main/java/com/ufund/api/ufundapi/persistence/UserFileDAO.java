@@ -212,6 +212,28 @@ public class UserFileDAO implements UserDAO {
     }
 
     /**
+     * edits a contribution in a user's basket
+     * @param username the username of the user
+     * @param id the id of the need to be edited
+     * @param quantity the new quantity to be associated with the need
+     * @return null if the user does not exist
+     * @return -1 if the need does not exist
+     * @return the id of the need if it was successfully updated 
+     */
+    @Override
+    public Integer editNeed(String username, int id, double quantity) throws IOException {
+        synchronized(users) {
+            User user = getUser(username);
+            if(user == null) {
+                return null;
+            }
+            int edited = user.editNeed(id, quantity);
+            save(); //may throw IOException
+            return edited;
+        }
+    }
+
+    /**
      * Removes a need from the user basket
      * @param username the username of the user
      * @param need the need to remove from the user's basket

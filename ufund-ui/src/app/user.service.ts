@@ -62,6 +62,10 @@ export class UserService {
   addNeed(id: number, quantity: number): Observable<HttpResponse<number>> {
     return this.http.put<number>(this.usersURL + "/" + this.currentUser?.username + "/" + id + "/" + quantity, null, { observe: 'response'});
   }
+  
+  editNeed(id: number, quantity: number): Observable<HttpResponse<number>> {
+    return this.http.put<number>(this.usersURL + "/" + this.currentUser?.username + "/" + id, quantity, { observe: 'response'});
+  }
 
   removeNeed(id: number): Observable<HttpResponse<any>> {
     return this.http.delete(this.usersURL + "/" + this.currentUser?.username + "/" + id, { observe: 'response'});

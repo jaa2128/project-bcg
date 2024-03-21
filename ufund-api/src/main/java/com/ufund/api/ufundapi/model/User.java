@@ -87,6 +87,26 @@ public class User {
     }
 
     /**
+     * edits an existing need in the basket
+     * @param needID the id of the need to edit
+     * @param quantity the new quantity to be associated with the need
+     * @return -1 if the need id does not exist in the basket
+     * @return the id of the need if the quantity was successfully updated
+     */
+    public int editNeed(int needID, double quantity) {
+        int i = needs.indexOf(needID);
+        if(i == -1) {
+            return -1;
+        }
+        else {
+            contributions.set(i, quantity);
+            return needID;
+        }
+        
+
+    }
+
+    /**
      * Removes a need from the user's funding basket
      * @param needID the id of the Need to remove from the basket
      * @return true if the need was removed

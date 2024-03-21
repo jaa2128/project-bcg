@@ -191,6 +191,37 @@ public class UserController {
     }
 
     /**
+     * edits an existing need in the basket
+     * @param username the username of the user
+     * @param needID the id of the need to be edited
+     * @param quantity the quantity to be associated with the new need
+     * @return HttpStatus.BAD_REQUEST if the quantity is nonpositive
+     * @return HttpStatus.NOT_FOUND if the user or need does not exist
+     * @return HttpStatus.OK if the need was successfully edited
+     * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an error
+     */
+    @PutMapping("/{username}/{id}")
+    public ResponseEntity<Integer> editNeed(@PathVariable String username, @PathVariable int needID, @RequestBody int quantity) {
+        LOG.info("PUT /users " + username + "/" + needID);
+        try {
+            if(quantity <= 0) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            Integer newNeedID = userDao.editNeed(username, needID, quantity);
+            if(newNeedID == null || newNeedID == -1) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else {
+                return new ResponseEntity<Integer>(newNeedID, HttpStatus.OK);
+            }
+        }
+        catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    /**
      * Checks out the user's basket
      * @param username the username to remove the need from
      * @param id       the if of the need to remove

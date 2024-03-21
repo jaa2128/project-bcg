@@ -80,7 +80,14 @@ export class BasketComponent implements OnInit {
       for(let i = 0; i < this.basket.length; i++) {
         let need: Need = this.basket[i];
         let quantity: number = this.contributions[i];
-        this.needService.contribute(need.id, quantity).subscribe(
+        this.userService.editNeed(need.id, quantity).subscribe(
+        () => {}, // Success handler, you can leave it empty for now
+        (error) => {
+          noErrors = false;
+          // Handle errors as needed
+        }
+      );
+      this.needService.contribute(need.id, quantity).subscribe(
           (error) => {
             noErrors = false;
             if(error.status == 400) { //bad request

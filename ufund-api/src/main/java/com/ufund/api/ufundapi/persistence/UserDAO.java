@@ -21,6 +21,8 @@ public interface UserDAO {
     User createUser(String username, String password) throws IOException;
 
     Integer addNeed(String username, int id, double quantity) throws IOException;
+
+    Integer editNeed(String username, int id, double quantity) throws IOException;
     
     Boolean removeNeed(String username, int needID) throws IOException;
 
