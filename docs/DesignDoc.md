@@ -165,7 +165,7 @@ Controller - A class outside of the UI tier is assigned the responsibility of ex
 
 Information Expert - A class that contains the data in order to perform a task is given the responsibility of performing that task. An example of how we apply this principle is our User class. The user class contains information such as the User's funding basket and login information. It also contains the functions of checking if the user's password is correct, adding and removing needs from the user's basket, and clearing the user's basket. Instead of another class having to retrieve the data from the User class to perform these tasks, the User class performs the tasks itself. The UML diagram below demonstrates our use of information expert.
 
-(UML-Diagram.png)
+!(UML-Diagram.png)
 
 > **(Instructions kept here for later use)** _Name and describe the initial OO Principles that your team has considered in support of your design (and implementation) for this first Sprint._
 
