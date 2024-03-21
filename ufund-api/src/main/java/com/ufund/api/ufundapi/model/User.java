@@ -76,8 +76,14 @@ public class User {
      * @param quantity the amount the user wants to contribute to the need
      */
     public void addNeed(int needID, double quantity) {
-        this.needs.add(needID);
-        this.contributions.add(quantity);
+        int i = needs.indexOf(needID);
+        if(i != -1) {
+            contributions.set(i, contributions.get(i) + quantity);
+        }
+        else {
+            this.needs.add(needID);
+            this.contributions.add(quantity);
+        }
     }
 
     /**
