@@ -17,6 +17,7 @@ export class BasketComponent implements OnInit {
   basket: Need[] = [];
   contributions: number[] = [];
   currentUser: User | null = null;
+  numOfTimesCheckoutClicked = 0;
 
   statusMessage = '';
 
@@ -64,31 +65,43 @@ export class BasketComponent implements OnInit {
     )
   }
 
+  checkoutConfirmation(): void {
+    // If the user has clicked Checkout less than twice
+    if (this.numOfTimesCheckoutClicked < 2){
+      this.numOfTimesCheckoutClicked++;
+    }
+  }
+
   checkout(): void {
     let noErrors: boolean = true;
-    for(let i = 0; i < this.basket.length; i++) {
-      let need: Need = this.basket[i];
-      let quantity: number = this.contributions[i];
-      this.needService.contribute(need.id, quantity).subscribe(
-        (error) => {
-          noErrors = false;
-          if(error.status == 400) { //bad request
-            this.statusMessage = 'You cannot contribute a nonpositive value!';
+    this.checkoutConfirmation();
+    if(this.numOfTimesCheckoutClicked == 2){
+      this.numOfTimesCheckoutClicked = 0;
+      for(let i = 0; i < this.basket.length; i++) {
+        let need: Need = this.basket[i];
+        let quantity: number = this.contributions[i];
+        this.needService.contribute(need.id, quantity).subscribe(
+          (error) => {
+            noErrors = false;
+            if(error.status == 400) { //bad request
+              this.statusMessage = 'You cannot contribute a nonpositive value!';
+            }
+            else if(error.status == 404) { //not found
+              this.statusMessage = 'A need in your basket does not exist!';
+            }
+            else if(error.status == 500) { //internal server error
+              this.statusMessage = 'There was a server error!';
+            }
           }
-          else if(error.status == 404) { //not found
-            this.statusMessage = 'A need in your basket does not exist!';
-          }
-          else if(error.status == 500) { //internal server error
-            this.statusMessage = 'There was a server error!';
-          }
-        }
-      )
-      if(!noErrors) { break; }
+        )
+        if(!noErrors) { break; }
+      }
+      if(noErrors) {
+        this.statusMessage = 'Success! Clearing basket...'
+        this.clearBasket();
+      }
     }
-    if(noErrors) {
-      this.statusMessage = 'Success! Clearing basket...'
-      this.clearBasket();
-    }
+    
   }
 
   clearBasket(): void {
@@ -116,5 +129,6 @@ export class BasketComponent implements OnInit {
     }
     this.getNeeds();
     this.getContributions();
+    this.numOfTimesCheckoutClicked = 0;
   }
 }

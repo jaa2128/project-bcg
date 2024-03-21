@@ -20,6 +20,8 @@
       <button type="submit" (click)="removeNeed(need.id)">Remove</button>
     </ng-container>
   </ul>
+  <div *ngIf="numOfTimesCheckoutClicked == 1;then confirmationMessage"></div>
+  <ng-template #confirmationMessage><span>Are you sure you want to Checkout? If so, click Checkout again</span></ng-template>
   <button type="submit" (click)="checkout()">Checkout</button>
 </div>
 
