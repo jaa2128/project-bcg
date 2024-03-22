@@ -201,7 +201,7 @@ public class UserController {
      * @return HttpStatus.INTERNAL_SERVER_ERROR if there was an error
      */
     @PutMapping("/{username}/{id}")
-    public ResponseEntity<Integer> editNeed(@PathVariable String username, @PathVariable int needID, @RequestBody int quantity) {
+    public ResponseEntity<Integer> editNeed(@PathVariable String username, @PathVariable int needID, @RequestBody double quantity) {
         LOG.info("PUT /users " + username + "/" + needID);
         try {
             if(quantity <= 0) {
