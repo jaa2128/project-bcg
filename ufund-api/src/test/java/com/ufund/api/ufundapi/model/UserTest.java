@@ -2,6 +2,7 @@ package com.ufund.api.ufundapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -79,6 +80,36 @@ public class UserTest{
     public void testAddNeed() {
         user.addNeed(need1ID, 50);
         assertNotNull(user.getNeeds().get(need1ID));
+    }
+
+    /**
+     * @author Shaher Naser
+     */
+    @Test
+    public void testAddNeedMerge() {
+        user.addNeed(need2ID, 30);
+        user.addNeed(need2ID, 40);
+        assertTrue(user.getNeeds().contains(need2ID));
+        assertEquals(user.getNeeds().size(), 1);
+    }
+
+    /**
+     * @author Shaher Naser
+     */
+    @Test
+    public void testEditNeedNotFound() {
+        int actual = user.editNeed(need2ID, 40);
+        assertEquals(actual, -1);
+    }
+
+    /**
+     * @author Shaher Naser
+     */
+    @Test
+    public void testEditNeedSuccess() {
+        user.addNeed(need1ID, 50);
+        user.editNeed(need1ID, 40);
+        assertEquals(user.getContributions().get(0), 40);
     }
 
     /**

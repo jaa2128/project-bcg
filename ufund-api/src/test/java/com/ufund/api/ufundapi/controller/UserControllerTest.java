@@ -9,6 +9,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 
 import com.ufund.api.ufundapi.persistence.NeedDAO;
@@ -294,6 +295,79 @@ public class UserControllerTest {
 
     }
 
+    /**
+     * @author Shaher Naser
+     * @throws IOException
+     */
+    @Test
+    public void testEditNeedBadRequest() throws IOException {
+        ResponseEntity<Integer> response = userController.editNeed("abc123", 5, -1);
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * @author Shaher Naser
+     * @throws IOException
+     */
+    @Test
+    public void testEditNeedNeedNotFound() throws IOException {
+        User user = new User("abc", "123");
+        for(int i = 0; i < 3; i++) {
+            user.addNeed(i, 10.0);
+        }
+        when(mockUserDAO.editNeed(user.getUsername(), 6, 5)).thenReturn(-1);
+
+        ResponseEntity<Integer> response = userController.editNeed(user.getUsername(), 6, 5);
+
+        assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @author Shaher Naser
+     * @throws IOException
+     */
+    @Test
+    public void testEditNeedUserNotFound() throws IOException {
+        User user = new User("abc", "123");
+        for(int i = 0; i < 3; i++) {
+            user.addNeed(i, 10.0);
+        }
+        when(mockUserDAO.editNeed("def", 2, 5)).thenReturn(null);
+
+        ResponseEntity<Integer> response = userController.editNeed("def", 2, 5);
+
+        assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+
+    /**
+     * @author Shaher Naser
+     * @throws IOException
+     */
+    @Test
+    public void testEditNeedSuccess() throws IOException {
+        User user = new User("abc", "123");
+        for(int i = 0; i < 3; i++) {
+            user.addNeed(i, 10.0);
+        }
+        when(mockUserDAO.editNeed(user.getUsername(), 2, 5)).thenReturn(2);
+
+        ResponseEntity<Integer> response = userController.editNeed(user.getUsername(), 2, 5);
+
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertEquals(response.getBody(), 2);
+    }
+
+    /**
+     * @author Shaher Naser
+     * @throws IOException
+     */
+    @Test
+    public void testEditNeedServerError() throws IOException{
+        when(mockUserDAO.editNeed("user", 5, 6)).thenThrow(new IOException());
+        ResponseEntity<Integer> expectedResponse = userController.editNeed("user", 5, 6);
+        assertEquals(expectedResponse.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     @Test
     public void removeNeed() throws IOException{

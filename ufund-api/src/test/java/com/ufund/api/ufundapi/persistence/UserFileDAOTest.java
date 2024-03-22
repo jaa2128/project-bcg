@@ -170,6 +170,25 @@ public class UserFileDAOTest {
         assertNull(userFileDAO.addNeed("Non Existent Username", newNeedID, 10));
     }
 
+    /**
+     * @author Shaher Naser
+     * @throws IOException
+     */
+    @Test
+    public void testEditNeedNull() throws IOException {
+        assertNull(userFileDAO.editNeed("Non Existent Username", 4, 5));
+    }
+
+    /**
+     * @author Shaher Naser
+     * @throws IOException
+     */
+    @Test
+    public void testEditNeedSuccess() throws IOException {
+        int actual = userFileDAO.editNeed("Brandon", 4, 5);
+        assertEquals(actual, -1);
+    }
+
     @Test
     public void testRemoveNeed() throws IOException{
         // Set up
