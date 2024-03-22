@@ -58,6 +58,8 @@ For our MVP, each user, as a voluteer for the U-fund, should be able to browse, 
 > can discuss the more important domain entities and their relationship
 > to each other._
 
+This domain model gives a visual representation of different entities that have a major role in the project. Most entites have a brief description and a relationship to another entity to explain their purpose within the project. The Need is the most important entity within the project. Other than being the main idea of the project, it has more relationships with other entities and any other entity. Essentially, the while project revolves around the Need entity. The second most important domain entites are the Helper and Manager or, in other words, the user. The user is who this software is being made for and they are, ultimately, what interact with the Need entity. The Cupboard and Funding Basket are entities which help give the program functionality. The remaining entites, Search Filters and Volunteer Signup, are enhancements that are not requirements for Minimum Viable Product.
+
 ## Architecture and Design
 
 ### Summary
@@ -100,11 +102,18 @@ When a helper first opens the application, they are presented with the log in pa
 ### ViewModel Tier
 
 The primary ViewModel is the "NeedController". This class is responsible for the functions the user must be able to utilize from the View tier. The functions currently within "NeedController" are:
-updateNeed() - To update the information of a specified need
+
+updateNeed() - To update the information of a specified 
+need
+
 createNeed() - To create a new need
+
 getNeeds() - To return a list of needs
+
 getNeed() - To return an individual need
+
 deleteNeed() - To remove an individual need
+
 searchNeeds() - To navigate the user's list of needs
 
 These functions will be called in the View tier of the project, and will communicate with the View tier to display information to the user.
@@ -124,11 +133,18 @@ At this stage of the project, the primary models are the "Need" and "NeedFileDAO
 The "Need" class represents a user's need, and contains methods for getting information from a need, and modifying the contents of a need.
 
 The "NeedFileDAO" class contains the code utilized by the ViewModel tier of the project. The methods contained in this class are:
+
 getNeedsArray() - To search an array of needs given specific criteria
-updateNeed() - To update the information of a specified need
+
+updateNeed() - To update the information of a specified 
+need
+
 createNeed() - To create a new need
+
 getNeeds() - To return a list of needs
+
 getNeed() - To return an individual need
+
 deleteNeed() - To remove an individual need
 
 The "NeedFileDAO" class is the backend of the project, and interfaces with the ViewModel tier to allow the user to modify and access needs. 
@@ -136,14 +152,23 @@ The "NeedFileDAO" class is the backend of the project, and interfaces with the V
 As of the end of Sprint 2, we have added a User class to the model tier, and an associated UserFileDAO to the persistence class. The User class is used to represent any user who uses our software. It contains information, such as, the user's login information and the user's funding basket of needs.
 
 The User class also contains these methods:
+
 getUsername() - Returns the user's username
+
 getPassword() - Returns the user's password
+
 getNeeds() - Returns a list of needs in the user's funding basket
+
 getContributions() - Returns a list of contributions the user is making to each need
+
 isAdmin() - Checks to see if a user is logged in as admin
+
 isPassword() - Checks to see if the password input matches the user's password
+
 addNeed() - Adds a need and contribution to that need to the user's funding basket
+
 removeNeed() - Removes a need and contribution to that need from the user's funding basket
+
 clearBasket() - Clears the user's funding basket of all needs and contributions
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
@@ -157,11 +182,11 @@ clearBasket() - Clears the user's funding basket of all needs and contributions
 
 ## OO Design Principles
 
-Open/Closed Principle - Software entities are open for expansion, but closed for modification. In our design, we have considered possible expansions to the features that the product owner wants, without modifying any of the original features. An example of this is one of the enhancements we plan to add, the search filter. This search does not modify the base functionality of the software, but instead adds a convenient tool for the users. This can be seen in our domain model image.
+Open/Closed Principle - Software entities are open for expansion, but closed for modification. In our design, we have considered possible expansions to the features that the product owner wants, without modifying any of the original features. An example of this is one of the enhancements we plan to add, the search filter. This search does not modify the base functionality of the software, but instead adds a convenient tool for the users. This can be seen in our domain model image in the "Application Domain" section.
 
 Single Responsibilty - Classes should be limited to having only one responsibility dedicated to it. An example of this in our design is dedicating the NeedController class the responsibility of managing the needs in the cupboard, and nothing more. Upon completion of sprint 2, we also have a UserController class that is responsible for handling all the HttpRequests to the UserDAO. In the model tier, we have a User class and Need class. The User class's only responsibility is handling all user functionality such as adding or removing needs from their funding basket and checking if the user is an admin. The need class is only responsible for handling all need functionality like contributing to the need and checking if its target quantity has been met. The UML diagram below demonstrates our use of single responsibility.
 
-Controller - A class outside of the UI tier is assigned the responsibility of executing system operations. We accomplish this by using our NeedController and UserController to handle HttpRequests to the Need and User class, respectively.
+Controller - A class outside of the UI tier is assigned the responsibility of executing system operations. We accomplish this by using our NeedController and UserController to handle Http requests to the Need and User class, respectively. Upon reciept of an Http request, the controller classes will invoke functions from their associated DAO class and object class in order to perform a task, then return an appropriate Http response. The tiers and layers diagram in the "Architecture and Design" section.
 
 Information Expert - A class that contains the data in order to perform a task is given the responsibility of performing that task. An example of how we apply this principle is our User class. The user class contains information such as the User's funding basket and login information. It also contains the functions of checking if the user's password is correct, adding and removing needs from the user's basket, and clearing the user's basket. Instead of another class having to retrieve the data from the User class to perform these tasks, the User class performs the tasks itself. The UML diagram below demonstrates our use of information expert.
 
