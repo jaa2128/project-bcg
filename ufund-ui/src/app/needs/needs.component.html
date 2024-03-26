@@ -23,7 +23,14 @@
   <br>
 
   <label for="new-need-type">Need type: </label>
-  <input id="new-need-type" #needType />
+  <select name="need-types" id="need-types" #needType>
+    <option value=""></option>
+    <option value="Money">Money</option>
+    <option value="Physicals Goods">Goods</option>
+    <option value="Volunteer Hours">Volunteer</option>
+    <option value="Other">Other</option>
+  </select>
+  <!-- <input id="new-need-type" #needType /> -->
   <br>
 
   <label for="new-need-targetQ">Need target quantity: </label>

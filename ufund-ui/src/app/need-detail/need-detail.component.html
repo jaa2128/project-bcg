@@ -25,7 +25,14 @@
     <input id="need-description" [(ngModel)]="need.description" placeholder="Description goes here!"/> <br>
 
     <label for="need-type">Type: </label>
-    <input id="need-type" [(ngModel)]="need.type" placeholder="Type goes here!"/> <br>
+    <select name="need-type" [(ngModel)]="need.type">
+      <option value=""></option>
+      <option value="Money">Money</option>
+      <option value="Physicals Goods">Goods</option>
+      <option value="Volunteer Hours">Volunteer</option>
+      <option value="Other">Other</option>
+    </select>
+    <br>
 
     <label for="need-amount-current">Amount Funded: {{need.currentQuantity}}</label> <br>
 
