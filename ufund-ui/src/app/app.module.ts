@@ -9,6 +9,7 @@ import { NeedDetailComponent } from './need-detail/need-detail.component';
 import { NeedSearchComponent } from './need-search/need-search.component';
 import { LoginComponent } from './login/login.component';
 import { BasketComponent } from './basket/basket.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { BasketComponent } from './basket/basket.component';
     NeedDetailComponent,
     NeedSearchComponent,
     LoginComponent,
-    BasketComponent
+    BasketComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
