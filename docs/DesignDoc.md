@@ -190,6 +190,8 @@ Controller - A class outside of the UI tier is assigned the responsibility of ex
 
 Information Expert - A class that contains the data in order to perform a task is given the responsibility of performing that task. An example of how we apply this principle is our User class. The user class contains information such as the User's funding basket and login information. It also contains the functions of checking if the user's password is correct, adding and removing needs from the user's basket, and clearing the user's basket. Instead of another class having to retrieve the data from the User class to perform these tasks, the User class performs the tasks itself. The UML diagram below demonstrates our use of information expert.
 
+Low Coupling - Reduce the number of relationships between entities to minimize the affect on the system from changing one entity. An example of how we apply this principle to our design is that we don't directly connect any of our User classes to our Need classes. NeedDAO is only connected to Need, NeedFileDAO, and NeedController, while UserDAO is only connected to User, UserFileDAO, and UserController. NeedDao and UserDao are not connected to each other, however. Because our project is designed this way, it minimizes the affect that any changes to the Need classes will have on the User classes and vice versa. Our use of low coupling can be seen in the UML diagram below.
+
 ![UML Diagram](UML-Diagram.png)
 
 > **(Instructions kept here for later use)** _Name and describe the initial OO Principles that your team has considered in support of your design (and implementation) for this first Sprint._
