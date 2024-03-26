@@ -4,20 +4,26 @@
     <p>{{statusMessage}}</p>
   </div>
     <form #userlogin="ngForm" (ngSubmit)="onSubmit(formData)">
-      <div class="field">
-        <input class="input" type="text" id="username" name="username" autocomplete="off" required [(ngModel)]="formData.username" /><br />
-        <label for="username">Username</label>
+      <div class="fields">
+        <div class="field">
+          <input class="input" type="text" id="username" name="username" autocomplete="off" required [(ngModel)]="formData.username" /><br />
+          <label for="username">Username</label>
+        </div>
+        <div class="field">
+          <input class="input" type="text" id="password" name="password" autocomplete="off" required [(ngModel)]="formData.password" /><br />
+          <label for="password">Password</label>
+        </div>
       </div>
-      <div class="field">
-        <input class="input" type="text" id="password" name="password" autocomplete="off" required [(ngModel)]="formData.password" /><br />
-        <label for="password">Password</label>
+      <div class="forgot-password">
+        <a routerLink="/forgot-password">Forgot Password?</a>
       </div>
-      <a routerLink="/forgot-password">Forgot Password?</a>
-      <div>
-        <button class="button" type="submit" (click)="onLoginClick()">Login</button>
-      </div>
-      <div>
-        <button class="button" type="submit" (click)="onSignupClick()">Sign Up</button>
+      <div class="buttons">
+        <div>
+          <button class="button" type="submit" (click)="onLoginClick()">Login</button>
+        </div>
+        <div>
+          <button class="button" type="submit" (click)="onSignupClick()">Sign Up</button>
+        </div>
       </div>
     </form>
   
