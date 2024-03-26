@@ -5,6 +5,7 @@
       <input type="text" id="username" name="username" placeholder="username" [(ngModel)]="formData.username" /><br />
       <label for="log-in">Password: </label>
       <input type="password" id="password" name="password" placeholder="password" [(ngModel)]="formData.password" /><br />
+      <a routerLink="/forgot-password">Forgot Password?</a>
       <button id="login-button" type="submit" (click)="onLoginClick()">Login</button>
       <button id="signup-button" type="submit" (click)="onSignupClick()">Sign Up</button>
     </form>

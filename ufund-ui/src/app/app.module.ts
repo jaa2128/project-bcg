@@ -10,6 +10,7 @@ import { NeedSearchComponent } from './need-search/need-search.component';
 import { LoginComponent } from './login/login.component';
 import { BasketComponent } from './basket/basket.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SettingsComponent } from './settings/settings.component';
     NeedSearchComponent,
     LoginComponent,
     BasketComponent,
-    SettingsComponent
+    SettingsComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
