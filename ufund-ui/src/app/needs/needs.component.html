@@ -23,8 +23,8 @@
   <br>
 
   <label for="new-need-type">Need type: </label>
-  <select name="need-types" id="need-types" #needType>
-    <option value=""></option>
+  <select name="need-types" id="need-types" #needType (change)="onSelected(needType.value)">
+    <option value=" "></option>
     <option value="Money">Money</option>
     <option value="Physicals Goods">Goods</option>
     <option value="Volunteer Hours">Volunteer</option>
@@ -32,6 +32,13 @@
   </select>
   <!-- <input id="new-need-type" #needType /> -->
   <br>
+
+  <div *ngIf="selectedOption === 'Other';then otherTextBox"></div>
+  <ng-template #otherTextBox> 
+    <label for="new-need-type">Other Type: </label>
+    <input value="" id="need-type" #needType/>
+    <br>
+  </ng-template>
 
   <label for="new-need-targetQ">Need target quantity: </label>
   <input id="new-need-targetQ" #needTargetQ />

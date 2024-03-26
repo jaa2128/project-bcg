@@ -16,6 +16,7 @@ export class NeedsComponent implements OnInit {
   currentUser: User | null = null;
   adminStatusMessage = 'Click on \'Add Need\' to create a new need!';
   showButton:number=-1;
+  selectedOption = '';
   
   constructor(private needService: NeedService,
     private userService: UserService,
@@ -55,5 +56,9 @@ export class NeedsComponent implements OnInit {
     this.needs = this.needs.filter(n => n !== need);
     this.needService.deleteNeed(need.id).subscribe();
     this.showButton = -1;
+  }
+
+  onSelected(value: string): void{
+    this.selectedOption = value;
   }
 }
