@@ -76,7 +76,7 @@ public class NeedController {
         LOG.info("POST /needs " + need);
         try {
             if (need.hasEmptyField()){
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
+                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
             }
             Need newNeed = needDao.createNeed(need);
             if(newNeed!=null){
