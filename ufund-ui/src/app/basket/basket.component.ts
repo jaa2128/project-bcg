@@ -80,11 +80,20 @@ export class BasketComponent implements OnInit {
       for(let i = 0; i < this.basket.length; i++) {
         let need: Need = this.basket[i];
         let quantity: number = this.contributions[i];
+        if(quantity == null){ this.statusMessage = "You cannot leave a contribution empty!"; return; }
+        if(quantity <= 0){ this.statusMessage = "You must contribute a nonzero value!"; return; }
         this.userService.editNeed(need.id, quantity).subscribe(
-        () => {}, // Success handler, you can leave it empty for now
         (error) => {
           noErrors = false;
-          // Handle errors as needed
+          if(error.status == 400) { //bad request
+            this.statusMessage = 'You cannot contribute a nonpositive value!';
+          }
+          else if(error.status == 404) { //not found
+            this.statusMessage = 'A need in your basket does not exist!';
+          }
+          else if(error.status == 500) { //internal server error
+            this.statusMessage = 'There was a server error!';
+          }
         }
       );
       this.needService.contribute(need.id, quantity).subscribe(
