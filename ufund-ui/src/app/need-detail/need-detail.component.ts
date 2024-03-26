@@ -62,9 +62,22 @@ export class NeedDetailComponent implements OnInit {
         this.goBack()
       },
       (error) => {
-        if(error.status == 406) { //not acceptable
-          this.adminStatusMessage = 'There is an invalid field!';
+        if(error.error == "Name Field Empty") { //not acceptable
+          this.adminStatusMessage = 'Name Field is empty!';
         }
+
+        else if(error.error == "Description Field Empty") { //not acceptable
+          this.adminStatusMessage = 'Description Field is empty!';
+        }
+
+        else if(error.error == "Type Field Empty") { //not acceptable
+          this.adminStatusMessage = 'Type Field is empty!';
+        }
+
+        else if(error.error == "Goal Amount Field Empty") { //not acceptable
+          this.adminStatusMessage = 'Goal Amount Field is empty!';
+        }
+
         else if(error.status == 409) { //conflict
           this.adminStatusMessage = 'There is already a need with this name!';
         }

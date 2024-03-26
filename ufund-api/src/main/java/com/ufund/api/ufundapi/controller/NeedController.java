@@ -42,14 +42,28 @@ public class NeedController {
      * @return HTTP status code depending on success: 200 if succesfull, 404 if client error, 500 if server error
      */
     @PutMapping("")
-    public ResponseEntity<Need> updateNeed(@RequestBody Need need) {
+    public ResponseEntity updateNeed(@RequestBody Need need) {
         LOG.info("PUT /needs " + need);
         try {
-            if(need.getName().isEmpty() || need.getType().isEmpty()){ return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE); }
+            if(need.getName().isEmpty()){
+                return new ResponseEntity<String>("Name Field Empty", HttpStatus.NOT_ACCEPTABLE);
+            }
+
+            if(need.getDescription().isEmpty()){
+                return new ResponseEntity<String>("Description Field Empty", HttpStatus.NOT_ACCEPTABLE);
+            }
+
+            if(need.getType().isEmpty()){
+                return new ResponseEntity<String>("Type Field Empty", HttpStatus.NOT_ACCEPTABLE);
+            }
+
+            if(need.getTargetQuantity() <= 0){
+                return new ResponseEntity<String>("Goal Amount Field Empty", HttpStatus.NOT_ACCEPTABLE);
+            }
+
             for (Need otherNeed : needDao.getNeeds()){
                 if(need.getName().equals(otherNeed.getName()) && need.getID() != otherNeed.getID()){ return new ResponseEntity<>(HttpStatus.CONFLICT); }
             }
-            if(need.getTargetQuantity() <= 0){ return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE); }
 
             need = needDao.updateNeed(need);
             if(need != null)
