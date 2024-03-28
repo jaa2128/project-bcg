@@ -34,7 +34,31 @@ export class NeedsComponent implements OnInit {
     name = name.trim();
     description = description.trim();
     type = type.trim();
-    this.needService.createNeed({name, description, type, targetQuantity} as Need).subscribe(need => {this.needs.push(need)})
+    this.needService.createNeed({name, description, type, targetQuantity} as Need).subscribe(need => {this.needs.push(need)},
+    (error) => {
+      if(error.error == "Name Field Empty") { //not acceptable
+        this.adminStatusMessage = 'Name Field is empty!';
+      }
+
+      else if(error.error == "Description Field Empty") { //not acceptable
+        this.adminStatusMessage = 'Description Field is empty!';
+      }
+
+      else if(error.error == "Type Field Empty") { //not acceptable
+        this.adminStatusMessage = 'Type Field is empty!';
+      }
+
+      else if(error.error == "Goal Amount Field Empty") { //not acceptable
+        this.adminStatusMessage = 'Goal Amount Field is empty!';
+      }
+
+      else if(error.status == 409) { //conflict
+        this.adminStatusMessage = 'There is already a need with this name!';
+      }
+      else { //internal server error
+        this.adminStatusMessage = 'There was a server error!';
+      }
+    })
 
   }
 
