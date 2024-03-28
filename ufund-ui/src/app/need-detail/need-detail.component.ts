@@ -22,6 +22,9 @@ export class NeedDetailComponent implements OnInit {
 
   contribution!: number;
 
+  dropdownSelection!: string;
+  otherType!: string;
+
   helperStatusMessage = 'Enter how much you want to contribute then hit \'Add\'!';
   adminStatusMessage = 'Edit your need then hit \'Save\'!';
 
@@ -42,11 +45,22 @@ export class NeedDetailComponent implements OnInit {
     this.getNeed();
   }
 
+  selectDropdown(): void {
+    const basicTypes = ["Money", "Goods", "Volunteer"];
+    if(basicTypes.includes(this.need.type)) {
+      this.dropdownSelection = this.need.type;
+    }
+    else {
+      this.dropdownSelection = "Other";
+      this.otherType = this.need.type;
+    }
+  }
+
   // calls backend getNeed() method
   getNeed(): void {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.needService.getNeed(id)
-      .subscribe(need => this.need = need);
+      .subscribe(need => {this.need = need; this.selectDropdown();});
   }
 
   goBack(): void {
