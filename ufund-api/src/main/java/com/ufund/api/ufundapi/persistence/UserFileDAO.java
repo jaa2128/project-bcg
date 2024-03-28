@@ -274,4 +274,31 @@ public class UserFileDAO implements UserDAO {
             return true;
         }
     }
+
+    public boolean changeUsername(String username, String newUsername) throws IOException {
+        synchronized(users) {
+            User user = getUser(username);
+            if(user == null) {
+                return false;
+            }
+            if(newUsername != null && getUser(newUsername) == null) {
+                user.changeUsername(newUsername);
+                save();
+                return true;
+            }
+            return false;
+        }
+    }
+
+    public boolean changePassword(String username, String password) throws IOException {
+        synchronized(users) {
+            User user = getUser(username);
+            if(user == null || password == null) {
+                return false;
+            }
+            user.changePassword(password);
+            save();
+            return true;
+        }
+    }
 }
