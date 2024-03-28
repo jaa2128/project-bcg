@@ -3,16 +3,20 @@
     position: relative;
     margin: auto;
     width: 30%;
-    height: 75%;
+    height: 50%;
     text-align: center;
-    /* background: white;
-    border: 1px solid gray;
-    border-radius: 10px; */ 
+    background: white;
 }
 
 .heading {
     position: relative;
     padding: 10px;
+}
+
+.image {
+    position: relative;
+    pointer-events: none;
+    align-self: center;
 }
 
 .field {
@@ -23,7 +27,7 @@
 .field label {
     position: absolute;
     pointer-events: none;
-    top: 12px;
+    top: 10px;
     left: 12px;
     color: gray;
     transition: .1s ease-in-out;
@@ -44,7 +48,7 @@
 }
 
 .field .input:focus {
-    outline: 2px solid red;
+    outline: 2px solid #aa4a44
 }
 
 .input:focus ~ label, .input:valid ~ label {
