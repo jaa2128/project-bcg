@@ -17,12 +17,12 @@
 <h4>User Settings</h4>
 <div>
     <label for="change-username">Change Username: </label>
-    <input id="change-username"/>
-    <button type="submit">Save</button>
+    <input id="change-username"required [(ngModel)]="formData.newUsername" />
+    <button type="submit" >Save</button>
     <br>
     <label for="change-password">Change Password: </label>
-    <input id="change-password"/>
-    <button type="submit">Save</button>
+    <input id="change-password" required [(ngModel)]="formData.newPassword"/>
+    <button type="submit" (click)="changePassword(formData)" >Save</button>
     <br>
 </div>
 

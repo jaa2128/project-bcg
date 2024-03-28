@@ -274,20 +274,20 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{username}")
-    public ResponseEntity<Integer> changePassword(@PathVariable String username, @PathVariable String password) {
-        LOG.info("PUT /users " + username);
+    @PutMapping("/{username}/newPassword/{newPassword}")
+    public ResponseEntity<Integer> changePassword(@PathVariable String username, @PathVariable String newPassword) {
+        LOG.info("PUT /users/" + username + "/newPassword/" + newPassword);
         try {
-            Boolean result = userDao.changePassword(username, password);
+            Boolean result = userDao.changePassword(username, newPassword);
             if(result) {
                 return new ResponseEntity<Integer>(HttpStatus.OK);
             }
             else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-        }
+        }   
         catch(IOException e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

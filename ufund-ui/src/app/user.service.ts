@@ -74,4 +74,9 @@ export class UserService {
   clearBasket(username: string): Observable<HttpResponse<any>> {
     return this.http.delete(this.usersURL + "/" + username + "/clear", { observe: 'response'} );
   }
+
+  changePassword(username: string, newPassword: string): Observable<HttpResponse<any>> {
+    const url = `${this.usersURL}/${username}/newPassword/${newPassword}`;
+    return this.http.put(url, {}, { observe: 'response' });
+} 
 }
