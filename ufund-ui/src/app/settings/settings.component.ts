@@ -17,6 +17,8 @@ export class SettingsComponent {
   currentUser: User | null = null;
   formData = {
     newUsername: '',
+  };
+  formData2 = {
     newPassword: ''
   };
 
@@ -34,8 +36,37 @@ statusMessage: string = 'Please log in or sign up!';
     this.userService.validate();
   }
 
-  changePassword(formData: {newPassword: string }): void {
-    this.submitPassword(formData.newPassword);
+  changeUsername(formData: {newUsername: string }): void {
+    this.submitUsername(formData.newUsername);
+  }
+
+  changePassword(formData2: {newPassword: string }): void {
+    this.submitPassword(formData2.newPassword);
+  }
+
+  submitUsername(username: string): void {
+    console.log(username);
+    
+    if(username.trim().length == 0) {
+      return;
+    }
+    if(this.currentUser == null) {
+      return;
+    }
+
+    this.userService.changeUsername(this.currentUser.username, username).subscribe(
+      (response: HttpResponse<any>) => {
+        return;
+      },
+      (error) => {
+        if(error.status == 400) { //bad request
+          this.statusMessage = 'Username or password is blank!';
+        }
+        else { //internal server error
+          this.statusMessage = 'There was a server error!';
+        }
+      }
+    );
   }
 
   submitPassword(password: string): void {
@@ -62,5 +93,6 @@ statusMessage: string = 'Please log in or sign up!';
       }
     );
   }
+
 
 }

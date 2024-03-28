@@ -18,11 +18,11 @@
 <div>
     <label for="change-username">Change Username: </label>
     <input id="change-username"required [(ngModel)]="formData.newUsername" />
-    <button type="submit" >Save</button>
+    <button type="submit" (click)="changeUsername(formData)">Save</button>
     <br>
     <label for="change-password">Change Password: </label>
-    <input id="change-password" required [(ngModel)]="formData.newPassword"/>
-    <button type="submit" (click)="changePassword(formData)" >Save</button>
+    <input id="change-password" required [(ngModel)]="formData2.newPassword"/>
+    <button type="submit" (click)="changePassword(formData2)" >Save</button>
     <br>
 </div>
 
