@@ -14,7 +14,8 @@ public class NeedTest {
     //setup
     @BeforeEach
     public void setupNeed() {
-        need = new Need(50, "hello", "this is a description", "money", 99.99);
+        boolean[] availability = {true, true, true, true, true, true, true};
+        need = new Need(50, "hello", "this is a description", "money", 99.99, availability);
     }
 
     /**
@@ -189,10 +190,11 @@ public class NeedTest {
 
     @Test
     public void testHasEmptyField(){
-        Need emptyName = new Need(30, "", "Test Description", "Test Type", 1.0);
-        Need emptyDescription = new Need(30, "Test Need", "", "Test Type", 1.0);
-        Need emptyType = new Need(30, "Test Need", "Test Description", "", 1.0);
-        Need ZeroOrLessTQ = new Need(30, "Test Need", "Test Description", "Test Type", 0);
+        boolean[] availability = {true, true, true, true, true, true, true};
+        Need emptyName = new Need(30, "", "Test Description", "Test Type", 1.0, availability);
+        Need emptyDescription = new Need(30, "Test Need", "", "Test Type", 1.0, availability);
+        Need emptyType = new Need(30, "Test Need", "Test Description", "", 1.0, availability);
+        Need ZeroOrLessTQ = new Need(30, "Test Need", "Test Description", "Test Type", 0, availability);
 
         assertTrue(emptyName.hasEmptyField());
         assertTrue(emptyDescription.hasEmptyField());

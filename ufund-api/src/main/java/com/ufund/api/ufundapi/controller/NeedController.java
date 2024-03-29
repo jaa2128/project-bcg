@@ -86,12 +86,13 @@ public class NeedController {
      * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
      */
     @PostMapping("")
-    public ResponseEntity<Need> createNeed(@RequestBody Need need) {
+    public ResponseEntity createNeed(@RequestBody Need need) {
         LOG.info("POST /needs " + need);
         try {
             if (need.hasEmptyField()){
-                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+                return new ResponseEntity<String>("", HttpStatus.NOT_ACCEPTABLE);
             }
+
             Need newNeed = needDao.createNeed(need);
             if(newNeed!=null){
                 return new ResponseEntity<Need>(newNeed, HttpStatus.CREATED);

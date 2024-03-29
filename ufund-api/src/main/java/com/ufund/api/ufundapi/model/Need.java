@@ -15,6 +15,7 @@ public class Need {
     @JsonProperty("type") private String type;
     @JsonProperty("targetQuantity") private double targetQuantity;
     @JsonProperty("currentQuantity") private double currentQuantity;
+    @JsonProperty("availability") boolean[] availability;
 
     //CONSTRUCTOR
     /**
@@ -31,13 +32,15 @@ public class Need {
     @JsonProperty("name") String name, 
     @JsonProperty("description") String description, 
     @JsonProperty("type") String type, 
-    @JsonProperty("targetQuantity") double targetQuantity) {
+    @JsonProperty("targetQuantity") double targetQuantity,
+    @JsonProperty("availability") boolean[] availability ){
         this.ID = id;
         this.name = name;
         this.description = description;
         this.type = type;
         this.targetQuantity = targetQuantity;
         this.currentQuantity = 0;
+        this.availability = availability;
     }
     
     //ACCESSORS
@@ -71,6 +74,8 @@ public class Need {
      */
     public double getCurrentQuantity() { return currentQuantity; }
 
+    public boolean[] getAvailabiltiy() { return availability; }
+
     //MODIFIERS
     /**
      * updates the name of the Need
@@ -95,6 +100,8 @@ public class Need {
      * @param type
      */
     public void setType(String type){this.type = type;}
+
+    public void setAvailability(boolean[] availability){ this.availability = availability; }
     
     /**
      * contributes to the currentQuantity of the Need
