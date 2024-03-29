@@ -38,9 +38,9 @@ public class NeedFileDaoTest {
     public void setupHeroFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
         testNeeds = new Need[3];
-        testNeeds[0] = new Need(99, "Need1", "this is a description", "money", 99.99);
-        testNeeds[1] = new Need(100, "Need2", "this is a description", "money", 99.99);
-        testNeeds[2] = new Need(101, "Need3", "this is a description", "money", 99.99);
+        testNeeds[0] = new Need(99, "Need1", "this is a description", "money", 99.99, "12:00", "12:01");
+        testNeeds[1] = new Need(100, "Need2", "this is a description", "money", 99.99, "12:00", "12:01");
+        testNeeds[2] = new Need(101, "Need3", "this is a description", "money", 99.99, "12:00", "12:01");
 
         when(mockObjectMapper
             .readValue(new File("doesnt_matter.txt"),Need[].class))
@@ -139,7 +139,7 @@ public class NeedFileDaoTest {
      */
     @Test
     public void getUpdateNeedNotFound() throws IOException{
-        Need need = new Need(4, "Stinky", "Pick up trash", "Volunteer", 300);
+        Need need = new Need(4, "Stinky", "Pick up trash", "Volunteer", 300, "12:00", "12:01");
         Need result = needFileDAO.updateNeed(need);
 
         assertNull(result);
@@ -153,9 +153,9 @@ public class NeedFileDaoTest {
     @Test
     public void testCreateNeed() throws IOException {
         // Setup
-        Need oldNeed = new Need(49, "oldTest", "testing", "money", 99.99);
-        Need need = new Need(50, "test", "testing", "money", 99.99);
-        Need conflictNeed = new Need(51, "test", "testing", "money", 99.99);
+        Need oldNeed = new Need(49, "oldTest", "testing", "money", 99.99, "12:00", "12:01");
+        Need need = new Need(50, "test", "testing", "money", 99.99, "12:00", "12:01");
+        Need conflictNeed = new Need(51, "test", "testing", "money", 99.99, "12:00", "12:01");
 
         Need[] testNeeds = new Need[1];
         testNeeds[0] = oldNeed;
@@ -201,8 +201,8 @@ public class NeedFileDaoTest {
     @Test
     public void testUpdateNeed() throws IOException {
         // Setup
-        Need oldNeed = new Need(51, "oldTest", "testing", "money", 99.99);
-        Need need = new Need(51, "test", "testing", "money", 99.99);
+        Need oldNeed = new Need(51, "oldTest", "testing", "money", 99.99, "12:00", "12:01");
+        Need need = new Need(51, "test", "testing", "money", 99.99, "12:00", "12:01");
         Need[] testNeeds = new Need[1];
         testNeeds[0] = oldNeed;
 
@@ -231,7 +231,7 @@ public class NeedFileDaoTest {
             .when(mockObjectMapper)
                 .writeValue(any(File.class),any(Need[].class));
 
-        Need need = new Need(52, "test", "testing", "money", 99.99);
+        Need need = new Need(52, "test", "testing", "money", 99.99, "12:00", "12:01");
 
         assertThrows(IOException.class,
                         () -> needFileDAO.createNeed(need),
@@ -245,8 +245,8 @@ public class NeedFileDaoTest {
      */
     @Test
     public void testContributeNeed() throws IOException{
-        Need newNeed = new Need(1000, "newNeed", "NewNeed", "Money", 1000);
-        Need otherNeed = new Need(1001, "otherNeed", "otherNeed", "Money", 1000);
+        Need newNeed = new Need(1000, "newNeed", "NewNeed", "Money", 1000, "12:00", "12:01");
+        Need otherNeed = new Need(1001, "otherNeed", "otherNeed", "Money", 1000, "12:00", "12:01");
         Need[] testNeeds = new Need[]{newNeed, otherNeed};
 
         when(mockObjectMapper
@@ -265,7 +265,7 @@ public class NeedFileDaoTest {
      */
     @Test
     public void testContributeNeedNotFound() throws IOException{
-        Need newNeed = new Need(1000, "newNeed", "NewNeed", "Money", 1000);
+        Need newNeed = new Need(1000, "newNeed", "NewNeed", "Money", 1000, "12:00", "12:01");
 
         Need result = needFileDAO.contributeNeed(newNeed.getID(), 500);
 
@@ -275,9 +275,9 @@ public class NeedFileDaoTest {
     @Test
     public void testSearchNeeds() throws IOException {
         //setup
-        Need need1 = new Need(50, "hello world", "testing", "money", 99.99);
-        Need need2 = new Need(49, "GOODBYE WORLD", "testing", "money", 99.99);
-        Need need3 = new Need(51, "greetings universe", "testing", "money", 99.99);
+        Need need1 = new Need(50, "hello world", "testing", "money", 99.99, "12:00", "12:01");
+        Need need2 = new Need(49, "GOODBYE WORLD", "testing", "money", 99.99, "12:00", "12:01");
+        Need need3 = new Need(51, "greetings universe", "testing", "money", 99.99, "12:00", "12:01");
         Need[] testNeeds = new Need[]{need1, need2, need3};
         when(mockObjectMapper
             .readValue(new File("doesnt_matter.txt"),Need[].class))

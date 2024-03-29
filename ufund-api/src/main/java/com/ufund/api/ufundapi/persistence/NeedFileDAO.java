@@ -127,7 +127,7 @@ public class NeedFileDAO implements NeedDAO {
                     return null;
                 }
             }
-            Need newNeed = new Need(nextId(), need.getName(), need.getDescription(), need.getType(), need.getTargetQuantity());
+            Need newNeed = new Need(nextId(), need.getName(), need.getDescription(), need.getType(), need.getTargetQuantity(), need.getStartTime(), need.getEndTime());
             needs.put(newNeed.getID(),newNeed);
             save(); // may throw an IOException
             return newNeed;

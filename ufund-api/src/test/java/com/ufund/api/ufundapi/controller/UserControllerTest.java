@@ -212,8 +212,8 @@ public class UserControllerTest {
     @Test
     public void testGetNeeds() throws IOException{
         //Setup
-        Need need1 = new Need(0, "Test Name 1", "Test Description 1", "Test Type 1", 100);
-        Need need2 = new Need(1, "Test Name 2", "Test Description 2", "Test Type 2", 100);
+        Need need1 = new Need(0, "Test Name 1", "Test Description 1", "Test Type 1", 100, "12:00", "12:01");
+        Need need2 = new Need(1, "Test Name 2", "Test Description 2", "Test Type 2", 100, "12:00", "12:01");
         User user = new User("abc123", "1234");
         user.addNeed(need1.getID(), 50);
         user.addNeed(need2.getID(), 25);
@@ -396,7 +396,7 @@ public class UserControllerTest {
     public void removeNeedNull() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        Need need = new Need(0,"Name", "Description", "Type", 100);
+        Need need = new Need(0,"Name", "Description", "Type", 100, "12:00", "12:01");
 
         //When attempting to remove need, the mockUserDAO will return null
         when(mockUserDAO.removeNeed(user.getUsername(), need.getID())).thenReturn(null);
@@ -412,7 +412,7 @@ public class UserControllerTest {
     public void removeNeedNotFound() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        Need need = new Need(0,"Name", "Description", "Type", 100);
+        Need need = new Need(0,"Name", "Description", "Type", 100, "12:00", "12:01");
 
         //When attempting to remove need, the mockUserDAO will return false
         when(mockUserDAO.removeNeed(user.getUsername(), need.getID())).thenReturn(false);
@@ -428,7 +428,7 @@ public class UserControllerTest {
     public void removeNeedIOException() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        Need need = new Need(0,"Name", "Description", "Type", 100);
+        Need need = new Need(0,"Name", "Description", "Type", 100, "12:00", "12:01");
 
         //When attempting to remove need, the mockUserDAO will throw an IOException
         when(mockUserDAO.removeNeed(user.getUsername(), need.getID())).thenThrow(new IOException());
@@ -460,8 +460,8 @@ public class UserControllerTest {
     public void testGetContributions() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        Need need1 = new Need(0, "Name", "Description", "Type", 100);
-        Need need2 = new Need(1, "Test", "Test", "Test", 100);
+        Need need1 = new Need(0, "Name", "Description", "Type", 100, "12:00", "12:01");
+        Need need2 = new Need(1, "Test", "Test", "Test", 100, "12:00", "12:01");
         user.addNeed(need1.getID(), 10);
         user.addNeed(need2.getID(), 30);
         
@@ -510,7 +510,7 @@ public class UserControllerTest {
     public void testAddNeed() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        Need need = new Need(0, "Name", "Description", "Type", 100);
+        Need need = new Need(0, "Name", "Description", "Type", 100, "12:00", "12:01");
 
         //When username, need ID, and need quantity are passed, the mockUserDao will return the ID of the need
         when(mockUserDAO.addNeed(user.getUsername(), need.getID(), 10)).thenReturn(need.getID());
@@ -543,7 +543,7 @@ public class UserControllerTest {
     public void testAddNeedIOException() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        Need need = new Need(0, "Name", "Description", "Type", 100);
+        Need need = new Need(0, "Name", "Description", "Type", 100, "12:00", "12:01");
 
         //When username, need ID, and need quantity are passed, the mockUserDao will throw an IOException
         when(mockUserDAO.addNeed(user.getUsername(), need.getID(), 10)).thenThrow(new IOException());
@@ -560,7 +560,7 @@ public class UserControllerTest {
     public void testAddNeedZeroOrLess() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        Need need = new Need(0, "Name", "Description", "Type", 100);
+        Need need = new Need(0, "Name", "Description", "Type", 100, "12:00", "12:01");
 
         //When username, need ID, and need quantity are passed, the mockUserDao will return the ID of the need
         when(mockUserDAO.addNeed(user.getUsername(), need.getID(), 0)).thenReturn(need.getID());
