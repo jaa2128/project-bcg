@@ -60,18 +60,6 @@ public class NeedController {
             if(need.getTargetQuantity() <= 0){
                 return new ResponseEntity<String>("Goal Amount Field Empty", HttpStatus.NOT_ACCEPTABLE);
             }
-            
-            if(!need.areTimesValid(need.getStartTime(), need.getEndTime())){
-                return new ResponseEntity<String>("Invalid Time Format", HttpStatus.NOT_ACCEPTABLE);
-            }
-
-            if(!need.isStartTimeBeforeEndTime(need.getStartTime(), need.getEndTime())){
-                return new ResponseEntity<String>("Invalid Time Slot", HttpStatus.NOT_ACCEPTABLE);
-            }
-
-            if((need.getStartTime().isBlank() && !need.getEndTime().isBlank()) || (!need.getStartTime().isBlank() && need.getEndTime().isBlank())){
-                return new ResponseEntity<String>("Either Time Field Empty", HttpStatus.NOT_ACCEPTABLE);
-            }
 
             for (Need otherNeed : needDao.getNeeds()){
                 if(need.getName().equals(otherNeed.getName()) && need.getID() != otherNeed.getID()){ return new ResponseEntity<>(HttpStatus.CONFLICT); }
@@ -103,18 +91,6 @@ public class NeedController {
         try {
             if (need.hasEmptyField()){
                 return new ResponseEntity<String>("", HttpStatus.NOT_ACCEPTABLE);
-            }
-
-            if(need.areTimesValid(need.getStartTime(), need.getEndTime()) == false){
-                return new ResponseEntity<String>("Invalid Time Format", HttpStatus.NOT_ACCEPTABLE);
-            }
-
-            if(need.isStartTimeBeforeEndTime(need.getStartTime(), need.getEndTime()) == false){
-                return new ResponseEntity<String>("Invalid Time Slot", HttpStatus.NOT_ACCEPTABLE);
-            }
-
-            if((need.getStartTime().isBlank() && !need.getEndTime().isBlank()) || (!need.getStartTime().isBlank() && need.getEndTime().isBlank())){
-                return new ResponseEntity<String>("Either Time Field Empty", HttpStatus.NOT_ACCEPTABLE);
             }
 
             Need newNeed = needDao.createNeed(need);

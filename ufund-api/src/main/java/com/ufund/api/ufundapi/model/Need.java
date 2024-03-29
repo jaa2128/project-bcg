@@ -15,8 +15,7 @@ public class Need {
     @JsonProperty("type") private String type;
     @JsonProperty("targetQuantity") private double targetQuantity;
     @JsonProperty("currentQuantity") private double currentQuantity;
-    @JsonProperty("starttime") String starttime;
-    @JsonProperty("endtime") String endtime;
+    @JsonProperty("availability") boolean[] availability;
 
     //CONSTRUCTOR
     /**
@@ -34,16 +33,14 @@ public class Need {
     @JsonProperty("description") String description, 
     @JsonProperty("type") String type, 
     @JsonProperty("targetQuantity") double targetQuantity,
-    @JsonProperty("starttime") String starttime,
-    @JsonProperty("endtime") String endtime ){
+    @JsonProperty("availability") boolean[] availability ){
         this.ID = id;
         this.name = name;
         this.description = description;
         this.type = type;
         this.targetQuantity = targetQuantity;
         this.currentQuantity = 0;
-        this.starttime = starttime;
-        this.endtime = endtime;
+        this.availability = availability;
     }
     
     //ACCESSORS
@@ -77,9 +74,7 @@ public class Need {
      */
     public double getCurrentQuantity() { return currentQuantity; }
 
-    public String getStartTime() { return starttime; }
-
-    public String getEndTime() { return endtime; }
+    public boolean[] getAvailabiltiy() { return availability; }
 
     //MODIFIERS
     /**
@@ -105,6 +100,8 @@ public class Need {
      * @param type
      */
     public void setType(String type){this.type = type;}
+
+    public void setAvailability(boolean[] availability){ this.availability = availability; }
     
     /**
      * contributes to the currentQuantity of the Need
@@ -135,40 +132,6 @@ public class Need {
             }
         }
         return true;
-    }
-
-    public boolean areTimesValid(String starttime, String endtime){
-        try {
-
-            // check if colon is in the right spot (3rd character)
-            if(starttime.charAt(2) != ':' || endtime.charAt(2) != ':'){ return false; }
-            
-            // extract hours and minutes from start and end times
-            // also checks if numbers are in the right place, throws exception if not
-            int intStartHours = Integer.parseInt(starttime.substring(0, 2));
-            int intEndHours = Integer.parseInt(endtime.substring(0, 2));
-            int intStartMinutes = Integer.parseInt(starttime.substring(3, 5));
-            int intEndMinutes = Integer.parseInt(endtime.substring(3, 5));
-
-            return true;
-
-        } catch (Exception e) { return false; }
-    }
-
-    public boolean isStartTimeBeforeEndTime(String starttime, String endtime){
-        try {
-            
-            // extract hours and minutes from start and end times
-            // also checks if numbers are in the right place, throws exception if not
-            int intStartHours = Integer.parseInt(starttime.substring(0, 2));
-            int intEndHours = Integer.parseInt(endtime.substring(0, 2));
-            int intStartMinutes = Integer.parseInt(starttime.substring(3, 5));
-            int intEndMinutes = Integer.parseInt(endtime.substring(3, 5));
-
-            // check if start times is less than end time (assuming start and end are on same day)
-            if((intStartHours < intEndHours) || (intStartHours == intEndHours && intStartMinutes < intEndMinutes)){ return true; } else { return false; }
-
-        } catch (Exception e) { return true; }
     }
 
     /**
