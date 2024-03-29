@@ -41,6 +41,7 @@ export class NeedsComponent implements OnInit {
     else {
       type = type.trim();
     }
+    
     this.needService.createNeed({name, description, type, targetQuantity} as Need).subscribe(need => {this.needs.push(need)},
     (error) => {
       if(error.error == "Name Field Empty") { //not acceptable
