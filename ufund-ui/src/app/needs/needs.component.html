@@ -44,6 +44,33 @@
   <input id="new-need-targetQ" #needTargetQ />
   <br>
 
+  <label for="new-need-availability">Need availability: </label> <br>
+      
+  <div>
+    <label for="new-need-type">&emsp;Sunday&emsp;&emsp;</label>
+    <input type="checkbox" id="sunday-availability" name="sunday-availability" #sundayAvailability>
+
+    <label for="new-need-type">&emsp;Monday&emsp;&emsp;</label>
+    <input type="checkbox" id="monday-availability" name="monday-availability" #mondayAvailability>
+  
+    <label for="new-need-type">&emsp;Tuesday&emsp;&emsp;</label>
+    <input type="checkbox" id="tuesday-availability" name="tuesday-availability" #tuesdayAvailability>
+  
+    <label for="new-need-type">&emsp;Wednesday&emsp;&emsp;</label>
+    <input type="checkbox" id="wednesday-availability" name="wednesday-availability" #wednesdayAvailability>
+
+    <label for="new-need-type">&emsp;Thursday&emsp;&emsp;</label>
+    <input type="checkbox" id="thursday-availability" name="thursday-availability" #thursdayAvailability>
+
+    <label for="new-need-type">&emsp;Friday&emsp;&emsp;</label>
+    <input type="checkbox" id="friday-availability" name="friday-availability" #fridayAvailability>
+
+    <label for="new-need-type">&emsp;Saturday&emsp;&emsp;</label>
+    <input type="checkbox" id="saturday-availability" name="saturday-availability" #saturdayAvailability>
+  </div>
+
+      
+
   <button type="button" class="add-button" (click)="createNeed(needName.value, needDesc.value, needType.value, +needTargetQ.value)">
     Add Need
   </button>
