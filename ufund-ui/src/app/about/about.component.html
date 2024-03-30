@@ -1,0 +1,13 @@
+<h2>About</h2>
+
+<nav>
+  <a routerLink="/needs">Cupboard</a>
+  &nbsp;
+  <a routerLink="/search">Search</a>
+  &nbsp;
+  <div *ngIf="!currentUser?.admin" style="display: inline;">
+    <a routerLink="/basket">Basket</a>
+    &nbsp;
+  </div>
+  <a routerLink="/about">About</a>
+</nav>
