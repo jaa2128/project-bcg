@@ -1,10 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { User } from '../user';
 import { UserService } from '../user.service';
-import { Observable } from 'rxjs';
 import { HttpResponse, HttpStatusCode } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
 
 
@@ -44,19 +41,19 @@ statusMessage: string = 'Please log in or sign up!';
     this.submitPassword(formData2.newPassword);
   }
 
-  submitUsername(username: string): void {
-    console.log(username);
+  submitUsername(newUsername: string): void {
+    console.log(newUsername);
     
-    if(username.trim().length == 0) {
+    if(newUsername.trim().length == 0) {
       return;
     }
     if(this.currentUser == null) {
       return;
     }
 
-    this.userService.changeUsername(this.currentUser.username, username).subscribe(
+    this.userService.changeUsername(this.currentUser.username, newUsername).subscribe(
       (response: HttpResponse<any>) => {
-        this.userService.getUser(username, (this.currentUser?.password) as string).subscribe(
+        this.userService.getUser(newUsername, (this.currentUser?.password) as string).subscribe(
           (response: HttpResponse<any>) => {
             const newUser: User = response.body;
             this.userService.setCurrentUser(newUser);
@@ -66,27 +63,30 @@ statusMessage: string = 'Please log in or sign up!';
         )
       },
       (error) => {
-        if(error.status == 400) { //bad request
+        if(error.status == 401) { //trying to set to admin
+          this.statusMessage = 'Cannot set username to admin!';
+        } else if(error.status == 409) { //user already exists
+          this.statusMessage = 'User with this name already exists!'
+        } else if(error.status == 400) { //bad request
           this.statusMessage = 'Username or password is blank!';
-        }
-        else { //internal server error
+        } else { //internal server error
           this.statusMessage = 'There was a server error!';
         }
       }
     );
   }
 
-  submitPassword(password: string): void {
-    console.log(password);
+  submitPassword(newPassword: string): void {
+    console.log(newPassword);
     
-    if(password.trim().length == 0) {
+    if(newPassword.trim().length == 0) {
       return;
     }
     if(this.currentUser == null) {
       return;
     }
 
-    this.userService.changePassword(this.currentUser.username, password).subscribe(
+    this.userService.changePassword(this.currentUser.username, newPassword).subscribe(
       (response: HttpResponse<any>) => {
         this.statusMessage = "Password changed successfully!"
       },
