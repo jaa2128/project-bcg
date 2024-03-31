@@ -21,7 +21,9 @@ export class NeedsComponent implements OnInit {
   
   constructor(private needService: NeedService,
     private userService: UserService,
-    private router: Router) { }
+    private router: Router) { 
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    }
 
   logOut(): void {
     this.userService.logOut();

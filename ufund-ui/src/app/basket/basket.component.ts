@@ -23,7 +23,8 @@ export class BasketComponent implements OnInit {
 
   constructor(private userService: UserService,
     private needService: NeedService,
-    private router: Router) { }
+    private router: Router) { 
+    }
 
   logOut(): void {
     this.userService.logOut();

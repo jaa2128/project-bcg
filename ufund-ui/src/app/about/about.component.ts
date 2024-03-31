@@ -18,11 +18,12 @@ export class AboutComponent implements OnInit{
     
   constructor(private needService: NeedService,
     private userService: UserService,
-    private router: Router) { }
+    private router: Router) { 
+    }
 
 
     ngOnInit(): void {
-      this.currentUser = this.userService.getCurrentUser();
       this.userService.validate();
+      this.currentUser = this.userService.getCurrentUser();
     }
 }

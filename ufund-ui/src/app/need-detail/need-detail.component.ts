@@ -33,15 +33,15 @@ export class NeedDetailComponent implements OnInit {
     private location: Location,
     private needService: NeedService,
     private userService: UserService
-  ) {}
+  ) { }
 
   logOut(): void {
     this.userService.logOut();
   }
 
   ngOnInit(): void {
-    this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
+    this.currentUser = this.userService.getCurrentUser();
     this.getNeed();
   }
 

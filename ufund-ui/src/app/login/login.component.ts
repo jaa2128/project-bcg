@@ -38,14 +38,13 @@ export class LoginComponent implements OnInit{
 
   onSignupClick(): void {
     this.isLogin = false;
-    this.userService.saveToLocalStorage(this.userService.nameKey, this.formData.username);
-    this.userService.saveToLocalStorage(this.userService.passKey, this.formData.password);
   }
 
   constructor(private userService: UserService,
     private router: Router,
     private localStorageService: LocalStorageService
-    ) { }
+    ) { 
+    }
   
   login(username: string, password: string): void {
     console.log(username);
@@ -59,8 +58,10 @@ export class LoginComponent implements OnInit{
     this.userService.getUser(username, password).subscribe(
       (response: HttpResponse<User>) => {
         this.userService.setCurrentUser(response.body);
+        this.userService.saveToLocalStorage(this.userService.nameKey, username);
+        this.userService.saveToLocalStorage(this.userService.passKey, password);
         this.statusMessage = 'Success! Logging in...'
-        this.router.navigateByUrl("needs");
+        this.router.navigateByUrl("about");
       },
       (error) => {
         if(error.status == 404) { //not found
@@ -83,8 +84,10 @@ export class LoginComponent implements OnInit{
     this.userService.createUser(username, password).subscribe(
       (response: HttpResponse<User>) => {
         this.userService.setCurrentUser(response.body);
+        this.userService.saveToLocalStorage(this.userService.nameKey, username);
+        this.userService.saveToLocalStorage(this.userService.passKey, password);
         this.statusMessage = 'Success! Signing up...s'
-        this.router.navigateByUrl("needs");
+        this.router.navigateByUrl("about");
       },
       (error) =>
       {
