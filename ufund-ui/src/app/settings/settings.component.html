@@ -16,10 +16,13 @@
 
 <h4>User Settings</h4>
 <div>
-    <label for="change-username">Change Username: </label>
-    <input id="change-username"required [(ngModel)]="formData.newUsername" />
-    <button type="submit" (click)="changeUsername(formData)">Save</button>
-    <br>
+    <div *ngIf="!currentUser?.admin;then changeUsernameBox"></div>
+    <ng-template #changeUsernameBox>
+      <label for="change-username">Change Username: </label>
+      <input id="change-username"required [(ngModel)]="formData.newUsername" />
+      <button type="submit" (click)="changeUsername(formData)">Save</button>
+      <br>
+    </ng-template>
     <label for="change-password">Change Password: </label>
     <input id="change-password" required [(ngModel)]="formData2.newPassword"/>
     <button type="submit" (click)="changePassword(formData2)" >Save</button>
