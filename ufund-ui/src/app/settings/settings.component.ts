@@ -56,7 +56,14 @@ statusMessage: string = 'Please log in or sign up!';
 
     this.userService.changeUsername(this.currentUser.username, username).subscribe(
       (response: HttpResponse<any>) => {
-        return;
+        this.userService.getUser(username, (this.currentUser?.password) as string).subscribe(
+          (response: HttpResponse<any>) => {
+            const newUser: User = response.body;
+            this.userService.setCurrentUser(newUser);
+            this.currentUser = this.userService.getCurrentUser();
+            this.statusMessage = "Username changed successfully!"
+          }
+        )
       },
       (error) => {
         if(error.status == 400) { //bad request
@@ -81,7 +88,7 @@ statusMessage: string = 'Please log in or sign up!';
 
     this.userService.changePassword(this.currentUser.username, password).subscribe(
       (response: HttpResponse<any>) => {
-        return;
+        this.statusMessage = "Password changed successfully!"
       },
       (error) => {
         if(error.status == 400) { //bad request
