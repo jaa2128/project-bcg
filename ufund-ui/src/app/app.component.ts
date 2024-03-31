@@ -10,6 +10,5 @@ export class AppComponent {
   title = 'Brick City Gamers';
 
   constructor(private router: Router) {
-    router.navigateByUrl("about");
   }
 }
