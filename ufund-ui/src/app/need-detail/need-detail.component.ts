@@ -46,7 +46,7 @@ export class NeedDetailComponent implements OnInit {
   }
 
   selectDropdown(): void {
-    const basicTypes = ["Money", "Goods", "Volunteer"];
+    const basicTypes = ["Money", "Physical Goods", "Volunteer Hours"];
     if(basicTypes.includes(this.need.type)) {
       this.dropdownSelection = this.need.type;
     }
@@ -70,7 +70,13 @@ export class NeedDetailComponent implements OnInit {
   // updates need and saves it back to needs.json, then goes back
   save(): void {
     if (this.need) {
-    this.needService.updateNeed(this.need).subscribe(
+      if(this.dropdownSelection === "Other") {
+        this.need.type = this.otherType;
+      }
+      else {
+        this.need.type = this.dropdownSelection;
+      }
+      this.needService.updateNeed(this.need).subscribe(
       (response: HttpResponse<Object>) => {
         this.adminStatusMessage = 'Success! Going back to listing...';
         this.goBack()

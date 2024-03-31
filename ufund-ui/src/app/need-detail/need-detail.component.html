@@ -28,8 +28,8 @@
     <label for="need-type">Type: </label>
     <select name="need-type" [(ngModel)]="dropdownSelection">
       <option value="Money">Money</option>
-      <option value="Physicals Goods">Goods</option>
-      <option value="Volunteer Hours">Volunteer</option>
+      <option value="Physical Goods">Physical Goods</option>
+      <option value="Volunteer Hours">Volunteer Hours</option>
       <option value="Other">Other</option>
     </select> <br>
 
@@ -53,6 +53,7 @@
     <button type="button" (click)="save()">Save</button>
 
     <p>{{adminStatusMessage}}</p>
+    <p>{{dropdownSelection}}</p>
   </ng-template>
 
 
