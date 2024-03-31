@@ -5,16 +5,24 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
+  nameKey = "username";
+  passKey = "password";
+
+  storedUsername = this.retrieveFromLocalStorage(this.nameKey);
+  storedPassword = this.retrieveFromLocalStorage(this.passKey);
+
   currentUser: User | null;
 
   constructor(private http: HttpClient,
-    private router: Router) {
+    private router: Router, 
+    private localStorageService: LocalStorageService,) {
     this.currentUser = null;
    }
 
@@ -34,12 +42,23 @@ export class UserService {
 
   logOut(): void {
     this.setCurrentUser(null);
+    this.clearLocalStorage();
     this.router.navigateByUrl("login");
   }
 
   validate(): void {
-    if(this.currentUser == null) {
-      this.router.navigateByUrl("login");
+    if(this.storedUsername != null && this.storedPassword != null){
+      this.getUser(this.storedUsername, this.storedPassword).subscribe(
+        (response: HttpResponse<any>) => {
+          this.setCurrentUser(response.body);
+          console.log(this.currentUser);
+        },
+        (error) => {
+          if (error.status == 404){
+              this.router.navigateByUrl("login");
+          }
+        }
+      )
     }
   }
 
@@ -73,5 +92,19 @@ export class UserService {
 
   clearBasket(username: string): Observable<HttpResponse<any>> {
     return this.http.delete(this.usersURL + "/" + username + "/clear", { observe: 'response'} );
+  }
+
+  private retrieveFromLocalStorage(key: string): string | null{
+    return this.localStorageService.getItem(key);
+  }
+  
+  saveToLocalStorage(key: string, value: string) {
+    this.localStorageService.setItem(key, value);
+  }
+
+  // This just clears username and password
+  private clearLocalStorage(): void {
+    this.localStorageService.removeItem(this.nameKey);
+    this.localStorageService.removeItem(this.passKey);
   }
 }

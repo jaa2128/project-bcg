@@ -71,8 +71,8 @@ export class NeedsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
+    this.currentUser = this.userService.getCurrentUser();
     this.getNeeds();
   }
 

@@ -6,12 +6,14 @@ import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../local-storage.service';
+import { OnInit } from '@angular/core';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   formData = {
       username: '',
       password: ''
@@ -36,10 +38,13 @@ export class LoginComponent {
 
   onSignupClick(): void {
     this.isLogin = false;
+    this.userService.saveToLocalStorage(this.userService.nameKey, this.formData.username);
+    this.userService.saveToLocalStorage(this.userService.passKey, this.formData.password);
   }
 
   constructor(private userService: UserService,
-    private router: Router
+    private router: Router,
+    private localStorageService: LocalStorageService
     ) { }
   
   login(username: string, password: string): void {
@@ -95,4 +100,15 @@ export class LoginComponent {
       }
     )
   }
+
+  retrieveFromLocalStorage(key: string): string | null{
+    return this.localStorageService.getItem(key);
+  }
+
+  ngOnInit(): void {
+    if(this.userService.storedUsername != null && this.userService.storedPassword != null){
+      this.login(this.userService.storedUsername, this.userService.storedPassword); 
+    }
+  }
+
 }
