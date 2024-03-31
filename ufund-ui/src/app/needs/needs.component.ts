@@ -93,8 +93,4 @@ export class NeedsComponent implements OnInit {
     this.selectedOption = value;
   }
 
-  checkboxValBool(value: string): boolean{
-    if(value == "on"){ return false; } else { return true; }
-  }
-
 }

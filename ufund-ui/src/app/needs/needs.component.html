@@ -50,32 +50,30 @@
       
   <div>
     <label for="sunday-availability">&emsp;Sunday&emsp;&emsp;</label>
-    <input type="checkbox" id="sunday-availability" name="sunday-availability" #sundayAvailability>
+    <input type="checkbox" id="sunday-availability" name="sunday-availability" [checked]="true" #sundayAvailability>
 
     <label for="monday-availability">&emsp;Monday&emsp;&emsp;</label>
-    <input type="checkbox" id="monday-availability" name="monday-availability" #mondayAvailability>
+    <input type="checkbox" id="monday-availability" name="monday-availability" [checked]="true" #mondayAvailability>
   
     <label for="tuesday-availability">&emsp;Tuesday&emsp;&emsp;</label>
-    <input type="checkbox" id="tuesday-availability" name="tuesday-availability" #tuesdayAvailability>
+    <input type="checkbox" id="tuesday-availability" name="tuesday-availability" [checked]="true" #tuesdayAvailability>
   
     <label for="wednesday-availability">&emsp;Wednesday&emsp;&emsp;</label>
-    <input type="checkbox" id="wednesday-availability" name="wednesday-availability" #wednesdayAvailability>
+    <input type="checkbox" id="wednesday-availability" name="wednesday-availability" [checked]="true" #wednesdayAvailability>
 
     <label for="thursday-availability">&emsp;Thursday&emsp;&emsp;</label>
-    <input type="checkbox" id="thursday-availability" name="thursday-availability" #thursdayAvailability>
+    <input type="checkbox" id="thursday-availability" name="thursday-availability" [checked]="true" #thursdayAvailability>
 
     <label for="friday-availability">&emsp;Friday&emsp;&emsp;</label>
-    <input type="checkbox" id="friday-availability" name="friday-availability" #fridayAvailability>
+    <input type="checkbox" id="friday-availability" name="friday-availability" [checked]="true" #fridayAvailability>
 
     <label for="saturday-availability">&emsp;Saturday&emsp;&emsp;</label>
-    <input type="checkbox" id="saturday-availability" name="saturday-availability" #saturdayAvailability>
+    <input type="checkbox" id="saturday-availability" name="saturday-availability" [checked]="true" #saturdayAvailability>
   </div>
 
 
   <button type="button" class="add-button" (click)="createNeed(needName.value, needDesc.value, needType.value, +needTargetQ.value, 
-  [checkboxValBool(sundayAvailability.value), checkboxValBool(mondayAvailability.value), checkboxValBool(tuesdayAvailability.value), 
-  checkboxValBool(wednesdayAvailability.value), checkboxValBool(thursdayAvailability.value), checkboxValBool(fridayAvailability.value), 
-  checkboxValBool(saturdayAvailability.value)])">
+  [sundayAvailability.checked, mondayAvailability.checked, tuesdayAvailability.checked, wednesdayAvailability.checked, thursdayAvailability.checked, fridayAvailability.checked, saturdayAvailability.checked])">
     Add Need
   </button>
 

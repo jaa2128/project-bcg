@@ -25,6 +25,15 @@ export class NeedDetailComponent implements OnInit {
   dropdownSelection!: string;
   otherType!: string;
 
+/* this breaks stuff. idk why */
+  isSundayChecked!: boolean;
+  isMondayChecked!: boolean; 
+  isTuesdayChecked!: boolean; 
+  isWednesdayChecked!: boolean; 
+  isThursdayChecked!: boolean; 
+  isFridayChecked!: boolean;
+  isSaturdayChecked!: boolean; 
+
   helperStatusMessage = 'Enter how much you want to contribute then hit \'Add\'!';
   adminStatusMessage = 'Edit your need then hit \'Save\'!';
 
@@ -69,8 +78,8 @@ export class NeedDetailComponent implements OnInit {
 
   // updates need and saves it back to needs.json, then goes back
   save(): void {
-    if (this.need) {
-    this.needService.updateNeed(this.need).subscribe(
+    if (this.need) {  
+      this.needService.updateNeed(this.need).subscribe(
       (response: HttpResponse<Object>) => {
         this.adminStatusMessage = 'Success! Going back to listing...';
         this.goBack()
@@ -121,5 +130,13 @@ export class NeedDetailComponent implements OnInit {
 
       });
   }
+
+  flipSunday(): void { this.isSundayChecked = !this.isSundayChecked; }
+  flipMonday(): void { this.isMondayChecked = !this.isMondayChecked; }
+  flipTuesday(): void { this.isTuesdayChecked = !this.isTuesdayChecked; }
+  flipWednesday(): void { this.isWednesdayChecked = !this.isWednesdayChecked; }
+  flipThursday(): void { this.isThursdayChecked = !this.isThursdayChecked; }
+  flipFriday(): void { this.isFridayChecked = !this.isFridayChecked; }
+  flipSaturday(): void { this.isSaturdayChecked = !this.isSaturdayChecked; }
 
 }
