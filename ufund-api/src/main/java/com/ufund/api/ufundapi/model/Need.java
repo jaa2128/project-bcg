@@ -1,12 +1,14 @@
 package com.ufund.api.ufundapi.model;
 
 import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Need {
     //JSON FORMATTING
-    private static final String STRING_FORMAT = "Need [id=%d, name=%s, description=%s, type=%s, targetQuantity=%f, currentQuantity=%f]";
+    private static final String STRING_FORMAT = "Need [id=%d, name=%s, description=%s, type=%s, targetQuantity=%f, currentQuantity=%f, availability={{array}}]";
 
     //FIELDS
     @JsonProperty("id") private final int ID;
@@ -15,7 +17,7 @@ public class Need {
     @JsonProperty("type") private String type;
     @JsonProperty("targetQuantity") private double targetQuantity;
     @JsonProperty("currentQuantity") private double currentQuantity;
-    @JsonProperty("availability") boolean[] availability;
+    @JsonProperty("availability") ArrayList<Boolean> availability;
 
     //CONSTRUCTOR
     /**
@@ -33,7 +35,7 @@ public class Need {
     @JsonProperty("description") String description, 
     @JsonProperty("type") String type, 
     @JsonProperty("targetQuantity") double targetQuantity,
-    @JsonProperty("availability") boolean[] availability ){
+    @JsonProperty("availability") ArrayList<Boolean> availability ){
         this.ID = id;
         this.name = name;
         this.description = description;
@@ -74,7 +76,7 @@ public class Need {
      */
     public double getCurrentQuantity() { return currentQuantity; }
 
-    public boolean[] getAvailabiltiy() { return availability; }
+    public ArrayList<Boolean> getAvailability() { return availability; }
 
     //MODIFIERS
     /**
@@ -101,7 +103,9 @@ public class Need {
      */
     public void setType(String type){this.type = type;}
 
-    public void setAvailability(boolean[] availability){ this.availability = availability; }
+    public void setAvailability(ArrayList<Boolean> availability){
+        Collections.copy(this.availability, availability);
+    }
     
     /**
      * contributes to the currentQuantity of the Need

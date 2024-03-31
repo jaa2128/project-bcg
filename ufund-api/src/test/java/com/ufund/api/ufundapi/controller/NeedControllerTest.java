@@ -7,6 +7,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.lang.Boolean;
 
 import com.ufund.api.ufundapi.persistence.NeedDAO;
 import com.ufund.api.ufundapi.persistence.NeedFileDAO;
@@ -14,6 +16,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Need;
 
+import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -49,7 +52,7 @@ public class NeedControllerTest {
     @Test
     public void testGetNeed() throws IOException {  // getNeed may throw IOException
         // Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(99,"Test Need 1","Test Description","Test Type",1.0, availability);
         // When the same id is passed in, our mock Need DAO will return the Need object
         when(mockNeedDAO.getNeed(need.getID())).thenReturn(need);
@@ -99,7 +102,7 @@ public class NeedControllerTest {
     @Test
     public void testCreateNeed() throws IOException {  // createNeed may throw IOException
         // Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(99,"Test Need 2","Test Description","Test Type",1.0, availability);
         // when createNeed is called, return true simulating successful
         // creation and save
@@ -116,7 +119,7 @@ public class NeedControllerTest {
     @Test
     public void testCreateNeedFailed() throws IOException {  // createNeed may throw IOException
         // Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(99,"Test Need 3","Test Description","Test Type",1.0, availability);
         // when createNeed is called, return false simulating failed
         // creation and save
@@ -131,7 +134,7 @@ public class NeedControllerTest {
 
     @Test
     public void testCreateNeedWithEmptyField() throws IOException{
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(99, "", "test Description", "Test Type", 1.0, availability);
 
         when(mockNeedDAO.createNeed(need)).thenReturn(need);
@@ -147,7 +150,7 @@ public class NeedControllerTest {
     @Test
     public void testCreateNeedHandleException() throws IOException {  // createNeed may throw IOException
         // Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(99,"Test Need 4","Test Description","Test Type",1.0, availability );
 
         // When createNeed is called on the Mock Need DAO, throw an IOException
@@ -163,7 +166,7 @@ public class NeedControllerTest {
     @Test
     public void testUpdateNeed() throws IOException { // updateNeed may throw IOException
         // Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(99,"Test Need 5","Test Description","Test Type",1.0, availability);
         // when updateNeed is called, return true simulating successful
         // update and save
@@ -189,7 +192,7 @@ public class NeedControllerTest {
      */
     @Test public void testUpdateNeedWithoutName() throws IOException{
         // Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(99,"Test Need 5","Test Description","Test Type",1.0, availability);
         // when updateNeed is called, return true simulating successful
         // update and save
@@ -210,7 +213,7 @@ public class NeedControllerTest {
 
     @Test public void testUpdateNeedWithoutType() throws IOException{
         // Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(99,"Test Need 5","Test Description","Test Type",1.0,availability);
         // when updateNeed is called, return true simulating successful
         // update and save
@@ -232,7 +235,7 @@ public class NeedControllerTest {
     @Test
     public void testUpdateNeedFailed() throws IOException { // updateNeed may throw IOException
         // Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(99,"Test Need 6","Test Description","Test Type",1.0, availability);
         Need need2 = new Need(100,"Test Need 6","Test Description","Test Type",1.0, availability);
 
@@ -257,7 +260,7 @@ public class NeedControllerTest {
     @Test
     public void testUpdateNeedEqualToOtherName() throws IOException { // updateNeed may throw IOException
         // Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(99,"Test Need 5","Test Description","Test Type",1.0, availability);
         Need need2 = new Need(100, "Test Need 6", "Test Description", "Test Type", 1.0, availability);
         Need[] needs = new Need[]{need, need2};
@@ -283,7 +286,7 @@ public class NeedControllerTest {
     @Test
     public void testUpdateNeedHandleException() throws IOException { // updateNeed may throw IOException
         // Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(99,"Test Need 7","Test Description","Test Type",1.0,availability);
         // When updateNeed is called on the Mock Need DAO, throw an IOException
         doThrow(new IOException()).when(mockNeedDAO).updateNeed(need);
@@ -301,7 +304,7 @@ public class NeedControllerTest {
     @Test 
     public void testUpdateNeedLessThanZero() throws IOException{
         // Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(99,"Test Need 8","Test Description","Test Type",-666.0, availability);
         // when updateNeed is called, return true simulating successful
         // update and save
@@ -324,7 +327,7 @@ public class NeedControllerTest {
     public void testGetNeeds() throws IOException { // getNeeds may throw IOException
         // Setup
         Need[] needs = new Need[2];
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         needs[0] = new Need(99,"Test Need 8","Test Description","Test Type",1.0, availability);
         needs[1] = new Need(100,"Test Need 9","Test Description","Test Type",1.0, availability);
 
@@ -357,7 +360,7 @@ public class NeedControllerTest {
         // Setup
         String searchString = "la";
         Need[] needs = new Need[2];
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         needs[0] = new Need(99,"Test Need 10","Test Description","Test Type",1.0, availability);
         needs[1] = new Need(100,"Test Need 11","Test Description","Test Type",1.0, availability);
         // When findNeeds is called with the search string, return the two
@@ -430,7 +433,7 @@ public class NeedControllerTest {
 
     @Test
     public void testContributeNeed() throws IOException{
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need newNeed = new Need(1000, "Test Need", "Test Desc", "Test Type", 1000.0, availability);
         int contributeAmount = 500;
 
@@ -443,7 +446,7 @@ public class NeedControllerTest {
 
     @Test
     public void testContributeNeedNotFound() throws IOException{
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need newNeed = new Need(1000, "Test Need", "Test Desc", "Test Type", 1000.0, availability);
         int contributeAmount = 500;
 
@@ -456,7 +459,7 @@ public class NeedControllerTest {
 
     @Test
     public void testContributeNeedZeroOrLess() throws IOException{
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need newNeed = new Need(1000, "Test Need", "Test Desc", "Test Type", 1000.0, availability);
         int contributeAmount = 0;
 
@@ -469,7 +472,7 @@ public class NeedControllerTest {
 
     @Test
     public void testContributeNeedHandleException() throws IOException{
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need newNeed = new Need(1000, "Test Need", "Test Desc", "Test Type", 1000.0, availability);
         int contributeAmount = 500;
 

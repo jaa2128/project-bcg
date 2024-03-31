@@ -89,8 +89,20 @@ public class NeedController {
     public ResponseEntity createNeed(@RequestBody Need need) {
         LOG.info("POST /needs " + need);
         try {
-            if (need.hasEmptyField()){
-                return new ResponseEntity<String>("", HttpStatus.NOT_ACCEPTABLE);
+            if(need.getName().isEmpty()){
+                return new ResponseEntity<String>("Name Field Empty", HttpStatus.NOT_ACCEPTABLE);
+            }
+
+            if(need.getDescription().isEmpty()){
+                return new ResponseEntity<String>("Description Field Empty", HttpStatus.NOT_ACCEPTABLE);
+            }
+
+            if(need.getType().isEmpty()){
+                return new ResponseEntity<String>("Type Field Empty", HttpStatus.NOT_ACCEPTABLE);
+            }
+
+            if(need.getTargetQuantity() <= 0){
+                return new ResponseEntity<String>("Goal Amount Field Empty", HttpStatus.NOT_ACCEPTABLE);
             }
 
             Need newNeed = needDao.createNeed(need);

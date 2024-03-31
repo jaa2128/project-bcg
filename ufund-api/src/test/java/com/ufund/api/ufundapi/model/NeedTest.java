@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 public class NeedTest {
 
     private Need need;
@@ -14,7 +16,7 @@ public class NeedTest {
     //setup
     @BeforeEach
     public void setupNeed() {
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         need = new Need(50, "hello", "this is a description", "money", 99.99, availability);
     }
 
@@ -190,7 +192,7 @@ public class NeedTest {
 
     @Test
     public void testHasEmptyField(){
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need emptyName = new Need(30, "", "Test Description", "Test Type", 1.0, availability);
         Need emptyDescription = new Need(30, "Test Need", "", "Test Type", 1.0, availability);
         Need emptyType = new Need(30, "Test Need", "Test Description", "", 1.0, availability);

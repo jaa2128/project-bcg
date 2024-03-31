@@ -15,6 +15,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +39,7 @@ public class NeedFileDaoTest {
     public void setupHeroFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
         testNeeds = new Need[3];
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         testNeeds[0] = new Need(99, "Need1", "this is a description", "money", 99.99, availability);
         testNeeds[1] = new Need(100, "Need2", "this is a description", "money", 99.99, availability);
         testNeeds[2] = new Need(101, "Need3", "this is a description", "money", 99.99, availability);
@@ -140,7 +141,7 @@ public class NeedFileDaoTest {
      */
     @Test
     public void getUpdateNeedNotFound() throws IOException{
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(4, "Stinky", "Pick up trash", "Volunteer", 300, availability);
         Need result = needFileDAO.updateNeed(need);
 
@@ -155,7 +156,7 @@ public class NeedFileDaoTest {
     @Test
     public void testCreateNeed() throws IOException {
         // Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need oldNeed = new Need(49, "oldTest", "testing", "money", 99.99, availability);
         Need need = new Need(50, "test", "testing", "money", 99.99, availability);
         Need conflictNeed = new Need(51, "test", "testing", "money", 99.99, availability);
@@ -204,7 +205,7 @@ public class NeedFileDaoTest {
     @Test
     public void testUpdateNeed() throws IOException {
         // Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need oldNeed = new Need(51, "oldTest", "testing", "money", 99.99, availability);
         Need need = new Need(51, "test", "testing", "money", 99.99, availability);
         Need[] testNeeds = new Need[1];
@@ -235,7 +236,7 @@ public class NeedFileDaoTest {
             .when(mockObjectMapper)
                 .writeValue(any(File.class),any(Need[].class));
 
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(52, "test", "testing", "money", 99.99, availability);
 
         assertThrows(IOException.class,
@@ -250,7 +251,7 @@ public class NeedFileDaoTest {
      */
     @Test
     public void testContributeNeed() throws IOException{
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need newNeed = new Need(1000, "newNeed", "NewNeed", "Money", 1000, availability);
         Need otherNeed = new Need(1001, "otherNeed", "otherNeed", "Money", 1000, availability);
         Need[] testNeeds = new Need[]{newNeed, otherNeed};
@@ -271,7 +272,7 @@ public class NeedFileDaoTest {
      */
     @Test
     public void testContributeNeedNotFound() throws IOException{
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need newNeed = new Need(1000, "newNeed", "NewNeed", "Money", 1000, availability);
 
         Need result = needFileDAO.contributeNeed(newNeed.getID(), 500);
@@ -282,7 +283,7 @@ public class NeedFileDaoTest {
     @Test
     public void testSearchNeeds() throws IOException {
         //setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need1 = new Need(50, "hello world", "testing", "money", 99.99, availability);
         Need need2 = new Need(49, "GOODBYE WORLD", "testing", "money", 99.99, availability);
         Need need3 = new Need(51, "greetings universe", "testing", "money", 99.99, availability);

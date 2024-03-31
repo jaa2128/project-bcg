@@ -213,7 +213,7 @@ public class UserControllerTest {
     @Test
     public void testGetNeeds() throws IOException{
         //Setup
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need1 = new Need(0, "Test Name 1", "Test Description 1", "Test Type 1", 100, availability);
         Need need2 = new Need(1, "Test Name 2", "Test Description 2", "Test Type 2", 100, availability);
         User user = new User("abc123", "1234");
@@ -398,7 +398,7 @@ public class UserControllerTest {
     public void removeNeedNull() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(0,"Name", "Description", "Type", 100, availability);
 
         //When attempting to remove need, the mockUserDAO will return null
@@ -415,7 +415,7 @@ public class UserControllerTest {
     public void removeNeedNotFound() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(0,"Name", "Description", "Type", 100, availability);
 
         //When attempting to remove need, the mockUserDAO will return false
@@ -432,7 +432,7 @@ public class UserControllerTest {
     public void removeNeedIOException() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(0,"Name", "Description", "Type", 100, availability);
 
         //When attempting to remove need, the mockUserDAO will throw an IOException
@@ -465,7 +465,7 @@ public class UserControllerTest {
     public void testGetContributions() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need1 = new Need(0, "Name", "Description", "Type", 100, availability);
         Need need2 = new Need(1, "Test", "Test", "Test", 100, availability);
         user.addNeed(need1.getID(), 10);
@@ -516,7 +516,7 @@ public class UserControllerTest {
     public void testAddNeed() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(0, "Name", "Description", "Type", 100, availability);
 
         //When username, need ID, and need quantity are passed, the mockUserDao will return the ID of the need
@@ -550,7 +550,7 @@ public class UserControllerTest {
     public void testAddNeedIOException() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(0, "Name", "Description", "Type", 100, availability);
 
         //When username, need ID, and need quantity are passed, the mockUserDao will throw an IOException
@@ -568,7 +568,7 @@ public class UserControllerTest {
     public void testAddNeedZeroOrLess() throws IOException{
         //Setup
         User user = new User("abc123", "1234");
-        boolean[] availability = {true, true, true, true, true, true, true};
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
         Need need = new Need(0, "Name", "Description", "Type", 100, availability);
 
         //When username, need ID, and need quantity are passed, the mockUserDao will return the ID of the need

@@ -5,4 +5,5 @@ export interface Need {
     type: string;
     targetQuantity: number;
     currentQuantity: number;
+    availability: Array<boolean>;
 }

@@ -32,7 +32,7 @@ export class NeedsComponent implements OnInit {
         .subscribe(needs => this.needs = needs);
   }
 
-  createNeed(name:string, description:string, type:string, targetQuantity: number): void {
+  createNeed(name:string, description:string, type:string, targetQuantity: number, availability: Array<boolean>): void {
     name = name.trim();
     description = description.trim();
     if(type === 'Other') {
@@ -42,7 +42,7 @@ export class NeedsComponent implements OnInit {
       type = type.trim();
     }
     
-    this.needService.createNeed({name, description, type, targetQuantity} as Need).subscribe(need => {this.needs.push(need)},
+    this.needService.createNeed({name, description, type, targetQuantity, availability} as Need).subscribe(need => {this.needs.push(need)},
     (error) => {
       if(error.error == "Name Field Empty") { //not acceptable
         this.adminStatusMessage = 'Name Field is empty!';
@@ -92,4 +92,9 @@ export class NeedsComponent implements OnInit {
   onSelected(value: string): void{
     this.selectedOption = value;
   }
+
+  checkboxValBool(value: string): boolean{
+    if(value == "on"){ return false; } else { return true; }
+  }
+
 }
