@@ -30,5 +30,5 @@ public interface UserDAO {
 
     boolean changeUsername(String username, String newUsername) throws IOException;
 
-    boolean changePassword(String username, String password) throws IOException;
+    boolean changePassword(String username, String newPassword) throws IOException;
 }

@@ -275,6 +275,14 @@ public class UserFileDAO implements UserDAO {
         }
     }
 
+    /**
+     * Clears the user basket
+     * @param username the username of the user
+     * @param newUsername the username to change to
+     * 
+     * @return false if the user doesn't exist
+     * @return true if the basket was cleared
+     */
     public boolean changeUsername(String username, String newUsername) throws IOException {
         synchronized(users) {
             User user = getUser(username);
@@ -290,13 +298,21 @@ public class UserFileDAO implements UserDAO {
         }
     }
 
-    public boolean changePassword(String username, String password) throws IOException {
+    /**
+     * Clears the user basket
+     * @param username the username of the user
+     * @param newPassword the new password to change to
+     * 
+     * @return false if the user doesn't exist
+     * @return true if the basket was cleared
+     */
+    public boolean changePassword(String username, String newPassword) throws IOException {
         synchronized(users) {
             User user = getUser(username);
-            if(user == null || password == null) {
+            if(user == null || newPassword == null) {
                 return false;
             }
-            user.changePassword(password);
+            user.changePassword(newPassword);
             save();
             return true;
         }
