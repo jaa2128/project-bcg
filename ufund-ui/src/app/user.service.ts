@@ -45,11 +45,11 @@ export class UserService {
     this.clearLocalStorage();
     this.router.navigateByUrl("login");
   }
-
+  
   validate(): void {
     if(this.storedUsername != null && this.storedPassword != null){
       this.getUser(this.storedUsername, this.storedPassword).subscribe(
-        (response: HttpResponse<any>) => {
+        (response: HttpResponse<User>) => {
           this.setCurrentUser(response.body);
           console.log(this.currentUser);
         },
