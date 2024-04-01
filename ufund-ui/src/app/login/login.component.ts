@@ -114,13 +114,11 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    /*
     if(this.userService.storedUsername != null && this.userService.storedPassword != null){
       this.login(this.userService.storedUsername, this.userService.storedPassword); 
     }
-    */
-    this.userService.storedUsername = null; 
-    this.userService.storedPassword = null; 
+    //this.userService.storedUsername = null; 
+    //this.userService.storedPassword = null; 
   }
 
 }
