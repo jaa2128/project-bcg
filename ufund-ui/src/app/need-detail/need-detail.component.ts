@@ -8,6 +8,7 @@ import { NeedService } from '../need.service';
 import { User } from '../user';
 import { UserService } from '../user.service';
 import { HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-need-detail',
@@ -41,7 +42,8 @@ export class NeedDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private needService: NeedService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   logOut(): void {
@@ -52,7 +54,6 @@ export class NeedDetailComponent implements OnInit {
     this.userService.validate();
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
-    this.userService.saveToLocalStorage(this.userService.pageKey, "detail/:id");
     this.getNeed();
   }
 
@@ -71,11 +72,12 @@ export class NeedDetailComponent implements OnInit {
   getNeed(): void {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.needService.getNeed(id)
-      .subscribe(need => {this.need = need; this.selectDropdown();});
+      .subscribe(need => {    this.userService.saveToLocalStorage(this.userService.pageKey, "detail/" + need.id);
+      this.need = need; this.selectDropdown();});
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigateByUrl("needs");
   }
 
   // updates need and saves it back to needs.json, then goes back
