@@ -94,5 +94,15 @@ statusMessage: string = 'Please log in or sign up!';
     );
   }
 
+  changeAvailability(sundayAvailability: Boolean, mondayAvailability: Boolean, tuesdayAvailability: Boolean, wednesdayAvailability: Boolean, thursdayAvailability: Boolean, fridayAvailability: Boolean, saturdayAvailability: Boolean): void {
+    let newAvailability: Array<Boolean> = [sundayAvailability, mondayAvailability, tuesdayAvailability, wednesdayAvailability, thursdayAvailability, fridayAvailability, saturdayAvailability];
+    if(this.currentUser != null){
+      this.userService.changeAvailability(this.currentUser.username, newAvailability).subscribe(
+        (response: HttpResponse<any>) => {
+          return;
+        }
+      );
+    } this.statusMessage = 'There was a server error!'
+  }
 
 }

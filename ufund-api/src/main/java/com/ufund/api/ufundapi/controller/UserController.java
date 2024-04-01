@@ -307,4 +307,21 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/{username}/availability")
+    public ResponseEntity<Integer> changeAvailability(@PathVariable String username, @RequestBody ArrayList<Boolean> newAvailability) {
+        LOG.info("PUT /users/" + username + "/availability/");
+        try {
+            boolean result = userDao.changeAvailability(username, newAvailability);
+            if(result) {
+                return new ResponseEntity<Integer>(HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }   
+        catch(IOException e) {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

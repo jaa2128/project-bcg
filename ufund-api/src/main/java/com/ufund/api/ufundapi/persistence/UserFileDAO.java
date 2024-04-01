@@ -274,7 +274,8 @@ public class UserFileDAO implements UserDAO {
             return true;
         }
     }
-
+    
+    @Override
     public boolean changeUsername(String username, String newUsername) throws IOException {
         synchronized(users) {
             User user = getUser(username);
@@ -290,6 +291,7 @@ public class UserFileDAO implements UserDAO {
         }
     }
 
+    @Override
     public boolean changePassword(String username, String password) throws IOException {
         synchronized(users) {
             User user = getUser(username);
@@ -299,6 +301,20 @@ public class UserFileDAO implements UserDAO {
             user.changePassword(password);
             save();
             return true;
+        }
+    }
+
+    @Override
+    public boolean changeAvailability(String username, ArrayList<Boolean> availability) throws IOException {
+        synchronized(users){
+            User user = getUser(username);
+            try {
+                for (int i = 0; i <= 6; i++) {
+                    user.getAvailability().set(i, availability.get(i));
+                } return true;
+            } catch (Exception e) {
+                return false;
+            }
         }
     }
 }
