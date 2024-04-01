@@ -11,6 +11,7 @@ import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: 'about', component: AboutComponent},
   {path: 'needs', component: NeedsComponent},
   {path: 'search', component: NeedSearchComponent},
   {path: 'login', component: LoginComponent},

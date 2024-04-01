@@ -23,7 +23,8 @@ export class BasketComponent implements OnInit {
 
   constructor(private userService: UserService,
     private needService: NeedService,
-    private router: Router) { }
+    private router: Router) { 
+    }
 
   logOut(): void {
     this.userService.logOut();
@@ -138,8 +139,9 @@ export class BasketComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
+    this.currentUser = this.userService.getCurrentUser();
+    this.userService.saveToLocalStorage(this.userService.pageKey, "basket");
     if (this.currentUser?.admin) {
       this.router.navigateByUrl("needs");
     }
