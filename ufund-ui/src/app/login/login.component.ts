@@ -5,13 +5,15 @@ import { Observable } from 'rxjs';
 import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from '../app.component';
-import { Router } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
+import { LocalStorageService } from '../local-storage.service';
+import { OnInit } from '@angular/core';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   formData = {
       username: '',
       password: ''
@@ -32,6 +34,8 @@ export class LoginComponent {
 
   onLoginClick(): void {
     this.isLogin = true;
+    this.userService.saveToLocalStorage(this.userService.nameKey, this.formData.username);
+    this.userService.saveToLocalStorage(this.userService.passKey, this.formData.password);
   }
 
   onSignupClick(): void {
@@ -39,8 +43,10 @@ export class LoginComponent {
   }
 
   constructor(private userService: UserService,
-    private router: Router
-    ) { }
+    private router: Router,
+    private localStorageService: LocalStorageService
+    ) { 
+    }
   
   login(username: string, password: string): void {
     console.log(username);
@@ -54,8 +60,13 @@ export class LoginComponent {
     this.userService.getUser(username, password).subscribe(
       (response: HttpResponse<User>) => {
         this.userService.setCurrentUser(response.body);
-        this.statusMessage = 'Success! Logging in...'
-        this.router.navigateByUrl("needs");
+        this.statusMessage = 'Success! Logging in...';
+        if(this.userService.retrieveFromLocalStorage(this.userService.pageKey) == null){
+          this.router.navigateByUrl("needs");
+        }
+        else{
+          this.router.navigateByUrl(this.userService.retrieveFromLocalStorage(this.userService.pageKey) as string);
+        }
       },
       (error) => {
         if(error.status == 404) { //not found
@@ -78,8 +89,10 @@ export class LoginComponent {
     this.userService.createUser(username, password).subscribe(
       (response: HttpResponse<User>) => {
         this.userService.setCurrentUser(response.body);
+        this.userService.saveToLocalStorage(this.userService.nameKey, username);
+        this.userService.saveToLocalStorage(this.userService.passKey, password);
         this.statusMessage = 'Success! Signing up...s'
-        this.router.navigateByUrl("needs");
+        this.router.navigateByUrl("about");
       },
       (error) =>
       {
@@ -95,4 +108,17 @@ export class LoginComponent {
       }
     )
   }
+
+  retrieveFromLocalStorage(key: string): string | null{
+    return this.localStorageService.getItem(key);
+  }
+
+  ngOnInit(): void {
+    if(this.userService.storedUsername != null && this.userService.storedPassword != null){
+      this.login(this.userService.storedUsername, this.userService.storedPassword); 
+    }
+    //this.userService.storedUsername = null; 
+    //this.userService.storedPassword = null; 
+  }
+
 }

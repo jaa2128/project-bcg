@@ -42,15 +42,17 @@ export class NeedDetailComponent implements OnInit {
     private location: Location,
     private needService: NeedService,
     private userService: UserService
-  ) {}
+  ) { }
 
   logOut(): void {
     this.userService.logOut();
   }
 
   ngOnInit(): void {
+    this.userService.validate();
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
+    this.userService.saveToLocalStorage(this.userService.pageKey, "detail/:id");
     this.getNeed();
   }
 

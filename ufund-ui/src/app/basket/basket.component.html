@@ -1,6 +1,8 @@
 <h2>Basket </h2>
 
 <nav>
+  <a routerLink="/about">About</a>
+  &nbsp;
   <a routerLink="/needs">Cupboard</a>
   &nbsp;
   <a routerLink="/search">Search</a>
@@ -8,8 +10,6 @@
   <div *ngIf="!currentUser?.admin" style="display: inline;">
     <a routerLink="/basket">Basket</a>
   </div>
-  &nbsp;
-  <a routerLink="/about">About</a>
 </nav>
 
 <h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>

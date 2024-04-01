@@ -21,7 +21,9 @@ export class NeedsComponent implements OnInit {
   
   constructor(private needService: NeedService,
     private userService: UserService,
-    private router: Router) { }
+    private router: Router) { 
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    }
 
   logOut(): void {
     this.userService.logOut();
@@ -71,8 +73,9 @@ export class NeedsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
+    this.currentUser = this.userService.getCurrentUser();
+    this.userService.saveToLocalStorage(this.userService.pageKey, "needs");
     this.getNeeds();
   }
 

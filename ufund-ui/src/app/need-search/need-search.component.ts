@@ -15,7 +15,7 @@ import { User } from '../user';
   templateUrl: './need-search.component.html',
   styleUrl: './need-search.component.css'
 })
-export class NeedSearchComponent {
+export class NeedSearchComponent implements OnInit {
   needs$!: Observable<Need[]>;
   private searchTerms = new Subject<string>();
   currentUser: User | null = null;
@@ -32,8 +32,10 @@ export class NeedSearchComponent {
   }
 
   ngOnInit(): void {
+    this.userService.validate();
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
+    this.userService.saveToLocalStorage(this.userService.pageKey, "search");
     this.needs$ = this.searchTerms.pipe(
       
       debounceTime(300),

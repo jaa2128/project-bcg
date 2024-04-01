@@ -9,12 +9,12 @@ import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: 'about', component: AboutComponent},
   {path: 'needs', component: NeedsComponent},
   {path: 'search', component: NeedSearchComponent},
   {path: 'login', component: LoginComponent},
   {path: 'detail/:id', component: NeedDetailComponent},
-  {path: 'basket', component: BasketComponent},
-  {path: 'about', component: AboutComponent}
+  {path: 'basket', component: BasketComponent}
 ];
 
 @NgModule({
