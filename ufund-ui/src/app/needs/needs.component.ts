@@ -18,6 +18,13 @@ export class NeedsComponent implements OnInit {
   showButton:number=-1;
   selectedOption = '';
   otherType:string = '';
+  sundayAvailability: boolean = true;
+  mondayAvailability: boolean = true;
+  tuesdayAvailability: boolean = true;
+  wednesdayAvailability: boolean = true;
+  thursdayAvailability: boolean = true;
+  fridayAvailability: boolean = true;
+  saturdayAvailability: boolean = true;
   
   constructor(private needService: NeedService,
     private userService: UserService,
