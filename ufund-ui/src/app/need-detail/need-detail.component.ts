@@ -42,6 +42,8 @@ export class NeedDetailComponent implements OnInit {
   ngOnInit(): void {
     this.userService.validate();
     this.currentUser = this.userService.getCurrentUser();
+    this.userService.validate();
+    this.userService.saveToLocalStorage(this.userService.pageKey, "detail/:id");
     this.getNeed();
   }
 

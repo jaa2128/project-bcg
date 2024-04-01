@@ -141,6 +141,7 @@ export class BasketComponent implements OnInit {
   ngOnInit(): void {
     this.userService.validate();
     this.currentUser = this.userService.getCurrentUser();
+    this.userService.saveToLocalStorage(this.userService.pageKey, "basket");
     if (this.currentUser?.admin) {
       this.router.navigateByUrl("needs");
     }

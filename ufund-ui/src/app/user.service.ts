@@ -14,9 +14,11 @@ export class UserService {
 
   nameKey = "username";
   passKey = "password";
+  pageKey = "lastPage"
 
   storedUsername = this.retrieveFromLocalStorage(this.nameKey);
   storedPassword = this.retrieveFromLocalStorage(this.passKey);
+  storedPage = this.retrieveFromLocalStorage(this.pageKey);
 
   currentUser: User | null;
 
@@ -47,18 +49,8 @@ export class UserService {
   }
   
   validate(): void {
-    if(this.storedUsername != null && this.storedPassword != null){
-      this.getUser(this.storedUsername, this.storedPassword).subscribe(
-        (response: HttpResponse<User>) => {
-          this.setCurrentUser(response.body);
-          console.log(this.currentUser);
-        },
-        (error) => {
-          if (error.status == 404){
-              this.router.navigateByUrl("login");
-          }
-        }
-      )
+    if(this.currentUser == null){
+      this.router.navigateByUrl("login");
     }
   }
 
@@ -94,7 +86,7 @@ export class UserService {
     return this.http.delete(this.usersURL + "/" + username + "/clear", { observe: 'response'} );
   }
 
-  private retrieveFromLocalStorage(key: string): string | null{
+  retrieveFromLocalStorage(key: string): string | null{
     return this.localStorageService.getItem(key);
   }
   

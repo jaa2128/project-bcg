@@ -34,6 +34,8 @@ export class NeedSearchComponent implements OnInit {
   ngOnInit(): void {
     this.userService.validate();
     this.currentUser = this.userService.getCurrentUser();
+    this.userService.validate();
+    this.userService.saveToLocalStorage(this.userService.pageKey, "search");
     this.needs$ = this.searchTerms.pipe(
       
       debounceTime(300),

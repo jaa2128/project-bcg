@@ -25,5 +25,7 @@ export class AboutComponent implements OnInit{
     ngOnInit(): void {
       this.userService.validate();
       this.currentUser = this.userService.getCurrentUser();
+      this.userService.validate();
+      this.userService.saveToLocalStorage(this.userService.pageKey, "about");
     }
 }
