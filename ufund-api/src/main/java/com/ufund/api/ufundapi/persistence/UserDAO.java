@@ -30,12 +30,8 @@ public interface UserDAO {
 
     boolean changeUsername(String username, String newUsername) throws IOException;
 
-<<<<<<< HEAD
     boolean changePassword(String username, String password) throws IOException;
 
     boolean changeAvailability(String username, ArrayList<Boolean> availability) throws IOException;
 
-=======
-    boolean changePassword(String username, String newPassword) throws IOException;
->>>>>>> 362a4fb59ac8e53dba0729b76ca06c3f8f70eb2a
 }
