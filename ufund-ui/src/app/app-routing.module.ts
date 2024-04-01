@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'detail/:id', component: NeedDetailComponent},
   {path: 'basket', component: BasketComponent},
-  {path: 'about', component: AboutComponent}
+  {path: 'about', component: AboutComponent},
   {path: 'basket', component: BasketComponent},
   {path: 'settings', component: SettingsComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent}
