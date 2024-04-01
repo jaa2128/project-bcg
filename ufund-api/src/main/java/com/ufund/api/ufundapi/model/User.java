@@ -36,8 +36,12 @@ public class User {
         return this.username;
     }
 
-    public void changeUsername(String username) {
-        this.username = username; 
+    /**
+     * Changes the user's username
+     * @param password
+     */
+    public void changeUsername(String newUsername) {
+        this.username = newUsername; 
     }
 
     /**
@@ -47,8 +51,12 @@ public class User {
         return this.password;
     }
 
-    public void changePassword(String password) {
-        this.password = password; 
+    /**
+     * Changes the user's password
+     * @param password
+     */
+    public void changePassword(String newPassword) {
+        this.password = newPassword; 
     }
 
     /**
