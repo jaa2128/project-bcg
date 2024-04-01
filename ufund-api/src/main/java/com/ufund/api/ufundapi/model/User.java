@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
-    @JsonProperty("username") private final String username; //User's username for login
-    @JsonProperty("password") private final String password; //User's password
+    @JsonProperty("username") private String username; //User's username for login
+    @JsonProperty("password") private String password; //User's password
     @JsonProperty("needs") private ArrayList<Integer> needs; //list of needs in the user's basket
     @JsonProperty("contributions") private ArrayList<Double> contributions; //list of contribution amounts
     private final boolean isAdmin; // Whether user is a helper or an admin
@@ -32,10 +32,26 @@ public class User {
     }
 
     /**
+     * Changes the user's username
+     * @param password
+     */
+    public void changeUsername(String newUsername) {
+        this.username = newUsername; 
+    }
+
+    /**
      * Retrieves user's password (for testing purposes)
      */
     public String getPassword() {
         return this.password;
+    }
+
+    /**
+     * Changes the user's password
+     * @param password
+     */
+    public void changePassword(String newPassword) {
+        this.password = newPassword; 
     }
 
     /**

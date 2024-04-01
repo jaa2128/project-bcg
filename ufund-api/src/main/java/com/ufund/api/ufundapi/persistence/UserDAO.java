@@ -27,4 +27,8 @@ public interface UserDAO {
     Boolean removeNeed(String username, int needID) throws IOException;
 
     boolean clearBasket(String username) throws IOException;
+
+    boolean changeUsername(String username, String newUsername) throws IOException;
+
+    boolean changePassword(String username, String newPassword) throws IOException;
 }

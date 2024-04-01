@@ -1,0 +1,34 @@
+<h2>Settings</h2>
+
+<nav>
+  <a routerLink="/needs">Cupboard</a>
+  &nbsp;
+  <a routerLink="/search">Search</a>
+  &nbsp;
+  <div *ngIf="!currentUser?.admin" style="display: inline;">
+    <a routerLink="/basket">Basket</a>
+  </div>
+  &nbsp;
+  <a routerLink="/settings">Settings</a>
+</nav>
+
+<h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
+
+<h4>User Settings</h4>
+<div>
+    <div *ngIf="!currentUser?.admin;then changeUsernameBox"></div>
+    <ng-template #changeUsernameBox>
+      <label for="change-username">Change Username: </label>
+      <input id="change-username"required [(ngModel)]="formData.newUsername" />
+      <button type="submit" (click)="changeUsername(formData)">Save</button>
+      <br>
+    </ng-template>
+    <label for="change-password">Change Password: </label>
+    <input id="change-password" required [(ngModel)]="formData2.newPassword"/>
+    <button type="submit" (click)="changePassword(formData2)" >Save</button>
+    <br>
+</div>
+
+<p>{{statusMessage}}</p>
+
+<h4>Accessibility Settings</h4>

@@ -5,6 +5,8 @@ import { NeedDetailComponent } from './need-detail/need-detail.component';
 import { NeedSearchComponent } from './need-search/need-search.component';
 import { LoginComponent } from './login/login.component';
 import { BasketComponent } from './basket/basket.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
@@ -15,6 +17,9 @@ const routes: Routes = [
   {path: 'detail/:id', component: NeedDetailComponent},
   {path: 'basket', component: BasketComponent},
   {path: 'about', component: AboutComponent}
+  {path: 'basket', component: BasketComponent},
+  {path: 'settings', component: SettingsComponent},
+  {path: 'forgot-password', component: ForgotPasswordComponent}
 ];
 
 @NgModule({

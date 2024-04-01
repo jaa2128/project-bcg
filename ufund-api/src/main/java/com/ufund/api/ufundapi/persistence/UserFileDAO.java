@@ -274,4 +274,47 @@ public class UserFileDAO implements UserDAO {
             return true;
         }
     }
+
+    /**
+     * Clears the user basket
+     * @param username the username of the user
+     * @param newUsername the username to change to
+     * 
+     * @return false if the user doesn't exist
+     * @return true if the basket was cleared
+     */
+    public boolean changeUsername(String username, String newUsername) throws IOException {
+        synchronized(users) {
+            User user = getUser(username);
+            if(user == null) {
+                return false;
+            }
+            if(newUsername != null && getUser(newUsername) == null) {
+                user.changeUsername(newUsername);
+                save();
+                return true;
+            }
+            return false;
+        }
+    }
+
+    /**
+     * Clears the user basket
+     * @param username the username of the user
+     * @param newPassword the new password to change to
+     * 
+     * @return false if the user doesn't exist
+     * @return true if the basket was cleared
+     */
+    public boolean changePassword(String username, String newPassword) throws IOException {
+        synchronized(users) {
+            User user = getUser(username);
+            if(user == null || newPassword == null) {
+                return false;
+            }
+            user.changePassword(newPassword);
+            save();
+            return true;
+        }
+    }
 }
