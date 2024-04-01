@@ -1,6 +1,7 @@
 package com.ufund.api.ufundapi.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,6 +11,7 @@ public class User {
     @JsonProperty("needs") private ArrayList<Integer> needs; //list of needs in the user's basket
     @JsonProperty("contributions") private ArrayList<Double> contributions; //list of contribution amounts
     private final boolean isAdmin; // Whether user is a helper or an admin
+    @JsonProperty("availability") private ArrayList<Boolean> availability;
 
     /**
      * Contructor for new instance of User
@@ -22,6 +24,7 @@ public class User {
         this.needs = new ArrayList<Integer>();
         this.contributions = new ArrayList<Double>();
         this.isAdmin = username.equals("admin");
+        for (int i = 0; i <= 6; i++) { this.availability.add(true); }
     }
 
     /**
@@ -51,6 +54,17 @@ public class User {
      */
     public ArrayList<Double> getContributions(){
         return this.contributions;
+    }
+
+    /**
+     * Retrieves User's availabiltiy
+     */
+    public ArrayList<Boolean> getAvailability(){
+        return this.availability;
+    }
+
+    public void setAvailability(ArrayList<Boolean> availability){
+        Collections.copy(this.availability, availability);
     }
 
     /**
