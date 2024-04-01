@@ -53,31 +53,32 @@
 
     <div>
       <label for="sunday-availability">&emsp;Sunday&emsp;&emsp;</label>
-      <input type="checkbox" id="sunday-availability" name="sunday-availability" [checked]="need.availability[0]" #sundayAvailability>
+      <input type="checkbox" id="sunday-availability" name="sunday-availability" [(ngModel)]="need.availability[0]" #sundayAvailability>
   
       <label for="monday-availability">&emsp;Monday&emsp;&emsp;</label>
-      <input type="checkbox" id="monday-availability" name="monday-availability" [checked]="need.availability[1]" #mondayAvailability>
+      <input type="checkbox" id="monday-availability" name="monday-availability" [(ngModel)]="need.availability[1]" #mondayAvailability>
     
       <label for="tuesday-availability">&emsp;Tuesday&emsp;&emsp;</label>
-      <input type="checkbox" id="tuesday-availability" name="tuesday-availability" [checked]="need.availability[2]" #tuesdayAvailability>
+      <input type="checkbox" id="tuesday-availability" name="tuesday-availability" [(ngModel)]="need.availability[2]" #tuesdayAvailability>
     
       <label for="wednesday-availability">&emsp;Wednesday&emsp;&emsp;</label>
-      <input type="checkbox" id="wednesday-availability" name="wednesday-availability" [checked]="need.availability[3]" #wednesdayAvailability>
+      <input type="checkbox" id="wednesday-availability" name="wednesday-availability" [(ngModel)]="need.availability[3]" #wednesdayAvailability>
   
       <label for="thursday-availability">&emsp;Thursday&emsp;&emsp;</label>
-      <input type="checkbox" id="thursday-availability" name="thursday-availability" [checked]="need.availability[4]" #thursdayAvailability>
+      <input type="checkbox" id="thursday-availability" name="thursday-availability" [(ngModel)]="need.availability[4]" #thursdayAvailability>
   
       <label for="friday-availability">&emsp;Friday&emsp;&emsp;</label>
-      <input type="checkbox" id="friday-availability" name="friday-availability" [checked]="need.availability[5]" #fridayAvailability>
+      <input type="checkbox" id="friday-availability" name="friday-availability" [(ngModel)]="need.availability[5]" #fridayAvailability>
   
       <label for="saturday-availability">&emsp;Saturday&emsp;&emsp;</label>
-      <input type="checkbox" id="saturday-availability" name="saturday-availability" [checked]="need.availability[6]" #saturdayAvailability>
+      <input type="checkbox" id="saturday-availability" name="saturday-availability" [(ngModel)]="need.availability[6]" #saturdayAvailability>
     </div>
 
     <button type="button" (click)="goBack()">Go Back</button>
     <button type="button" (click)="save()">Save</button>
 
     <p>{{adminStatusMessage}}</p>
+    <p>{{need.availability}}</p>
   </ng-template>
 
 
