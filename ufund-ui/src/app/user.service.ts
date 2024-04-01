@@ -78,19 +78,14 @@ export class UserService {
   changeUsername(username: string, newUsername: string): Observable<HttpResponse<any>> {
     const url = `${this.usersURL}/${username}/newUsername/${newUsername}`;
     return this.http.put(url, {}, { observe: 'response' });
-<<<<<<< HEAD
   }
   
   changeAvailability(username: string, newAvailability: Array<Boolean>): Observable<HttpResponse<any>> {
     const url = `${this.usersURL}/${username}/availability`;
     return this.http.put(url, {newAvailability}, { observe: 'response' });
-  }
-=======
   } 
-
   changePassword(username: string, newPassword: string): Observable<HttpResponse<any>> {
     const url = `${this.usersURL}/${username}/newPassword/${newPassword}`;
     return this.http.put(url, {}, { observe: 'response' });
   } 
->>>>>>> 362a4fb59ac8e53dba0729b76ca06c3f8f70eb2a
 }
