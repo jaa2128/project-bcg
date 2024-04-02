@@ -90,21 +90,16 @@ export class UserService {
     const url = `${this.usersURL}/${username}/newUsername/${newUsername}`;
     return this.http.put(url, {}, { observe: 'response' });
   }
-  
-  changeAvailability(username: string, newAvailability: Array<Boolean>): Observable<HttpResponse<any>> {
-    const url = `${this.usersURL}/${username}/availability`;
-    return this.http.put(url, {newAvailability}, { observe: 'response' });
-  }
    
   changePassword(username: string, newPassword: string): Observable<HttpResponse<any>> {
     const url = `${this.usersURL}/${username}/newPassword/${newPassword}`;
     return this.http.put(url, {}, { observe: 'response' });
   } 
 
-  changeUsername(username: string, newUsername: string): Observable<HttpResponse<any>> {
-    const url = `${this.usersURL}/${username}/newUsername/${newUsername}`;
-    return this.http.put(url, {}, { observe: 'response' });
-  } 
+  changeAvailability(username: string, newAvailability: Array<Boolean>): Observable<HttpResponse<any>> {
+    const url = `${this.usersURL}/${username}/availability`;
+    return this.http.put(url, {newAvailability}, { observe: 'response' });
+  }
 
   retrieveFromLocalStorage(key: string): string | null{
     return this.localStorageService.getItem(key);

@@ -14,7 +14,6 @@ public class User {
     @JsonProperty("contributions") private ArrayList<Double> contributions; //list of contribution amounts
     private final boolean isAdmin; // Whether user is a helper or an admin
     @JsonProperty("availability") private ArrayList<Boolean> availability;
-    @JsonProperty("availability") private ArrayList<Boolean> availability;
 
     /**
      * Contructor for new instance of User
