@@ -87,7 +87,7 @@ public class NeedFileDAO implements NeedDAO {
 
 
         for (Need need : needs.values()) {
-                if(type == null || type.isBlank() || need.getType().toLowerCase().equals(type)){
+                if(type == null || type.isBlank() || need.getType().toLowerCase().equals(type.toLowerCase())){
                     if(minContribution == null || minContribution.isBlank() || need.getContributionPercent() >= Integer.valueOf(minContribution)){
                         if(maxContribution == null || maxContribution.isBlank() || need.getContributionPercent() <= Integer.valueOf(maxContribution)){
                             if (containsText == null ||containsText.isBlank() || (need.getName()).toLowerCase().contains(containsText.toLowerCase())) { //Use toLowerCase() to remove case sensitivity
