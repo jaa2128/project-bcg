@@ -14,7 +14,7 @@
   <a routerLink="/settings">Settings</a>
 </nav>
 
-<h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
+<h3>Logged in as {{currentUser!.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
 
 <div id="search-component">
     <label for="search-box">Need Name: </label>

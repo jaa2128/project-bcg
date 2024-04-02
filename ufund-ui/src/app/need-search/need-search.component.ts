@@ -20,19 +20,20 @@ export class NeedSearchComponent implements OnInit {
   currentUser: User | null = null;
   constructor(private needService: NeedService, 
   private userService: UserService) {}
-  private searchTerms : String[] = [];
+  availability: Boolean[] = [];
 
   logOut(): void {
     this.userService.logOut();
   }
 
   search(keyword: string, type: string, min: string, max:string): void {
-    this.needs$ = this.needService.searchNeeds(keyword, type, min, max)
+    this.needs$ = this.needService.searchNeeds(keyword, type, min, max, this.availability);
   }
 
   ngOnInit(): void {
     this.userService.validate();
     this.currentUser = this.userService.getCurrentUser();
+    this.availability = (this.currentUser as User).availability;
     this.userService.validate();
     this.userService.saveToLocalStorage(this.userService.pageKey, "search");
   }

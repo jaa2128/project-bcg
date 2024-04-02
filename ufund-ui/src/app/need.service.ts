@@ -31,8 +31,15 @@ export class NeedService {
     return this.http.post<Need>(this.needsURL, need, this.httpOptions);
   }
 
-  searchNeeds(keyword: string, type: string, min: string, max: string): Observable<Need[]>{
-     return this.http.get<Need[]>(this.needsURL + '/?name=' +keyword+ '&type=' +type+ '&min=' +min+ '&max=' +max)
+  searchNeeds(keyword: string, type: string, min: string, max: string, availability: Boolean[]): Observable<Need[]>{
+    var sun = availability[0];
+    var mon = availability[1];
+    var tues = availability[2];
+    var wed = availability[3];
+    var thurs = availability[4];
+    var fri = availability[5];
+    var sat = availability[6];
+     return this.http.get<Need[]>(this.needsURL + '/?name=' +keyword+ '&type=' +type+ '&min=' +min+ '&max=' +max+ '&sun=' +sun+ '&mon=' +mon+ '&tues=' +tues+ '&wed=' +wed+ '&thurs=' +thurs+ '&fri=' +fri+ '&sat=' +sat);
   }
   
 
