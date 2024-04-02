@@ -75,7 +75,7 @@
 
     <div *ngIf="need.currentQuantity >= need.targetQuantity;then goalAcheivedMessage"></div>
     <ng-template #goalAcheivedMessage>
-      <div><span>This need's goal has been met! However, edits can still be made!</span></div>
+      <div><span>This need's goal has been met! However, edits can still be made.</span></div>
     </ng-template>
 
     <button type="button" (click)="goBack()">Go Back</button>
