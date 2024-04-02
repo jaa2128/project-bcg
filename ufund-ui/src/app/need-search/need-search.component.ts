@@ -17,32 +17,21 @@ import { User } from '../user';
 })
 export class NeedSearchComponent {
   needs$!: Observable<Need[]>;
-  private searchTerms = new Subject<string>();
   currentUser: User | null = null;
-
   constructor(private needService: NeedService, 
   private userService: UserService) {}
+  private searchTerms : String[] = [];
 
   logOut(): void {
     this.userService.logOut();
   }
 
-  search(containsText: string): void {
-    this.searchTerms.next(containsText);
+  search(keyword: string, type: string, min: string, max:string): void {
+    this.needs$ = this.needService.searchNeeds(keyword, type, min, max)
   }
 
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
-    this.needs$ = this.searchTerms.pipe(
-      
-      debounceTime(300),
-
-      
-      distinctUntilChanged(),
-
-      
-      switchMap((containsText: string) => this.needService.searchNeeds(containsText)),
-    );
-  }
+}
 }

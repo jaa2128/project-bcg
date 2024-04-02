@@ -1,0 +1,6 @@
+projectKey=Brick-City-Gamers
+serverUrl=http://localhost:9000
+serverVersion=10.4.1.88267
+dashboardUrl=http://localhost:9000/dashboard?id=Brick-City-Gamers
+ceTaskId=7a7ebdc3-9362-4128-90f7-2620458e2c07
+ceTaskUrl=http://localhost:9000/api/ce/task?id=7a7ebdc3-9362-4128-90f7-2620458e2c07
