@@ -32,7 +32,7 @@
     <option></option>
     <option value="Money">Money</option>
     <option value="Physicals Goods">Goods</option>
-    <option value="Volunteer Hours">Volunteer</option>
+    <option value="Volunteer">Volunteer</option>
     <option value="Other">Other</option>
   </select>
   <!-- <input id="new-need-type" #needType /> -->
@@ -45,7 +45,7 @@
     <br>
   </ng-template>
 
-  <div *ngIf="selectedOption === 'Volunteer Hours'; then availabilityOptions"></div>
+  <div *ngIf="selectedOption === 'Volunteer'; then availabilityOptions"></div>
   <ng-template #availabilityOptions>
     <div>
       <label for="sunday-availability">&emsp;Sunday&emsp;&emsp;</label>

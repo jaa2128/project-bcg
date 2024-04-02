@@ -24,6 +24,7 @@ public class User {
         this.needs = new ArrayList<Integer>();
         this.contributions = new ArrayList<Double>();
         this.isAdmin = username.equals("admin");
+        this.availability = new ArrayList<>();
         for (int i = 0; i <= 6; i++) { this.availability.add(true); }
     }
 
