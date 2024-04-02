@@ -8,27 +8,69 @@ li {
 }
 
 .list-element {
-    display:inline-block;
+    position: relative;
+    display: inline-block;
     width: 400px;
     height: 300px;
-    text-overflow: ellipsis;
-    overflow: hidden; 
     border: 1px solid lightgrey;
     border-radius: 10px;
-    padding: 10px;
+    padding: 12px;
+    padding-left: 24px;
+    padding-right: 24px;
     margin: 5px;
     margin-top: 10px;
 }
 
-.need-title a {
+.need-title {
+    display: inline-block;
     text-align: left;
+    width: 400px;
+    height: 36px;
     font-size: 32px;
     text-decoration: none;
     font-family: "Montserrat", sans-serif;
-    font-weight:700;
-    margin-bottom: 10px;
+    font-weight: 700;
+    margin-top: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+}
+
+.need-type {
+    display: inline-block;
+    text-align: left;
+    font-size: 24px;
+    text-decoration: none;
+    font-family: "Montserrat", sans-serif;
+    margin-top: 6px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+    font-style: italic;
+    font-size: 16px;
 }
 
 .need-description {
+    display: inline-block;
+    width: 400px;
+    height:192px;
+    margin-top: 6px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+}
 
+.button {
+    font-family: "Montserrat", sans-serif;
+    position: relative;
+    text-align: center;
+    border:none;
+    border-radius: 4px; 
+    width: 45%;
+    height: 36px;
+    float: right;
+    margin-left: 5px;
+    margin-right: 5px;
 }

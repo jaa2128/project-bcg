@@ -97,17 +97,25 @@
     <li *ngFor="let need of needs">
       <div class="list-element">
         <div class="need-title">
-          <a routerLink="/detail/{{need.id}}">
+          <a>
           {{need.name}}
           </a>
         </div>
-        <div class="need-description">
-          <a>
+        <div >
+          <a class="need-type">
+            {{need.type}}
+          </a>
+        </div>
+        <div >
+          <a class="need-description">
             {{need.description}}
           </a>
         </div>
+        <div>
+          <button class="button" routerLink="/detail/{{need.id}}">Details</button>
+        </div>
         <div *ngIf="currentUser?.admin">
-          <button type="button" class="delete" title="delete need"
+          <button type="button" class="button" title="delete need"
           (click)="confirm(need.id)">Remove Need</button>
         </div>
         <div *ngIf="showButton == need.id">
