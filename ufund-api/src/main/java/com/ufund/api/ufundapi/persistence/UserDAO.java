@@ -32,6 +32,6 @@ public interface UserDAO {
 
     boolean changePassword(String username, String password) throws IOException;
 
-    boolean changeAvailability(String username, ArrayList<Boolean> availability) throws IOException;
+    boolean changeAvailability(String username, Boolean sundayAvailability, Boolean mondayAvailability, Boolean tuesdayAvailability, Boolean wednesdayAvailability, Boolean thursdayAvailability, Boolean fridayAvailability, Boolean saturdayAvailability) throws IOException;
 
 }

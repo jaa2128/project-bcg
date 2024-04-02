@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
@@ -35,6 +36,7 @@ public class UserFileDAO implements UserDAO {
     public UserFileDAO(@Value("${users.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
+        objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 
         // //JSON files cannot naturally use objects as map keys, so we need to register a key
         // //deserializer so that the ObjectMapper knows how to deserialize Needs
@@ -322,16 +324,21 @@ public class UserFileDAO implements UserDAO {
     }
 
     @Override
-    public boolean changeAvailability(String username, ArrayList<Boolean> availability) throws IOException {
+    public boolean changeAvailability(String username, Boolean sundayAvailability, Boolean mondayAvailability, Boolean tuesdayAvailability, Boolean wednesdayAvailability, Boolean thursdayAvailability, Boolean fridayAvailability, Boolean saturdayAvailability) throws IOException {
         synchronized(users){
             User user = getUser(username);
             try {
-                for (int i = 0; i <= 6; i++) {
-                    user.getAvailability().set(i, availability.get(i));
-                } return true;
-            } catch (Exception e) {
-                return false;
-            }
+                    user.getAvailability().clear();
+                    user.getAvailability().add(sundayAvailability);
+                    user.getAvailability().add(mondayAvailability);
+                    user.getAvailability().add(tuesdayAvailability);
+                    user.getAvailability().add(wednesdayAvailability);
+                    user.getAvailability().add(thursdayAvailability);
+                    user.getAvailability().add(fridayAvailability);
+                    user.getAvailability().add(saturdayAvailability);
+                    save();
+                    return true;
+            } catch (Exception e) { return false; }
         }
     }
 }

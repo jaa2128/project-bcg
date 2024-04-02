@@ -1,3 +1,10 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
+
 <h2>Cupboard</h2>
 
 <nav>
@@ -88,19 +95,28 @@
 
   <ul class="needs">
     <li *ngFor="let need of needs">
-      <a routerLink="/detail/{{need.id}}">
-      {{need.name}}
-      </a>
-      <div *ngIf="currentUser?.admin">
-        <button type="button" class="delete" title="delete need"
-        (click)="confirm(need.id)">Remove Need</button>
-      </div>
-      <div *ngIf="showButton == need.id">
-        <div><label>Are you sure you would like to delete this need?</label></div>
-        <button type="button" class="delete" title="confirm delete"
-        (click)="delete(need)">Yes</button>
-        <button type="button" class="delete" title="deny delete"
-        (click)="deny()">No</button>
+      <div class="list-element">
+        <div class="need-title">
+          <a routerLink="/detail/{{need.id}}">
+          {{need.name}}
+          </a>
+        </div>
+        <div class="need-description">
+          <a>
+            {{need.description}}
+          </a>
+        </div>
+        <div *ngIf="currentUser?.admin">
+          <button type="button" class="delete" title="delete need"
+          (click)="confirm(need.id)">Remove Need</button>
+        </div>
+        <div *ngIf="showButton == need.id">
+          <div><label>Are you sure you would like to delete this need?</label></div>
+          <button type="button" class="delete" title="confirm delete"
+          (click)="delete(need)">Yes</button>
+          <button type="button" class="delete" title="deny delete"
+          (click)="deny()">No</button>
+        </div>
       </div>
     </li>
     
