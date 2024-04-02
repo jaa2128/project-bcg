@@ -77,6 +77,7 @@ statusMessage: string = 'Please log in or sign up!';
             const newUser: User = response.body;
             this.userService.setCurrentUser(newUser);
             this.currentUser = this.userService.getCurrentUser();
+            this.userService.saveToLocalStorage(this.userService.nameKey, newUsername);
             this.statusMessage = "Username changed successfully!"
           }
         )
@@ -107,6 +108,7 @@ statusMessage: string = 'Please log in or sign up!';
 
     this.userService.changePassword(this.currentUser.username, newPassword).subscribe(
       (response: HttpResponse<any>) => {
+        this.userService.saveToLocalStorage(this.userService.passKey, newPassword);
         this.statusMessage = "Password changed successfully!"
       },
       (error) => {
