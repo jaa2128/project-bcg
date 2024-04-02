@@ -110,6 +110,7 @@ export class UserService {
   }
 
   // This just clears username and password
+  // Added clearing of pageKey
   private clearLocalStorage(): void {
     this.localStorageService.removeItem(this.nameKey);
     this.localStorageService.removeItem(this.passKey);

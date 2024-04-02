@@ -21,11 +21,14 @@ export class AboutComponent implements OnInit{
     private router: Router) { 
     }
 
-
     ngOnInit(): void {
       this.userService.validate();
       this.currentUser = this.userService.getCurrentUser();
       this.userService.validate();
       this.userService.saveToLocalStorage(this.userService.pageKey, "about");
+    }
+
+    logOut(): void {
+      this.userService.logOut();
     }
 }
