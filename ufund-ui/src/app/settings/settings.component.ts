@@ -5,6 +5,7 @@ import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NeedService } from '../need.service';
 import { Need } from '../need';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -48,8 +49,6 @@ statusMessage: string = 'Enter a new value and click save!';
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
     this.getNeeds();
-    this.calculateStatistics(this.needs);
-    this.userService.saveToLocalStorage(this.userService.pageKey, "settings");
   }
 
   changeUsername(formData: {newUsername: string }): void {
@@ -138,19 +137,19 @@ statusMessage: string = 'Enter a new value and click save!';
   }
 
   getNeeds(): void {
-    this.needService.getNeeds()
-        .subscribe(needs => this.needs = needs);
+    this.needService.getNeeds().subscribe(
+      (needs) => {this.needs = needs; this.calculateStatistics();});
   }
 
-  calculateStatistics(needs: Need[]): void {
-    needs.forEach(need => {
+  calculateStatistics(): void {
+    this.needs.forEach(need => {
       this.totalNeeds++;
       if(need.type == "Money"){ this.totalMoneyNeeds++; this.totalMoneyRaised += need.currentQuantity; }
-      if(need.type == "Goods"){ this.totalGoodsNeeds++; }
-      if(need.type == "Volunteer Hours"){ this.totalVolunteerNeeds++; }
-      if(need.type != "Money" && need.type != "Volunteer Hours" && need.type != "Goods"){ this.totalOtherNeeds++; }
-      if(need.currentQuantity >= need.targetQuantity){ this.totalNeedsFulfilled++; }
-      this.averageFulfillmentPercentage += (need.currentQuantity / need.targetQuantity);
+      else if(need.type == "Goods"){ this.totalGoodsNeeds++; }
+      else if(need.type == "Volunteer"){ this.totalVolunteerNeeds++; }
+      else { this.totalOtherNeeds++; }
+      if(need.currentQuantity >= need.targetQuantity){ this.totalNeedsFulfilled++; this.averageFulfillmentPercentage += 100;}
+      else { this.averageFulfillmentPercentage += (need.currentQuantity / need.targetQuantity * 100);}
     });
     if(this.needs.length != 0){  this.averageFulfillmentPercentage /= this.needs.length; } else { this.averageFulfillmentPercentage = 0; }
   }
