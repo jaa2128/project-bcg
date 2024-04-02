@@ -127,6 +127,10 @@ public class Need {
         return true;
     }
 
+    public double getContributionPercent(){
+        return 100*(currentQuantity/targetQuantity);
+    }
+
     /**
      * String representation of a Need object to be used in JSON files
      */
