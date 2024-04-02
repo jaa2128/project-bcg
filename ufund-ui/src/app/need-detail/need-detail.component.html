@@ -30,7 +30,7 @@
 
 
     <label for="need-type">Type: </label>
-    <select name="need-type" [(ngModel)]="dropdownSelection">
+    <select name="need-type" [(ngModel)]="dropdownSelection" #needType (change)="onSelected(needType.value)">
       <option value="Money">Money</option>
       <option value="Goods">Goods</option>
       <option value="Volunteer">Volunteer</option>
@@ -116,5 +116,8 @@
 
     <p>{{helperStatusMessage}}</p>
   </ng-template>
+
+  <p>{{dropdownSelection}}</p>
+  <p>{{otherType}}</p>
 
   
