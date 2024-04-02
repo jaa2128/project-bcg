@@ -30,9 +30,9 @@
 
 
     <label for="need-type">Type: </label>
-    <select name="need-type" [(ngModel)]="dropdownSelection">
+    <select name="need-type" [(ngModel)]="dropdownSelection" #needType (change)="onSelected(needType.value)">
       <option value="Money">Money</option>
-      <option value="Physicals Goods">Goods</option>
+      <option value="Goods">Goods</option>
       <option value="Volunteer">Volunteer</option>
       <option value="Other">Other</option>
     </select> <br>
@@ -47,34 +47,36 @@
 
     <label for="need-amount-goal">Goal Amount: </label>
     <input id="need-amount-goal" [(ngModel)]="need.targetQuantity" placeholder="Goal amount goes here!"/> <br>
+    
+    <div *ngIf="dropdownSelection === 'Volunteer'">
+      <div>
+        <label for="sunday-availability">&emsp;Sunday&emsp;&emsp;</label>
+        <input type="checkbox" id="sunday-availability" name="sunday-availability" [(ngModel)]="need.availability[0]" #sundayAvailability>
+    
+        <label for="monday-availability">&emsp;Monday&emsp;&emsp;</label>
+        <input type="checkbox" id="monday-availability" name="monday-availability" [(ngModel)]="need.availability[1]" #mondayAvailability>
+      
+        <label for="tuesday-availability">&emsp;Tuesday&emsp;&emsp;</label>
+        <input type="checkbox" id="tuesday-availability" name="tuesday-availability" [(ngModel)]="need.availability[2]" #tuesdayAvailability>
+      
+        <label for="wednesday-availability">&emsp;Wednesday&emsp;&emsp;</label>
+        <input type="checkbox" id="wednesday-availability" name="wednesday-availability" [(ngModel)]="need.availability[3]" #wednesdayAvailability>
+    
+        <label for="thursday-availability">&emsp;Thursday&emsp;&emsp;</label>
+        <input type="checkbox" id="thursday-availability" name="thursday-availability" [(ngModel)]="need.availability[4]" #thursdayAvailability>
+    
+        <label for="friday-availability">&emsp;Friday&emsp;&emsp;</label>
+        <input type="checkbox" id="friday-availability" name="friday-availability" [(ngModel)]="need.availability[5]" #fridayAvailability>
+    
+        <label for="saturday-availability">&emsp;Saturday&emsp;&emsp;</label>
+        <input type="checkbox" id="saturday-availability" name="saturday-availability" [(ngModel)]="need.availability[6]" #saturdayAvailability>
+      </div>
+    </div>
 
     <div *ngIf="need.currentQuantity >= need.targetQuantity;then goalAcheivedMessage"></div>
     <ng-template #goalAcheivedMessage>
       <div><span>This need's goal has been met! However, edits can still be made!</span></div>
     </ng-template>
-
-    <div>
-      <label for="sunday-availability">&emsp;Sunday&emsp;&emsp;</label>
-      <input type="checkbox" id="sunday-availability" name="sunday-availability" [(ngModel)]="need.availability[0]" #sundayAvailability>
-  
-      <label for="monday-availability">&emsp;Monday&emsp;&emsp;</label>
-      <input type="checkbox" id="monday-availability" name="monday-availability" [(ngModel)]="need.availability[1]" #mondayAvailability>
-    
-      <label for="tuesday-availability">&emsp;Tuesday&emsp;&emsp;</label>
-      <input type="checkbox" id="tuesday-availability" name="tuesday-availability" [(ngModel)]="need.availability[2]" #tuesdayAvailability>
-    
-      <label for="wednesday-availability">&emsp;Wednesday&emsp;&emsp;</label>
-      <input type="checkbox" id="wednesday-availability" name="wednesday-availability" [(ngModel)]="need.availability[3]" #wednesdayAvailability>
-  
-      <label for="thursday-availability">&emsp;Thursday&emsp;&emsp;</label>
-      <input type="checkbox" id="thursday-availability" name="thursday-availability" [(ngModel)]="need.availability[4]" #thursdayAvailability>
-  
-      <label for="friday-availability">&emsp;Friday&emsp;&emsp;</label>
-      <input type="checkbox" id="friday-availability" name="friday-availability" [(ngModel)]="need.availability[5]" #fridayAvailability>
-  
-      <label for="saturday-availability">&emsp;Saturday&emsp;&emsp;</label>
-      <input type="checkbox" id="saturday-availability" name="saturday-availability" [(ngModel)]="need.availability[6]" #saturdayAvailability>
-    </div>
 
     <button type="button" (click)="goBack()">Go Back</button>
     <button type="button" (click)="save()">Save</button>
@@ -114,5 +116,8 @@
 
     <p>{{helperStatusMessage}}</p>
   </ng-template>
+
+  <p>{{dropdownSelection}}</p>
+  <p>{{otherType}}</p>
 
   

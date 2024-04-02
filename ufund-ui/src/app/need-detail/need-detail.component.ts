@@ -68,6 +68,15 @@ export class NeedDetailComponent implements OnInit {
     }
   }
 
+  onSelected(value: string): void{
+    this.dropdownSelection = value;
+    if(value != 'Volunteer') { //reset availability if not volunteer
+      for(var i = 0; i < this.need.availability.length; i++) {
+        this.need.availability[i] = true;
+      }
+    }
+  }
+
   // calls backend getNeed() method
   getNeed(): void {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
@@ -83,6 +92,12 @@ export class NeedDetailComponent implements OnInit {
   // updates need and saves it back to needs.json, then goes back
   save(): void {
     if (this.need) {  
+      if(this.dropdownSelection === 'Other') {
+        this.need.type = this.otherType.trim();
+      }
+      else {
+        this.need.type = this.dropdownSelection;
+      }
       this.needService.updateNeed(this.need).subscribe(
       (response: HttpResponse<Object>) => {
         this.adminStatusMessage = 'Success! Going back to listing...';
