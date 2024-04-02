@@ -188,10 +188,11 @@ public class NeedController {
      * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
      */
     @GetMapping("/")
-    public ResponseEntity<Need[]> searchNeeds(@RequestParam String name) {
-        LOG.info("GET /needs/?name="+name);
+    public ResponseEntity<Need[]> searchNeeds(@RequestParam String name, @RequestParam String type, @RequestParam String min, @RequestParam String max) {
+
+        LOG.info("GET /needs/?name="+name+"&type="+type+"&min="+min+"&max="+max);
         try {
-            Need[] searchList = needDao.findNeeds(name);
+            Need[] searchList = needDao.findNeeds(name, type, min, max);
             return new ResponseEntity<Need[]>(searchList,HttpStatus.OK);
         }
         catch(IOException e) {
