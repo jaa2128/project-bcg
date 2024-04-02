@@ -84,6 +84,12 @@ export class LoginComponent implements OnInit{
   }
 
   signup(username: string, password: string): void {
+    console.log(username);
+    console.log(password);
+    if(username.trim().length == 0 || password.trim().length == 0) {
+      this.statusMessage = 'Username or password is blank!';
+      return;
+    }
     this.userService.createUser(username, password).subscribe(
       (response: HttpResponse<User>) => {
         this.userService.setCurrentUser(response.body);
