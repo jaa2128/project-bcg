@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit{
         this.userService.setCurrentUser(response.body);
         this.statusMessage = 'Success! Logging in...';
         if(this.userService.retrieveFromLocalStorage(this.userService.pageKey) == null){
-          this.router.navigateByUrl("needs");
+          this.router.navigateByUrl("about");
         }
         else{
           this.router.navigateByUrl(this.userService.retrieveFromLocalStorage(this.userService.pageKey) as string);

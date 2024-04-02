@@ -34,5 +34,6 @@ export class NeedSearchComponent implements OnInit {
     this.userService.validate();
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
-}
+    this.userService.saveToLocalStorage(this.userService.pageKey, "search");
+  }
 }

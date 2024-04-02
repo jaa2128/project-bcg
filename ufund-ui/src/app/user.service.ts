@@ -113,5 +113,6 @@ export class UserService {
   private clearLocalStorage(): void {
     this.localStorageService.removeItem(this.nameKey);
     this.localStorageService.removeItem(this.passKey);
+    this.localStorageService.removeItem(this.pageKey);
   }
 }

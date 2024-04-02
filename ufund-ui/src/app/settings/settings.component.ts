@@ -49,6 +49,7 @@ statusMessage: string = 'Please log in or sign up!';
     this.userService.validate();
     this.getNeeds();
     this.calculateStatistics(this.needs);
+    this.userService.saveToLocalStorage(this.userService.pageKey, "settings");
   }
 
   changeUsername(formData: {newUsername: string }): void {
