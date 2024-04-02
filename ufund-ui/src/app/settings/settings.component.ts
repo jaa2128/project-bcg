@@ -3,6 +3,8 @@ import { User } from '../user';
 import { UserService } from '../user.service';
 import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { NeedService } from '../need.service';
+import { Need } from '../need';
 
 
 @Component({
@@ -19,9 +21,23 @@ export class SettingsComponent {
     newPassword: ''
   };
 
+  needs: Need[] = [];
+
+  // administrator statistics
+  totalNeeds: number = 0;
+  totalMoneyNeeds: number = 0;
+  totalGoodsNeeds: number = 0;
+  totalVolunteerNeeds: number = 0;
+  totalOtherNeeds: number = 0;
+  totalMoneyRaised: number = 0;
+  totalNeedsFulfilled: number = 0;
+  averageFulfillmentPercentage: number = 0;
+
+
 statusMessage: string = 'Please log in or sign up!';
 
   constructor(private userService: UserService,
+    private needService: NeedService,
     private router: Router) { }
 
   logOut(): void {
@@ -31,6 +47,8 @@ statusMessage: string = 'Please log in or sign up!';
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
+    this.getNeeds();
+    this.calculateStatistics(this.needs);
   }
 
   changeUsername(formData: {newUsername: string }): void {
@@ -110,6 +128,24 @@ statusMessage: string = 'Please log in or sign up!';
         }
       );
     } this.statusMessage = 'There was a server error!'
+  }
+
+  getNeeds(): void {
+    this.needService.getNeeds()
+        .subscribe(needs => this.needs = needs);
+  }
+
+  calculateStatistics(needs: Need[]): void {
+    needs.forEach(need => {
+      this.totalNeeds++;
+      if(need.type == "Money"){ this.totalMoneyNeeds++; this.totalMoneyRaised += need.currentQuantity; }
+      if(need.type == "Physical Goods"){ this.totalGoodsNeeds++; }
+      if(need.type == "Volunteer Hours"){ this.totalVolunteerNeeds++; }
+      if(need.type != "Money" && need.type != "Volunteer Hours" && need.type != "Physical Goods"){ this.totalOtherNeeds++; }
+      if(need.currentQuantity >= need.targetQuantity){ this.totalNeedsFulfilled++; }
+      this.averageFulfillmentPercentage += (need.currentQuantity / need.targetQuantity);
+    });
+    if(this.needs.length != 0){  this.averageFulfillmentPercentage /= this.needs.length; } else { this.averageFulfillmentPercentage = 0; }
   }
 
 }
