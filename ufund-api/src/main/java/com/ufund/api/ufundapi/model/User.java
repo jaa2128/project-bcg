@@ -2,8 +2,10 @@ package com.ufund.api.ufundapi.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Collections;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 public class User {
     @JsonProperty("username") private String username; //User's username for login
@@ -11,6 +13,7 @@ public class User {
     @JsonProperty("needs") private ArrayList<Integer> needs; //list of needs in the user's basket
     @JsonProperty("contributions") private ArrayList<Double> contributions; //list of contribution amounts
     private final boolean isAdmin; // Whether user is a helper or an admin
+    @JsonProperty("availability") private ArrayList<Boolean> availability;
     @JsonProperty("availability") private ArrayList<Boolean> availability;
 
     /**

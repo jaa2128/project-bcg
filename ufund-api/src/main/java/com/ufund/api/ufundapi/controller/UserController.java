@@ -273,14 +273,21 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    /**
+     * Changes the user's password
+     * @param username the username of the user to be modified
+     * @param newPassword the username to change to
+     * @return         HttpStatus.OK, if the password is changed successfully
+     * @return         HttpStatus.BAD_REQUEST, if the password is not valid
+     * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
+     */
     @PutMapping("/{username}/newPassword/{newPassword}")
     public ResponseEntity<Integer> changePassword(@PathVariable String username, @PathVariable String newPassword) {
         LOG.info("PUT /users/" + username + "/newPassword/" + newPassword);
         try {
             Boolean result = userDao.changePassword(username, newPassword);
             if(result) {
-                return new ResponseEntity<Integer>(HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.OK);
             }
             else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -291,11 +298,44 @@ public class UserController {
         }
     }
 
+    /**
+     * Changes the user's password
+     * @param username the username of the user to be modified
+     * @param newUsername the username to change to
+     * @return         HttpStatus.CONFLICT, if there is an existing user with the same username
+     * @return         HttpStatus.UNAUTHORIZED, if the user tries to become "admin"
+     * @return         HttpStatus.OK, if the username is changed successfully
+     * @return         HttpStatus.BAD_REQUEST, if the username change failed
+     * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
+     */
     @PutMapping("/{username}/newUsername/{newUsername}")
     public ResponseEntity<Integer> changeUsername(@PathVariable String username, @PathVariable String newUsername) {
         LOG.info("PUT /users/" + username + "/newUsername/" + newUsername);
         try {
+            if(userDao.getUser(newUsername.trim()) != null) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+            if(newUsername.toLowerCase().trim().contains("admin")) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
             Boolean result = userDao.changeUsername(username, newUsername);
+            if(result) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }   
+        catch(IOException e) {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/{username}/availability")
+    public ResponseEntity<Integer> changeAvailability(@PathVariable String username, @RequestBody ArrayList<Boolean> newAvailability) {
+        LOG.info("PUT /users/" + username + "/availability/");
+        try {
+            boolean result = userDao.changeAvailability(username, newAvailability);
             if(result) {
                 return new ResponseEntity<Integer>(HttpStatus.OK);
             }

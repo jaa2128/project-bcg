@@ -6,4 +6,5 @@ export interface User {
     needs: Need[];
     contributions: number[];
     admin: boolean;
+    availability: Array<Boolean>;
 }

@@ -6,4 +6,5 @@ export interface Need {
     targetQuantity: number;
     currentQuantity: number;
     availability: Array<boolean>;
+    fulfilled: boolean;
 }
