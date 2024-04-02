@@ -31,7 +31,7 @@ export class UserService {
   private usersURL = 'http://localhost:8080/users';
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
   };
 
   getCurrentUser(): User | null {
@@ -96,9 +96,9 @@ export class UserService {
     return this.http.put(url, {}, { observe: 'response' });
   } 
 
-  changeAvailability(username: string, newAvailability: Array<Boolean>): Observable<HttpResponse<any>> {
-    const url = `${this.usersURL}/${username}/availability`;
-    return this.http.put(url, {newAvailability}, { observe: 'response' });
+  changeAvailability(username: string, sundayAvailability: Boolean, mondayAvailability: Boolean, tuesdayAvailability: Boolean, wednesdayAvailability: Boolean, thursdayAvailability: Boolean, fridayAvailability: Boolean, saturdayAvailability: Boolean, ): Observable<HttpResponse<any>> {
+    const url = `${this.usersURL}/${username}/availability/${sundayAvailability}/${mondayAvailability}/${tuesdayAvailability}/${wednesdayAvailability}/${thursdayAvailability}/${fridayAvailability}/${sundayAvailability}`;
+    return this.http.put(url, {}, { observe: 'response' });
   }
 
   retrieveFromLocalStorage(key: string): string | null{

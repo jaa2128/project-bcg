@@ -124,14 +124,16 @@ statusMessage: string = 'Enter a new value and click save!';
   }
 
   changeAvailability(sundayAvailability: Boolean, mondayAvailability: Boolean, tuesdayAvailability: Boolean, wednesdayAvailability: Boolean, thursdayAvailability: Boolean, fridayAvailability: Boolean, saturdayAvailability: Boolean): void {
-    let newAvailability: Array<Boolean> = [sundayAvailability, mondayAvailability, tuesdayAvailability, wednesdayAvailability, thursdayAvailability, fridayAvailability, saturdayAvailability];
     if(this.currentUser != null){
-      this.userService.changeAvailability(this.currentUser.username, newAvailability).subscribe(
+      this.userService.changeAvailability(this.currentUser.username, sundayAvailability, mondayAvailability, tuesdayAvailability, wednesdayAvailability, thursdayAvailability, fridayAvailability, saturdayAvailability).subscribe(
         (response: HttpResponse<any>) => {
-          return;
+          this.statusMessage = 'Availability changed successfully!';
+        },
+        (error) => {
+          this.statusMessage = 'There was a server error!';
         }
       );
-    } this.statusMessage = 'There was a server error!'
+    }
   }
 
   getNeeds(): void {
