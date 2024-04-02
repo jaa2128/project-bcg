@@ -49,6 +49,7 @@
   <div *ngIf="selectedOption === 'Volunteer'; then availabilityOptions"></div>
   <ng-template #availabilityOptions>
     <div>
+      <label for="new-need-availability">Availability: </label> <br>
       <label for="sunday-availability">&emsp;Sunday&emsp;&emsp;</label>
       <input type="checkbox" id="sunday-availability" name="sunday-availability" [(ngModel)]="sundayAvailability">
   
@@ -76,8 +77,6 @@
   <input id="new-need-targetQ" #needTargetQ />
   <br>
 
-  <label for="new-need-availability">Availability: </label> <br>
-    
   <button type="button" class="add-button" (click)="createNeed(needName.value, needDesc.value, needType.value, +needTargetQ.value, 
   [sundayAvailability, mondayAvailability, tuesdayAvailability, wednesdayAvailability, thursdayAvailability, fridayAvailability, saturdayAvailability])">
     Add Need

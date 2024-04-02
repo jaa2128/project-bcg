@@ -101,6 +101,15 @@ export class NeedsComponent implements OnInit {
 
   onSelected(value: string): void{
     this.selectedOption = value;
+    if(value != 'Volunteer') { //reset availability if not volunteer
+      this.sundayAvailability = true;
+      this.mondayAvailability = true;
+      this.tuesdayAvailability = true;
+      this.wednesdayAvailability = true;
+      this.thursdayAvailability = true;
+      this.fridayAvailability = true;
+      this.saturdayAvailability = true;
+    }
   }
 
 }
