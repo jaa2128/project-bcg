@@ -1,17 +1,35 @@
-<div class="login-box">
-  <div class="heading">
-    <a class="image" href="https://imgbox.com/lIKBnAyr" target="_blank"><img src="https://thumbs2.imgbox.com/0b/a2/lIKBnAyr_t.png" style="width:300px;height:300px;" alt="image host"/></a>    
-    <h2>Login</h2>
-    <p>{{statusMessage}}</p>
-  </div>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="login-box">
+    <div class="heading">
+      <div class="image">
+        <a href="https://imgbox.com/SCQRS08f" target="_blank">
+          <img src="https://images2.imgbox.com/c4/6b/SCQRS08f_o.png" 
+            alt="image host" 
+            style="width:75%;height:75%;"/>
+        </a>
+      </div>
+      <h1>Welcome to<br>Brick City Gamers!</h1>
+    </div>
+    <div class="subheading">
+      <p>{{statusMessage}}</p>
+    </div>
     <form #userlogin="ngForm" (ngSubmit)="onSubmit(formData)">
       <div class="fields">
         <div class="field">
-          <input class="input" type="text" id="username" name="username" autocomplete="off" required [(ngModel)]="formData.username" /><br />
+          <input class="input" type="text" id="username" name="username" autocomplete="off" required
+            [(ngModel)]="formData.username" /><br />
           <label for="username">Username</label>
         </div>
         <div class="field">
-          <input class="input" type="text" id="password" name="password" autocomplete="off" required [(ngModel)]="formData.password" /><br />
+          <input class="input" type="text" id="password" name="password" input type="password" autocomplete="off"
+            required [(ngModel)]="formData.password" /><br />
           <label for="password">Password</label>
         </div>
       </div>
@@ -27,6 +45,7 @@
         </div>
       </div>
     </form>
-  
-  <router-outlet></router-outlet>
-</div>
+
+    <router-outlet></router-outlet>
+  </div>
+</body>

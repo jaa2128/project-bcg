@@ -16,12 +16,10 @@ export class LoginComponent {
       username: '',
       password: ''
   };
-  submitted: boolean = false;
   statusMessage: string = 'Please log in or sign up!';
   isLogin: boolean = false;   //set to true when login is clicked and false when sign up is clicked
 
   onSubmit(formData: { username: string, password: string }): void {
-    this.submitted = true;
     if(this.isLogin) {
       this.login(formData.username, formData.password);
     }
@@ -78,7 +76,7 @@ export class LoginComponent {
     this.userService.createUser(username, password).subscribe(
       (response: HttpResponse<User>) => {
         this.userService.setCurrentUser(response.body);
-        this.statusMessage = 'Success! Signing up...s'
+        this.statusMessage = 'Success! Signing up...'
         this.router.navigateByUrl("needs");
       },
       (error) =>

@@ -8,9 +8,27 @@
     background: white;
 }
 
+.image {
+    margin: 32px;
+    margin-bottom: 48px;
+}
 .heading {
     position: relative;
-    padding: 10px;
+    font-family: "Montserrat", sans-serif;
+}
+
+.subheading {
+    position: relative;
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 24px;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
 }
 
 .image {
@@ -39,6 +57,7 @@
 }
 
 .field .input {
+    font-family: "Montserrat", sans-serif;
     position:relative;
     padding-left: 12px;
     margin-bottom: 24px;
@@ -69,6 +88,7 @@
 }
 
 .button {
+    font-family: "Montserrat", sans-serif;
     margin-top: 12;
     position: relative;
     text-align: center;
