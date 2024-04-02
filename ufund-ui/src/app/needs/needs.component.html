@@ -17,16 +17,18 @@
 <h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
   
 <div *ngIf="currentUser?.admin">
+  <p>{{adminStatusMessage}}</p>
 
-  <label for="new-need-name">Need name: </label>
+
+  <label for="new-need-name">Name: </label>
   <input id="new-need-name" #needName />
   <br>
 
-  <label for="new-need-desc">Need description: </label>
+  <label for="new-need-desc">Description: </label>
   <input id="new-need-desc" #needDesc />
   <br>
 
-  <label for="new-need-type">Need type: </label>
+  <label for="new-need-type">Type: </label>
   <select name="need-types" id="need-types" #needType (change)="onSelected(needType.value)">
     <option></option>
     <option value="Money">Money</option>
@@ -70,18 +72,17 @@
     </div>  
   </ng-template>
 
-  <label for="new-need-targetQ">Need target quantity: </label>
+  <label for="new-need-targetQ">Target quantity: </label>
   <input id="new-need-targetQ" #needTargetQ />
   <br>
 
-  <label for="new-need-availability">Need availability: </label> <br>
+  <label for="new-need-availability">Availability: </label> <br>
     
   <button type="button" class="add-button" (click)="createNeed(needName.value, needDesc.value, needType.value, +needTargetQ.value, 
   [sundayAvailability, mondayAvailability, tuesdayAvailability, wednesdayAvailability, thursdayAvailability, fridayAvailability, saturdayAvailability])">
     Add Need
   </button>
 
-  <p>{{adminStatusMessage}}</p>
 </div>
    
 

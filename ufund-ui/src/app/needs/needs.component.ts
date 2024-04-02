@@ -14,7 +14,7 @@ export class NeedsComponent implements OnInit {
 
   needs: Need[] = [];
   currentUser: User | null = null;
-  adminStatusMessage = 'Click on \'Add Need\' to create a new need!';
+  adminStatusMessage = 'Add some information and click \'Add Need\' to create a new need!';
   showButton:number=-1;
   selectedOption = '';
   otherType:string = '';
