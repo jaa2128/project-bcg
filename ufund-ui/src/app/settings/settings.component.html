@@ -16,14 +16,13 @@
 
 <h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
 
-
 <div *ngIf="!currentUser?.admin">
   <h4>User Settings</h4>
 </div>
 <div *ngIf="currentUser?.admin">
   <h4>Administrator Settings</h4>
 </div>
-
+<p>{{statusMessage}}</p>
 <div>
     <div *ngIf="!currentUser?.admin;then changeUsernameBox"></div>
     <ng-template #changeUsernameBox>

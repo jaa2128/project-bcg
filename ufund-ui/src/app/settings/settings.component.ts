@@ -34,7 +34,7 @@ export class SettingsComponent {
   averageFulfillmentPercentage: number = 0;
 
 
-statusMessage: string = 'Please log in or sign up!';
+statusMessage: string = 'Enter a new value and click save!';
 
   constructor(private userService: UserService,
     private needService: NeedService,
@@ -64,6 +64,7 @@ statusMessage: string = 'Please log in or sign up!';
     console.log(newUsername);
     
     if(newUsername.trim().length == 0) {
+      this.statusMessage = 'New username is blank!';
       return;
     }
     if(this.currentUser == null) {
@@ -100,6 +101,7 @@ statusMessage: string = 'Please log in or sign up!';
     console.log(newPassword);
     
     if(newPassword.trim().length == 0) {
+      this.statusMessage = 'New password is blank!';
       return;
     }
     if(this.currentUser == null) {
