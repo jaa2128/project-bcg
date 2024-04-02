@@ -331,13 +331,13 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{username}/availability")
-    public ResponseEntity<Integer> changeAvailability(@PathVariable String username, @RequestBody ArrayList<Boolean> newAvailability) {
-        LOG.info("PUT /users/" + username + "/availability/");
+    @PutMapping("/{username}/availability/{sundayAvailability}/{mondayAvailability}/{tuesdayAvailability}/{wednesdayAvailability}/{thursdayAvailability}/{fridayAvailability}/{saturdayAvailability}")
+    public ResponseEntity changeAvailability(@PathVariable String username, @PathVariable Boolean sundayAvailability, @PathVariable Boolean mondayAvailability, @PathVariable Boolean tuesdayAvailability, @PathVariable Boolean wednesdayAvailability, @PathVariable Boolean thursdayAvailability, @PathVariable Boolean fridayAvailability, @PathVariable Boolean saturdayAvailability) {
+        LOG.info("PUT /users/" + username + "/availability");
         try {
-            boolean result = userDao.changeAvailability(username, newAvailability);
+            boolean result = userDao.changeAvailability(username, sundayAvailability, mondayAvailability, tuesdayAvailability, wednesdayAvailability, thursdayAvailability, fridayAvailability, saturdayAvailability);
             if(result) {
-                return new ResponseEntity<Integer>(HttpStatus.OK);
+                return new ResponseEntity<ArrayList<Boolean>>(HttpStatus.OK);
             }
             else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
