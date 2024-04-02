@@ -144,9 +144,9 @@ statusMessage: string = 'Enter a new value and click save!';
     needs.forEach(need => {
       this.totalNeeds++;
       if(need.type == "Money"){ this.totalMoneyNeeds++; this.totalMoneyRaised += need.currentQuantity; }
-      if(need.type == "Physical Goods"){ this.totalGoodsNeeds++; }
+      if(need.type == "Goods"){ this.totalGoodsNeeds++; }
       if(need.type == "Volunteer Hours"){ this.totalVolunteerNeeds++; }
-      if(need.type != "Money" && need.type != "Volunteer Hours" && need.type != "Physical Goods"){ this.totalOtherNeeds++; }
+      if(need.type != "Money" && need.type != "Volunteer Hours" && need.type != "Goods"){ this.totalOtherNeeds++; }
       if(need.currentQuantity >= need.targetQuantity){ this.totalNeedsFulfilled++; }
       this.averageFulfillmentPercentage += (need.currentQuantity / need.targetQuantity);
     });
