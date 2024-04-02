@@ -11,6 +11,7 @@
 .image {
     margin: 32px;
     margin-bottom: 48px;
+    pointer-events: none;
 }
 .heading {
     position: relative;
@@ -29,12 +30,6 @@ h1 {
 
 body {
     font-family: "Montserrat", sans-serif;
-}
-
-.image {
-    position: relative;
-    pointer-events: none;
-    align-self: center;
 }
 
 .field {
