@@ -19,9 +19,49 @@
 <h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
 
 <div id="search-component">
-    <label for="search-box">Need Search: </label>
-    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
-    
+    <label for="search-box">Need Name: </label>
+    <input #searchBox id="search-box" />
+    <br>
+    <label for="type-box">Need Type:</label>
+    <select #typeBox id="type-box">
+      <option value=""></option>
+      <option value="Money">Money</option>
+      <option value="Physical Goods">Goods</option>
+      <option value="Volunteer Hours">Volunteer</option>
+    </select>
+    <br>
+    <label for="contribution-percentage-min"> Minimum Contribution Percentage</label>
+    <select #contributionPercentageMin id="contribution-percentage-min">
+      <option value=""></option>
+      <option value = "10">10</option>
+      <option value = "20">20</option>
+      <option value = "30">30</option>
+      <option value = "40">40</option>
+      <option value = "50">50</option>
+      <option value = "60">60</option>
+      <option value = "70">70</option>
+      <option value = "80">80</option>
+      <option value = "90">90</option>
+      <option value = "100">100</option>
+      
+    </select>
+    <br>
+    <label for="contribution-percentage-max"> Maximum Contribution Percentage</label>
+    <select #contributionPercentageMax id="contribution-percentage-max">
+      <option value=""></option>
+      <option value = "10">10</option>
+      <option value = "20">20</option>
+      <option value = "30">30</option>
+      <option value = "40">40</option>
+      <option value = "50">50</option>
+      <option value = "60">60</option>
+      <option value = "70">70</option>
+      <option value = "80">80</option>
+      <option value = "90">90</option>
+      <option value = "100">100</option>
+    </select>
+    <br>
+    <button type = "button" (click)="search(searchBox.value, typeBox.value, contributionPercentageMin.value, contributionPercentageMax.value)">Search</button>
     <ul class="search-result">
       <li *ngFor="let need of needs$ | async" >
         <a routerLink="/detail/{{need.id}}">

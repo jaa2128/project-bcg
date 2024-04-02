@@ -74,7 +74,7 @@ public class NeedFileDAO implements NeedDAO {
      * @return An array of all needs (null search term)
      */
     private Need[] getNeedsArray() {
-        return getNeedsArray(null);
+        return getNeedsArray(null, null, null, null);
     }
 
     /**
@@ -82,13 +82,23 @@ public class NeedFileDAO implements NeedDAO {
      * @param containsText The search term to use
      * @return An array of all needs containing the search term
      */
-    private Need[] getNeedsArray(String containsText) { // if containsText == null, don't filter any needs
+    private Need[] getNeedsArray(String containsText, String type, String minContribution, String maxContribution) { // if containsText == null, don't filter any needs
         ArrayList<Need> needArrayList = new ArrayList<>();
 
+
         for (Need need : needs.values()) {
-            if (containsText == null || (need.getName()).toLowerCase().contains(containsText.toLowerCase())) { //Use toLowerCase() to remove case sensitivity
-                needArrayList.add(need);
-            }
+                if(type == null || type.isBlank() || need.getType().toLowerCase().equals(type)){
+                    if(minContribution == null || minContribution.isBlank() || need.getContributionPercent() >= Integer.valueOf(minContribution)){
+                        if(maxContribution == null || maxContribution.isBlank() || need.getContributionPercent() <= Integer.valueOf(maxContribution)){
+                            if (containsText == null ||containsText.isBlank() || (need.getName()).toLowerCase().contains(containsText.toLowerCase())) { //Use toLowerCase() to remove case sensitivity
+                                needArrayList.add(need);
+                            }
+                        }
+                    }
+                }
+            // if (containsText == null || (need.getName()).toLowerCase().contains(containsText.toLowerCase())) { //Use toLowerCase() to remove case sensitivity
+            //     needArrayList.add(need);
+            // }
         }
 
         Need[] needArray = new Need[needArrayList.size()];
@@ -146,9 +156,9 @@ public class NeedFileDAO implements NeedDAO {
     }
     
     @Override
-    public Need[] findNeeds(String containsText) throws IOException { 
+    public Need[] findNeeds(String containsText, String type, String minContribution, String maxContribution) throws IOException { 
         synchronized(needs) {
-            return getNeedsArray(containsText); //Use getNeedsArray to create an array of needs matching an input String
+            return getNeedsArray(containsText, type, minContribution, maxContribution); //Use getNeedsArray to create an array of needs matching an input String
         }
     }
     

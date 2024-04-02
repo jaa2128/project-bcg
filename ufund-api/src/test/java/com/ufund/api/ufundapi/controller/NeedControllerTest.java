@@ -365,10 +365,10 @@ public class NeedControllerTest {
         needs[1] = new Need(100,"Test Need 11","Test Description","Test Type",1.0, availability);
         // When findNeeds is called with the search string, return the two
         // needs above
-        when(mockNeedDAO.findNeeds(searchString)).thenReturn(needs);
+        when(mockNeedDAO.findNeeds(searchString, "", "", "")).thenReturn(needs);
 
         // Invoke
-        ResponseEntity<Need[]> response = needController.searchNeeds(searchString);
+        ResponseEntity<Need[]> response = needController.searchNeeds(searchString, "", "", "");
 
         // Analyze
         assertEquals(HttpStatus.OK,response.getStatusCode());
@@ -380,10 +380,10 @@ public class NeedControllerTest {
         // Setup
         String searchString = "an";
         // When createNeed is called on the Mock Need DAO, throw an IOException
-        doThrow(new IOException()).when(mockNeedDAO).findNeeds(searchString);
+        doThrow(new IOException()).when(mockNeedDAO).findNeeds(searchString, "", "", "");
 
         // Invoke
-        ResponseEntity<Need[]> response = needController.searchNeeds(searchString);
+        ResponseEntity<Need[]> response = needController.searchNeeds(searchString, "", "", "");
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());

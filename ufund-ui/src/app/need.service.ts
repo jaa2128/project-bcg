@@ -31,9 +31,10 @@ export class NeedService {
     return this.http.post<Need>(this.needsURL, need, this.httpOptions);
   }
 
-  searchNeeds(containsText: string): Observable<Need[]>{
-     return this.http.get<Need[]>(this.needsURL + '/?name=' +containsText)
+  searchNeeds(keyword: string, type: string, min: string, max: string): Observable<Need[]>{
+     return this.http.get<Need[]>(this.needsURL + '/?name=' +keyword+ '&type=' +type+ '&min=' +min+ '&max=' +max)
   }
+  
 
   updateNeed(need: Need): Observable<any> {
     return this.http.put(this.needsURL, need, this.httpOptions);
