@@ -8,9 +8,10 @@ import { BasketComponent } from './basket/basket.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AboutComponent } from './about/about.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'about', component: AboutComponent},
   {path: 'needs', component: NeedsComponent},
   {path: 'search', component: NeedSearchComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: 'basket', component: BasketComponent},
   {path: 'settings', component: SettingsComponent},
-  {path: 'forgot-password', component: ForgotPasswordComponent}
+  {path: 'forgot-password', component: ForgotPasswordComponent},
+  {path: 'home', component: HomeComponent}
 ];
 
 @NgModule({

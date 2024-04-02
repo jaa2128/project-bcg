@@ -1,0 +1,38 @@
+.image, .about{
+    pointer-events: none;
+    margin: auto;
+    margin-bottom: 48px;
+    width: 35%;
+    height: 50%;
+    text-align: center;
+    background: white;
+}
+
+.heading {
+    position: relative;
+    font-family: "Montserrat", sans-serif;
+}
+
+h1 {
+    font-size: 36px;
+    margin: auto;
+    width: 30%;
+    text-align: center;
+}
+
+body, .about {
+    font-family: "Montserrat", sans-serif;
+}
+
+.about{
+    pointer-events: all;
+}
+
+b{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+}
+
+.about{
+    margin-top: 3em;
+}

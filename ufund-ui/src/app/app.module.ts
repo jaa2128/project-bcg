@@ -12,6 +12,7 @@ import { BasketComponent } from './basket/basket.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AboutComponent } from './about/about.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AboutComponent } from './about/about.component';
     BasketComponent,
     SettingsComponent,
     ForgotPasswordComponent,
-    AboutComponent
+    AboutComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
