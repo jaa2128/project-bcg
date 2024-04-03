@@ -87,7 +87,7 @@ public class NeedFileDAO implements NeedDAO {
         ArrayList<Need> volunteerNeed = new ArrayList<>();
         int count = 0;
         System.out.println("Step 0");
-        if(type == "Volunteer"){
+        if(type.equals("Volunteer")){
             System.out.println("Step 1");
             for(Need need: needs.values()){
                 if(need.getType().equals(type)){
