@@ -1,6 +1,7 @@
 package com.ufund.api.ufundapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -365,10 +366,10 @@ public class NeedControllerTest {
         needs[1] = new Need(100,"Test Need 11","Test Description","Test Type",1.0, availability);
         // When findNeeds is called with the search string, return the two
         // needs above
-        when(mockNeedDAO.findNeeds(searchString, "", "", "")).thenReturn(needs);
+        when(mockNeedDAO.findNeeds(searchString, "", "", "", null)).thenReturn(needs);
 
         // Invoke
-        ResponseEntity<Need[]> response = needController.searchNeeds(searchString, "", "", "");
+        ResponseEntity<Need[]> response = needController.searchNeeds(searchString, "", "", "",false,false,false,false,false,false,false);
 
         // Analyze
         assertEquals(HttpStatus.OK,response.getStatusCode());
@@ -380,10 +381,10 @@ public class NeedControllerTest {
         // Setup
         String searchString = "an";
         // When createNeed is called on the Mock Need DAO, throw an IOException
-        doThrow(new IOException()).when(mockNeedDAO).findNeeds(searchString, "", "", "");
+        doThrow(new IOException()).when(mockNeedDAO).findNeeds(searchString, "", "", "", null);
 
         // Invoke
-        ResponseEntity<Need[]> response = needController.searchNeeds(searchString, "", "", "");
+        ResponseEntity<Need[]> response = needController.searchNeeds(searchString, "", "", "", false,false,false,false,false,false,false);
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());

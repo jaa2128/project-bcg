@@ -7,7 +7,7 @@ public interface NeedDAO {
 
     Need[] getNeeds() throws IOException;
 
-    Need[] findNeeds(String containsText, String type, String minConribution, String maxContribution) throws IOException;
+    Need[] findNeeds(String containsText, String type, String minConribution, String maxContribution, Boolean[] days) throws IOException;
 
     Need getNeed(int id) throws IOException;
 
