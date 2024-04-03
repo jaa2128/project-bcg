@@ -21,6 +21,7 @@ export class NeedSearchComponent implements OnInit {
   constructor(private needService: NeedService, 
   private userService: UserService) {}
   availability: Boolean[] = [];
+  errorMessage = 'Try filtering your search'
 
   logOut(): void {
     this.userService.logOut();
@@ -28,6 +29,14 @@ export class NeedSearchComponent implements OnInit {
 
   search(keyword: string, type: string, min: string, max:string): void {
     this.needs$ = this.needService.searchNeeds(keyword, type, min, max, this.availability);
+  if(min.trim()!='' && max.trim() != ''){
+    if(min>=max){
+      this.errorMessage = 'Make sure minimum value is lower than maximum value!';
+    }
+    else{
+      this.errorMessage = 'Try filtering your search';
+    }
+  }
   }
 
   ngOnInit(): void {
