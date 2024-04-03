@@ -14,8 +14,9 @@
   <a routerLink="/settings">Settings</a>
 </nav>
 
-<h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
+<h3>Logged in as {{currentUser!.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
 
+<p>{{errorMessage}}</p>
 <div id="search-component">
     <label for="search-box">Need Name: </label>
     <input #searchBox id="search-box" />
@@ -25,7 +26,8 @@
       <option value=""></option>
       <option value="Money">Money</option>
       <option value="Goods">Goods</option>
-      <option value="Volunteer Hours">Volunteer</option>
+      <option value="Volunteer">Volunteer</option>
+      <option value="Other">Other</option>
     </select>
     <br>
     <label for="contribution-percentage-min"> Minimum Contribution Percentage</label>

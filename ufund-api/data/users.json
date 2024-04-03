@@ -1,1 +1,1 @@
-[]
+[{"username":"Brandon","password":"Santore","admin":false,"needs":[],"contributions":[],"availability":[false,false,false,false,true,false,false]},{"username":"User","password":"password","admin":false,"needs":[],"contributions":[],"availability":[true,true,true,true,true,true,true]},{"username":"admin","password":"admin","admin":true,"needs":[],"contributions":[],"availability":[true,true,true,true,true,true,true]},{"username":"user","password":"password","admin":false,"needs":[],"contributions":[],"availability":[true,true,true,true,true,true,true]}]
