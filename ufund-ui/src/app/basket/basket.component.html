@@ -39,7 +39,18 @@
     </ng-container>
   </ul>
   <div *ngIf="numOfTimesCheckoutClicked == 1;then confirmationMessage"></div>
-  <ng-template #confirmationMessage><span>Are you sure you want to Checkout? If so, click Checkout again.<br></span></ng-template>
+  <ng-template #confirmationMessage>
+    <ng-container *ngFor="let need of basket; let i = index">
+      <div *ngIf="need.currentQuantity >= need.targetQuantity">
+        <span>{{need.name}} ({{need.currentQuantity}}/{{need.targetQuantity}}) is already fulfilled, but you can still contribute if you wish.</span>
+      </div>
+      <div *ngIf="need.currentQuantity < need.targetQuantity && need.currentQuantity + contributions[i] > need.targetQuantity">
+        <span>{{need.name}} ({{need.currentQuantity}}/{{need.targetQuantity}}) only needs {{need.targetQuantity - need.currentQuantity}} to be fulfilled, but you can still contribute {{contributions[i] - (need.targetQuantity - need.currentQuantity)}} surplus if you wish.</span>
+      </div>
+    </ng-container><br>
+    <span>Are you sure you want to Checkout? If so, click Checkout again.<br></span>
+    <button type="submit" (click)="deny()">No</button>
+  </ng-template>
   <button type="submit" (click)="checkout()">Checkout</button>
 </div>
 

@@ -94,7 +94,6 @@
     <button type="button" (click)="save()">Save</button>
 
     <p>{{adminStatusMessage}}</p>
-    <p>{{need.availability}}</p>
   </ng-template>
 
 
@@ -118,7 +117,7 @@
 
     <div *ngIf="need.currentQuantity >= need.targetQuantity;then goalAcheivedMessage"></div>
     <ng-template #goalAcheivedMessage>
-      <div><span>The need is reached the goal! However, you may still contribute</span></div>
+      <div><span>The need has reached its goal! However, you may still contribute.</span></div>
     </ng-template>
 
     <button type="button" (click)="goBack()">Go Back</button>
