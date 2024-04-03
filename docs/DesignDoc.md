@@ -129,6 +129,7 @@ These functions will be called in the View tier of the project, and will communi
 
 ### Model Tier
 
+#### Sprint 1
 At this stage of the project, the primary models are the "Need" and "NeedFileDAO".
 The "Need" class represents a user's need, and contains methods for getting information from a need, and modifying the contents of a need.
 
@@ -149,6 +150,7 @@ deleteNeed() - To remove an individual need
 
 The "NeedFileDAO" class is the backend of the project, and interfaces with the ViewModel tier to allow the user to modify and access needs. 
 
+#### Sprint 2
 As of the end of Sprint 2, we have added a User class to the model tier, and an associated UserFileDAO to the persistence class. The User class is used to represent any user who uses our software. It contains information, such as, the user's login information and the user's funding basket of needs.
 
 The User class also contains these methods:
@@ -170,6 +172,142 @@ addNeed() - Adds a need and contribution to that need to the user's funding bask
 removeNeed() - Removes a need and contribution to that need from the user's funding basket
 
 clearBasket() - Clears the user's funding basket of all needs and contributions
+
+#### Sprint 3
+
+As of the end of sprint 3, our model tier consists of the User class, the UserFileDAO class, the Need class, and the NeedFileDAO class. 
+
+##### User
+The User class is used to represent any user who uses our software. It contains information, such as, the user's login information, the user's funding basket of needs, and the user's availability for volunteer work.
+
+The User class also contains these methods:
+
+getUsername() - Returns the user's username
+
+changeUsername() - Changes the user's username
+
+getPassword() - Returns the user's password
+
+changePassword() - Changes the user's password
+
+getNeeds() - Returns a list of needs in the user's funding basket
+
+getContributions() - Returns a list of contributions the user is making to each need
+
+getAvailability() - Return's the user's availability
+
+isAdmin() - Checks to see if a user is logged in as admin
+
+isPassword() - Checks to see if the password input matches the user's password
+
+addNeed() - Adds a need and contribution to that need to the user's funding basket
+
+editNeed() - Edits a need in the user's basket. Returns a Need id if succsessful.
+
+removeNeed() - Removes a need and contribution to that need from the user's funding basket
+
+clearBasket() - Clears the user's funding basket of all needs and contributions
+
+##### UserFileDAO
+
+The UserFileDAO class provides the backend functionality for the user. It accomplishes this by using the data given to it from the viewmodel tier along with the functions from the user class.
+
+The UserFileDAO class contains these functions:
+
+save() - saves the users into a JSON file as JSON objects
+
+load() - loads the users from the JSON file as Java objects
+
+getUsersArray() - Creates a list of all users and returns it
+
+getUsers() - Retrieves all users from the JSON file and returns getUsersArray()
+
+getUser() - Retrieves a user by username and returns that user
+
+authenticateUser() - Verifies the password of the user and returns whether the password is correct
+
+getNeeds() - Retrieves the IDs of the needs in the user's basket and returns it
+
+getContributions() - Retrieves the user's contribution to each need and returns it
+
+createUser() - Creates and returns a new user
+
+addNeed() - Adds a need to the user's funding basket and returns that need's ID
+
+editNeed() - Edits a contribution to a need in a user's basket and returns the ID of the edited need
+
+removeNeed() - Removes a need from the user's basket and returns whether it was removed
+
+clearBasket() - Clears the user's basket and returns whether it was removed
+
+##### Need
+
+The Need class represents a user's need, and contains methods for getting information from a need, and modifying the contents of a need.
+
+The Need class also contains these methods:
+
+getID() - Returns the need's ID
+
+getName() - Returns the need's name
+
+getDescription() - Returns the need's description
+
+getType() - Returns the need's type
+
+getTargetQuantity() - Returns the need's target quantity to be fulfilled
+
+getCurrentQuantity() - Returns the need's current quantity fulfilled
+
+getAvailability() - Returns a list of days which the need is taking place (For volunteer needs)
+
+setName() - Updates the name of the need
+
+setDescription() - Updates the description of the need
+
+setTargetQuantity() - Updates the target quantity for the need
+
+setType() - Updates the type of the need
+
+contribute() - Contributes to the need's current quantity
+
+isSatisfied() - Checks if the need has been fulfilled
+
+hasEmptyField() - Checks if a need has an empty data field
+
+getContributionPercent() - Returns the need's fulfillment 
+
+toString() - Returns a string of the need to be used in JSON files
+
+
+##### NeedFileDAO
+
+The NeedFileDAO class provides the backend functionality for the needs. It accomplishes this by using the data given to it from the viewmodel tier along with the functions from the user class.
+
+The NeedFileDAO class contains these functions:
+
+nextId() - Increments the ID to be assigned to next created need
+
+save() - Saves the needs to a JSON file as JSON objects.
+
+load() - Loads the needs from the JSON file as Java objects
+
+getNeedsArray() - Creates a list of all needs and returns it
+
+getNeedsArray() - Creates a list of filtered needs and returns it
+
+updateNeed() - Updates a need and returns it
+
+createNeed() - Creates a need, stores it in a map, and returns the new need
+
+getNeeds() - Retrieves all needs from the JSON file and returns getNeedsArray() with no paramaters
+
+findNeeds() - Retrieves all needs from the JSON file and returns getNeedsArray() with parameters for filtering
+
+getNeed() - Retrieves a need that matches the ID parameter
+
+deleteNeed() - Deletes a need that matches the ID parameter
+
+contributeNeed() - Contributes to a need
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -243,3 +381,5 @@ As of 2024/03/18, we have reached an instruction coverage of 99%, and a branch c
 (2024/02/18): Sprint 1 - The team had a thorough discussion about the use of IDs for needs with consideration to the fact that needs have to have unique names. We were trying to understand the primary function of the IDs and whether or not the IDs were necessary, given that all the needs in the cupboard are required to have unique names, thus seemingly defeating the purpose of giving each need a unique ID. We, eventually, came to the conclusion that getting rid of the IDs might cause issues later on, and that they were worth keeping, even if we couldn't figure out a significant use for them. At the very least, IDs are an easy method of retrieval for individual needs. They also provide more organized storage in the back-end, with IDs serving as the key for the needs map.
 
 (2024/03/14) Sprint 2 - After further discussion, it was decided to alter the methods in UserController by which needs are added nd removed from a user's basket. Rather than taking the entire need as an argument, the methods now only require the ID of the need to be modified. This allows for a simpler implementation of other methods that rely on UserController, such as much of the user basket implementation the ViewModel tier.
+
+(2024/03/22) Sprint 3 - This was our first meeting for sprint 3. During this meeting, we had a heated discussion about what are enhanements should be and how we would implement them. We came up with several ideas, but we did, eventually, have to come to an agreement on which enhancements we would actually choose. We did this by discussing exactly what each enhancement would entail, and ranking them by value to the user and amount of effort they would take to implement. Essentially, we didn't want to choose enhancements that would have been time consuming and difficult to implement if they weren't actually that much of an enhancement, especially with such limited time. We eventually decided on our two enhancements for this sprint to be search filters and a user settings page. We agreed that these enhancements were realistic because they were beneficial to the user and, at the time of this discussion, seemed not too difficult to implement within the time given to us.
