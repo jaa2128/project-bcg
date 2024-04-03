@@ -22,7 +22,7 @@
 </nav>
 
 <h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
-  
+
 <div *ngIf="currentUser?.admin">
   <p>{{adminStatusMessage}}</p>
 
@@ -47,9 +47,9 @@
   <br>
 
   <div *ngIf="selectedOption === 'Other'; then otherTextBox"></div>
-  <ng-template #otherTextBox> 
+  <ng-template #otherTextBox>
     <label for="new-need-type">Other Type: </label>
-    <input value="" [(ngModel)]="otherType"/>
+    <input value="" [(ngModel)]="otherType" />
     <br>
   </ng-template>
 
@@ -59,73 +59,74 @@
       <label for="new-need-availability">Availability: </label> <br>
       <label for="sunday-availability">&emsp;Sunday&emsp;&emsp;</label>
       <input type="checkbox" id="sunday-availability" name="sunday-availability" [(ngModel)]="sundayAvailability">
-  
+
       <label for="monday-availability">&emsp;Monday&emsp;&emsp;</label>
       <input type="checkbox" id="monday-availability" name="monday-availability" [(ngModel)]="mondayAvailability">
-    
+
       <label for="tuesday-availability">&emsp;Tuesday&emsp;&emsp;</label>
       <input type="checkbox" id="tuesday-availability" name="tuesday-availability" [(ngModel)]="tuesdayAvailability">
-    
+
       <label for="wednesday-availability">&emsp;Wednesday&emsp;&emsp;</label>
-      <input type="checkbox" id="wednesday-availability" name="wednesday-availability" [(ngModel)]="wednesdayAvailability">
-  
+      <input type="checkbox" id="wednesday-availability" name="wednesday-availability"
+        [(ngModel)]="wednesdayAvailability">
+
       <label for="thursday-availability">&emsp;Thursday&emsp;&emsp;</label>
       <input type="checkbox" id="thursday-availability" name="thursday-availability" [(ngModel)]="thursdayAvailability">
-  
+
       <label for="friday-availability">&emsp;Friday&emsp;&emsp;</label>
       <input type="checkbox" id="friday-availability" name="friday-availability" [(ngModel)]="fridayAvailability">
-  
+
       <label for="saturday-availability">&emsp;Saturday&emsp;&emsp;</label>
       <input type="checkbox" id="saturday-availability" name="saturday-availability" [(ngModel)]="saturdayAvailability">
-    </div>  
+    </div>
   </ng-template>
 
   <label for="new-need-targetQ">Target quantity: </label>
   <input id="new-need-targetQ" #needTargetQ />
   <br>
 
-  <button type="button" class="add-button" (click)="createNeed(needName.value, needDesc.value, needType.value, +needTargetQ.value, 
+  <button type="button" class="add-button"
+    (click)="createNeed(needName.value, needDesc.value, needType.value, +needTargetQ.value, 
   [sundayAvailability, mondayAvailability, tuesdayAvailability, wednesdayAvailability, thursdayAvailability, fridayAvailability, saturdayAvailability])">
     Add Need
   </button>
 
 </div>
-   
 
 
-  <ul class="needs">
-    <li *ngFor="let need of needs">
-      <div class="list-element">
-        <div class="need-title">
-          <a>
+
+<ul class="needs">
+  <li *ngFor="let need of needs">
+    <div class="list-element">
+      <div class="need-title">
+        <a>
           {{need.name}}
-          </a>
-        </div>
-        <div >
-          <a class="need-type">
-            {{need.type}}
-          </a>
-        </div>
-        <div >
-          <a class="need-description">
-            {{need.description}}
-          </a>
-        </div>
+        </a>
+      </div>
+      <div>
+        <a class="need-type">
+          {{need.type}}
+        </a>
+      </div>
+      <div>
+        <a class="need-description">
+          {{need.description}}
+        </a>
+      </div>
+      <div class="buttons">
         <div>
           <button class="button" routerLink="/detail/{{need.id}}">Details</button>
         </div>
         <div *ngIf="currentUser?.admin">
-          <button type="button" class="button" title="delete need"
-          (click)="confirm(need.id)">Remove Need</button>
+          <button type="button" class="button" title="delete need" (click)="confirm(need.id)">Remove Need</button>
         </div>
-        <div *ngIf="showButton == need.id">
-          <div><label>Are you sure you would like to delete this need?</label></div>
-          <button type="button" class="delete" title="confirm delete"
-          (click)="delete(need)">Yes</button>
-          <button type="button" class="delete" title="deny delete"
-          (click)="deny()">No</button>
+        <div class="message" *ngIf="showButton == need.id">
+          <div class="message-text"><label>Remove this need?</label></div>
+          <button type="button" class="button" title="confirm delete" (click)="delete(need)">Yes</button>
+          <button type="button" class="button" title="deny delete" (click)="deny()">No</button>
         </div>
       </div>
-    </li>
-    
-  </ul>
+    </div>
+  </li>
+
+</ul>
