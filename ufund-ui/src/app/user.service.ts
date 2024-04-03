@@ -45,7 +45,7 @@ export class UserService {
   logOut(): void {
     this.setCurrentUser(null);
     this.clearLocalStorage();
-    this.router.navigateByUrl("login");
+    this.router.navigateByUrl("home");
   }
   
   validate(): void {

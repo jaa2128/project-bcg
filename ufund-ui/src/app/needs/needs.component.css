@@ -1,34 +1,109 @@
 ul {
     list-style-type: none;
+    padding: 0;
+    padding-right:8px;
 }
 
 li {
     display: inline-block;
-    margin-right: 10px;
 }
 
 .list-element {
-    display:inline-block;
+    position: relative;
+    display: inline-block;
     width: 400px;
     height: 300px;
-    text-overflow: ellipsis;
-    overflow: hidden; 
     border: 1px solid lightgrey;
     border-radius: 10px;
-    padding: 10px;
-    margin: 5px;
+    padding: 12px;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin: 10px;
     margin-top: 10px;
 }
 
-.need-title a {
-    text-align: left;
+.need-title {
+    display: inline-block;
+    width: 400px;
+    height: 36px;
     font-size: 32px;
     text-decoration: none;
     font-family: "Montserrat", sans-serif;
-    font-weight:700;
-    margin-bottom: 10px;
+    font-weight: 700;
+    margin-top: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+}
+
+.need-type {
+    display: inline-block;
+    font-size: 24px;
+    text-decoration: none;
+    font-family: "Montserrat", sans-serif;
+    margin-top: 6px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+    font-style: italic;
+    font-size: 16px;
 }
 
 .need-description {
+    display: inline-block;
+    width: 400px;
+    height:120px;
+    margin-top: 6px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+}
 
+.button {
+    font-family: "Montserrat", sans-serif;
+    position: relative;
+    text-align: center;
+    border:none;
+    border-radius: 6px; 
+    float: left;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    width: 42.5%;
+    height: 36px;
+}
+
+.buttons {
+    font-family: "Montserrat", sans-serif;
+    width: 100%;
+    text-align: center;
+    float: center;
+    position: absolute;
+    bottom: 5%;
+    left: 2.5%;
+    right: 2.5%;
+}
+
+.message {
+    font-family: "Montserrat", sans-serif;
+    background-color: white;
+    float: center;
+    width: 45%;
+    text-align: center;
+    position: absolute;
+    right: 5%;
+    bottom: 125%;
+}
+
+.message-text {
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+    float: center;
+    margin-bottom: 5%;
+}
+
+.needs {
+    position: absolute;
+    text-align: center;
 }
