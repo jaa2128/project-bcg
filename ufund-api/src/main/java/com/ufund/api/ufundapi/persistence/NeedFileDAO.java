@@ -106,7 +106,6 @@ public class NeedFileDAO implements NeedDAO {
         return needArray;
     }
     
-
     /**
      * Updates a single need object.
      * @param need The need object to update.
