@@ -55,6 +55,7 @@ export class NeedDetailComponent implements OnInit {
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
     this.getNeed();
+    this.userService.saveToLocalStorage(this.userService.pageKey, "detail");
   }
 
   selectDropdown(): void {

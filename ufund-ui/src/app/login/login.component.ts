@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit{
     this.isLogin = true;
     this.userService.saveToLocalStorage(this.userService.nameKey, this.formData.username);
     this.userService.saveToLocalStorage(this.userService.passKey, this.formData.password);
+    this.userService.saveToLocalStorage(this.userService.pageKey, "about");
   }
 
   onSignupClick(): void {
@@ -52,6 +53,9 @@ export class LoginComponent implements OnInit{
     
     if(username.trim().length == 0 || password.trim().length == 0) {
       this.statusMessage = 'Username or password is blank!';
+      return;
+    }
+    if(this.userService.retrieveFromLocalStorage(this.userService.pageKey) === "home"){
       return;
     }
 
@@ -117,10 +121,16 @@ export class LoginComponent implements OnInit{
     return this.localStorageService.getItem(key);
   }
 
+  onBackClick(): void {
+    this.router.navigateByUrl("/home")
+  }
+
   ngOnInit(): void {
+    this.statusMessage = 'Please log in or sign up!';
     if(this.userService.storedUsername != null && this.userService.storedPassword != null){
       this.login(this.userService.storedUsername, this.userService.storedPassword); 
     }
+    
     //this.userService.storedUsername = null; 
     //this.userService.storedPassword = null; 
   }

@@ -37,7 +37,7 @@ export class BasketComponent implements OnInit {
             this.needService.getNeed(element).subscribe((
               need => this.basket.push(need))))
         if(response.body?.length == 0) {
-          this.statusMessage = 'Your basket is empty!';
+          this.statusMessage = 'Your basket is empty. Add needs here to check them out!';
         }
         else {
           this.statusMessage = 'Click on \'Checkout\' to contribute!'
@@ -135,6 +135,10 @@ export class BasketComponent implements OnInit {
         }
       }
     )
+  }
+
+  deny(): void {
+    this.numOfTimesCheckoutClicked = 0;
   }
 
   ngOnInit(): void {

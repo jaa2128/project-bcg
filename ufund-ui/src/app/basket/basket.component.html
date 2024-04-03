@@ -1,21 +1,32 @@
-<h2>Basket </h2>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
 
-<nav>
-  <a routerLink="/about">About</a>
-  &nbsp;
-  <a routerLink="/needs">Cupboard</a>
-  &nbsp;
-  <a routerLink="/search">Search</a>
-  &nbsp;
-  <div *ngIf="!currentUser?.admin" style="display: inline;">
-    <a routerLink="/basket">Basket</a>
+<div class="header">
+  <h3 class="user-status">{{currentUser?.username}} <button id="logout" (click)="logOut()">Log Out</button></h3>
+  
+
+  <nav class="navigation">
+    <a routerLink="/about">About</a>
     &nbsp;
-  </div>
-  <a routerLink="/settings">Settings</a>
-</nav>
+    <a routerLink="/needs">Cupboard</a>
+    &nbsp;
+    <a routerLink="/search">Search</a>
+    &nbsp;
+    <div *ngIf="!currentUser?.admin" style="display: inline;">
+      <a routerLink="/basket">Basket</a>
+      &nbsp;
+    </div>
+    <a routerLink="/settings">Settings</a>
+  </nav>
+</div>
 
-<h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
-
+<div class="body">
+  <div>
+    <h1 class="title">Basket</h1>
 
 <div *ngIf="basket.length !== 0">
   <ul>
@@ -28,7 +39,18 @@
     </ng-container>
   </ul>
   <div *ngIf="numOfTimesCheckoutClicked == 1;then confirmationMessage"></div>
-  <ng-template #confirmationMessage><span>Are you sure you want to Checkout? If so, click Checkout again.<br></span></ng-template>
+  <ng-template #confirmationMessage>
+    <ng-container *ngFor="let need of basket; let i = index">
+      <div *ngIf="need.currentQuantity >= need.targetQuantity">
+        <span>{{need.name}} ({{need.currentQuantity}}/{{need.targetQuantity}}) is already fulfilled, but you can still contribute if you wish.</span>
+      </div>
+      <div *ngIf="need.currentQuantity < need.targetQuantity && need.currentQuantity + contributions[i] > need.targetQuantity">
+        <span>{{need.name}} ({{need.currentQuantity}}/{{need.targetQuantity}}) only needs {{need.targetQuantity - need.currentQuantity}} to be fulfilled, but you can still contribute {{contributions[i] - (need.targetQuantity - need.currentQuantity)}} surplus if you wish.</span>
+      </div>
+    </ng-container><br>
+    <span>Are you sure you want to Checkout? If so, click Checkout again.<br></span>
+    <button type="submit" (click)="deny()">No</button>
+  </ng-template>
   <button type="submit" (click)="checkout()">Checkout</button>
 </div>
 
@@ -36,3 +58,4 @@
 
 
 
+</div> 

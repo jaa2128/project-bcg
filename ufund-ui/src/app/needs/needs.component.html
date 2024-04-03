@@ -29,13 +29,13 @@
     <h1 class="title">Cupboard</h1>
     <div class="admin-page" *ngIf="currentUser?.admin">
       <p>{{adminStatusMessage}}</p>
-      <label for="new-need-name">Name: </label>
+      <label for="new-need-name">Name: </label><br>
       <input id="new-need-name" #needName />
       <br>
-      <label for="new-need-desc">Description: </label>
-      <input id="new-need-desc" #needDesc />
+      <label for="new-need-desc">Description: </label><br>
+      <textarea type="text"id="new-need-desc" #needDesc></textarea>
       <br>
-      <label for="new-need-type">Type: </label>
+      <label for="new-need-type">Type: </label><br>
       <select name="need-types" id="need-types" #needType (change)="onSelected(needType.value)">
         <option></option>
         <option value="Money">Money</option>
@@ -47,7 +47,7 @@
       <br>
       <div *ngIf="selectedOption === 'Other'; then otherTextBox"></div>
       <ng-template #otherTextBox>
-        <label for="new-need-type">Other Type: </label>
+        <label for="new-need-type">Other Type: </label><br>
         <input value="" [(ngModel)]="otherType" />
         <br>
       </ng-template>
@@ -75,8 +75,8 @@
             [(ngModel)]="saturdayAvailability">
         </div>
       </ng-template>
-      <label for="new-need-targetQ">Target quantity: </label>
-      <input id="new-need-targetQ" #needTargetQ />
+      <label for="new-need-targetQ">Target quantity: </label><br>
+      <input type="number" id="new-need-targetQ" #needTargetQ />
       <br>
       <button type="button" class="add-button"
         (click)="createNeed(needName.value, needDesc.value, needType.value, +needTargetQ.value, 
@@ -84,8 +84,11 @@
         Add Need
       </button>
     </div>
-
+</div>
     <ul class="needs">
+      <div *ngIf="needs.length==0">
+        <span class="user-status">The cupboard is currently empty!</span>
+      </div>
       <li *ngFor="let need of needs">
         <div class="list-element">
           <div class="need-title">
@@ -95,7 +98,7 @@
           </div>
           <div>
             <a class="need-type">
-              {{need.type}}
+              {{need.type}} ({{need.currentQuantity}}/{{need.targetQuantity}})
             </a>
           </div>
           <div>

@@ -18,10 +18,12 @@ import { User } from '../user';
 export class NeedSearchComponent implements OnInit {
   needs$!: Observable<Need[]>;
   currentUser: User | null = null;
+  showButton:number=-1;
+  selectedOption = '';
   constructor(private needService: NeedService, 
   private userService: UserService) {}
   availability: Boolean[] = [];
-  errorMessage = 'Try filtering your search'
+  errorMessage = 'Narrow down the list with search filters!'
 
   logOut(): void {
     this.userService.logOut();
@@ -46,4 +48,18 @@ export class NeedSearchComponent implements OnInit {
     this.userService.validate();
     this.userService.saveToLocalStorage(this.userService.pageKey, "search");
   }
+
+  confirm(id: number): void {
+    this.showButton = id;
+  }
+  deny(): void {
+    this.showButton = -1;
+  }
+  /*
+  delete(need: Need): void {
+    this.needs$ = this.needs$.filter(n => n !== need);
+    this.needService.deleteNeed(need.id).subscribe();
+    this.showButton = -1;
+  }
+  */
 }

@@ -14,7 +14,7 @@ export class UserService {
 
   nameKey = "username";
   passKey = "password";
-  pageKey = "lastPage"
+  pageKey = "lastPage";
 
   storedUsername = this.retrieveFromLocalStorage(this.nameKey);
   storedPassword = this.retrieveFromLocalStorage(this.passKey);
@@ -111,7 +111,7 @@ export class UserService {
 
   // This just clears username and password
   // Added clearing of pageKey
-  private clearLocalStorage(): void {
+  clearLocalStorage(): void {
     this.localStorageService.removeItem(this.nameKey);
     this.localStorageService.removeItem(this.passKey);
     this.localStorageService.removeItem(this.pageKey);

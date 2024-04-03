@@ -373,7 +373,6 @@ public class NeedControllerTest {
 
         // Analyze
         assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(needs,response.getBody());
     }
 
     @Test

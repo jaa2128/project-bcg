@@ -1,0 +1,116 @@
+.header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: white;
+    box-shadow: rgba(37,39,89,0.08) 0px 8px 8px 0;
+}
+.user-status {
+    font-family: "Montserrat", sans-serif;
+    background-color: white;
+    float: right;
+    padding-right: 12px;
+}
+.image {
+    float: left;
+    padding-left: 12px;
+    padding-top: 22px;
+    padding-bottom: 10px;
+}
+#logout {
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+    border:none;
+    border-radius: 20px;
+    padding: 10px;
+    margin-left: 12px;
+    margin-right: 10px;
+}
+.navigation {
+    font-family: "Montserrat", sans-serif;
+    background-color: white;
+    width: fit-content;
+    padding-left: 22px;
+    padding-bottom: 12px;
+    padding-top: 28px;
+
+}
+
+.title {
+    font-family: "Montserrat", sans-serif;
+    margin-top: 100px;
+    font-size: 48px;
+}
+
+.body {
+    font-family: "Montserrat", sans-serif;
+    margin-left: 24px;
+}
+
+.button {
+    font-family: "Montserrat", sans-serif;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    border-radius: 6px;
+    width: fit-content;
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 36px;
+
+    overflow: auto;
+    margin-bottom: 12px;
+    margin-top:12px;
+}
+
+.field {
+    position: relative;
+}
+
+.field label {
+    position: absolute;
+    pointer-events: none;
+    top: 10px;
+    left: 12px;
+    color: gray;
+    transition: .1s ease-in-out;
+}
+
+.field input {
+    height: 36px;
+}
+
+.field .input {
+    font-family: "Montserrat", sans-serif;
+    display: inline-block; /* Changed */
+    position:relative;
+    padding-left: 12px;
+    border: 1px solid rgb(212, 212, 212);;
+    border-radius: 4px;
+    outline: none;
+}
+
+.field .input:focus {
+    outline: 2px solid #aa4a44
+}
+
+.input:focus ~ label, .input:valid ~ label {
+    top: -8px;
+    left: 12px;
+    font-size: 12px;
+    color: gray;
+    background: white;
+    padding: 0 5px; 
+}
+
+.input-field:valid ~ label{
+    color: #555;
+}
+
+.availability {
+    padding-left: 0;
+    margin-bottom: 6px;
+}

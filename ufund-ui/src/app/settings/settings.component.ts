@@ -79,6 +79,7 @@ statusMessage: string = 'Enter a new value and click save!';
             this.currentUser = this.userService.getCurrentUser();
             this.userService.saveToLocalStorage(this.userService.nameKey, newUsername);
             this.statusMessage = "Username changed successfully!"
+            this.formData.newUsername = '';
           }
         )
       },
@@ -111,6 +112,7 @@ statusMessage: string = 'Enter a new value and click save!';
       (response: HttpResponse<any>) => {
         this.userService.saveToLocalStorage(this.userService.passKey, newPassword);
         this.statusMessage = "Password changed successfully!"
+        this.formData2.newPassword = '';
       },
       (error) => {
         if(error.status == 400) { //bad request
