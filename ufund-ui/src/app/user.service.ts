@@ -97,7 +97,7 @@ export class UserService {
   } 
 
   changeAvailability(username: string, sundayAvailability: Boolean, mondayAvailability: Boolean, tuesdayAvailability: Boolean, wednesdayAvailability: Boolean, thursdayAvailability: Boolean, fridayAvailability: Boolean, saturdayAvailability: Boolean, ): Observable<HttpResponse<any>> {
-    const url = `${this.usersURL}/${username}/availability/${sundayAvailability}/${mondayAvailability}/${tuesdayAvailability}/${wednesdayAvailability}/${thursdayAvailability}/${fridayAvailability}/${sundayAvailability}`;
+    const url = `${this.usersURL}/${username}/availability/${sundayAvailability}/${mondayAvailability}/${tuesdayAvailability}/${wednesdayAvailability}/${thursdayAvailability}/${fridayAvailability}/${saturdayAvailability}`;
     return this.http.put(url, {}, { observe: 'response' });
   }
 
