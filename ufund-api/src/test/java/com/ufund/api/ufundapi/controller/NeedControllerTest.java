@@ -483,4 +483,33 @@ public class NeedControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
 
     }
+
+    @Test
+    public void testUpdateAvailability() throws IOException { // updateNeed may throw IOException
+        // Setup
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
+        Need need = new Need(99,"Test Need -1","Test Description","Test Type",1.0, availability);
+        
+        ArrayList<Boolean> newAvailability = new ArrayList<Boolean>();
+        newAvailability.add(true); newAvailability.add(true); newAvailability.add(true); newAvailability.add(false); newAvailability.add(false); newAvailability.add(false); newAvailability.add(true);
+        
+        // when updateNeed is called, return true simulating successful
+        // update and save
+        when(mockNeedDAO.updateNeed(need)).thenReturn(need);
+
+        // when mockNeedDAO tries to access its needs, it returns a Need[]
+        when(mockNeedDAO.getNeeds()).thenReturn(mockNeeds);
+
+        ResponseEntity<Need> response = needController.updateNeed(need);
+        need.setAvailability(newAvailability);
+
+        // Invoke
+        response = needController.updateNeed(need);
+
+        // Analyze
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(need,response.getBody());
+    }
+
+
 }

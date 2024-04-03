@@ -216,7 +216,7 @@ public class NeedTest {
         String actual = need.toString();
 
         //analyze
-        String expected = "Need [id=50, name=hello, description=this is a description, type=money, targetQuantity=99.990000, currentQuantity=0.000000]";
+        String expected = "Need [id=50, name=hello, description=this is a description, type=money, targetQuantity=99.990000, currentQuantity=0.000000, availability={{array}}]";
         assertEquals(actual, expected);
     }
 }

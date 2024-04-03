@@ -581,5 +581,20 @@ public class UserControllerTest {
         assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
         
     }
+/*
+    @Test
+    public void testEditAvailabilitySuccess() throws IOException {
+        User user = new User("abc", "123");
+        
+        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
+        user.setAvailability(availability);
 
+        when(mockUserDAO.changeAvailability(user.getUsername(), true, true, true, true, true, true, true)).thenReturn(true);
+        when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+        
+        ResponseEntity response = userController.changeAvailability(user.getUsername(), false, false, false, false, false, false, false);
+
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+    }
+*/
 }
