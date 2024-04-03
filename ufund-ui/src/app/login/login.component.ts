@@ -55,6 +55,9 @@ export class LoginComponent implements OnInit{
       this.statusMessage = 'Username or password is blank!';
       return;
     }
+    if(this.userService.retrieveFromLocalStorage(this.userService.pageKey) === "home"){
+      return;
+    }
 
     this.userService.getUser(username, password).subscribe(
       (response: HttpResponse<User>) => {
