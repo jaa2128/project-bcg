@@ -120,6 +120,20 @@ public class NeedFileDAO implements NeedDAO {
             }
         }
 
+        else if(type.equals("Other")){
+            for (Need need : needs.values()) {
+                if(!need.getType().equals("Goods") && !need.getType().equals("Money") && !need.getType().equals("Volunteer")){
+                    if(minContribution == null || minContribution.isBlank() || need.getContributionPercent() >= Integer.valueOf(minContribution)){
+                        if(maxContribution == null || maxContribution.isBlank() || need.getContributionPercent() <= Integer.valueOf(maxContribution)){
+                            if (containsText == null ||containsText.isBlank() || (need.getName()).toLowerCase().contains(containsText.toLowerCase())) { //Use toLowerCase() to remove case sensitivity
+                                needArrayList.add(need);
+                            }
+                        }
+                    }
+                }
+        }
+        }
+
         else{
         System.out.println("Step 5");
         for (Need need : needs.values()) {
