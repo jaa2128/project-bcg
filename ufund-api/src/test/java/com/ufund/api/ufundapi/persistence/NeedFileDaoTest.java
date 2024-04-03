@@ -73,7 +73,7 @@ public class NeedFileDaoTest {
     @Test
     public void testFindNeeds() throws IOException {
         // Invoke
-        Need[] needs = needFileDAO.findNeeds("ne", "", "", "");
+        Need[] needs = needFileDAO.findNeeds("ne", "", "", "", null);
 
         // Analyze
         assertEquals(needs.length,3);
@@ -294,7 +294,7 @@ public class NeedFileDaoTest {
         needFileDAO = new NeedFileDAO("doesnt_matter.txt",mockObjectMapper);
 
         //invoke
-        Need[] output = needFileDAO.findNeeds("world", "", "", "");
+        Need[] output = needFileDAO.findNeeds("world", "", "", "", null);
 
         //analyze
         assertTrue(Arrays.asList(output).contains(need1));

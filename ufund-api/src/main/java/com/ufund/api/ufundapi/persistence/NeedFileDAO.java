@@ -74,7 +74,7 @@ public class NeedFileDAO implements NeedDAO {
      * @return An array of all needs (null search term)
      */
     private Need[] getNeedsArray() {
-        return getNeedsArray(null, null, null, null);
+        return getNeedsArray(null, null, null, null, null);
     }
 
     /**
@@ -82,10 +82,42 @@ public class NeedFileDAO implements NeedDAO {
      * @param containsText The search term to use
      * @return An array of all needs containing the search term
      */
-    private Need[] getNeedsArray(String containsText, String type, String minContribution, String maxContribution) { // if containsText == null, don't filter any needs
+    private Need[] getNeedsArray(String containsText, String type, String minContribution, String maxContribution, Boolean[] days) { // if containsText == null, don't filter any needs
         ArrayList<Need> needArrayList = new ArrayList<>();
+        ArrayList<Need> volunteerNeed = new ArrayList<>();
+        int count = 0;
+        System.out.println("Step 0");
+        if(type == "Volunteer"){
+            System.out.println("Step 1");
+            for(Need need: needs.values()){
+                if(need.getType().equals(type)){
+                    System.out.println("Step 2");
+                    for(int i = 0; i<days.length; i++){
+                        if(need.getAvailability().get(i) == true && days[i] == true){
+                            System.out.println("Step 3");
+                            count = 1;
+                        }
+                    }
+                }
+                if(count == 1){
+                    System.out.println("Step 4");
+                    volunteerNeed.add(need);
+                    count = 0;
+                }
+            }
+            for (Need need: volunteerNeed){
+                if(minContribution == null || minContribution.isBlank() || need.getContributionPercent() >= Integer.valueOf(minContribution)){
+                    if(maxContribution == null || maxContribution.isBlank() || need.getContributionPercent() <= Integer.valueOf(maxContribution)){
+                        if (containsText == null ||containsText.isBlank() || (need.getName()).toLowerCase().contains(containsText.toLowerCase())) { //Use toLowerCase() to remove case sensitivity
+                            needArrayList.add(need);
+                        }
+                    }
+                }
+            }
+        }
 
-
+        else{
+        System.out.println("Step 5");
         for (Need need : needs.values()) {
                 if(type == null || type.isBlank() || need.getType().toLowerCase().equals(type.toLowerCase())){
                     if(minContribution == null || minContribution.isBlank() || need.getContributionPercent() >= Integer.valueOf(minContribution)){
@@ -96,10 +128,8 @@ public class NeedFileDAO implements NeedDAO {
                         }
                     }
                 }
-            // if (containsText == null || (need.getName()).toLowerCase().contains(containsText.toLowerCase())) { //Use toLowerCase() to remove case sensitivity
-            //     needArrayList.add(need);
-            // }
         }
+    }
 
         Need[] needArray = new Need[needArrayList.size()];
         needArrayList.toArray(needArray);
@@ -156,9 +186,9 @@ public class NeedFileDAO implements NeedDAO {
     }
     
     @Override
-    public Need[] findNeeds(String containsText, String type, String minContribution, String maxContribution) throws IOException { 
+    public Need[] findNeeds(String containsText, String type, String minContribution, String maxContribution, Boolean[] days) throws IOException { 
         synchronized(needs) {
-            return getNeedsArray(containsText, type, minContribution, maxContribution); //Use getNeedsArray to create an array of needs matching an input String
+            return getNeedsArray(containsText, type, minContribution, maxContribution, days); //Use getNeedsArray to create an array of needs matching an input String
         }
     }
     

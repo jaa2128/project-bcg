@@ -188,11 +188,14 @@ public class NeedController {
      * @return         HttpStatus.INTERNAL_SERVER_ERROR, if exception is caught
      */
     @GetMapping("/")
-    public ResponseEntity<Need[]> searchNeeds(@RequestParam String name, @RequestParam String type, @RequestParam String min, @RequestParam String max) {
+    public ResponseEntity<Need[]> searchNeeds(@RequestParam String name, @RequestParam String type, @RequestParam String min, @RequestParam String max,
+    @RequestParam Boolean sun, @RequestParam Boolean mon, @RequestParam Boolean tues, @RequestParam Boolean wed, @RequestParam Boolean thurs, @RequestParam Boolean fri, 
+    @RequestParam Boolean sat) {
 
-        LOG.info("GET /needs/?name="+name+"&type="+type+"&min="+min+"&max="+max);
+        LOG.info("GET /needs/?name="+name+"&type="+type+"&min="+min+"&max="+max+"&sun="+sun+"&mon="+mon+"&tues="+tues+"&wed="+wed+"&thurs="+thurs+"&fri="+fri+"&sat="+sat);
         try {
-            Need[] searchList = needDao.findNeeds(name, type, min, max);
+            Boolean[] days = {sun, mon, tues, wed, thurs, fri, sat};
+            Need[] searchList = needDao.findNeeds(name, type, min, max, days);
             return new ResponseEntity<Need[]>(searchList,HttpStatus.OK);
         }
         catch(IOException e) {
