@@ -77,6 +77,9 @@
   </div>
   </div> 
   <ul class="search-result">
+    <div *ngIf="(needs$ | async)?.length == 0">
+      <span class="user-status">There are no needs which match your results.</span>
+    </div>
     <li *ngFor="let need of needs$ | async">
       <div class="list-element">
         <div class="need-title">
