@@ -1,22 +1,48 @@
-<h2>About</h2>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
 
-<nav>
-  <a routerLink="/about">About</a>
-  &nbsp;
-  <a routerLink="/needs">Cupboard</a>
-  &nbsp;
-  <a routerLink="/search">Search</a>
-  &nbsp;
-  <div *ngIf="!currentUser?.admin" style="display: inline;">
-    <a routerLink="/basket">Basket</a>
+<div class="header">
+  <h3 class="user-status">{{currentUser?.username}} <button id="logout" (click)="logOut()">Log Out</button></h3>
+
+
+  <nav class="navigation">
+    <a routerLink="/about">About</a>
     &nbsp;
+    <a routerLink="/needs">Cupboard</a>
+    &nbsp;
+    <a routerLink="/search">Search</a>
+    &nbsp;
+    <div *ngIf="!currentUser?.admin" style="display: inline;">
+      <a routerLink="/basket">Basket</a>
+      &nbsp;
+    </div>
+    <a routerLink="/settings">Settings</a>
+  </nav>
+</div>
+
+<body>
+  <div class="heading">
+    <div class="image">
+      <a href="https://imgbox.com/SCQRS08f" target="_blank">
+        <img src="https://images2.imgbox.com/c4/6b/SCQRS08f_o.png" 
+          alt="image host" 
+          style="width:75%;height:75%;"/>
+      </a>
+    </div>
+    <h1>Welcome to<br>Brick City Gamers!</h1>
   </div>
-  <a routerLink="/settings">Settings</a>
-</nav>
 
-<h3>Logged in as {{currentUser?.username}}. <a href="#" (click)="logOut()">Log out</a></h3>
+<div class="about">
+    <h2>What is Brick City Gamers?</h2>
+    <b>Brick City Gamers is an organization which aims to introduce children and adolecents to STEM through the lens of gaming!</b>
 
-<h2>What is Brick City Gamers?</h2>
-<b>Brick City Gamers is an organization which aims to introduce children and adolecents to STEM through the lens of gaming!</b>
-<h2>How Does it Work?</h2>
-<b>As a helper, you can do your part to spread STEM education by contributing to various programs such as charity events, tutoring sessions, and more!
+    <h2>How does it work?</h2>
+    <b>As a helper, you can do your part to spread STEM education by contributing to various programs such as charity events, tutoring sessions, and more!  
+  <h2>Get started now!</h2>
+  <b>Access the cupboard using the links above and start contributing!</b>
+
+
