@@ -74,7 +74,11 @@ public class NeedFileDAO implements NeedDAO {
      * @return An array of all needs (null search term)
      */
     private Need[] getNeedsArray() {
-        return getNeedsArray(null, null, null, null, null);
+        ArrayList<Need> needArrayList = new ArrayList<>();
+        for(Need need : needs.values()) { needArrayList.add(need); }
+        Need[] needArray = new Need[needArrayList.size()];
+        needArrayList.toArray(needArray);
+        return needArray;
     }
 
     /**
