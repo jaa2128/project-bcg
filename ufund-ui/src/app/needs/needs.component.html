@@ -86,6 +86,9 @@
     </div>
 </div>
     <ul class="needs">
+      <div *ngIf="needs.length==0">
+        <span class="user-status">The cupboard is currently empty!</span>
+      </div>
       <li *ngFor="let need of needs">
         <div class="list-element">
           <div class="need-title">
