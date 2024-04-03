@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit{
     this.isLogin = true;
     this.userService.saveToLocalStorage(this.userService.nameKey, this.formData.username);
     this.userService.saveToLocalStorage(this.userService.passKey, this.formData.password);
+    this.userService.saveToLocalStorage(this.userService.pageKey, "about");
   }
 
   onSignupClick(): void {
@@ -118,9 +119,11 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.statusMessage = 'Please log in or sign up!';
     if(this.userService.storedUsername != null && this.userService.storedPassword != null){
       this.login(this.userService.storedUsername, this.userService.storedPassword); 
     }
+    
     //this.userService.storedUsername = null; 
     //this.userService.storedPassword = null; 
   }
