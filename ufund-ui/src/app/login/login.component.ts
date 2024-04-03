@@ -121,6 +121,10 @@ export class LoginComponent implements OnInit{
     return this.localStorageService.getItem(key);
   }
 
+  onBackClick(): void {
+    this.router.navigateByUrl("/home")
+  }
+
   ngOnInit(): void {
     this.statusMessage = 'Please log in or sign up!';
     if(this.userService.storedUsername != null && this.userService.storedPassword != null){
