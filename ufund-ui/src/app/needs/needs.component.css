@@ -2,10 +2,44 @@ ul {
     list-style-type: none;
     padding: 0;
     padding-right:8px;
+    text-align: center;
+    display: flexbox;
+    justify-content: center;
 }
-
 li {
     display: inline-block;
+}
+.header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: red;
+}
+.user-status {
+    font-family: "Montserrat", sans-serif;
+    background-color: green;
+    float: right;
+    padding-right: 12px;
+}
+.image {
+    float: left;
+    padding-left: 12px;
+    padding-top: 10px;
+}
+#logout {
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+    border:none;
+    border-radius: 20px;
+    padding: 10px;
+}
+.navigation {
+    font-family: "Montserrat", sans-serif;
+    float: left;
+    background-color: orange;
 }
 
 .list-element {
@@ -21,7 +55,6 @@ li {
     margin: 10px;
     margin-top: 10px;
 }
-
 .need-title {
     display: inline-block;
     width: 400px;
@@ -33,9 +66,8 @@ li {
     margin-top: 12px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden; 
+    overflow: hidden;
 }
-
 .need-type {
     display: inline-block;
     font-size: 24px;
@@ -44,11 +76,10 @@ li {
     margin-top: 6px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden; 
+    overflow: hidden;
     font-style: italic;
     font-size: 16px;
 }
-
 .need-description {
     display: inline-block;
     width: 400px;
@@ -58,22 +89,20 @@ li {
     font-size: 16px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden; 
+    overflow: hidden;
 }
-
 .button {
     font-family: "Montserrat", sans-serif;
     position: relative;
     text-align: center;
     border:none;
-    border-radius: 6px; 
+    border-radius: 6px;
     float: left;
     margin-left: 2.5%;
     margin-right: 2.5%;
     width: 42.5%;
     height: 36px;
 }
-
 .buttons {
     font-family: "Montserrat", sans-serif;
     width: 100%;
@@ -84,7 +113,6 @@ li {
     left: 2.5%;
     right: 2.5%;
 }
-
 .message {
     font-family: "Montserrat", sans-serif;
     background-color: white;
@@ -95,15 +123,14 @@ li {
     right: 5%;
     bottom: 125%;
 }
-
 .message-text {
     font-family: "Montserrat", sans-serif;
     text-align: center;
     float: center;
     margin-bottom: 5%;
 }
-
 .needs {
+    margin-top: 340px;
     position: absolute;
     text-align: center;
 }
