@@ -32,7 +32,7 @@
     <label for="search-box">Need Name: </label>
     <input #searchBox id="search-box" />
     <br>
-    <label for="type-box">Need Type:</label>
+    <label for="type-box">Need Type: </label>
     <select #typeBox id="type-box">
       <option value="">No Filter</option>
       <option value="Money">Money</option>
@@ -41,7 +41,7 @@
       <option value="Other">Other</option>
     </select>
     <br>
-    <label for="contribution-percentage-min"> Minimum Contribution Percentage</label>
+    <label for="contribution-percentage-min"> Minimum Contribution Percentage: </label>
     <select #contributionPercentageMin id="contribution-percentage-min">
       <option value="">No Filter</option>
       <option value="10">10</option>
@@ -57,7 +57,7 @@
 
     </select>
     <br>
-    <label for="contribution-percentage-max"> Maximum Contribution Percentage</label>
+    <label for="contribution-percentage-max"> Maximum Contribution Percentage: </label>
     <select #contributionPercentageMax id="contribution-percentage-max">
       <option value="">No Filter</option>
       <option value="10">10</option>
@@ -78,7 +78,7 @@
   </div> 
   <ul class="search-result">
     <div *ngIf="(needs$ | async)?.length == 0">
-      <span class="user-status">There are no needs which match your results.</span>
+      <span class="user-status">There are no matching needs.</span>
     </div>
     <li *ngFor="let need of needs$ | async">
       <div class="list-element">
