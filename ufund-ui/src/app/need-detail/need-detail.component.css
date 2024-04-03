@@ -50,15 +50,17 @@
     margin-left: 24px;
 }
 
-.input {
-    font-family: "Montserrat", sans-serif;
-    position: relative;
-    text-align: center;
-    border:none;
-    border-radius: 6px;
-    float: left;
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-    width: 42.5%;
-    height: 36px;
+#need-description{
+    width: 30%;
+    height: 10em;
+    text-align: left;
+}
+
+#desc{
+    width: 30%;
+    white-space: pre-wrap;
+}
+
+.need-attribute{
+    font-weight: bold; 
 }
