@@ -49,3 +49,18 @@
     font-family: "Montserrat", sans-serif;
     margin-left: 24px;
 }
+
+#need-description{
+    width: 30%;
+    height: 10em;
+    text-align: left;
+}
+
+#desc{
+    width: 30%;
+    white-space: pre-wrap;
+}
+
+.need-attribute{
+    font-weight: bold; 
+}
