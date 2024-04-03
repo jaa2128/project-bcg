@@ -21,7 +21,7 @@ export class NeedSearchComponent implements OnInit {
   constructor(private needService: NeedService, 
   private userService: UserService) {}
   availability: Boolean[] = [];
-  errorMessage = 'Try filtering your search'
+  errorMessage = 'Narrow down the list with search filters!'
 
   logOut(): void {
     this.userService.logOut();

@@ -24,70 +24,70 @@
   </nav>
 </div>
 
+
 <div class="body">
   <h1 class="title">Settings</h1>
-
-<div *ngIf="!currentUser?.admin">
-  <h4>User Settings</h4>
-</div>
-<div *ngIf="currentUser?.admin">
-  <h4>Administrator Settings</h4>
-</div>
-<p>{{statusMessage}}</p>
-<div>
-    <div *ngIf="!currentUser?.admin;then changeUsernameBox"></div>
-    <ng-template #changeUsernameBox>
-      <label for="change-username">Change Username: </label>
-      <input id="change-username"required [(ngModel)]="formData.newUsername" />
-      <button type="submit" (click)="changeUsername(formData)">Save</button>
-      <br>
-    </ng-template>
-    <label for="change-password">Change Password: </label>
-    <input id="change-password" required [(ngModel)]="formData2.newPassword"/>
-    <button type="submit" (click)="changePassword(formData2)" >Save</button>
-    <br>
-</div>
-
-<div *ngIf="!currentUser!.admin">
-  <h4>Availability Settings</h4>
-  <div>
-    <label for="sunday-availability">&emsp;Sunday&emsp;&emsp;</label>
-    <input type="checkbox" id="sunday-availability" name="sunday-availability" [(ngModel)]="currentUser!.availability[0]" #sundayAvailability>
-
-    <label for="monday-availability">&emsp;Monday&emsp;&emsp;</label>
-    <input type="checkbox" id="monday-availability" name="monday-availability" [(ngModel)]="currentUser!.availability[1]" #mondayAvailability>
-
-    <label for="tuesday-availability">&emsp;Tuesday&emsp;&emsp;</label>
-    <input type="checkbox" id="tuesday-availability" name="tuesday-availability" [(ngModel)]="currentUser!.availability[2]" #tuesdayAvailability>
-
-    <label for="wednesday-availability">&emsp;Wednesday&emsp;&emsp;</label>
-    <input type="checkbox" id="wednesday-availability" name="wednesday-availability" [(ngModel)]="currentUser!.availability[3]" #wednesdayAvailability>
-
-    <label for="thursday-availability">&emsp;Thursday&emsp;&emsp;</label>
-    <input type="checkbox" id="thursday-availability" name="thursday-availability" [(ngModel)]="currentUser!.availability[4]" #thursdayAvailability>
-
-    <label for="friday-availability">&emsp;Friday&emsp;&emsp;</label>
-    <input type="checkbox" id="friday-availability" name="friday-availability" [(ngModel)]="currentUser!.availability[5]" #fridayAvailability>
-
-    <label for="saturday-availability">&emsp;Saturday&emsp;&emsp;</label>
-    <input type="checkbox" id="saturday-availability" name="saturday-availability" [(ngModel)]="currentUser!.availability[6]" #saturdayAvailability> <br>
-    <button type="submit" (click)="changeAvailability(currentUser!.availability[0], currentUser!.availability[1], currentUser!.availability[2], currentUser!.availability[3], currentUser!.availability[4], currentUser!.availability[5], currentUser!.availability[6])" >Save</button>
+  <div *ngIf="!currentUser?.admin">
+    <h4>User Settings</h4>
   </div>
+  <div *ngIf="currentUser?.admin">
+    <h4>Administrator Settings</h4>
+  </div>
+  <p>{{statusMessage}}</p>
+  <div>
+      <div *ngIf="!currentUser?.admin;then changeUsernameBox"></div>
+      <ng-template #changeUsernameBox>
+        <label for="change-username">Change Username: </label>
+        <input id="change-username"required [(ngModel)]="formData.newUsername" />
+        <button type="submit" (click)="changeUsername(formData)">Save</button>
+        <br>
+      </ng-template>
+      <label for="change-password">Change Password: </label>
+      <input id="change-password" required [(ngModel)]="formData2.newPassword"/>
+      <button type="submit" (click)="changePassword(formData2)" >Save</button>
+      <br>
+  </div>
+
+  <div *ngIf="!currentUser!.admin">
+    <h4>Availability Settings</h4>
+    <div>
+      <label for="sunday-availability">&emsp;Sunday&emsp;&emsp;</label>
+      <input type="checkbox" id="sunday-availability" name="sunday-availability" [(ngModel)]="currentUser!.availability[0]" #sundayAvailability>
+
+      <label for="monday-availability">&emsp;Monday&emsp;&emsp;</label>
+      <input type="checkbox" id="monday-availability" name="monday-availability" [(ngModel)]="currentUser!.availability[1]" #mondayAvailability>
+
+      <label for="tuesday-availability">&emsp;Tuesday&emsp;&emsp;</label>
+      <input type="checkbox" id="tuesday-availability" name="tuesday-availability" [(ngModel)]="currentUser!.availability[2]" #tuesdayAvailability>
+
+      <label for="wednesday-availability">&emsp;Wednesday&emsp;&emsp;</label>
+      <input type="checkbox" id="wednesday-availability" name="wednesday-availability" [(ngModel)]="currentUser!.availability[3]" #wednesdayAvailability>
+
+      <label for="thursday-availability">&emsp;Thursday&emsp;&emsp;</label>
+      <input type="checkbox" id="thursday-availability" name="thursday-availability" [(ngModel)]="currentUser!.availability[4]" #thursdayAvailability>
+
+      <label for="friday-availability">&emsp;Friday&emsp;&emsp;</label>
+      <input type="checkbox" id="friday-availability" name="friday-availability" [(ngModel)]="currentUser!.availability[5]" #fridayAvailability>
+
+      <label for="saturday-availability">&emsp;Saturday&emsp;&emsp;</label>
+      <input type="checkbox" id="saturday-availability" name="saturday-availability" [(ngModel)]="currentUser!.availability[6]" #saturdayAvailability> <br>
+      <button type="submit" (click)="changeAvailability(currentUser!.availability[0], currentUser!.availability[1], currentUser!.availability[2], currentUser!.availability[3], currentUser!.availability[4], currentUser!.availability[5], currentUser!.availability[6])" >Save</button>
+    </div>
+  </div>
+
+  <div *ngIf="currentUser!.admin">
+    <h4>Administrator Statistics</h4>
+    <p>
+      Total needs: {{totalNeeds}} <br>
+        Monetary needs: {{totalMoneyNeeds}} <br>
+        Physical good needs: {{totalGoodsNeeds}} <br>
+        Volunteer needs: {{totalVolunteerNeeds}} <br>
+        Other needs: {{totalOtherNeeds}} <br>
+
+      Total money raised: ${{totalMoneyRaised}} <br>
+      Total needs fulfileld: {{totalNeedsFulfilled}} <br>
+      Average fulfillment percentage: {{averageFulfillmentPercentage}}% <br> 
+    </p>
+  </div>
+
 </div>
-
-<div *ngIf="currentUser!.admin">
-  <h4>Administrator Statistics</h4>
-  <p>
-    Total needs: {{totalNeeds}} <br>
-      Monetary needs: {{totalMoneyNeeds}} <br>
-      Physical good needs: {{totalGoodsNeeds}} <br>
-      Volunteer needs: {{totalVolunteerNeeds}} <br>
-      Other needs: {{totalOtherNeeds}} <br>
-
-    Total money raised: ${{totalMoneyRaised}} <br>
-    Total needs fulfileld: {{totalNeedsFulfilled}} <br>
-    Average fulfillment percentage: {{averageFulfillmentPercentage}}% <br> 
-  </p>
-</div>
-
-<p>{{statusMessage}}</p>
