@@ -3,11 +3,12 @@ ul {
     padding: 0;
     padding-right:8px;
     text-align: center;
-    display: flexbox;
-    justify-content: center;
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: center; /* Center items horizontally */
 }
 li {
-    display: inline-block;
+    
 }
 .header {
     position: fixed;
@@ -37,6 +38,8 @@ li {
     border:none;
     border-radius: 20px;
     padding: 10px;
+    margin-left: 12px;
+    margin-right: 10px;
 }
 .navigation {
     font-family: "Montserrat", sans-serif;
@@ -137,10 +140,15 @@ li {
 .needs {
     position: absolute;
     text-align: center;
+    padding-right: 0;
+    max-width:1880px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .admin-page {
     margin-left: 24px;
+    margin-bottom: 12px;
 }
 
 .title {
