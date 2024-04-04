@@ -31,16 +31,18 @@
   <div *ngIf="currentUser?.admin;then adminView else helperView"></div>
 
   <ng-template #adminView>
+    <p>{{adminStatusMessage}}</p>
+
     
-    <label for="need-name" class="need-attribute">Name: </label><br>
-    <input id="need-name" [(ngModel)]="need.name" placeholder="Name goes here!"/> <br>
+    <label for="need-name" class="need-attribute">Name</label><br>
+    <input class="dropdown" id="need-name" [(ngModel)]="need.name" placeholder="Name goes here!"/> <br>
     
-    <label for="need-description" class="need-attribute">Description: </label><br>
-    <textarea id="need-description" [(ngModel)]="need.description" placeholder="Description goes here!"></textarea> <br>
+    <br><label for="need-description" class="need-attribute">Description</label><br>
+    <textarea class="dropdown" id="need-description" [(ngModel)]="need.description" placeholder="Description goes here!"></textarea> <br>
 
 
-    <label for="need-type" class="need-attribute">Type: </label><br>
-    <select name="need-type" [(ngModel)]="dropdownSelection" #needType (change)="onSelected(needType.value)">
+    <br><label for="need-type" class="need-attribute">Type</label><br>
+    <select class="dropdown" name="need-type" [(ngModel)]="dropdownSelection" #needType (change)="onSelected(needType.value)">
       <option value="Money">Money</option>
       <option value="Goods">Goods</option>
       <option value="Volunteer">Volunteer</option>
@@ -49,16 +51,16 @@
 
     <div *ngIf="dropdownSelection === 'Other'; then otherTextBox"></div>
     <ng-template #otherTextBox> 
-      <label for="new-need-type" class="need-attribute">Other Type: </label><br>
+      <label for="new-need-type" class="need-attribute">Other Type</label><br>
       <input value="" [(ngModel)]="otherType"/> <br>
     </ng-template>
 
-    <label for="need-amount-current" class="need-attribute">Amount Funded:</label><br>
-    <span class="attribute-value">{{need.currentQuantity}}</span> <br>
+    <br><label for="need-amount-current" class="need-attribute">Amount Funded</label><br>
+    <span class="attribute-value">{{need.currentQuantity}}</span> <br> <br>
 
-    <label for="need-amount-goal" class="need-attribute">Goal Amount: </label><br>
-    <input type="number" id="need-amount-goal" [(ngModel)]="need.targetQuantity" placeholder="Goal amount goes here!"/> <br>
-    
+    <label for="need-amount-goal" class="need-attribute">Goal Amount</label><br>
+    <input class="dropdown" type="number" id="need-amount-goal" [(ngModel)]="need.targetQuantity" placeholder="Goal amount goes here!"/> <br>
+    <br>
     <div *ngIf="dropdownSelection === 'Volunteer'">
       <div>
         <label for="new-need-availability" class="need-attribute">Availability: </label> <br>
@@ -83,47 +85,48 @@
         <label for="saturday-availability">&emsp;Saturday&emsp;&emsp;</label>
         <input type="checkbox" id="saturday-availability" name="saturday-availability" [(ngModel)]="need.availability[6]" #saturdayAvailability>
       </div>
-    </div>
+    </div><br>
 
     <div *ngIf="need.currentQuantity >= need.targetQuantity;then goalAcheivedMessage"></div>
     <ng-template #goalAcheivedMessage>
       <div><span>This need's goal has been met! However, edits can still be made.</span></div>
     </ng-template>
 
-    <button type="button" (click)="goBack()">Go Back</button>
-    <button type="button" (click)="save()">Save</button>
+    <button class="button" type="button" (click)="goBack()">Go Back</button>
+    <button class="button" type="button" (click)="save()">Save</button>
 
-    <p>{{adminStatusMessage}}</p>
   </ng-template>
 
 
   <ng-template #helperView>
-    <div id="desc"><span class="need-attribute">Description: <br></span><span class="attribute-value">{{need.description}}</span></div><br>
-    <div><span class="need-attribute">Type: <br></span><span class="attribute-value">{{need.type}}</span></div>
-    <div><span class="need-attribute">Amount Funded: <br></span><span class="attribute-value">{{need.currentQuantity}}</span></div>
-    <div><span class="need-attribute">Goal Amount: <br></span><span class="attribute-value">{{need.targetQuantity}}</span></div>
-    <div *ngIf="need.type === 'Volunteer'"><span class="need-attribute">Availability: <br></span>
-      <div *ngIf="need.availability[0]" style="display: inline;"><span class="attribute-value">Sunday </span></div>
-      <div *ngIf="need.availability[1]" style="display: inline;"><span class="attribute-value">Monday </span></div>
-      <div *ngIf="need.availability[2]" style="display: inline;"><span class="attribute-value">Tuesday </span></div>
-      <div *ngIf="need.availability[3]" style="display: inline;"><span class="attribute-value">Wednesday </span></div>
-      <div *ngIf="need.availability[4]" style="display: inline;"><span class="attribute-value">Thursday </span></div>
-      <div *ngIf="need.availability[5]" style="display: inline;"><span class="attribute-value">Friday </span></div>
-      <div *ngIf="need.availability[6]" style="display: inline;"><span class="attribute-value">Saturday </span></div>
-    </div>
+    <p>{{helperStatusMessage}}</p>
 
-    <label for="need-contribution" class="need-attribute">Contribution: </label><br>
-    <input type="number" id="need-contribution" [(ngModel)]="contribution" placeholder="Contribution"/> <br>
+    <div id="desc"><span class="need-attribute">Description<br></span><span class="attribute-value">{{need.description}}</span></div><br>
+    <div><span class="need-attribute">Type<br></span><span class="attribute-value">{{need.type}}</span></div><br>
+    <div><span class="need-attribute">Amount Funded<br></span><span class="attribute-value">{{need.currentQuantity}}</span></div><br>
+    <div><span class="need-attribute">Goal Amount<br></span><span class="attribute-value">{{need.targetQuantity}}</span></div><br>
+    <div *ngIf="need.type === 'Volunteer'"><span class="need-attribute">Availability<br></span>
+      <div *ngIf="need.availability[0]" style="display: inline;"><span class="attribute-value">Sunday  </span></div>
+      <div *ngIf="need.availability[1]" style="display: inline;"><span class="attribute-value">Monday  </span></div>
+      <div *ngIf="need.availability[2]" style="display: inline;"><span class="attribute-value">Tuesday  </span></div>
+      <div *ngIf="need.availability[3]" style="display: inline;"><span class="attribute-value">Wednesday  </span></div>
+      <div *ngIf="need.availability[4]" style="display: inline;"><span class="attribute-value">Thursday  </span></div>
+      <div *ngIf="need.availability[5]" style="display: inline;"><span class="attribute-value">Friday  </span></div>
+      <div *ngIf="need.availability[6]" style="display: inline;"><span class="attribute-value">Saturday</span></div>
+    </div><br>
+
+    <label for="need-contribution" class="need-attribute">Contribution</label><br>
+    <input class="dropdown" type="number" id="need-contribution" [(ngModel)]="contribution" placeholder="Contribution"/> <br>
 
     <div *ngIf="need.currentQuantity >= need.targetQuantity;then goalAcheivedMessage"></div>
     <ng-template #goalAcheivedMessage>
       <div><span>The need has reached its goal! However, you may still contribute.</span></div>
     </ng-template>
 
-    <button type="button" (click)="goBack()">Go Back</button>
-    <button type="button" (click)="add()">Add</button>
+    <button class="button" type="button" (click)="goBack()">Back</button>
+    <button class="button" type="button" (click)="add()">Add</button>
 
-    <p>{{helperStatusMessage}}</p>
   </ng-template>
 
   
+  <br><br><br><br><br><br>

@@ -30,19 +30,19 @@
     <div class="admin-page" *ngIf="currentUser?.admin">
       <p>{{adminStatusMessage}}</p>
       <label for="new-need-name">Name: </label><br>
-      <input id="new-need-name" #needName />
+      <input class="dropdown" id="new-need-name" #needName /><br>
       <br>
       <label for="new-need-desc">Description: </label><br>
-      <textarea type="text"id="new-need-desc" #needDesc></textarea>
+      <textarea class="dropdown" type="text"id="new-need-desc" #needDesc></textarea><br>
       <br>
       <label for="new-need-type">Type: </label><br>
-      <select name="need-types" id="need-types" #needType (change)="onSelected(needType.value)">
-        <option></option>
+      <select class="dropdown" name="need-types" id="need-types" #needType (change)="onSelected(needType.value)">
+        <option>Select a Type!</option>
         <option value="Money">Money</option>
         <option value="Goods">Goods</option>
         <option value="Volunteer">Volunteer</option>
         <option value="Other">Other</option>
-      </select>
+      </select><br>
       <!-- <input id="new-need-type" #needType /> -->
       <br>
       <div *ngIf="selectedOption === 'Other'; then otherTextBox"></div>
@@ -73,12 +73,12 @@
           <label for="saturday-availability">&emsp;Saturday&emsp;&emsp;</label>
           <input type="checkbox" id="saturday-availability" name="saturday-availability"
             [(ngModel)]="saturdayAvailability">
-        </div>
+        </div><br>
       </ng-template>
       <label for="new-need-targetQ">Target quantity: </label><br>
-      <input type="number" id="new-need-targetQ" #needTargetQ />
+      <input class="dropdown" type="number" id="new-need-targetQ" #needTargetQ />
       <br>
-      <button type="button" class="add-button"
+      <button class="button2" type="button"
         (click)="createNeed(needName.value, needDesc.value, needType.value, +needTargetQ.value, 
         [sundayAvailability, mondayAvailability, tuesdayAvailability, wednesdayAvailability, thursdayAvailability, fridayAvailability, saturdayAvailability])">
         Add Need

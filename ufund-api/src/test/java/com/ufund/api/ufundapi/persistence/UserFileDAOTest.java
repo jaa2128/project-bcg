@@ -259,4 +259,29 @@ public class UserFileDAOTest {
         assertEquals(newUser.getNeeds().size(), 3);
         assertEquals(newUser.getContributions().size(), 3);
     }
+
+    @Test
+    public void testChangePasswordSuccess() throws IOException {
+        User newUser = testUsers[0];
+        assertTrue(userFileDAO.changePassword(newUser.getUsername(), "abcdef"));
+    }
+
+    @Test
+    public void testChangePasswordFailed() throws IOException {
+        User newUser = testUsers[0];
+        assertFalse(userFileDAO.changePassword(newUser.getUsername(), null));
+    }
+
+    @Test
+    public void testChangeUsernameSuccess() throws IOException {
+        User newUser = testUsers[0];
+        assertTrue(userFileDAO.changeUsername(newUser.getUsername(), "anotherUsername"));
+    }
+
+    @Test
+    public void testChangeUsernameFailed() throws IOException {
+        User newUser = testUsers[0];
+        assertTrue(userFileDAO.changeUsername(newUser.getUsername(), "admin"));
+    }
+
 }
