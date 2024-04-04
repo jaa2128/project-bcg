@@ -77,11 +77,17 @@ export class BasketComponent implements OnInit {
     this.checkoutConfirmation();
     if(this.numOfTimesCheckoutClicked == 2){
       this.numOfTimesCheckoutClicked = 0;
+      for(let i = 0; i < this.contributions.length; i++) {
+        if(this.contributions[i] <= 0) {
+          this.statusMessage = "You must contribute a nonzero value!"; return;
+        }
+        if(this.contributions[i] == null) {
+          this.statusMessage = "You cannot leave a contribution empty!"; return;
+        }
+      }
       for(let i = 0; i < this.basket.length; i++) {
         let need: Need = this.basket[i];
         let quantity: number = this.contributions[i];
-        if(quantity == null){ this.statusMessage = "You cannot leave a contribution empty!"; return; }
-        if(quantity <= 0){ this.statusMessage = "You must contribute a nonzero value!"; return; }
         this.userService.editNeed(need.id, quantity).subscribe(
         (error) => {
           noErrors = false;
