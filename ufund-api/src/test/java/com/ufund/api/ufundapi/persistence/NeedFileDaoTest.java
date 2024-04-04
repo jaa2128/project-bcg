@@ -490,4 +490,21 @@ public class NeedFileDaoTest {
 
     }
 
+    @Test
+    public void testGetNeedsArray10() throws IOException{
+        ArrayList<Boolean> availability = new ArrayList<Boolean>();
+        for(int i = 0; i < 7; i++) {availability.add(true);}
+        Need need5 = new Need(50, "hello world", "testing", "Volunteer", 10, availability);
+        Need[] needs = {need5};
+        Boolean[] testAvailabilty = {false, false, false, false, false, false, false};
+        when(mockObjectMapper.readValue(new File("doesnt_matter.txt"), Need[].class)).thenReturn(needs);
+
+        needFileDAO = new NeedFileDAO("doesnt_matter.txt", mockObjectMapper);
+
+        Need[] result = needFileDAO.findNeeds("", "Volunteer", "", "", testAvailabilty);
+
+        assertFalse(Arrays.asList(result).contains(need5));
+        assertTrue(result.length == 0);
+    }
+
 }
