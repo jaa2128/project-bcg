@@ -1,7 +1,7 @@
 # U-Fund:  Brick City Gamers
 # Modify this document to expand any and all sections that are applicable for a better understanding from your users/testers/collaborators (remove this comment and other instructions areas for your FINAL release)
 
-An online U-Fund system built in Java 17=> and ___ _replace with other platform requirements_ ___
+An online U-Fund system built in Java 17 and Angular.
   
 ## Team
 
@@ -21,10 +21,11 @@ An online U-Fund system built in Java 17=> and ___ _replace with other platform 
 
 ## How to run it
 
-1. Clone the repository and go to the root directory.
+1. Clone the repository and go to the /ufund-api/ directory.
 2. Execute `mvn compile exec:java`
-3. Open in your browser `http://localhost:8080/`
-4.  _add any other steps required or examples of how to use/run_
+3. Open http://localhost:8080/ in your browser `
+4. To run the UI, go to the /ufund-ui/ directory.
+5. Execute ng serve --open
 
 **List of sample cURL commands for testing**
 
@@ -67,10 +68,6 @@ curl.exe -i -X PUT -H "Content-Type: application/json" -d "-100.0" "http://local
 curl.exe -i -X PUT -H "Content-Type: application/json" -d "100.0" "http://localhost:8080/needs/99999"
 
 ## Known bugs and disclaimers
-(It may be the case that your implementation is not perfect.)
-
-Document any known bug or nuisance.
-If any shortcomings, make clear what these are and where they are located.
 
 1. Case Sensitivity with Searching Needs: When using the cURL GET command to find needs that match a specific search query, the results were case-sensitive. This was located in NeedFileDAO.java during v1.0 but was shortly fixed in v1.1.
 2. Updating Need with Same Name: When using the cURL PUT command to update an existing need without changing its name, the command fails since the program thinks that the new need will cause a naming conflict. This was located in NeedController.java during v1.0 but was shortly fixed in v1.1.
@@ -111,9 +108,6 @@ To run tests on all the tiers in isolation do this:
 ## How to setup/run/test program 
 1. Tester, first obtain the Acceptance Test plan
 2. IP address of target machine running the app
-3. Execute ________
-4. ...
-5. ...
 
 ## License
 

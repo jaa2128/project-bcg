@@ -90,21 +90,16 @@ public class NeedFileDAO implements NeedDAO {
         ArrayList<Need> needArrayList = new ArrayList<>();
         ArrayList<Need> volunteerNeed = new ArrayList<>();
         int count = 0;
-        System.out.println("Step 0");
         if(type.equals("Volunteer")){
-            System.out.println("Step 1");
             for(Need need: needs.values()){
                 if(need.getType().equals(type)){
-                    System.out.println("Step 2");
                     for(int i = 0; i<days.length; i++){
                         if(need.getAvailability().get(i) == true && days[i] == true){
-                            System.out.println("Step 3");
                             count = 1;
                         }
                     }
                 }
                 if(count == 1){
-                    System.out.println("Step 4");
                     volunteerNeed.add(need);
                     count = 0;
                 }
@@ -135,7 +130,6 @@ public class NeedFileDAO implements NeedDAO {
         }
 
         else{
-        System.out.println("Step 5");
         for (Need need : needs.values()) {
                 if(type == null || type.isBlank() || need.getType().toLowerCase().equals(type.toLowerCase())){
                     if(minContribution == null || minContribution.isBlank() || need.getContributionPercent() >= Integer.valueOf(minContribution)){
