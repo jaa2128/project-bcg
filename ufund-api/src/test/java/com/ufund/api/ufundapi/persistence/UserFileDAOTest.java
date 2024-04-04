@@ -281,7 +281,7 @@ public class UserFileDAOTest {
     @Test
     public void testChangeUsernameFailed() throws IOException {
         User newUser = testUsers[0];
-        assertFalse(userFileDAO.changeUsername(newUser.getUsername(), "admin"));
+        assertFalse(userFileDAO.changeUsername(newUser.getUsername(), null));
     }
 
 }
