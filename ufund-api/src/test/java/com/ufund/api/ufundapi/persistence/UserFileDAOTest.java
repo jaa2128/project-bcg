@@ -6,11 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -282,6 +286,22 @@ public class UserFileDAOTest {
     public void testChangeUsernameFailed() throws IOException {
         User newUser = testUsers[0];
         assertFalse(userFileDAO.changeUsername(newUser.getUsername(), null));
+    }
+
+    @Test
+    public void testChangeAvailability() throws IOException {
+        User newUser = testUsers[0];
+        assertTrue(userFileDAO.changeAvailability(newUser.getUsername(), true, false, true, false, true, false, true));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testChangeAvailabilityException() throws IOException {
+        User newUser = mock(User.class);
+        ArrayList<Boolean> availabilityList = mock(ArrayList.class);
+        when(newUser.getAvailability()).thenReturn(availabilityList);
+        doThrow(new RuntimeException()).when(availabilityList).add(true);
+        assertFalse(userFileDAO.changeAvailability(newUser.getUsername(), true, false, true, false, true, false, true));
     }
 
 }
