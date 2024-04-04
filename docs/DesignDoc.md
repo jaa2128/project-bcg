@@ -316,7 +316,7 @@ contributeNeed() - Contributes to a need
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as critical attributes and methods._
 > 
-![Replace with your Model Tier class diagram 1, etc.](model-placeholder.png)
+![Replace with your Model Tier class diagram 1, etc.](Model-Tier-Diagram.png)
 
 ## OO Design Principles
 
