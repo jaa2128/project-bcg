@@ -581,20 +581,83 @@ public class UserControllerTest {
         assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
         
     }
-/*
+    
     @Test
-    public void testEditAvailabilitySuccess() throws IOException {
+    public void testChangeAvailabilityFailure() throws IOException {
         User user = new User("abc", "123");
-        
-        ArrayList<Boolean> availability = new ArrayList<Boolean>(); for (int i = 0; i < 7; i++) { availability.add(true); }
-        user.setAvailability(availability);
 
-        when(mockUserDAO.changeAvailability(user.getUsername(), true, true, true, true, true, true, true)).thenReturn(true);
         when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+        when(mockUserDAO.changeAvailability(user.getUsername(), true, true, true, true, true, true, true)).thenReturn(false);
         
-        ResponseEntity response = userController.changeAvailability(user.getUsername(), false, false, false, false, false, false, false);
+        ResponseEntity response = userController.changeAvailability(user.getUsername(), true, false, false, false, false, false, false);
+
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testChangeUsernameSuccess() throws IOException {
+        User user = new User("abc", "123");
+
+        when(mockUserDAO.changeUsername(user.getUsername(), "xyz")).thenReturn(true);
+
+        ResponseEntity response = userController.changeUsername(user.getUsername(), "xyz");
 
         assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
-*/
+
+    @Test
+    public void testChangeUsernameFailed() throws IOException {
+        User user = new User("abc", "123");
+
+        when(mockUserDAO.changeUsername(user.getUsername(), "admin")).thenReturn(false);
+
+        ResponseEntity response = userController.changeUsername(user.getUsername(), "admin");
+
+        assertEquals(response.getStatusCode(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @Test
+    public void testChangeUsernameBadRequest() throws IOException {
+        User user = new User("abc", "123");
+
+        when(mockUserDAO.changeUsername(user.getUsername(), "admin")).thenReturn(false);
+
+        ResponseEntity response = userController.changeUsername(user.getUsername(), "abc123");
+
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testChangePasswordBadRequest() throws IOException {
+        User user = new User("abc", "123");
+
+        when(mockUserDAO.changePassword(user.getUsername(), "admin")).thenThrow(new IOException());
+
+        ResponseEntity response = userController.changePassword(user.getUsername(), "abc123");
+
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testChangePasswordSuccess() throws IOException {
+        User user = new User("abc", "123");
+
+        when(mockUserDAO.changePassword(user.getUsername(), "456")).thenReturn(true);
+
+        ResponseEntity response = userController.changePassword(user.getUsername(), "456");
+
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    public void testChangePasswordFailed() throws IOException {
+        User user = new User("abc", "123");
+
+        when(mockUserDAO.changeUsername(user.getUsername(), "admin")).thenReturn(false);
+
+        ResponseEntity response = userController.changeUsername(user.getUsername(), "admin");
+
+        assertEquals(response.getStatusCode(), HttpStatus.UNAUTHORIZED);
+    }
+
 }

@@ -29,11 +29,13 @@
 
   <p>{{errorMessage}}</p>
   <div id="search-component">
-    <label for="search-box">Need Name: </label>
-    <input #searchBox id="search-box" />
+    <div class="field">
+      <input #searchBox class="input" type="text" id="search-box" name="searchbox" autocomplete="off" required>
+      <label for="search-box">Search by Name</label>
+    </div>
     <br>
-    <label for="type-box">Need Type:</label>
-    <select #typeBox id="type-box">
+    <label class="name" for="type-box">Type</label>
+    <select class="dropdown" #typeBox id="type-box">
       <option value="">No Filter</option>
       <option value="Money">Money</option>
       <option value="Goods">Goods</option>
@@ -41,8 +43,8 @@
       <option value="Other">Other</option>
     </select>
     <br>
-    <label for="contribution-percentage-min"> Minimum Contribution Percentage</label>
-    <select #contributionPercentageMin id="contribution-percentage-min">
+    <label class="name" for="contribution-percentage-min">Min Contribution %</label>
+    <select class="dropdown" #contributionPercentageMin id="contribution-percentage-min">
       <option value="">No Filter</option>
       <option value="10">10</option>
       <option value="20">20</option>
@@ -57,8 +59,8 @@
 
     </select>
     <br>
-    <label for="contribution-percentage-max"> Maximum Contribution Percentage</label>
-    <select #contributionPercentageMax id="contribution-percentage-max">
+    <label class="name" for="contribution-percentage-max">Max Contribution % </label>
+    <select class="dropdown" #contributionPercentageMax id="contribution-percentage-max">
       <option value="">No Filter</option>
       <option value="10">10</option>
       <option value="20">20</option>
@@ -72,13 +74,13 @@
       <option value="100">100</option>
     </select>
     <br>
-    <button type="button"
+    <button class="button2" type="button"
       (click)="search(searchBox.value, typeBox.value, contributionPercentageMin.value, contributionPercentageMax.value)">Search</button>
   </div>
   </div> 
   <ul class="search-result">
     <div *ngIf="(needs$ | async)?.length == 0">
-      <span class="user-status">There are no needs which match your results.</span>
+      <span class="user-status">There are no matching needs.</span>
     </div>
     <li *ngFor="let need of needs$ | async">
       <div class="list-element">

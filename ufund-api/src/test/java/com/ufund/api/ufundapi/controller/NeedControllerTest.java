@@ -378,12 +378,12 @@ public class NeedControllerTest {
     @Test
     public void testSearchNeedsHandleException() throws IOException { // findNeeds may throw IOException
         // Setup
-        String searchString = "an";
-        // When createNeed is called on the Mock Need DAO, throw an IOException
-        doThrow(new IOException()).when(mockNeedDAO).findNeeds(searchString, "", "", "", null);
+        Boolean[] days = {false, false, false, false, false, false, false};
+        // When findNeeds is called on the Mock Need DAO, throw an IOException
+        when(mockNeedDAO.findNeeds("", "", "", "", days)).thenThrow(new IOException());
 
         // Invoke
-        ResponseEntity<Need[]> response = needController.searchNeeds(searchString, "", "", "", false,false,false,false,false,false,false);
+        ResponseEntity<Need[]> response = needController.searchNeeds("", "", "", "", false,false,false,false,false,false,false);
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
