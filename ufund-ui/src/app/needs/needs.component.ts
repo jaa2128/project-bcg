@@ -66,7 +66,7 @@ export class NeedsComponent implements OnInit {
       }
 
       else if(error.error == "Goal Amount Field Empty") { //not acceptable
-        this.adminStatusMessage = 'Goal Amount Field is empty!';
+        this.adminStatusMessage = 'Target quantity must be greater than 0!';
       }
 
       else if(error.status == 409) { //conflict
