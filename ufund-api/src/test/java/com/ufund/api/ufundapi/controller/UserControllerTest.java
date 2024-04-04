@@ -604,6 +604,7 @@ public class UserControllerTest {
 
         assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
+
     @Test
     public void testChangeUsernameFailed() throws IOException {
         User user = new User("abc", "123");
@@ -613,6 +614,28 @@ public class UserControllerTest {
         ResponseEntity response = userController.changeUsername(user.getUsername(), "admin");
 
         assertEquals(response.getStatusCode(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @Test
+    public void testChangeUsernameBadRequest() throws IOException {
+        User user = new User("abc", "123");
+
+        when(mockUserDAO.changeUsername(user.getUsername(), "admin")).thenReturn(false);
+
+        ResponseEntity response = userController.changeUsername(user.getUsername(), "abc123");
+
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testChangePasswordBadRequest() throws IOException {
+        User user = new User("abc", "123");
+
+        when(mockUserDAO.changePassword(user.getUsername(), "admin")).thenThrow(new IOException());
+
+        ResponseEntity response = userController.changePassword(user.getUsername(), "abc123");
+
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
     @Test
