@@ -562,4 +562,155 @@ public class NeedFileDaoTest {
         assertFalse(Arrays.asList(result).contains(need6));
     }
 
+    @Test
+    public void testGetNeedsArray15() throws IOException {
+        ArrayList<Boolean> availability = new ArrayList<Boolean>();
+        for(int i = 0; i < 7; i++) {
+            if(i % 2 == 0)
+                availability.add(true);
+            else
+                availability.add(false);
+        }
+        Need need = new Need(1, "a", "b", "Volunteer", 10, availability);
+        Need need2 = new Need(2, "c", "d", "Other", 20, availability);
+        Need[] needs = {need, need2};
+        Boolean[] testAvailability = {true, false, true, false, true, false, false};
+        need.contribute(2);
+        need2.contribute(19);
+        when(mockObjectMapper.readValue(new File("doesnt_matter.txt"), Need[].class)).thenReturn(needs);
+        needFileDAO = new NeedFileDAO("doesnt_matter.txt", mockObjectMapper);
+
+        Need[] result = needFileDAO.findNeeds("a", "Volunteer", "10", "30", testAvailability);
+
+        assertTrue(Arrays.asList(result).contains(need));
+        assertFalse(Arrays.asList(result).contains(need2));
+    
+    }
+
+    @Test
+    public void testGetNeedsArray16() throws IOException {
+        ArrayList<Boolean> availability = new ArrayList<Boolean>();
+        for(int i = 0; i < 7; i++) {
+            if(i % 2 == 0)
+                availability.add(true);
+            else
+                availability.add(false);
+        }
+        Need need = new Need(1, "a", "b", "Volunteer", 10, availability);
+        Need need2 = new Need(2, "c", "d", "Other", 20, availability);
+        Need[] needs = {need, need2};
+        Boolean[] testAvailability = {true, false, true, false, true, false, false};
+        need.contribute(2);
+        need2.contribute(19);
+        when(mockObjectMapper.readValue(new File("doesnt_matter.txt"), Need[].class)).thenReturn(needs);
+        needFileDAO = new NeedFileDAO("doesnt_matter.txt", mockObjectMapper);
+
+        Need[] result = needFileDAO.findNeeds("a", "Volunteer", "30", "40", testAvailability);
+
+        assertFalse(Arrays.asList(result).contains(need));
+        assertFalse(Arrays.asList(result).contains(need2));
+    
+    }
+
+    @Test
+    public void testGetNeedsArray17() throws IOException {
+        ArrayList<Boolean> availability = new ArrayList<Boolean>();
+        for(int i = 0; i < 7; i++) {
+            if(i % 2 == 0)
+                availability.add(true);
+            else
+                availability.add(false);
+        }
+        Need need = new Need(1, "a", "b", "Volunteer", 10, availability);
+        Need need2 = new Need(2, "c", "d", "Other", 20, availability);
+        Need[] needs = {need, need2};
+        Boolean[] testAvailability = {true, false, true, false, true, false, false};
+        need.contribute(4);
+        need2.contribute(19);
+        when(mockObjectMapper.readValue(new File("doesnt_matter.txt"), Need[].class)).thenReturn(needs);
+        needFileDAO = new NeedFileDAO("doesnt_matter.txt", mockObjectMapper);
+
+        Need[] result = needFileDAO.findNeeds("a", "Volunteer", "10", "30", testAvailability);
+
+        assertFalse(Arrays.asList(result).contains(need));
+        assertFalse(Arrays.asList(result).contains(need2));
+    
+    }
+
+    @Test
+    public void testGetNeedsArray18() throws IOException {
+        ArrayList<Boolean> availability = new ArrayList<Boolean>();
+        for(int i = 0; i < 7; i++) {
+            if(i % 2 == 0)
+                availability.add(true);
+            else
+                availability.add(false);
+        }
+        Need need = new Need(1, "a", "b", "Volunteer", 10, availability);
+        Need need2 = new Need(2, "c", "d", "Other", 20, availability);
+        Need[] needs = {need, need2};
+        Boolean[] testAvailability = {true, false, true, false, true, false, false};
+        need.contribute(4);
+        need2.contribute(19);
+        when(mockObjectMapper.readValue(new File("doesnt_matter.txt"), Need[].class)).thenReturn(needs);
+        needFileDAO = new NeedFileDAO("doesnt_matter.txt", mockObjectMapper);
+
+        Need[] result = needFileDAO.findNeeds("a", "Volunteer", "50", null, testAvailability);
+
+        assertFalse(Arrays.asList(result).contains(need));
+        assertFalse(Arrays.asList(result).contains(need2));
+    
+    }
+
+
+    @Test
+    public void testGetNeedsArray19() throws IOException {
+        ArrayList<Boolean> availability = new ArrayList<Boolean>();
+        for(int i = 0; i < 7; i++) {
+            if(i % 2 == 0)
+                availability.add(true);
+            else
+                availability.add(false);
+        }
+        Need need = new Need(1, "a", "b", "Volunteer", 10, availability);
+        Need need2 = new Need(2, "c", "d", "Other", 20, availability);
+        Need[] needs = {need, need2};
+        Boolean[] testAvailability = {true, false, true, false, true, false, false};
+        need.contribute(4);
+        need2.contribute(19);
+        when(mockObjectMapper.readValue(new File("doesnt_matter.txt"), Need[].class)).thenReturn(needs);
+        needFileDAO = new NeedFileDAO("doesnt_matter.txt", mockObjectMapper);
+
+        Need[] result = needFileDAO.findNeeds("a", "Volunteer", "50", "", testAvailability);
+
+        assertFalse(Arrays.asList(result).contains(need));
+        assertFalse(Arrays.asList(result).contains(need2));
+    
+    }
+
+    @Test
+    public void testGetNeedsArray20() throws IOException {
+        ArrayList<Boolean> availability = new ArrayList<Boolean>();
+        for(int i = 0; i < 7; i++) {
+            if(i % 2 == 0)
+                availability.add(true);
+            else
+                availability.add(false);
+        }
+        Need need = new Need(1, "a", "b", "fnegfor", 10, availability);
+        Need need2 = new Need(2, "c", "d", "vmnjdfiguefu", 20, availability);
+        Need[] needs = {need, need2};
+        Boolean[] testAvailability = {true, false, true, false, true, false, false};
+        need.contribute(4);
+        need2.contribute(19);
+        when(mockObjectMapper.readValue(new File("doesnt_matter.txt"), Need[].class)).thenReturn(needs);
+        needFileDAO = new NeedFileDAO("doesnt_matter.txt", mockObjectMapper);
+
+        Need[] result = needFileDAO.findNeeds(null, "Other", "30", "100", testAvailability);
+
+        assertTrue(Arrays.asList(result).contains(need));
+        assertTrue(Arrays.asList(result).contains(need2));
+    
+    }
+
 }
