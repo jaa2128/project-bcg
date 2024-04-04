@@ -29,12 +29,14 @@
     <h1 class="title">Basket</h1>
 
 <div *ngIf="basket.length !== 0">
+  <p> {{this.statusMessage}} </p>
+
   <ul>
     <ng-container *ngFor="let need of basket; let i = index">
-      <label for="need-name">{{need.name}}: </label>
-      <input type="number" id="need-name" [(ngModel)]="contributions[i]" placeholder="Quantity goes here!"/>
+      <label for="need-name">{{need.name}} </label>
+      <input class="field" type="number" id="need-name" [(ngModel)]="contributions[i]" placeholder="Quantity goes here!"/>
       <br>
-      <button type="submit" (click)="removeNeed(need.id)">Remove</button> 
+      <button class="button" type="submit" (click)="removeNeed(need.id)">Remove</button> 
       <br>
     </ng-container>
   </ul>
@@ -49,12 +51,11 @@
       </div>
     </ng-container><br>
     <span>Are you sure you want to Checkout? If so, click Checkout again.<br></span>
-    <button type="submit" (click)="deny()">No</button>
+    <button class="button" type="submit" (click)="deny()">Cancel</button>
   </ng-template>
-  <button type="submit" (click)="checkout()">Checkout</button>
+  <button class="button" type="submit" (click)="checkout()">Checkout</button>
 </div>
 
-<p> {{this.statusMessage}} </p>
 
 
 
