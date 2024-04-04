@@ -48,6 +48,7 @@ statusMessage: string = 'Enter a new value and click save!';
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
     this.userService.validate();
+    this.userService.saveToLocalStorage(this.userService.pageKey, "settings");
     this.getNeeds();
   }
 
