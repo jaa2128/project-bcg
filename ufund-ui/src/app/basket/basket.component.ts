@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { User } from '../user';
 import { Need } from '../need';
 import { HttpRequest, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-basket',
@@ -31,19 +31,18 @@ export class BasketComponent implements OnInit {
 
   getNeeds(): void {
     this.userService.getUserNeeds((this.currentUser as User).username)
-      .subscribe((response: HttpResponse<number[]>) =>
-      {
-        response.body?.forEach(element => 
-            this.needService.getNeed(element).subscribe((
-              need => this.basket.push(need))))
-        if(response.body?.length == 0) {
-          this.statusMessage = 'Your basket is empty. Add needs here to check them out!';
-        }
-        else {
-          this.statusMessage = 'Click on \'Checkout\' to contribute!'
-        }
-      }
-      )
+    .subscribe((response: HttpResponse<number[]>) => {
+      const body = response.body as number[];
+
+      // Create an array to store observables of getNeed calls
+      const observables = body.map(id => this.needService.getNeed(id));
+
+      // Wait for all observables to complete
+      forkJoin(observables).subscribe((needs: Need[]) => {
+        // Assign the received needs to the basket in the same order as body
+        this.basket = needs;
+      });
+    });
     }
 
     getContributions(): void {
@@ -86,7 +85,7 @@ export class BasketComponent implements OnInit {
         }
       }
       for(let i = 0; i < this.basket.length; i++) {
-        let need: Need = this.basket[i];
+        let need: Need = this.basket[i] as Need;
         let quantity: number = this.contributions[i];
         this.userService.editNeed(need.id, quantity).subscribe(
         (error) => {
