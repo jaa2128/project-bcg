@@ -409,9 +409,15 @@ As of 2024/03/18, all user stories have net their acceptance criteria.
 >_**[Sprint 2 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
 
+#### Sprint 2
 As of 2024/03/18, we have reached an instruction coverage of 99%, and a branch coverage of 100%.
 
 ![put picture here](Coverage.png)
+
+#### Sprint 4
+As of 2024/04/04, we have reached an instruction coverage of 96%, and a branch coverage of 90%.
+
+![put picture here](Sprint4_Coverage.png)
 
 ## Ongoing Rationale
 >**(Instructions kept here for later use)**
