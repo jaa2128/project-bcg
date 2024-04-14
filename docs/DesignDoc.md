@@ -50,6 +50,8 @@ For our MVP, each user, as a voluteer for the U-fund, should be able to browse, 
 
 > _**[Sprint 4]** Describe what enhancements you have implemented for the project._
 
+The enhancements that we decided to implement for the project are search filters and volunteer availability. The search filter is exactly what it sounds like. It allows helpers to search needs based on certain attributes, including keyword, type, minimum contribution, maximum contribution, and volunteer availabilty. The volunteer availability enhancement allows users to pick what days they are available to volunteer. Upon searching for needs, volunteer needs will automatically be filtered based on the user's availability.
+
 ## Application Domain
 
 ![Domain Model](domain-model-placeholder.png)
@@ -101,7 +103,12 @@ When a helper first opens the application, they are presented with the log in pa
 
 ### ViewModel Tier
 
-The primary ViewModel is the "NeedController". This class is responsible for the functions the user must be able to utilize from the View tier. The functions currently within "NeedController" are:
+The ViewModel tier contains the NeedController and UserController class. This tier acts as an intermediate tier between the view tier and the model tier. User interactions with the UI (View Tier) will call the appropriate functions from the NeedController or UserController (ViewModel Tier) and those functions will call functions from the UserFileDAO or NeedFileDAO (Model Tier) in order to execute the required tasks. The controller classes finish off by returning an Http status code based on the result of the user interaction.
+
+
+##### NeedController
+
+The functions contained within NeedController are:
 
 updateNeed() - To update the information of a specified 
 need
@@ -116,6 +123,37 @@ deleteNeed() - To remove an individual need
 
 searchNeeds() - To navigate the user's list of needs
 
+contributeNeed() - To contribute to a need by a provided amount
+
+
+##### UserController
+
+The functions contained within the UserController are:
+
+getUsers() - Returns a list of all users
+
+getUser() - Returns a specific user 
+
+getNeeds() - Returns a list of all needs
+
+getContributions() - Returns a list of the user's need contributions
+
+createUser() - Creates a new user
+
+addneed() - Adds a need to the user's funding basket
+
+editNeed() - Edits an existing need in the user's funding basket
+
+removeNeed() - Removes a need from the user's funding basket 
+
+clearBasket() - Clears the user's funding basket
+
+changePassword() - Changes the user's password
+
+changeUsername() - Changes the user's username
+
+changeAvailability() - Changes the user's volunteer availability
+
 These functions will be called in the View tier of the project, and will communicate with the View tier to display information to the user.
 
 > _**[Sprint 4]** Provide a summary of this tier of your architecture. This
@@ -125,7 +163,8 @@ These functions will be called in the View tier of the project, and will communi
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as critical attributes and methods._
 > 
-![Replace with your ViewModel Tier class diagram 1, etc.](model-placeholder.png)
+![Replace with your ViewModel Tier class diagram 1, etc.](UserController.png)
+![Replace with your ViewModel Tier class diagram 1, etc.](NeedController.png)
 
 ### Model Tier
 
