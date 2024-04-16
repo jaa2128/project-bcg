@@ -20,7 +20,10 @@
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
 > important user group and user goals._
 
-For this project, we intend to build a system that can function as an adminstrative aid for any organization looking to have a robust, easily scalable mechanism to curate and assign tasks or other requirements that need to be fulfilled.
+User Group: Individuals who are interested in the development of their community by introducing STEM topics to their youth. Specifically those
+who are interested in using games as a lens by which these topics can be introduced as.
+
+User Goals: To facilitate the introduction of STEM topics and local community development by providing a lens to STEM through games as well as promote local events such as gaming tournaments, classes and more. 
 
 ### Glossary and Acronyms
 > _**[Sprint 2 & 4]** Provide a table of terms and acronyms._
