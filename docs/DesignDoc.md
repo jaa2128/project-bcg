@@ -32,8 +32,16 @@ User Goals: To facilitate the introduction of STEM topics and local community de
 |------|------------|
 | SPA | Single Page Application |
 | MVP | Minimum Viable Product |
+| API | Application Programming Interface |
+| CURL | Client Uniform Resource Locater |
+| MVVM | Model View View Model |
 | Helper | An individual who has access to a basket and can volunteer to fulfill needs. |
 | Adminstrator | An individual who curates the list of needs for all helpers. |
+| Need | A necessity needed by the organization that requires either an quantity whether it be monetary, physical, or effort |
+| Contribution | The quantitative amount that a Helper adds to a Need before Checking Out |
+| Check Out | The action that finalizes a helper's contributions to a Need |
+| Basket | A place where a Helper's contributions to a specific Need is stored |
+| Cupboard | A place where an Adminstrator can add, delete, and edit Needs from |
 
 ## Requirements
 
@@ -48,6 +56,14 @@ For our MVP, each user, as a voluteer for the U-fund, should be able to browse, 
 ### MVP Features
 
 >  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
+
+User Functionality: Helper's should be able to view as well as restrict their view of needs at will in order to better assess what they want to contribute to. They should also be able to add to a need's quantity and check-out their contributions to finalize their contribution towards that specific need.
+
+Admin Functionality: An Admin should be able to create, edit, and delete and view all needs in the cupboard. As well they should not have access to any Helper's funding basket.
+
+User Contributions: Helper's Contributions must be valid contributions and are not allowed to submit negative quantities or no quantity at all. 
+
+Creating Needs: An admin should not be allowed to create a Need that has the same name as another, or any blank or invalid fields such as a negative target quantity. 
 
 ### Enhancements
 
