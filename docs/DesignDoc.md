@@ -101,6 +101,22 @@ Both the ViewModel and Model are built using Java and Spring Framework. Details 
 
 When a helper first opens the application, they are presented with the log in page, with the option to sign up or log in. If it is the user's first time using the application, they sign up using a username and password of their choosing; if the user already has an account, they click the "log in" button instead to log in to their existing account. Either option then presents a helper with the list of all needs in the database, with a link to a search bar at the top and a link to view their basket. By clicking on a need, the user can view details about the need, such as its description and how much it needs to be fulfilled, and they can also choose to add it to their basket and choose how much they want to contribute to it. In the helper's basket, they are presented with a list of all needs in their basket, as well as having the option to remove any need from their basket. They also have the option to check out all of the needs in their basket, contributing their desired amount to all of them. By clicking on the search link, the user is presented with a search box where they can searh for needs by title. An administrator has different options compared to a regular user. After they log in using the username "admin", they are presented with the same list of all needs in the database with the search bar at the top. However, there is no link to a user basket. As an administrator, they can also click on any need in the list to both view and edit the name, description, type, and target quantity of any need in the database, and update it to reflect those changes.
 
+### Sequence Diagrams
+Sequence Diagram for Signing Up
+![UML-SignUp](uml-signup.png)
+
+Sequence Diagram for Creating Needs
+![UML-Create](uml-create.png)
+
+Sequence Diagram for Adding Need to Basket
+![UML-AddToBasket](uml-addtobasket.png)
+
+Sequence Diagram for Checking Out
+![UML-Checkout](uml-checkout.png)
+
+
+
+
 ### View Tier
 
 > _**[Sprint 4]** Provide a summary of the View Tier UI of your architecture.
