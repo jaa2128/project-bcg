@@ -423,6 +423,18 @@ Law of Demeter - Limit the number of classes that a class talks to, therby limit
 
 > _**[Sprint 4]** Discuss **future** refactoring and other design improvements your team would explore if the team had additional time._
 
+In terms of the Software Architecture and how we went about implementing features. For example we would reduce the complexity of search filter functions or split them up inside of our code base. In addition we would also like to combine our search and cupboard pages as we believed having them on separate pages didn't make much sense.
+
+We would also rework our type system by using enumerated types rather than strings. We would also alter our controller mappings to be less lengthy as they are a bit of an issue to deal with at time. 
+
+Lastly in terms of the software itself we would probably rework our user availability by changing it to a list throughout all classes. 
+
+
+
+Some Design improvements in terms of the usabilty and UI would involve overall making better use of HTML and CSS such as using Glexbox and CSS Grid. 
+
+In addition some better UX decisions would have been made such as moving elements to make things less straining on the user and make it so it us much more accessible. In addition for the Cupboard page for the admin it would be better to implement the creating need interface in some other way as currently if the admin is using a smaller display they won't be able to immeadiately view their needs and thus have to scroll to view them at all which is tedious. 
+
 ## Testing
 > _This section will provide information about the testing performed
 > and the results of the testing._
