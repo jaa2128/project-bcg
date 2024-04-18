@@ -114,7 +114,8 @@ Sequence Diagram for Adding Need to Basket
 Sequence Diagram for Checking Out
 ![UML-Checkout](uml-checkout.png)
 
-
+Class Diagram for View Tier
+![View tier class diagram](swen_view_uml.png)
 
 
 ### View Tier
@@ -198,8 +199,8 @@ These functions will be called in the View tier of the project, and will communi
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as critical attributes and methods._
 > 
-![Replace with your ViewModel Tier class diagram 1, etc.](UserController.png)
-![Replace with your ViewModel Tier class diagram 1, etc.](NeedController.png)
+![Replace with your ViewModel Tier class diagram 1, etc.](swen_viewmodel_uml.png)
+
 
 ### Model Tier
 
@@ -390,7 +391,7 @@ contributeNeed() - Contributes to a need
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as critical attributes and methods._
 > 
-![Replace with your Model Tier class diagram 1, etc.](Model-Tier-Diagram.png)
+![Replace with your Model Tier class diagram 1, etc.](swen_model_uml.png)
 
 ## OO Design Principles
 
