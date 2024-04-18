@@ -125,6 +125,20 @@ Class Diagram for View Tier
 > responsibilities.  This should be a narrative description, i.e. it has
 > a flow or "story line" that the reader can follow._
 
+So the first of our components for our View tier would be the Home Component which serves as our home page. There is not much here other than plain html text and css styles that describe the purpose of our site and a button that leads to our login component/page. 
+
+Our login Component is where the a user is able to login by inputting a username and password. This page conducts the HTTP requests that go and verify users. It is also the page where the user can access the "Forgot Password" component where a user can go and update their password if they've forgotten the password but remember the username. This component also conducts HTTP requests to make sure that all operations run smoothly
+
+Next is our Needs component/page which acts as our cupboard. As an admin this page has an interface by which to add needs to the cupboard and view all needs. As a helper, this page just simply displays all the needs. From any one of the needs a user can click on it to access our need-detail component which simply just offers a more detailed description of the need. An admin on this page can edit its data while a helper can put in their contribution and add it to their funding basket. 
+
+Our Basket component/page is where a Helper can view their contributions to needs as well as check out their needs. It is also where they can remove needs from their basket if they decide to. 
+
+There is our Need Search component/page where a user can filter through needs based on certain parameters such as the name of the need, the type of need, and the completion percentage. This page then displays needs that match the search to the user. 
+
+There is also our Settings component/page where a user can change their username and password. An admin can only change their password from here as well as see an overall statistics on the needs in the cupboard. A Helper can also set their availability that is used during search filtering when the user filters by Volunteer type needs. 
+
+Lastly there is our About component/page which is simply just simple html and css that has similar information as our home page which gives an overview of the purpose of the site.
+
 > _**[Sprint 4]** You must  provide at least **2 sequence diagrams** as is relevant to a particular aspects 
 > of the design that you are describing.  (**For example**, in a shopping experience application you might create a 
 > sequence diagram of a customer searching for an item and adding to their cart.)
