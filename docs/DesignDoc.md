@@ -479,7 +479,7 @@ As of 2024/03/18, we have reached an instruction coverage of 99%, and a branch c
 ![put picture here](Coverage.png)
 
 #### Sprint 4
-As of 2024/04/04, we have reached an instruction coverage of 96%, and a branch coverage of 90%.
+As of 2024/04/04, we have reached an instruction coverage of 96%, and a branch coverage of 90%. Over the course of this project, unit testing was typically saved for last as we thought it made sense to complete all or most of the functionality, then complete the unit testing of everything at once. When it came to unit test, we would write test methods in classes used solely for unit testing and we would dedicate one unit test class to one program class. Within each unit test class, we would test every method within the associated program class until we were satisfied with the amount of coverage we achieved. We were able to cover most of our code base at 90% and 96% for instruction coverage and branch coverage, respectively. Our coverage target was 90% total, simply because that was the requirement for the end of Sprint 3. We thought 90% was enough anyway, plus our main priority was making sure the code was done, otherwise the project wouldn't function and there wouldn't be as much code to test. We met the target quite well considering we got 96% instruction coverage and 90% branch coverage. That was a satisfactory amount for us to consider the unit testing done.
 
 ![put picture here](Sprint4_Coverage.png)
 
